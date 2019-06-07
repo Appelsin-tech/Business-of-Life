@@ -1,0 +1,138 @@
+@import "_variables";
+.reset();
+html{
+  font-size: 62.5%;
+  .lg-block({font-size: 56.2%;});
+  .sm-block({ font-size: 50%;});
+}
+body {
+  font-family: @fontMontserrat;
+  min-height: 100vh;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.6rem;
+  color: #000;
+  background: #fff;
+}
+main {
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+}
+button {
+  font-family: @fontMontserrat;
+  border: none;
+  padding: 0;
+  background: none;
+  outline: none;
+}
+input {
+  outline: none;
+}
+.container {
+  position: relative;
+  z-index: 5;
+  .wrapper();
+  &.page {
+    width: 100%;
+    padding-top: 140px;
+    padding-bottom: 100px;
+  }
+}
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+.g-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 27px 27px 27px 32px;
+  background: @colorMainRed;
+  border: 3px solid @colorMainRed;
+  box-sizing: border-box;
+  transition: 0.3s;
+  &:hover,
+  &:focus {
+    background: #fff;
+    span {
+      color: #000;
+    }
+    .arrow-right {
+      path {
+        fill: #000;
+      }
+    }
+  }
+  span {
+    margin-right: 75px;
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: 0.3s;
+  }
+  .arrow-right {
+    width: 25px;
+    height: 25px;
+    path {
+      transition: 0.3s;
+    }
+  }
+}
+.g-caption {
+  display: inline-block;
+  font-size: 7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: @colorBlue;
+}
+.main-swiper-pagination,
+.swiper-pagination {
+  @media screen and (min-width: 1170px) {
+    display: none;
+  }
+  .swiper-pagination-bullet {
+    position: relative;
+    margin-right: 12px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    opacity: 0.4;
+    cursor: pointer;
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      top: -10px;
+
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
+  .swiper-pagination-bullet-active {
+    background: mediumseagreen;
+    opacity: 1;
+    outline: none;
+  }
+  &.exchange-section {
+    .swiper-pagination-bullet {
+      background: #000;
+    }
+    .swiper-pagination-bullet-active {
+      background: mediumseagreen;
+      opacity: 1;
+    }
+  }
+}

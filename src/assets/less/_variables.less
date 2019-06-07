@@ -1,0 +1,22 @@
+@import "smart-grid";
+@fontMontserrat: 'Montserrat', 'Arial', sans-serif;
+@colorMainRed: #e23a3a;
+@colorBlue: #101a63;
+
+.decor-cube (@width: 0px; @height: 0px;) {
+  &::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    width: @width;
+    height: @height;
+    border-left: 5px solid @colorMainRed;
+    border-top: 5px solid @colorMainRed;
+    background-image: linear-gradient(to left, @colorMainRed 0%, @colorMainRed), linear-gradient(to left, @colorMainRed 0%, @colorMainRed);
+    background-size: @width / 9% 5px, 5px @width / 9%;
+    background-position: 0 100%, 100% 0;
+    background-repeat: no-repeat;
+  }
+}
