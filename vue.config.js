@@ -4,6 +4,21 @@ module.exports = {
     config.module.rule('vue')
       .use('vue-svg-inline-loader')
       .loader('vue-svg-inline-loader')
+
+    config
+      .plugin('copy')
+      .tap(args => {
+        return [[
+          {
+            from: './src/assets/.htaccess',
+            to: '[name].[ext]'
+          },
+          {
+            from: 'favicon.png',
+            to: '[name].[ext]'
+          }
+        ]]
+      })
   }
 }
 var smartgrid = require('smart-grid')
