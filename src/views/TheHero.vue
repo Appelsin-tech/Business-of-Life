@@ -4,7 +4,7 @@
       <div class="wrapper-content">
         <div class="content">
           <h1 class="visually-hidden">Business of Life</h1>
-          <img class="name-academy" src="../assets/img/name-business.png" alt="Business of Life">
+          <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
           <strong class="desc-strong g-caption">Эксклюзивная база знаний</strong>
           <p class="desc-connect">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
           <a class="g-btn" href="#">
@@ -42,8 +42,8 @@ export default {
         .g-caption {
           margin-bottom: 40px;
         }
-        .name-academy {
-          margin-bottom: 40px;
+        .img-name-academy {
+          margin-bottom: 35px;
         }
         .desc-connect {
           margin-bottom: 50px;

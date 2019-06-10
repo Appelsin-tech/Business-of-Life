@@ -108,8 +108,8 @@ export default {
     background: url("../assets/img/bg-steps-learning.jpg") no-repeat center / cover;
     .wrapper-top-content {
       position: relative;
-      padding-top: 70px;
-      padding-left: 100px;
+      padding-top: 90px;
+      padding-left: 90px;
       margin-bottom: 90px;
       .decor-cube(300px, 300px);
       .content {
@@ -136,7 +136,7 @@ export default {
         position: relative;
         display: flex;
         flex-direction: column;
-        height: 300px;
+        height: 360px;
         padding: 50px;
         box-sizing: border-box;
         transition: 0.3s;
@@ -154,6 +154,14 @@ export default {
           transition: 0.3s;
           background: url("../assets/img/bg-steps-item-1.jpg") no-repeat center / cover;
           z-index: 1;
+        }
+        &::after {
+          position: absolute;
+          content: '';
+          width: 1px;
+          right: -1px;
+          height: 70%;
+          background: #eaeaea;
         }
         &:hover {
           &::before {
