@@ -41,11 +41,14 @@ export default {
     return {
       showMenu: true
     }
-  },
+  }
 }
 </script>
 <style lang="less">
   @import "./assets/less/main";
+  #app {
+    position: relative;
+  }
   .navigation-wrapper {
     position: fixed;
     right: 80px;
