@@ -37,6 +37,7 @@ export default {
     right: 0;
     bottom: 0;
     padding-bottom: 35px;
+    z-index: 10;
     .container {
       display: flex;
       justify-content: space-between;

@@ -20,7 +20,7 @@
       </ul>
     </div>
     <main>
-      <transition mode="out-in" name="main-pages">
+      <transition mode="out-in" name="fade">
         <router-view/>
       </transition>
     </main>
@@ -42,13 +42,6 @@ export default {
       showMenu: true
     }
   },
-  methods: {
-    activeMenu () {
-      this.showMenu = !this.showMenu
-    }
-  },
-  watch: {
-  }
 }
 </script>
 <style lang="less">
@@ -100,9 +93,19 @@ export default {
   .main-pages-leave-active {
     transition: all .3s ease;
   }
-  .main-pages-enter,
+  .main-pages-enter {}
   .main-pages-leave-to
     /* .component-fade-leave-active до версии 2.1.8 */ {
-    opacity: 0.5;
+    opacity: 0;
+  }
+
+  .fade-enter-active{
+    transition: opacity 0.5s;
+  }
+  .fade-leave-active {
+    opacity: 0;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>

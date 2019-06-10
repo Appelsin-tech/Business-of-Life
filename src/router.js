@@ -25,6 +25,10 @@ export default new Router({
       path: '/our-coach',
       name: 'our-coach',
       component: () => import('./views/TheOurCoach')
+    },
+    {
+      path: '*',
+      redirect: '/main'
     }
   ]
 })

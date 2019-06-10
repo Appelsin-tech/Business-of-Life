@@ -108,7 +108,7 @@ export default {
     background: url("../assets/img/bg-steps-learning.jpg") no-repeat center / cover;
     .wrapper-top-content {
       position: relative;
-      padding-top: 100px;
+      padding-top: 70px;
       padding-left: 100px;
       margin-bottom: 90px;
       .decor-cube(300px, 300px);
