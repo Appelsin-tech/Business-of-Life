@@ -152,12 +152,10 @@ export default {
           }
         }
       }
-
     }
     .container {
       display: flex;
       flex-direction: column;
-
       .logo {
         .lg-block({ max-width: 110px; });
       }
@@ -193,7 +191,7 @@ export default {
             .link {
               font-size: 3rem;
               font-weight: bold;
-              color: #000;
+              color: @colorBlue;
               text-transform: uppercase;
               transition: 0.3s;
               .lg-block({ font-size: 2.4rem; });
@@ -220,9 +218,6 @@ export default {
         &--mobile {
           display: none;
           position: relative;
-          left: 0;
-          right: 0;
-          /*top: 400px;*/
           flex-direction: column;
           justify-content: center;
           z-index: 9;

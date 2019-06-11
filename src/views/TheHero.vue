@@ -26,11 +26,22 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .p-hero {
+    position: relative;
     display: flex;
     align-items: center;
     min-height: 100vh;
-    background: url("../assets/img/bg-hero.jpg") no-repeat center / cover;
-    .lg-block({ background-position: center top;});
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      background: url("../assets/img/bg-hero.jpg") no-repeat center / cover;
+      .lg-block({ background-position: center top;});
+      .sm-block({opacity: 0.3})
+    }
     .wrapper-content {
       position: relative;
       margin-top: -50px;
@@ -38,6 +49,7 @@ export default {
       padding-top: 80px;
       max-width: 870px;
       box-sizing: border-box;
+      z-index: 2;
       .decor-cube(370px, 370px);
       .lg-block({ padding-left: 70px; padding-top: 60px; .decor-cube(320px, 320px); max-width: 600px;});
       .xs-block({ padding-left:0; padding-top: 0; .decor-cube(@display: none;);});
