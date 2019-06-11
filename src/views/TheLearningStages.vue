@@ -71,20 +71,19 @@ export default {
         slidesPerView: 3,
         speed: 300,
         allowTouchMove: false,
-        pagination: {
-          el: '.main-swiper-pagination',
-          clickable: true
-        },
+        // pagination: {
+        //   el: '.main-swiper-pagination',
+        //   clickable: true
+        // },
         breakpoints: {
           // when window width is <= 320px
           1170: {
+            slidesPerView: 2
+          },
+          750: {
             slidesPerView: 1,
             preventInteractionOnTransition: false,
-            allowTouchMove: true,
-            pagination: {
-              el: '.main-swiper-pagination',
-              clickable: true
-            }
+            allowTouchMove: true
           }
         }
       }
@@ -106,12 +105,19 @@ export default {
     align-items: center;
     min-height: 100vh;
     background: url("../assets/img/bg-steps-learning.jpg") no-repeat center / cover;
+    .container {
+      box-sizing: border-box;
+    }
     .wrapper-top-content {
       position: relative;
       padding-top: 90px;
       padding-left: 90px;
       margin-bottom: 90px;
+      margin-top: -50px;
       .decor-cube(300px, 300px);
+      .lg-block({ padding-top: 60px; padding-left: 60px; margin-bottom: 60px; .decor-cube(260px, 260px);});
+      .sm-block({ margin-bottom: 110px;});
+      .xs-block({ padding-left:0; padding-top: 0; margin-bottom: 50px; .decor-cube(@display: none;);});
       .content {
         display: flex;
         flex-direction: column;
@@ -128,6 +134,7 @@ export default {
           font-weight: 800;
           font-size: 1.8rem;
           line-height: 2.5rem;
+          .sm-block({ font-weight: 600; line-height: 2rem; font-size: 1.6rem;})
         }
       }
     }
@@ -143,6 +150,9 @@ export default {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        .lg-block({ height: 320px;});
+        .sm-block({ height: 260px; padding: 30px;});
+        .sm-block({ height: 220px; padding: 20px;});
         &::before {
           content: '';
           position: absolute;
@@ -202,6 +212,7 @@ export default {
             color: @colorBlue;
             text-transform: uppercase;
             transition: 0.3s;
+            .lg-block({ margin-bottom: 15px; font-size: 2rem;});
           }
           .desc {
             margin-top: 20px;
@@ -226,12 +237,13 @@ export default {
           border-radius: 50%;
           transition: 0.3s;
           z-index: 5;
+          .lg-block({ width: 50px; height: 50px;});
           .sm-block({ display: none; });
           svg {
             width: 20px;
             height: 15px;
             transition: 0.3s;
-            .sm-block({ width: 20px; height: 20px; });
+            .lg-block({ width: 20px; height: 20px; });
             path {
               stroke: @colorMainRed;
             }

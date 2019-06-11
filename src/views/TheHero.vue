@@ -30,6 +30,7 @@ export default {
     align-items: center;
     min-height: 100vh;
     background: url("../assets/img/bg-hero.jpg") no-repeat center / cover;
+    .lg-block({ background-position: center top;});
     .wrapper-content {
       position: relative;
       margin-top: -50px;
@@ -38,18 +39,23 @@ export default {
       max-width: 870px;
       box-sizing: border-box;
       .decor-cube(370px, 370px);
+      .lg-block({ padding-left: 70px; padding-top: 60px; .decor-cube(320px, 320px); max-width: 600px;});
+      .xs-block({ padding-left:0; padding-top: 0; .decor-cube(@display: none;);});
       .content {
         .g-caption {
           margin-bottom: 40px;
+          .lg-block({ margin-bottom: 30px;});
         }
         .img-name-academy {
           margin-bottom: 35px;
+          .lg-block({ margin-bottom: 20px; max-width: 180px;});
         }
         .desc-connect {
           margin-bottom: 50px;
           font-size: 1.8rem;
           font-weight: 800;
           color: #000;
+          .sm-block({ font-weight: 600; font-size: 1.6rem;})
         }
       }
     }

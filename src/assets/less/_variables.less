@@ -3,11 +3,11 @@
 @colorMainRed: #e23a3a;
 @colorBlue: #101a63;
 
-.decor-cube (@width: 0px; @height: 0px;) {
+.decor-cube (@width: 0px; @height: 0px; @display: inline-block;) {
   &::after {
     content: '';
     position: absolute;
-    display: inline-block;
+    display: @display;
     left: 0;
     top: 0;
     width: @width;

@@ -38,19 +38,24 @@ export default {
     bottom: 0;
     padding-bottom: 35px;
     z-index: 10;
+    .lg-block({ padding-bottom: 15px;});
     .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .sm-block({ flex-direction: column;});
       .copyright {
         font-size: 1.2rem;
+        .sm-block({order: 2;});
       }
       .list-social {
         display: flex;
         align-items: center;
+        .sm-block({order: 1; margin-bottom: 15px;});
         > li {
           &:not(:last-child) {
             margin-right: 50px;
+            .sm-block({ margin-right: 20px;})
           }
           .item {
             display: flex;
@@ -61,6 +66,7 @@ export default {
             border-radius: 50%;
             background: rgba(0,0,0,0.2);
             transition: 0.3s;
+            .sm-block({ width: 35px; height: 35px;});
             &:hover {
               background: rgba(0,0,0,1);
             }
@@ -68,14 +74,17 @@ export default {
               &.vk {
                 width: 22px;
                 height: 22px;
+                .sm-block({ width: 18px; height: 18px;});
               }
               &.yt {
                 width: 16px;
                 height: 16px;
+                .sm-block({ width: 13px; height: 13px;});
               }
               &.inst {
                 width: 20px;
                 height: 20px;
+                .sm-block({ width: 16px; height: 16px;});
               }
               path {
                 fill: #fff;

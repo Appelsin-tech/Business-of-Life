@@ -58,6 +58,8 @@ export default {
     align-items: center;
     transform: translateY(-50%);
     z-index: 9999;
+    .to(1700px, { right: 30px;});
+    .lg-block({ display: none;});
     .main-nav-menu {
       position: relative;
       display: flex;
