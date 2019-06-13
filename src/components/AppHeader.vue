@@ -156,6 +156,7 @@ export default {
     .container {
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
       .logo {
         .lg-block({ max-width: 110px; });
       }

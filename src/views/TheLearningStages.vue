@@ -1,16 +1,16 @@
 <template>
   <section class="p-learning">
     <div class="container page">
-      <div class="wrapper-top-content">
+      <div class="row-caption">
         <div class="content">
           <span class="desc-light">Необходимые знания</span>
           <h1 class="g-caption">Этапы обучения</h1>
-          <p class="desc-bold">Для того, чтобы вы, начав с нуля, стали зарабатывать в
+          <p class=" desc desc--bold">Для того, чтобы вы, начав с нуля, стали зарабатывать в
             бизнесе МЛМ ежемесячно 1000 долларов и более – вам
             необходимо пройти три этапа</p>
         </div>
       </div>
-      <div class="wrapper-bottom-content">
+      <div class="row-slider">
         <swiper :options="swiperOption" ref="mainSwiper">
           <swiper-slide>
             <div class="item-swiper">
@@ -65,7 +65,7 @@ export default {
     swiper,
     swiperSlide
   },
-  data() {
+  data () {
     return {
       swiperOption: {
         slidesPerView: 3,
@@ -90,7 +90,7 @@ export default {
     }
   },
   computed: {
-    swiper() {
+    swiper () {
       return this.$refs.mySwiperServices.swiper
     }
   }
@@ -98,22 +98,19 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
   @import '~swiper/dist/css/swiper.css';
+  @import "../assets/less/_importants";
+
   .p-learning {
     display: flex;
     align-items: center;
     min-height: 100vh;
     background: url("../assets/img/bg-steps-learning.jpg") no-repeat center / cover;
-    .container {
-      box-sizing: border-box;
-    }
-    .wrapper-top-content {
+    .row-caption {
       position: relative;
       padding-top: 90px;
       padding-left: 90px;
       margin-bottom: 90px;
-      margin-top: -50px;
       .decor-cube(300px, 300px);
       .lg-block({ padding-top: 60px; padding-left: 60px; margin-bottom: 60px; .decor-cube(260px, 260px);});
       .sm-block({ margin-bottom: 110px;});
@@ -129,16 +126,18 @@ export default {
           color: #666666;
           margin-bottom: 10px;
         }
-        .desc-bold {
-          max-width: 570px;
-          font-weight: 800;
-          font-size: 1.8rem;
-          line-height: 2.5rem;
-          .sm-block({ font-weight: 600; line-height: 2rem; font-size: 1.6rem;})
+        .desc {
+          &--bold {
+            max-width: 570px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            line-height: 2.5rem;
+            .sm-block({ font-weight: 600; line-height: 2.2rem; font-size: 1.6rem;})
+          }
         }
       }
     }
-    .wrapper-bottom-content {
+    .row-slider {
       .item-swiper {
         position: relative;
         display: flex;
