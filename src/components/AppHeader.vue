@@ -33,6 +33,12 @@
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('our-coach')">Наши тренеры</a>
           </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('news')">Новости</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>
+          </li>
         </ul>
         <div class="icon-wrapper  icon-wrapper--mobile">
           <a href="#" class="icon-red icon-red--desktop">
@@ -132,6 +138,12 @@ export default {
               }
               &:nth-of-type(5) {
                 animation-delay: 0.6s;
+              }
+              &:nth-of-type(6) {
+                animation-delay: 0.7s;
+              }
+              &:nth-of-type(7) {
+                animation-delay: 0.8s;
               }
             }
           }

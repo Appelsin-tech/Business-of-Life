@@ -27,6 +27,26 @@ export default new Router({
       component: () => import('./views/TheOurCoach')
     },
     {
+      path: '/news',
+      name: 'news',
+      component: () => import('./views/TheNews')
+    },
+    {
+      path: '/photo-gallery',
+      name: 'photo-gallery',
+      component: () => import('./views/ThePhotoGallery')
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import('./views/TheAuth')
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('./views/TheCalendar')
+    },
+    {
       path: '*',
       redirect: '/main'
     }

@@ -17,6 +17,18 @@
         <li>
           <router-link to="/our-coach" class="dots" active-class="active"/>
         </li>
+        <li>
+          <router-link to="/news" class="dots" active-class="active"/>
+        </li>
+        <li>
+          <router-link to="/photo-gallery" class="dots" active-class="active"/>
+        </li>
+        <li>
+          <router-link to="/auth" class="dots" active-class="active"/>
+        </li>
+        <li>
+          <router-link to="/calendar" class="dots" active-class="active"/>
+        </li>
       </ul>
     </div>
     <main>

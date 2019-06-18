@@ -77,6 +77,7 @@ export default {
                 .sm-block({ width: 18px; height: 18px;});
               }
               &.yt {
+                margin-left: 2px;
                 width: 16px;
                 height: 16px;
                 .sm-block({ width: 13px; height: 13px;});
