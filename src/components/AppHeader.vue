@@ -125,40 +125,39 @@ export default {
             display: flex;
             z-index: 5;
             .item {
-              animation: fadeItemMenu 0.2s ease-in-out forwards;
+              animation: fadeItemMenu 0.15s ease-in-out forwards;
               animation-delay: 0.2s;
               &:nth-of-type(2) {
-                animation-delay: 0.3s;
+                animation-delay: 0.25s;
               }
               &:nth-of-type(3) {
-                animation-delay: 0.4s;
+                animation-delay: 0.30s;
               }
               &:nth-of-type(4) {
-                animation-delay: 0.5s;
+                animation-delay: 0.35s;
               }
               &:nth-of-type(5) {
-                animation-delay: 0.6s;
+                animation-delay: 0.40s;
               }
               &:nth-of-type(6) {
-                animation-delay: 0.7s;
+                animation-delay: 0.45s;
               }
               &:nth-of-type(7) {
-                animation-delay: 0.8s;
+                animation-delay: 0.50s;
               }
             }
           }
         }
-
         .icon-wrapper {
           &--mobile {
             .sm-block({ display: flex; });
             .icon-red {
               animation: fadeItemMenu 0.2s ease-in-out forwards;
               &:nth-of-type(1) {
-                animation-delay: 0.7s;
+                animation-delay: 0.55s;
               }
               &:nth-of-type(2) {
-                animation-delay: 0.8s;
+                animation-delay: 0.6s;
               }
             }
           }
