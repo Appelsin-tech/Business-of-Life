@@ -11,39 +11,42 @@
         </div>
       </div>
       <div class="row-slider">
-        <swiper :options="swiperOption" ref="mainSwiper">
-          <swiper-slide>
-            <div class="item-swiper item-coach-1">
-              <h3 class="caption-steps">Александр <br> Бахтияров</h3>
-              <div class="wrapper-btn">
-                <a class="circle-btn" href="#">
-                  <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
-                </a>
+        <div class="slider-wrapper">
+          <button class="swiper-button swiper-button--prev"><span></span></button>
+          <swiper :options="swiperOption" ref="mainSwiper">
+            <swiper-slide>
+              <div class="item-swiper item-coach-1">
+                <h3 class="caption-steps">Александр <br> Бахтияров</h3>
+                <div class="wrapper-btn">
+                  <a class="circle-btn" href="#">
+                    <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                  </a>
+                </div>
               </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="item-swiper item-coach-2">
-              <h3 class="caption-steps">Ерлан <br> Думанулы</h3>
-              <div class="wrapper-btn">
-                <a class="circle-btn" href="#">
-                  <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
-                </a>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="item-swiper item-coach-2">
+                <h3 class="caption-steps">Ерлан <br> Думанулы</h3>
+                <div class="wrapper-btn">
+                  <a class="circle-btn" href="#">
+                    <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                  </a>
+                </div>
               </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="item-swiper item-coach-3">
-              <h3 class="caption-steps">Темиржан</h3>
-              <div class="wrapper-btn">
-                <a class="circle-btn" href="#">
-                  <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
-                </a>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="item-swiper item-coach-3">
+                <h3 class="caption-steps">Темиржан</h3>
+                <div class="wrapper-btn">
+                  <a class="circle-btn" href="#">
+                    <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                  </a>
+                </div>
               </div>
-            </div>
-          </swiper-slide>
-        </swiper>
-        <div class="swiper-pagination"></div>
+            </swiper-slide>
+          </swiper>
+          <button class="swiper-button swiper-button--next"><span></span></button>
+        </div>
       </div>
     </div>
   </section>
@@ -61,31 +64,26 @@ export default {
   data () {
     return {
       swiperOption: {
-        slidesPerView: 4,
+        slidesPerView: 3,
         speed: 300,
         slideClass: 'slide-coach',
         slideActiveClass: 'active-slide-coach',
         spaceBetween: 10,
-        // pagination: {
-        //   el: '.main-swiper-pagination',
-        //   clickable: true
-        // },
+        navigation: {
+          nextEl: '.swiper-button--next',
+          prevEl: '.swiper-button--prev'
+        },
         breakpoints: {
           // when window width is <= 320px
           1400: {
             slidesPerView: 3
           },
-          750: {
+          900: {
             slidesPerView: 2
           },
-          540: {
-            slidesPerView: 1,
-            pagination: {
-              el: '.swiper-pagination',
-              type: 'progressbar',
-              progressbarFillClass: 'pagination-coach-fill'
-            }
-          }
+          500: {
+            slidesPerView: 1
+          },
         }
       }
     }
@@ -139,112 +137,148 @@ export default {
       }
     }
     .row-slider {
-      position: relative;
+      display: flex;
+      justify-content: flex-end;
       width: 100%;
       .xs-block({ margin-bottom: 30px;});
-      .item-swiper {
+      .slider-wrapper {
         position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        height: 380px;
-        max-width: 300px;
-        flex-grow: 1;
-        padding: 40px;
+        max-width: 1300px;
+        width: 100%;
+        padding: 0 100px;
         box-sizing: border-box;
-        transition: 0.3s;
-        background-position: center bottom;
-        background-repeat: no-repeat;
-        background-size: contain;
-        .lg-block({ height: 320px;});
-        .sm-block({ height: 280px; max-width: 235px; padding: 30px;});
-        .xs-block({ padding: 20px;});
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          top: 0;
-          opacity: 0;
+        .lg-block({ padding: 0 70px;});
+        .sm-block({ padding: 0 40px;});
+        .item-swiper {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          height: 380px;
+          max-width: 300px;
+          flex-grow: 1;
+          padding: 40px;
+          box-sizing: border-box;
           transition: 0.3s;
-          background: @colorMainRed;
-          z-index: 1;
-        }
-        &:hover {
+          background-position: center bottom;
+          background-repeat: no-repeat;
+          background-size: contain;
+          .lg-block({ height: 320px;});
+          .sm-block({ height: 320px; max-width: 235px; padding: 30px;});
+          .xs-block({ padding: 20px;});
           &::before {
-            opacity: 0.8;
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            opacity: 0;
+            transition: 0.3s;
+            background: @colorMainRed;
+            z-index: 1;
           }
-          .caption-steps {
-            text-decoration: underline;
-          }
-          .wrapper-btn {
-            overflow: hidden;
-            height: 95px;
-            .circle-btn {
-              opacity: 1;
-              transform: translateY(0);
+          &:hover {
+            &::before {
+              opacity: 0.8;
+            }
+            .caption-steps {
+              text-decoration: underline;
+            }
+            .wrapper-btn {
+              overflow: hidden;
+              height: 95px;
+              .circle-btn {
+                opacity: 1;
+                transform: translateY(0);
+              }
             }
           }
-        }
-        &.item-coach-1 {
-          background-image: url("../assets/img/coach-1.jpg");
-        }
-        &.item-coach-2 {
-          background-image: url("../assets/img/coach-2.jpg");
-        }
-        .caption-steps {
-          position: relative;
-          max-width: 200px;
-          font-weight: 800;
-          font-size: 2.2rem;
-          color: #fff;
-          text-transform: uppercase;
-          transition: 0.3s;
-          z-index: 10;
-          .lg-block({ margin-bottom: 15px; font-size: 2rem;});
-        }
-        .wrapper-btn {
-          display: flex;
-          align-items: flex-end;
-          height: 0;
-          flex-shrink: 0;
-          overflow: hidden;
-          transition: 0.3s;
-          .sm-block({ display: none;});
-          .circle-btn {
+          &.item-coach-1 {
+            background-image: url("../assets/img/coach-1.jpg");
+          }
+          &.item-coach-2 {
+            background-image: url("../assets/img/coach-2.jpg");
+          }
+          .caption-steps {
             position: relative;
-            display: inline-flex;
-            width: 65px;
-            height: 65px;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #fff;
-            border-radius: 50%;
+            max-width: 200px;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: #fff;
+            text-transform: uppercase;
             transition: 0.3s;
-            z-index: 5;
-            opacity: 0;
-            transform: translateY(65px);
-            box-sizing: border-box;
-            .lg-block({ width: 50px; height: 50px;});
-            svg {
-              width: 20px;
-              height: 15px;
+            z-index: 10;
+            .lg-block({ margin-bottom: 15px; font-size: 2rem;});
+          }
+          .wrapper-btn {
+            display: flex;
+            align-items: flex-end;
+            height: 0;
+            flex-shrink: 0;
+            overflow: hidden;
+            transition: 0.3s;
+            .sm-block({ display: none;});
+            .circle-btn {
+              position: relative;
+              display: inline-flex;
+              width: 65px;
+              height: 65px;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid #fff;
+              border-radius: 50%;
               transition: 0.3s;
-              .lg-block({ width: 20px; height: 20px; });
-              path {
-                stroke: #fff;
+              z-index: 5;
+              opacity: 0;
+              transform: translateY(65px);
+              box-sizing: border-box;
+              .lg-block({ width: 50px; height: 50px;});
+              svg {
+                width: 20px;
+                height: 15px;
+                transition: 0.3s;
+                .lg-block({ width: 20px; height: 20px; });
+                path {
+                  stroke: #fff;
+                }
               }
             }
           }
         }
       }
     }
-    .main-swiper-pagination {
+    .swiper-button {
       position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 22px;
+      height: 22px;
+      top: calc(~"50% - 11px");
+      &.swiper-button-disabled {
+        opacity: 0.5;
+      }
+      &--prev {
+        left: 20px;
+        .sm-block({ left: 4px;});
+        span {
+          border-bottom: 4px solid @colorBlue;
+          border-left: 4px solid @colorBlue;
+        }
+      }
+      &--next {
+        right: 20px;
+        .sm-block({ right: 4px;});
+        span {
+          border-top: 4px solid @colorBlue;
+          border-right: 4px solid @colorBlue;
+        }
+      }
+      span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transform: rotate(45deg);
+        box-sizing: border-box;
+      }
     }
     .swiper-container {
       .slide-coach {

@@ -7,7 +7,6 @@
           <h1 class="g-caption">Расписание мероприятий</h1>
           <div class="wrapper-date-icon">
             <p class="date">Сентябрь 2019</p>
-            <img svg-inline class="svg-square" src="../assets/img/icon/calendar-square.svg" alt="">
             <div class="wrapper-btn">
               <button class="swiper-button swiper-button--prev"><span></span></button>
               <button class="swiper-button swiper-button--next"><span></span></button>
@@ -189,7 +188,7 @@ export default {
   data() {
     return {
       swiperOption: {
-        slidesPerView: 6,
+        slidesPerView: 7,
         speed: 300,
         slideClass: 'slide-calendar',
         navigation: {
@@ -199,6 +198,9 @@ export default {
         },
         breakpoints: {
           // when window width is <= 320px
+          1530: {
+            slidesPerView: 6
+          },
           1350: {
             slidesPerView: 5
           },
@@ -310,6 +312,9 @@ export default {
       }
     }
     .row-slider {
+      padding-left: 90px;
+      .lg-block({ padding-left: 60px;});
+      .xs-block({ padding-left:0;});
       .swiper-container {
         .slide-calendar {
           flex-shrink: 0;

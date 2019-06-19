@@ -4,7 +4,7 @@
       <div class="wrapper-relative">
         <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
         <div class="icon-wrapper icon-wrapper--desktop">
-          <a href="#" class="icon-red icon-red--desktop">
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
           </a>
@@ -40,7 +40,7 @@
             <a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>
           </li>
         </ul>
-        <div class="icon-wrapper  icon-wrapper--mobile">
+        <div class="icon-wrapper  icon-wrapper--mobile"  @click.prevent="goRouter('calendar')">
           <a href="#" class="icon-red icon-red--desktop">
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
