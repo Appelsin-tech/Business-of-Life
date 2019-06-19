@@ -43,6 +43,8 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
+      box-sizing: border-box;
       .sm-block({ flex-direction: column;});
       .copyright {
         font-size: 1.2rem;

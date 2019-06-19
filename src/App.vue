@@ -71,6 +71,7 @@ export default {
     transform: translateY(-50%);
     z-index: 9999;
     .to(1700px, { right: 30px;});
+    .to(1600px, { display: none;});
     .lg-block({ display: none;});
     .main-nav-menu {
       position: relative;
