@@ -100,7 +100,6 @@ export default {
           align-items: flex-end;
           justify-content: center;
           width: 100%;
-          border: 5px solid @colorMainRed;
           box-sizing: border-box;
           .sm-block({ width: auto; margin-bottom: 30px;});
           >img {
