@@ -47,6 +47,11 @@ export default new Router({
       component: () => import('./views/TheCalendar')
     },
     {
+      path: '/event/:hash',
+      name: 'event',
+      component: () => import('./views/TheEvent')
+    },
+    {
       path: '*',
       redirect: '/main'
     }

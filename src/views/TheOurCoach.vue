@@ -1,5 +1,5 @@
 <template>
-  <section class="p-our-coach">
+  <section class="p-our-coach p-default">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -13,7 +13,7 @@
       <div class="row-slider">
         <div class="slider-wrapper">
           <button class="swiper-button swiper-button--prev"><span></span></button>
-          <swiper :options="swiperOption" ref="mainSwiper">
+          <swiper :options="swiperOption" ref="mainSwiperCoach">
             <swiper-slide>
               <div class="item-swiper item-coach-1">
                 <h3 class="caption-steps">Александр <br> Бахтияров</h3>
@@ -90,7 +90,7 @@ export default {
   },
   computed: {
     swiper () {
-      return this.$refs.mySwiperServices.swiper
+      return this.$refs.mainSwiperCoach.swiper
     }
   }
 }
@@ -101,9 +101,6 @@ export default {
   @import "../assets/less/_importants";
 
   .p-our-coach {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     background: url("../assets/img/bg-coach.jpg") no-repeat center / cover;
     .row-caption {
       position: relative;

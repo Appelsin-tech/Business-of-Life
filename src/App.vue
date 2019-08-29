@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-header/>
+    <app-header :borderClass="borderClass"/>
     <div id="nav-menu" class="navigation-wrapper">
       <button class="arrow next-slide" ></button>
       <button class="arrow prev-slide"></button>
@@ -36,22 +36,30 @@
         <router-view/>
       </transition>
     </main>
-    <app-footer/>
+    <app-footer :borderClass="borderClass"/>
+    <modal-ticket-purchase/>
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader'
 import AppFooter from './components/AppFooter'
+import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
 
 export default {
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    ModalTicketPurchase
   },
   data () {
     return {
       showMenu: true
+    }
+  },
+  computed: {
+    borderClass () {
+      return this.$route.name === 'event'
     }
   }
 }
@@ -111,19 +119,22 @@ export default {
   .main-pages-leave-active {
     transition: all .3s ease;
   }
-  .main-pages-enter {}
-  .main-pages-leave-to
-    /* .component-fade-leave-active до версии 2.1.8 */ {
-    opacity: 0;
+  .main-pages-enter {
+    opacity: 1;
   }
-
-  .fade-enter-active{
-    transition: opacity 0.5s;
+  .main-pages-leave-to {
+    opacity: 1;
   }
+  .fade-enter-active,
   .fade-leave-active {
-    opacity: 0;
+    transition: opacity 0.15s linear;
   }
-  .fade-enter, .fade-leave-to {
+  .fade-enter-to,
+  .fade-leave {
+    opacity: 1;
+  }
+  .fade-enter,
+  .fade-leave-to {
     opacity: 0;
   }
 </style>

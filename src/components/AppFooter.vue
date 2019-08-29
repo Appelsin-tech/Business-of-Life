@@ -1,5 +1,5 @@
 <template>
-  <footer class="s-footer">
+  <footer class="s-footer" :class="{'border-class': borderClass}">
     <div class="container">
       <p class="copyright">© Все права принадлежат компании “Business of Life”</p>
       <ul class="list-social">
@@ -25,7 +25,8 @@
 
 <script>
 export default {
-  name: 'AppFooter'
+  name: 'AppFooter',
+  props: ['borderClass']
 }
 </script>
 
@@ -39,12 +40,14 @@ export default {
     padding-bottom: 35px;
     z-index: 10;
     .lg-block({ padding-bottom: 15px;});
+    &.border-class {
+      padding-top: 40px;
+      border-top: 1px solid @colorBorder;
+    }
     .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
-      box-sizing: border-box;
       .sm-block({ flex-direction: column;});
       .copyright {
         font-size: 1.2rem;

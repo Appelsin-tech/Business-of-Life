@@ -1,5 +1,5 @@
 <template>
-  <section class="p-description">
+  <section class="p-description p-default">
     <div class="container page">
       <div class="col-text">
         <div class="content">
@@ -39,9 +39,6 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .p-description {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     background: url("../assets/img/bg-description.jpg") no-repeat center / cover;
     .container {
       display: flex;

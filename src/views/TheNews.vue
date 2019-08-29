@@ -1,5 +1,5 @@
 <template>
-  <section class="p-news">
+  <section class="p-news p-default">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -105,7 +105,7 @@ export default {
     getImgUrl(src) {
       const image = require(`../assets/img/news-${src}.jpg`)
       console.dir(image)
-      return image;
+      return image
     }
   }
 }
@@ -116,9 +116,6 @@ export default {
   @import "../assets/less/_importants";
 
   .p-news {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     background: url("../assets/img/bg-coach.jpg") no-repeat center / cover;
     .row-caption {
       position: relative;

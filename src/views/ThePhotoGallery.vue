@@ -1,5 +1,5 @@
 <template>
-  <section class="p-photo-gallery">
+  <section class="p-photo-gallery p-default">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -75,9 +75,6 @@ export default {
   @import "../assets/less/_importants";
 
   .p-photo-gallery {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     background: url("../assets/img/bg-coach.jpg") no-repeat center / cover;
     .row-caption {
       position: relative;

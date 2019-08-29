@@ -1,5 +1,5 @@
 <template>
-  <section class="p-auth">
+  <section class="p-auth p-default">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -36,9 +36,6 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .p-auth {
-    display: flex;
-    align-items: flex-start;
-    min-height: 100vh;
     background: url("../assets/img/bg-auth.jpg") no-repeat center / cover;
     .row-caption {
       position: relative;

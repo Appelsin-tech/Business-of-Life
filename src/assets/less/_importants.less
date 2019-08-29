@@ -31,16 +31,29 @@ button {
 input {
   outline: none;
 }
+.p-default {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 150px;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+  .xs-block({ padding-top: 100px;});
+  &--events {
+    padding-top: 200px;
+    padding-bottom: 210px;
+    .lg-block({ padding-top: 150px;});
+    .xs-block({ padding-top: 125px; padding-bottom: 150px;});
+  }
+}
 .container {
   z-index: 5;
+  box-sizing: border-box;
   .wrapper();
   &.page {
     width: 100%;
-    padding-top: 150px;
-    padding-bottom: 100px;
-    box-sizing: border-box;
-    .lg-block({ padding-top: 150px;});
-    .xs-block({ padding-top: 100px;})
+
   }
 }
 .visually-hidden {
@@ -60,6 +73,7 @@ input {
   box-sizing: border-box;
   transition: 0.3s;
   min-width: 300px;
+  cursor: pointer;
   .lg-block({padding: 20px 20px 20px 24px; min-width: 250px;});
   .sm-block({padding: 16px 16px 16px 19px;  border-width: 2px;});
   &:hover,
@@ -73,6 +87,10 @@ input {
         fill: #000;
       }
     }
+  }
+  &:disabled {
+    opacity: 0.7;
+    pointer-events: none;
   }
   span {
     margin-right: 75px;
@@ -90,6 +108,15 @@ input {
       transition: 0.3s;
     }
   }
+  &--no-arrow {
+    min-width: auto;
+    justify-content: center;
+    padding: 24px 32px;
+    .xs-block({flex-basis: auto; padding: 18px 30px;});
+    span {
+      margin-right: 0;
+    }
+  }
 }
 .g-caption {
   display: inline-block;
@@ -98,7 +125,15 @@ input {
   text-transform: uppercase;
   color: @colorBlue;
   .lg-block({ font-size: 5rem;});
-  .sm-block({ font-size: 4rem;})
+  .sm-block({ font-size: 4rem;});
+  .sm-block({ font-size: 2.4rem; });
+  &--event {
+    margin-bottom: 60px;
+    font-size: 5rem;
+    .lg-block({ font-size: 4rem; margin-bottom: 50px;});
+    .sm-block({ font-size: 3rem; margin-bottom: 35px;});
+    .xs-block({ font-size: 2.4rem; margin-bottom: 25px;});
+  }
 }
 .pagination-coach-fill {
   position: absolute;
@@ -108,3 +143,177 @@ input {
   transform-origin: left top;
   background: @colorBlue;
 }
+.p-event {
+  .swiper-pagination {
+    top: -38px;
+    right: 50%;
+    .from(425px, { display: none;});
+    .swiper-pagination-bullet {
+      margin-right: 7px;
+      &:last-child {
+        margin-right: 0;
+      }
+      &-active {
+        background: @colorBlue;
+      }
+    }
+  }
+}
+
+.v-select__modal {
+  position: relative;
+  height: 75px;
+  background: #f3f3f3;
+  cursor: pointer;
+  border: 1px solid #fff;
+  .lg-block({height: 65px;});
+  .xs-block({ height: 40px;});
+  &.error {
+    border: 1px solid @colorMainRed;
+  }
+  &.vs--open {
+    .vs__actions {
+      .vs__open-indicator {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .vs__dropdown-toggle {
+    height: 100%;
+    .vs__selected-options {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+      .lg-block({ padding-left: 18px;});
+      .xs-block({ padding-left: 10px;});
+      .vs__selected {
+        z-index:4;
+      }
+      .vs__search {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        padding-left: 25px;
+        background: #f3f3f3;
+        border: none;
+        box-sizing: border-box;
+        z-index: 3;
+        cursor: pointer;
+        .lg-block({ padding-left: 18px;});
+        .xs-block({ padding-left: 10px;});
+      }
+    }
+  }
+  .vs__actions {
+    .vs__open-indicator {
+      display: inline-block;
+      position: absolute;
+      right: 20px;
+      top: 35px;
+      border-top: 10px solid @colorMainRed;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      cursor: pointer;
+      z-index: 4;
+      transition: all 0.2s;
+      .lg-block({ top: 28px;});
+      .xs-block({ top: 18px;});
+    }
+    .vs__clear {
+      display: none;
+    }
+  }
+  .vs__dropdown-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #f3f3f3;
+    z-index: 9;
+    .vs__dropdown-option {
+      padding-left: 25px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+}
+.v-select__event {
+  position: relative;
+  padding-right: 30px;
+  padding-left: 10px;
+  cursor: pointer;
+  .lg-block({ padding-right: 20px;});
+  &.vs--open {
+    .vs__actions {
+      .vs__open-indicator {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .vs__dropdown-toggle {
+    .vs__selected-options {
+      display: flex;
+      align-items: center;
+      .vs__selected {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: @colorMainRed;
+        border-bottom: 1px dashed @colorMainRed;
+        z-index:4;
+        .xs-block({ font-size: 1.8rem;});
+      }
+      .vs__search {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        border: none;
+        box-sizing: border-box;
+        z-index: 3;
+        cursor: pointer;
+      }
+    }
+  }
+  .vs__actions {
+    .vs__open-indicator {
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      top: 11px;
+      border-top: 7px solid @colorMainRed;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      cursor: pointer;
+      z-index: 4;
+      transition: all 0.2s;
+      .xs-block({top: 6px; });
+    }
+    .vs__clear {
+      display: none;
+    }
+  }
+  .vs__dropdown-menu {
+    position: absolute;
+    left: 0;
+    right: auto;
+    z-index: 9;
+    background: #fff;
+    .vs__dropdown-option {
+      padding: 7px 10px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: @colorBlue;
+      .xs-block({ font-size: 1.6rem;});
+    }
+  }
+}
+
+#app .v--modal-overlay .v--modal-box {
+  overflow-y: auto;
+}
+
+

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-calendar">
+  <section class="p-calendar p-default">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -232,9 +232,6 @@ export default {
   @import '~swiper/dist/css/swiper.css';
   @import "../assets/less/_importants";
   .p-calendar {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     background: url("../assets/img/bg-calendar.jpg") no-repeat center / cover;
     .row-caption {
       position: relative;

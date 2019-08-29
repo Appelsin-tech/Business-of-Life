@@ -1,0 +1,98 @@
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+/*  box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);*/
+  border-radius: 3px;
+  .close-modal {
+    position: absolute;
+    right: 16px;
+    top: 11px;
+    &__wrapper {
+      position: relative;
+      padding: 5px;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+    &__line {
+      display: inline-block;
+      position: absolute;
+      top: 15px;
+      left: 2px;
+      width: 30px;
+      height: 3px;
+      background: @colorBlue;
+      &:first-child {
+        transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+  .title {
+    margin-bottom: 80px;
+    font-size: 5rem;
+    font-weight: 800;
+    color: @colorBlue;
+    text-transform: uppercase;
+    .lg-block({ font-size: 4rem; margin-bottom: 60px;});
+    .sm-block({ font-size: 3rem; margin-bottom: 40px;});
+  }
+  &__ticket-purchase {
+    padding-top: 50px;
+    .sm-block({ padding-top: 40px;});
+    .form-ticket {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 55px;
+      .sm-block({ padding-bottom: 30px;});
+      &__wrapper {
+        .row-flex();
+        max-width: 70%;
+        .lg-block({max-width: 80%;});
+        .sm-block({max-width: 100%; padding: 0 15px;});
+      }
+      &__item {
+        .col();
+        .size(6);
+        .size-xs(12);
+        margin-bottom: 35px;
+        .sm-block({ margin-bottom: 25px;});
+        .xs-block({ margin-bottom: 15px;});
+        &--col-12 {
+          .size(12);
+        }
+      }
+      &__input {
+        padding-left: 25px;
+        padding-right: 5px;
+        width: 100%;
+        height: 75px;
+        background: #f3f3f3;
+        border: 1px solid #fff;
+        box-sizing: border-box;
+        .lg-block({ padding-left: 18px; height: 65px;});
+        .xs-block({ padding-left: 10px; height: 40px;});
+        &.error {
+          border: 1px solid @colorMainRed;
+        }
+      }
+      &__error {
+        margin-top: 10px;
+        color: @colorMainRed;
+        .sm-block({ margin-top: 6px; font-size: 1.2rem;});
+      }
+      .g-btn--no-arrow {
+        span:first-child {
+          margin-right: 35px;
+          .sm-block({ margin-right: 25px;});
+        }
+      }
+    }
+  }
+}

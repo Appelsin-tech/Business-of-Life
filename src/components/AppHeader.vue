@@ -1,5 +1,5 @@
 <template>
-  <header class="s-header" :class="{active : showMenu}">
+  <header class="s-header" :class="[{active : showMenu},{'border-class': borderClass}]">
     <div class="container">
       <div class="wrapper-relative">
         <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
@@ -8,7 +8,7 @@
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
           </a>
-          <a href="#" class="icon-red icon-red--desktop">
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('event/random-symbols')">
             <img svg-inline src="../assets/img/icon/info.svg" alt="">
             <span>Информация</span>
           </a>
@@ -40,12 +40,12 @@
             <a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>
           </li>
         </ul>
-        <div class="icon-wrapper  icon-wrapper--mobile"  @click.prevent="goRouter('calendar')">
-          <a href="#" class="icon-red icon-red--desktop">
+        <div class="icon-wrapper  icon-wrapper--mobile">
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
           </a>
-          <a href="#" class="icon-red icon-red--mobile">
+          <a href="#" class="icon-red icon-red--mobile" @click.prevent="goRouter('event')">
             <img svg-inline src="../assets/img/icon/info.svg" alt="">
             <span>Информация</span>
           </a>
@@ -58,6 +58,7 @@
 <script>
 export default {
   name: 'AppHeader',
+  props: ['borderClass'],
   data() {
     return {
       showMenu: false
@@ -65,8 +66,8 @@ export default {
   },
   methods: {
     goRouter(rout) {
-      this.showMenu = !this.showMenu
-      this.$router.push({ path: `${rout}` })
+      this.showMenu = false
+      this.$router.push({ path: `/${rout}` })
     }
   }
 }
@@ -97,27 +98,15 @@ export default {
       transition: all 0.3s ease-in-out;
       z-index: 1;
     }
+    &.border-class {
+      padding-bottom: 30px;
+      border-bottom: 1px solid @colorBorder;
+    }
     &.active {
       bottom: 0;
       &::after {
         transform: scale(1);
         opacity: 1;
-      }
-      .burger {
-        z-index: 9;
-        span {
-          &:nth-child(1) {
-            transform: rotate(45deg);
-            transform-origin: 2px 6px;
-          }
-          &:nth-child(2) {
-            opacity: 0;
-          }
-          &:nth-child(3) {
-            transform: rotate(-45deg);
-            transform-origin: 3px -3px;
-          }
-        }
       }
       .container {
         .wrapper-menu-list {
@@ -162,12 +151,30 @@ export default {
             }
           }
         }
+        .burger {
+          z-index: 9;
+          span {
+            &:nth-child(1) {
+              transform: rotate(45deg);
+              top: 0px;
+              left: 5px;
+            }
+            &:nth-child(2) {
+              width: 0%;
+              opacity: 0;
+            }
+            &:nth-child(3) {
+              transform: rotate(-45deg);
+              top: 22px;
+              left: 5px;
+            }
+          }
+        }
       }
     }
     .container {
       display: flex;
       flex-direction: column;
-      box-sizing: border-box;
       .logo {
         .lg-block({ max-width: 110px; });
       }
@@ -182,9 +189,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-self: center;
-        margin-top: 15%;
-        .lg-block({ margin-top: 20%;});
-        .sm-block({ margin-top: 50px;});
+        transform: translateY(50%);
+        z-index: 9;
+        .lg-block({ transform: translateY(70%);});
+        .sm-block({ transform: translateY(20%);});
         .menu-list {
           position: relative;
           display: none;
@@ -269,19 +277,31 @@ export default {
         }
       }
       .burger {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        position: relative;
+        width: 32px;
+        height: 25px;
         cursor: pointer;
+        transform: rotate(0deg);
         .xs-block({ order: 2; });
         span {
           display: block;
+          position: absolute;
           height: 3px;
-          width: 32px;
+          width: 100%;
+          opacity: 1;
+          left: 0;
           background-color: @colorBlue;
-          transition: all 0.2s ease 0.1s;
-          &:not(:last-child) {
-            margin-bottom: 8px;
+          transform: rotate(0deg);
+          transform-origin: left center;
+          transition: .25s ease-in-out;
+          &:nth-child(1) {
+            top: 0px;
+          }
+          &:nth-child(2) {
+            top: 10px;
+          }
+          &:nth-child(3) {
+            top: 20px;
           }
         }
       }

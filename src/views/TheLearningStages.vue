@@ -1,5 +1,5 @@
 <template>
-  <section class="p-learning">
+  <section class="p-learning p-default">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -102,9 +102,6 @@ export default {
   @import "../assets/less/_importants";
 
   .p-learning {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     background: url("../assets/img/bg-steps-learning.jpg") no-repeat center / cover;
     .row-caption {
       position: relative;

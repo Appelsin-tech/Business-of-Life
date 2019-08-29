@@ -1,5 +1,5 @@
 <template>
-  <section class="p-hero">
+  <section class="p-hero p-default">
     <div class="container page">
       <div class="wrapper-content">
         <div class="content">
@@ -26,10 +26,6 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .p-hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
     &::after {
       position: absolute;
       content: '';
