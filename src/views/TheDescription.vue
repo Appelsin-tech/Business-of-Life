@@ -13,7 +13,7 @@
           <p class="desc">Мы уверены, что принесем хорошие результаты каждому дистрибьютору компании, который имеет смелые цели, стремится сделать свою жизнь лучше, готов учиться, действовать, и превращать свои мечты в реальность!</p>
           <a class="g-btn" href="#">
             <span>Подробнее</span>
-            <img svg-inline class="arrow-right" src="../assets/img/icon/right-arrow.svg" alt="">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
           </a>
         </div>
       </div>

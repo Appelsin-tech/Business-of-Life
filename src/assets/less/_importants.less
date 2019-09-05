@@ -40,6 +40,7 @@ input {
   padding-bottom: 100px;
   box-sizing: border-box;
   .xs-block({ padding-top: 100px;});
+  &--statistic,
   &--events {
     padding-top: 200px;
     padding-bottom: 210px;
@@ -66,7 +67,6 @@ input {
 .g-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
   padding: 24px 27px 24px 32px;
   background: @colorMainRed;
   border: 3px solid @colorMainRed;
@@ -82,7 +82,7 @@ input {
     span {
       color: #000;
     }
-    .arrow-right {
+    .svg-icon {
       path {
         fill: #000;
       }
@@ -101,11 +101,16 @@ input {
     transition: 0.3s;
     .sm-block({ margin-right: 50px; font-weight: 600;});
   }
-  .arrow-right {
+  .svg-icon {
     width: 25px;
     height: 25px;
+    margin-left: auto;
     path {
+      fill: #fff;
       transition: 0.3s;
+    }
+    &--download {
+      margin-left: 0;
     }
   }
   &--no-arrow {
@@ -115,6 +120,13 @@ input {
     .xs-block({flex-basis: auto; padding: 18px 30px;});
     span {
       margin-right: 0;
+    }
+  }
+  &--icon-left {
+    span {
+      margin-right: 0;
+      margin-left: 40px;
+      .sm-block({ margin-right: 0;});
     }
   }
 }
@@ -314,6 +326,13 @@ input {
 
 #app .v--modal-overlay .v--modal-box {
   overflow-y: auto;
+}
+.test-btn {
+  background: #6b7aff;
+  color: #fff;
+  padding: 0 20px;
+  height: 30px;
+  font-weight: 800;
 }
 
 

@@ -38,6 +38,8 @@
     </main>
     <app-footer :borderClass="borderClass"/>
     <modal-ticket-purchase/>
+    <modal-access/>
+    <modal-ticket-success/>
   </div>
 </template>
 
@@ -45,12 +47,16 @@
 import AppHeader from './components/AppHeader'
 import AppFooter from './components/AppFooter'
 import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
+import ModalAccess from './components/modal/ModalAccess.vue'
+import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
 
 export default {
   components: {
     AppHeader,
     AppFooter,
-    ModalTicketPurchase
+    ModalTicketPurchase,
+    ModalAccess,
+    ModalTicketSuccess
   },
   data () {
     return {
@@ -59,7 +65,7 @@ export default {
   },
   computed: {
     borderClass () {
-      return this.$route.name === 'event'
+      return this.$route.name === 'event' || this.$route.name === 'statistic'
     }
   }
 }
@@ -138,3 +144,8 @@ export default {
     opacity: 0;
   }
 </style>
+
+<!--TODO: - не надо делать
+          - сменить фото при наведении
+           - блок спикеров
+           - попап для их редактирования -->

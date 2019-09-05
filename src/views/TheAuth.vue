@@ -18,7 +18,7 @@
           </div>
           <button class="g-btn">
             <span>Войти</span>
-            <img svg-inline class="arrow-right" src="../assets/img/icon/right-arrow.svg" alt="">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
           </button>
         </form>
       </div>

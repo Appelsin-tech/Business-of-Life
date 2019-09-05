@@ -3,71 +3,72 @@
          :adaptive="true"
          :scrollable="true" :classes="'custom-modals'">
 
-      <div class="modal modal__ticket-purchase">
-        <div class="close-modal" @click="$modal.hide('modal-ticket-purchase')" title="Закрыть">
-          <div class="close-modal__wrapper">
-            <span class="close-modal__line"></span>
-            <span class="close-modal__line"></span>
-          </div>
+    <div class="modal modal__ticket-purchase">
+      <div class="close-modal" @click="$modal.hide('modal-ticket-purchase')" title="Закрыть">
+        <div class="close-modal__wrapper">
+          <span class="close-modal__line"></span>
+          <span class="close-modal__line"></span>
         </div>
+      </div>
+      <div class="modal__container">
         <h3 class="title">Купить билет</h3>
-        <form class="form-ticket" @submit.prevent="onSubmit">
-          <div class="form-ticket__wrapper">
-            <div class="form-ticket__item">
-              <input class="form-ticket__input" :class="{error: $v.form.name.$error}" type="text" placeholder="Имя" v-model="form.name" @blur="$v.form.name.$touch()">
-              <div class="form-ticket__error" v-if="$v.form.name.$error">
+        <form class="form-modal" @submit.prevent="onSubmit">
+          <div class="form-modal__wrapper">
+            <div class="form-modal__item">
+              <input class="form-modal__input" :class="{error: $v.form.name.$error}" type="text" placeholder="Имя" v-model="form.name" @blur="$v.form.name.$touch()">
+              <div class="form-modal__error" v-if="$v.form.name.$error">
                 <template v-if="!$v.form.name.required">Поле не может быть пустым</template>
                 <template v-else-if="!$v.form.name.minLength">Имя не должно быть меньше 3-х символов</template>
               </div>
             </div>
-            <div class="form-ticket__item">
-              <input class="form-ticket__input" :class="{error: $v.form.email.$error}" placeholder="Email" v-model="form.email" @blur="$v.form.email.$touch()">
-              <div class="form-ticket__error" v-if="$v.form.email.$error">
+            <div class="form-modal__item">
+              <input class="form-modal__input" :class="{error: $v.form.email.$error}" placeholder="Email" v-model="form.email" @blur="$v.form.email.$touch()">
+              <div class="form-modal__error" v-if="$v.form.email.$error">
                 <template v-if="!$v.form.email.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.email.email">Не корректный email</template>
               </div>
             </div>
-            <div class="form-ticket__item">
-              <input class="form-ticket__input" :class="{error: $v.form.number_seminar.$error}" type="number" placeholder="Какой по счету семинар" v-model="form.number_seminar" @blur="$v.form.number_seminar.$touch()">
-              <div class="form-ticket__error" v-if="$v.form.number_seminar.$error">
+            <div class="form-modal__item">
+              <input class="form-modal__input" :class="{error: $v.form.number_seminar.$error}" type="number" placeholder="Какой по счету семинар" v-model="form.number_seminar" @blur="$v.form.number_seminar.$touch()">
+              <div class="form-modal__error" v-if="$v.form.number_seminar.$error">
                 <template v-if="!$v.form.number_seminar.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.number_seminar.integer">Значение должно быть целым числом</template>
               </div>
             </div>
-            <div class="form-ticket__item">
-              <input v-mask="'##.##.####'" class="form-ticket__input" value="" type="text" :class="{error: $v.form.date_registration.$error}" @blur="$v.form.date_registration.$touch()"
-                        v-model="form.date_registration" placeholder="Дата регистрации в компании">
-              <div class="form-ticket__error" v-if="$v.form.date_registration.$error">
+            <div class="form-modal__item">
+              <input v-mask="'##.##.####'" class="form-modal__input" value="" type="text" :class="{error: $v.form.date_registration.$error}" @blur="$v.form.date_registration.$touch()"
+                     v-model="form.date_registration" placeholder="Дата регистрации в компании">
+              <div class="form-modal__error" v-if="$v.form.date_registration.$error">
                 <template v-if="!$v.form.date_registration.required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-ticket__item">
-              <input class="form-ticket__input" :class="{error: $v.form.country.$error}" type="text" placeholder="Страна" v-model="form.country" @blur="$v.form.country.$touch()">
-              <div class="form-ticket__error" v-if="$v.form.country.$error">
+            <div class="form-modal__item">
+              <input class="form-modal__input" :class="{error: $v.form.country.$error}" type="text" placeholder="Страна" v-model="form.country" @blur="$v.form.country.$touch()">
+              <div class="form-modal__error" v-if="$v.form.country.$error">
                 <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-ticket__item">
-              <input class="form-ticket__input" :class="{error: $v.form.city.$error}" type="text" placeholder="Город" v-model="form.city" @blur="$v.form.city.$touch()">
-              <div class="form-ticket__error" v-if="$v.form.city.$error">
+            <div class="form-modal__item">
+              <input class="form-modal__input" :class="{error: $v.form.city.$error}" type="text" placeholder="Город" v-model="form.city" @blur="$v.form.city.$touch()">
+              <div class="form-modal__error" v-if="$v.form.city.$error">
                 <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-ticket__item form-ticket__item--col-12">
-              <input class="form-ticket__input" :class="{error: $v.form.invited.$error}" type="text" placeholder="Сколько человек пригласил пользователь (или Email пригласителя)" v-model="form.invited" @blur="$v.form.invited.$touch()">
-              <div class="form-ticket__error" v-if="$v.form.invited.$error">
+            <div class="form-modal__item form-modal__item--col-12">
+              <input class="form-modal__input" :class="{error: $v.form.invited.$error}" type="text" placeholder="Сколько человек пригласил пользователь (или Email пригласителя)" v-model="form.invited" @blur="$v.form.invited.$touch()">
+              <div class="form-modal__error" v-if="$v.form.invited.$error">
                 <template v-if="!$v.form.invited.required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-ticket__item">
+            <div class="form-modal__item">
               <v-select v-model="form.selectedQualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация" label="qualName" :options="qualification"></v-select>
-              <div class="form-ticket__error" v-if="errorSelect.selectedQualification" >
+              <div class="form-modal__error" v-if="errorSelect.selectedQualification">
                 Выберите квалификацию
               </div>
             </div>
-            <div class="form-ticket__item">
+            <div class="form-modal__item">
               <v-select v-model="form.selectedPayment" :multiple="false" :class="['v-select__modal',{'error': errorSelect.selectedPayment}]" :searchable="false" placeholder="Способ оплаты" label="qualName" :options="payment" v-on:search:blur="validateSelect('selectedPayment')"></v-select>
-              <div class="form-ticket__error" v-if="errorSelect.selectedPayment">
+              <div class="form-modal__error" v-if="errorSelect.selectedPayment">
                 Выберите способ оплаты
               </div>
             </div>
@@ -77,16 +78,14 @@
             <span>9000 р</span>
           </button>
         </form>
-        <div class="validation-error" v-if="showError">
-          <img svg-inline class="validation-error__icon" src="../../assets/img/icon/warning.svg" alt="">
-          <span class="validation-error__text">Вы не заполнили одно из обязательных полей</span>
-        </div>
       </div>
+    </div>
   </modal>
 </template>
 
 <script>
-import { required, minLength, integer, alphaNum, email } from 'vuelidate/lib/validators'
+import { alphaNum, email, integer, minLength, required } from 'vuelidate/lib/validators'
+
 export default {
   name: 'ModalTicketPurchase',
   data() {
@@ -95,7 +94,6 @@ export default {
         selectedQualification: false,
         selectedPayment: false
       },
-      showError: false,
       name: '',
       qualification: [
         {
@@ -175,14 +173,10 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      if (this.form.name === '' && this.form.email === '' && this.form.number_seminar === '' && this.form.date_registration === '' && this.form.country === '' && this.form.city === '' && this.form.invited === '') {
-        this.showError = true
-      } else {
-        console.log('as')
-      }
+    onSubmit() {
+      console.log('as')
     },
-    validateSelect (name) {
+    validateSelect(name) {
       if (this.form[name] === '') {
         this.errorSelect[name] = true
       } else {

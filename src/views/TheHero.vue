@@ -9,7 +9,7 @@
           <p class="desc-connect">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
           <a class="g-btn" href="#">
             <span>Стать участником</span>
-            <img svg-inline class="arrow-right" src="../assets/img/icon/right-arrow.svg" alt="">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
           </a>
         </div>
       </div>

@@ -46,6 +46,9 @@ var settings = {
     sm: {
       width: '750px'
     },
+    ss: {
+      width: '540px'
+    },
     xs: {
       width: '425px',
       fields: '10px',
