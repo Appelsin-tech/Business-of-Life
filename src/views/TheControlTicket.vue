@@ -1,5 +1,5 @@
 <template>
-  <section class="p-statistic p-default p-default-inner">
+  <section class="p-control-ticket p-default p-default-inner">
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Управление билетом</h1>

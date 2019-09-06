@@ -87,6 +87,9 @@ export default {
         case 'event':
           return true
           break
+        case 'control-event':
+          return true
+          break
         default:
           return false
       }
