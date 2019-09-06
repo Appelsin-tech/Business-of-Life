@@ -1,8 +1,8 @@
 <template>
-  <section class="p-statistic p-default p-default--statistic">
+  <section class="p-statistic p-default p-default-inner">
     <bread-crumbs/>
     <div class="container page">
-      <h1 class="g-caption g-caption--event">Статистика</h1>
+      <h1 class="g-caption g-caption-inner">Статистика</h1>
       <div class="chart">
         <div class="chart__wrapper-text">
           <h2 class="chart__title">Статистика продаж</h2>
@@ -272,9 +272,6 @@ export default {
 
 <style scoped lang="less">
   @import "../assets/less/_importants";
-  .p-statistic {
-    display: block;
-  }
   .chart {
     margin-bottom: 100px;
     .xs-block({ margin-bottom: 70px;});

@@ -64,7 +64,6 @@
 <script>
 export default {
   name: 'AppHeader',
-  props: ['borderClass'],
   data() {
     return {
       showMenu: false
@@ -74,6 +73,23 @@ export default {
     goRouter(rout) {
       this.showMenu = false
       this.$router.push({ path: `/${rout}` })
+    }
+  },
+  computed: {
+    borderClass () {
+      switch (this.$route.name) {
+        case 'control-ticket':
+          return true
+          break
+        case 'statistic':
+          return true
+          break
+        case 'event':
+          return true
+          break
+        default:
+          return false
+      }
     }
   }
 }
@@ -197,14 +213,14 @@ export default {
         justify-self: center;
         transform: translateY(50%);
         z-index: 9;
-        .lg-block({ transform: translateY(70%);});
-        .sm-block({ transform: translateY(20%);});
+        .lg-block({ transform: translateY(70%); });
+        .sm-block({ transform: translateY(20%); });
         .menu-list {
           position: relative;
           display: none;
           flex-direction: column;
           align-items: center;
-          .sm-block({ margin-bottom: 40px;});
+          .sm-block({ margin-bottom: 40px; });
           .item {
             margin-bottom: 25px;
             text-align: center;
@@ -221,7 +237,7 @@ export default {
               text-transform: uppercase;
               transition: 0.3s;
               .lg-block({ font-size: 2.4rem; });
-              .xs-block({ font-size: 2rem;});
+              .xs-block({ font-size: 2rem; });
             }
           }
         }
@@ -233,7 +249,7 @@ export default {
           margin-right: 80px;
           margin-left: auto;
           .lg-block({ margin-right: 50px; });
-          .sm-block({ display: none;});
+          .sm-block({ display: none; });
           .icon-red {
             &:first-child {
               margin-right: 80px;
@@ -278,7 +294,7 @@ export default {
             color: #000;
             border-bottom: 1px solid transparent;
             transition: 0.3s;
-            .sm-block({ font-size: 2rem;});
+            .sm-block({ font-size: 2rem; });
           }
         }
       }

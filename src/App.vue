@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-header :borderClass="borderClass"/>
+    <app-header/>
     <div id="nav-menu" class="navigation-wrapper">
       <button class="arrow next-slide" ></button>
       <button class="arrow prev-slide"></button>
@@ -36,7 +36,7 @@
         <router-view/>
       </transition>
     </main>
-    <app-footer :borderClass="borderClass"/>
+    <app-footer/>
     <modal-ticket-purchase/>
     <modal-access/>
     <modal-ticket-success/>

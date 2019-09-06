@@ -1,8 +1,8 @@
 <template>
-  <section class="p-event p-default p-default--events">
+  <section class="p-event p-default p-default-inner">
     <bread-crumbs/>
     <div class="container">
-      <h1 class="g-caption g-caption--event">бизнес-тренинг “старт с нуля”</h1>
+      <h1 class="g-caption g-caption-inner">бизнес-тренинг “старт с нуля”</h1>
       <div class="location">
         <div class="location__desc">Город</div>
         <v-select v-model="selectedCity" :multiple="false" :class="'v-select__event'" :searchable="false" selected="" label="cityName" :options="city"></v-select>
@@ -252,8 +252,6 @@ export default {
   @import '~swiper/dist/css/swiper.css';
   @import "../assets/less/_importants";
   .p-event {
-    display: block;
-    min-height: 100vh;
     &__caption-second {
       margin-bottom: 50px;
       font-size: 4rem;

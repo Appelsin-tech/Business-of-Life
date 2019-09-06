@@ -26,7 +26,23 @@
 <script>
 export default {
   name: 'AppFooter',
-  props: ['borderClass']
+  computed: {
+    borderClass () {
+      switch (this.$route.name) {
+        case 'control-ticket':
+          return true
+          break
+        case 'statistic':
+          return true
+          break
+        case 'event':
+          return true
+          break
+        default:
+          return false
+      }
+    }
+  }
 }
 </script>
 
