@@ -33,7 +33,7 @@
           <router-link to="/event/=event" class="dots" active-class="active" v-tooltip.right="'Событие'"/>
         </li>
         <li>
-          <router-link to="/event-all-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование всех событие'"/>
+          <router-link to="/event-all-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование всех событий'"/>
         </li>
         <li>
           <router-link to="/event-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование события'"/>

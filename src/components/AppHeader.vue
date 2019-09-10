@@ -39,6 +39,30 @@
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>
           </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('auth')">Авторизация</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('event-all-editing')">Редактирование всех событий</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('event-editing')">Редактирование события</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('event-control')">Управление мероприятиями</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('control-ticket')">Управление билетом</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('statistic')">Статистика</a>
+          </li>
         </ul>
         <div class="icon-wrapper  icon-wrapper--mobile">
           <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
