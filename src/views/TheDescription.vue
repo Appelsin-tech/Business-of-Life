@@ -8,12 +8,18 @@
           <p class="desc desc--bold">В бизнесе МЛМ можно буквально за 1 год выйти на
             достойный уровень ежемесячного дохода и за несколько
             лет добиться выдающихся результатов</p>
-          <p class="desc">Для того, чтобы добиться такого результата, необходимо выполнить всего два условия. Первое – конечно же, надо хорошо поработать. Бизнес МЛМ – это не новогоднее чудо, и просто так результат не случится. Второе – специальные
+          <p class="desc">Для того, чтобы добиться такого результата, необходимо выполнить всего два условия. Первое –
+            конечно же, надо хорошо поработать. Бизнес МЛМ – это не новогоднее чудо, и просто так результат не случится.
+            Второе – специальные
             знания и бизнес-инструменты, которые важно получить на каждом принципиальном этапе создания бизнеса.</p>
-          <p class="desc">Мы уверены, что принесем хорошие результаты каждому дистрибьютору компании, который имеет смелые цели, стремится сделать свою жизнь лучше, готов учиться, действовать, и превращать свои мечты в реальность!</p>
+          <p class="desc">Мы уверены, что принесем хорошие результаты каждому дистрибьютору компании, который имеет
+            смелые цели, стремится сделать свою жизнь лучше, готов учиться, действовать, и превращать свои мечты в
+            реальность!</p>
           <a class="g-btn" href="#">
-            <span>Подробнее</span>
+            <span>
+              Подробнее
             <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+            </span>
           </a>
         </div>
       </div>
@@ -43,7 +49,7 @@ export default {
     .container {
       display: flex;
       justify-content: space-between;
-      .md-block({ flex-direction: column;});
+      .md-block({ flex-direction: column; });
       .col-text {
         position: relative;
         padding-top: 90px;
@@ -51,10 +57,10 @@ export default {
         width: 50%;
         box-sizing: border-box;
         .decor-cube(290px, 290px);
-        .lg-block({ padding-top: 60px; padding-left: 60px; .decor-cube(240px, 240px);});
-        .md-block({ margin-bottom: 60px; width: 80%;});
-        .sm-block({ width: 100%; max-width: 570px;});
-        .xs-block({ margin-bottom: 40px; padding-left:0; padding-top: 0; .decor-cube(@display: none;);});
+        .lg-block({ padding-top: 60px; padding-left: 60px; .decor-cube(240px, 240px); });
+        .md-block({ margin-bottom: 60px; width: 80%; });
+        .sm-block({ width: 100%; max-width: 570px; });
+        .xs-block({ margin-bottom: 40px; padding-left: 0; padding-top: 0; .decor-cube(@display: none;); });
         .content {
           display: flex;
           flex-direction: column;
@@ -71,16 +77,16 @@ export default {
             margin-bottom: 20px;
             font-size: 1.6rem;
             line-height: 2.5rem;
-            .sm-block({ line-height: 2.2rem;});
+            .sm-block({ line-height: 2.2rem; });
             &--bold {
               font-size: 1.8rem;
               font-weight: 800;
-              .sm-block({ font-weight: 600; line-height: 2.2rem; font-size: 1.6rem;})
+              .sm-block({ font-weight: 600; line-height: 2.2rem; font-size: 1.6rem; })
             }
           }
           .g-btn {
             margin-top: 30px;
-            .xs-block({ margin-top: 20px;});
+            .xs-block({ margin-top: 20px; });
           }
         }
       }
@@ -89,8 +95,8 @@ export default {
         width: 38%;
         flex-direction: column;
         align-items: center;
-        .md-block({ align-self:center; width: 50%;  });
-        .sm-block({ width: auto;});
+        .md-block({ align-self: center; width: 50%; });
+        .sm-block({ width: auto; });
         .img {
           display: flex;
           margin-bottom: 40px;
@@ -98,16 +104,16 @@ export default {
           justify-content: center;
           width: 100%;
           box-sizing: border-box;
-          .sm-block({ width: auto; margin-bottom: 30px;});
-          >img {
+          .sm-block({ width: auto; margin-bottom: 30px; });
+          > img {
             max-height: 570px;
-            .sm-block({max-width: 300px;})
+            .sm-block({ max-width: 300px; })
           }
         }
         .wrapper-president {
           display: flex;
           flex-direction: column;
-          .post  {
+          .post {
             margin-bottom: 10px;
             font-size: 1.4rem;
           }
@@ -116,7 +122,7 @@ export default {
             font-weight: 800;
             color: @colorBlue;
             text-transform: uppercase;
-            .sm-block({ font-size: 2.4rem;})
+            .sm-block({ font-size: 2.4rem; })
           }
         }
       }

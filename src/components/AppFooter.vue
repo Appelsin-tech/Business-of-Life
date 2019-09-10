@@ -38,7 +38,13 @@ export default {
         case 'event':
           return true
           break
-        case 'control-event':
+        case 'event-control':
+          return true
+          break
+        case 'event-all-editing':
+          return true
+          break
+        case 'event-editing':
           return true
           break
         default:

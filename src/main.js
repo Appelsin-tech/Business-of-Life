@@ -5,12 +5,17 @@ import VueModal from 'vue-js-modal'
 import VueTheMask from 'vue-the-mask'
 import Vuelidate from 'vuelidate'
 import vSelect from 'vue-select'
+import VTooltip from 'v-tooltip'
 
 Vue.config.productionTip = false
 Vue.use(VueModal, {dialog: true, dynamic: true, injectModalsContainer: true})
 Vue.use(VueTheMask)
 Vue.use(Vuelidate)
 Vue.component('v-select', vSelect)
+Vue.use(VTooltip, {
+  defaultPlacement: 'left',
+  delay: { show: 0, hide: 0 }
+})
 
 vSelect.props.components.default = () => ({
   Deselect: {

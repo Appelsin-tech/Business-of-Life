@@ -28,8 +28,10 @@
         </div>
         <div class="btn-wrapper">
           <a href="#" class="g-btn g-btn--icon-left" download="#">
-            <img svg-inline class="svg-icon svg-icon--download" src="../../assets/img/icon/download.svg" alt="">
-            <span>Скачать билет</span>
+            <span>
+              <img svg-inline class="svg-icon svg-icon--download" src="../../assets/img/icon/download.svg" alt="">
+              Скачать билет
+            </span>
           </a>
           <a href="#" class="btn">
             <img svg-inline class="btn__icon" src="../../assets/img/icon/telegram.svg" alt="">

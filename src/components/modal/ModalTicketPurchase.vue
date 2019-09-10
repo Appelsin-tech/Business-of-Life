@@ -77,6 +77,9 @@
             <span>Купить билет</span>
             <span>9000 р</span>
           </button>
+          <button type="button" class="test-btn" @click="$modal.show('modal-ticket-success')">
+            <span>Окно успешной оплаты</span>
+          </button>
         </form>
       </div>
     </div>

@@ -8,8 +8,10 @@
           <strong class="desc-strong g-caption">Эксклюзивная база знаний</strong>
           <p class="desc-connect">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
           <a class="g-btn" href="#">
-            <span>Стать участником</span>
-            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+            <span>
+              Стать участником
+              <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+            </span>
           </a>
         </div>
       </div>
@@ -53,11 +55,15 @@ export default {
         transform: translateY(0);
       }
       .content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         .g-caption {
           margin-bottom: 40px;
           .lg-block({ margin-bottom: 30px;});
         }
         .img-name-academy {
+          display: block;
           margin-bottom: 35px;
           .lg-block({ margin-bottom: 20px; max-width: 180px;});
         }

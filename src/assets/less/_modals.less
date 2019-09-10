@@ -67,13 +67,20 @@
     &__item {
       .col();
       .size(6);
-      .size-xs(12);
+      .size-ss(12);
       margin-bottom: 35px;
       .sm-block({ margin-bottom: 25px;});
       .xs-block({ margin-bottom: 15px;});
       &--col-12 {
         .size(12);
       }
+    }
+    &__label {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-weight: 800;
+      font-size: 1.8rem;
+      .ss-block({ margin-bottom: 12px;});
     }
     &__input {
       padding-left: 25px;
@@ -202,6 +209,23 @@
         &__text {
           font-weight: 800;
           text-transform: uppercase;
+        }
+      }
+    }
+  }
+  &__event-edit {
+    .modal__container {
+      max-width: 800px;
+    }
+    .btn-wrapper {
+      .row-flex();
+      width: 100%;
+      .g-btn {
+        .col();
+        .size(6);
+        .size-ss(12);
+        &:first-child {
+          .ss-block({ margin-bottom: 15px;});
         }
       }
     }

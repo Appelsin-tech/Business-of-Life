@@ -12,12 +12,6 @@
             <img svg-inline src="../assets/img/icon/info.svg" alt="">
             <span>Информация</span>
           </a>
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="$modal.show('modal-access')">
-            <span>Вход</span>
-          </a>
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="$modal.show('modal-ticket-success')">
-            <span>Ticket Success</span>
-          </a>
         </div>
         <button class="burger" @click="showMenu = !showMenu">
           <span></span>
@@ -87,7 +81,13 @@ export default {
         case 'event':
           return true
           break
-        case 'control-event':
+        case 'event-control':
+          return true
+          break
+        case 'event-all-editing':
+          return true
+          break
+        case 'event-editing':
           return true
           break
         default:

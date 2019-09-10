@@ -33,7 +33,7 @@
         </div>
       </section>
       <section class="description">
-        <h2 class="p-event__caption-second">Описание</h2>
+        <h2 class="g-caption-section">Описание</h2>
         <div class="text-wrapper">
           <p class="description__text">Мастер-класс, в котором объединены и проанализированы главные компетенции,
             которые позволят быть эффективным и успешным в бизнесе, в работе и в жизни.
@@ -61,7 +61,7 @@
         </ul>
       </section>
       <section class="speakers">
-        <h2 class="p-event__caption-second">Спикеры</h2>
+        <h2 class="g-caption-section">Спикеры</h2>
         <div class="speakers__wrapper">
           <div class="speakers__item item">
             <div class="item__img"></div>
@@ -76,7 +76,7 @@
         </div>
       </section>
       <section class="org-info">
-        <h2 class="p-event__caption-second">Организационная информация</h2>
+        <h2 class="g-caption-section">Организационная информация</h2>
         <div class="org-info__wrapper">
           <div class="org-info__item item">
             <p class="item__name">Дата и продолжительность:</p>
@@ -98,7 +98,7 @@
         </div>
       </section>
       <section class="other-activities">
-        <h2 class="p-event__caption-second">Возможно, вас заинтересует</h2>
+        <h2 class="g-caption-section">Возможно, вас заинтересует</h2>
         <div class="slider-wrapper">
           <div class="swiper-pagination"></div>
           <button class="swiper-button swiper-button--prev"><span></span></button>
@@ -252,15 +252,6 @@ export default {
   @import '~swiper/dist/css/swiper.css';
   @import "../assets/less/_importants";
   .p-event {
-    &__caption-second {
-      margin-bottom: 50px;
-      font-size: 4rem;
-      font-weight: 800;
-      color: #000;
-      text-transform: uppercase;
-      .lg-block({ font-size: 3rem; });
-      .sm-block({ font-size: 2.5rem; });
-    }
     .location {
       display: flex;
       align-items: center;

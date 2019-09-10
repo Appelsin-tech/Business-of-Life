@@ -3,10 +3,14 @@
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Управление мероприятиями</h1>
-      <a href="#" class="g-btn g-btn--icon-left g-btn--control">
-        <img svg-inline class="svg-icon" src="../assets/img/icon/plus-circle.svg" alt="">
-        <span>Добавить мероприятие</span>
-      </a>
+      <div class="btn-wrapper">
+        <a href="#" class="g-btn g-btn--icon-left">
+          <span>
+            <img svg-inline class="svg-icon" src="../assets/img/icon/plus-circle.svg" alt="">
+            Добавить мероприятие
+          </span>
+        </a>
+      </div>
       <div class="event">
         <div class="event__item" v-for="(event, index) in eventArr" :key="index">
           <div class="event__img" :style="background(event.img)">
@@ -20,32 +24,55 @@
             </a>
           </div>
           <a href="#" class="event__title">{{event.name}}</a>
-          <div class="event__control control">
-            <div class="control__ticked-sold">
-              <span class="control__text-ticket">Продано билетов:</span>
-              <span class="control__number-ticket">{{event.ticket}}</span>
+          <div class="event__ticket-sold">
+            <div class="event__ticket-sold-wrapper">
+              <span class="event__ticket-sold-text">Продано билетов:</span>
+              <span class="event__ticket-sold-number">{{event.ticket}}</span>
             </div>
-            <div class="control__link-wrapper">
-              <a href="#" class="control__link control-link control-link--refractor">
-                <img svg-inline class="control-link__icon" src="../assets/img/icon/pencil.svg" alt="">
-              </a>
-              <a href="#" class="control__link control-link control-link--delete">
-                <img svg-inline class="control-link__icon" src="../assets/img/icon/basket.svg" alt="">
-              </a>
-            </div>
+            <control-icon/>
           </div>
         </div>
       </div>
+      <h2 class="g-caption-section">Прошедшие мероприятия</h2>
+      <div class="event">
+        <div class="event__item event__item--past" v-for="(event, index) in eventArrSmal" :key="index" >
+          <div class="event__img" :style="background(event.img)">
+            <a href="#" class="img-link img-link--add" v-if="!event.img">
+              <img svg-inline class="img-link__icon" src="../assets/img/icon/camera.svg" alt="">
+              <span class="img-link__text">Загрузить фото</span>
+            </a>
+            <a href="#" class="img-link img-link--change" v-if="event.img">
+              <img svg-inline class="img-link__icon" src="../assets/img/icon/camera.svg" alt="">
+              <span class="img-link__text">Сменить фото</span>
+            </a>
+          </div>
+          <a href="#" class="event__title">{{event.name}}</a>
+          <div class="event__ticket-sold">
+            <div class="event__ticket-sold-wrapper">
+              <span class="event__ticket-sold-text">Продано билетов:</span>
+              <span class="event__ticket-sold-number">{{event.ticket}}</span>
+            </div>
+            <control-icon/>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="g-btn g-btn--icon-left g-btn--event-pasts">
+        <span>
+          <img svg-inline class="svg-icon" src="../assets/img/icon/eye.svg" alt="">
+          Смотреть все
+        </span>
+      </a>
     </div>
   </section>
 </template>
 
 <script>
 import BreadCrumbs from '../components/BreadCrumbs.vue'
+import ControlIcon from '../components/ControlIcon.vue'
 
 export default {
-  name: 'TheControlEvent',
-  components: { BreadCrumbs },
+  name: 'TheEventControl',
+  components: { BreadCrumbs, ControlIcon },
   data() {
     return {
       eventArr: [
@@ -91,6 +118,11 @@ export default {
         return { backgroundImage: 'none' }
       }
     }
+  },
+  computed: {
+    eventArrSmal () {
+      return this.eventArr.slice(0, 3)
+    }
   }
 }
 </script>
@@ -98,16 +130,14 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .p-control-event {
-    .g-btn--control {
+    .btn-wrapper {
       margin-left: 50px;
       margin-bottom: 60px;
       .sm-block({ margin-left: 0; margin-bottom: 40px;});
-      span {
-        margin-left: 25px;
-      }
     }
     .event {
       .row-flex();
+      margin-bottom: 80px;
       .lg-block({ justify-content: center;});
       &__item {
         .col();
@@ -124,7 +154,11 @@ export default {
         border-radius: 6px;
         .md-block({ padding-top: 3vw;});
         .sm-block({padding: 20px 20px; margin-bottom: 15px;});
-        .xs-block({ });
+        &--past {
+          box-shadow: none;
+          background: none;
+          border-radius: 0;
+        }
       }
       &__img {
         position: relative;
@@ -215,67 +249,36 @@ export default {
           text-decoration: none;
         }
       }
-      .control {
+      &__ticket-sold {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        &__text-ticket {
+        &-text {
           display: block;
           margin-bottom: 10px;
           font-weight: 400;
           color: @colorSecondFonts;
         }
-        &__number-ticket {
+        &-number {
           font-size: 2.6rem;
           font-weight: 800;
         }
-        &__link-wrapper {
-          display: flex;
-          align-items: center;
-          .control-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            border: 1px solid #d6d6d6;
-            transition: 0.3s;
-            .md-block({ width: 40px; height: 40px;});
-            &:first-child {
-              margin-right: 10px;
-            }
-            &--refractor {
-              &:hover {
-                border-color: @colorSuccess;
-                .control-link__icon {
-                  path {
-                    fill: @colorSuccess;
-                  }
-                }
-              }
-            }
-            &--delete {
-              &:hover {
-                border-color: @colorError;
-                .control-link__icon {
-                  path {
-                    fill: @colorError;
-                  }
-                }
-              }
-            }
-            &__icon {
-              width: 25px;
-              height: 25px;
-              .md-block({ width: 18px; height: 18px;});
-              path {
-                transition: 0.3s;
-                fill: #d6d6d6;
-              }
-            }
-          }
-        }
+      }
+    }
+    .past-events {
+      .row-flex();
+      .lg-block({ justify-content: center;});
+    }
+    .g-btn--event-pasts {
+      width: 100%;
+      justify-content: center;
+      span {
+        position: relative;
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 0;
       }
     }
   }

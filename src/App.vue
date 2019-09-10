@@ -6,28 +6,46 @@
       <button class="arrow prev-slide"></button>
       <ul id="mainMenu" class="main-nav-menu">
         <li>
-          <router-link to="/main" class="dots" active-class="active"/>
+          <router-link to="/main" class="dots" active-class="active"  v-tooltip.right="'Главная'"/>
         </li>
         <li>
-          <router-link to="/learning-stages" class="dots" active-class="active"/>
+          <router-link to="/learning-stages" class="dots" active-class="active"  v-tooltip.right="'Этапы обучения'"/>
         </li>
         <li>
-          <router-link to="/description" class="dots" active-class="active"/>
+          <router-link to="/description" class="dots" active-class="active"  v-tooltip.right="'Описание проекта'"/>
         </li>
         <li>
-          <router-link to="/our-coach" class="dots" active-class="active"/>
+          <router-link to="/our-coach" class="dots" active-class="active"  v-tooltip.right="'Наши тренеры'"/>
         </li>
         <li>
-          <router-link to="/news" class="dots" active-class="active"/>
+          <router-link to="/news" class="dots" active-class="active"  v-tooltip.right="'Новости'"/>
         </li>
         <li>
-          <router-link to="/photo-gallery" class="dots" active-class="active"/>
+          <router-link to="/photo-gallery" class="dots" active-class="active"  v-tooltip.right="'Фотогалерея'"/>
         </li>
         <li>
-          <router-link to="/auth" class="dots" active-class="active"/>
+          <router-link to="/auth" class="dots" active-class="active"  v-tooltip.right="'Авторизация'"/>
         </li>
         <li>
-          <router-link to="/calendar" class="dots" active-class="active"/>
+          <router-link to="/calendar" class="dots" active-class="active"  v-tooltip.right="'Календарь событий'"/>
+        </li>
+        <li>
+          <router-link to="/event/=event" class="dots" active-class="active" v-tooltip.right="'Событие'"/>
+        </li>
+        <li>
+          <router-link to="/event-all-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование всех событие'"/>
+        </li>
+        <li>
+          <router-link to="/event-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование события'"/>
+        </li>
+        <li>
+          <router-link to="/event-control" class="dots" active-class="active" v-tooltip.right="'Управление мероприятиями'"/>
+        </li>
+        <li>
+          <router-link to="/control-ticket" class="dots" active-class="active" v-tooltip.right="'Управление билетом'"/>
+        </li>
+        <li>
+          <router-link to="/statistic" class="dots" active-class="active" v-tooltip.right="'Статистика'"/>
         </li>
       </ul>
     </div>
@@ -40,6 +58,7 @@
     <modal-ticket-purchase/>
     <modal-access/>
     <modal-ticket-success/>
+    <modal-event-edit/>
   </div>
 </template>
 
@@ -49,6 +68,7 @@ import AppFooter from './components/AppFooter'
 import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
 import ModalAccess from './components/modal/ModalAccess.vue'
 import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
+import ModalEventEdit from './components/modal/ModalEventEdit.vue'
 
 export default {
   components: {
@@ -56,7 +76,8 @@ export default {
     AppFooter,
     ModalTicketPurchase,
     ModalAccess,
-    ModalTicketSuccess
+    ModalTicketSuccess,
+    ModalEventEdit
   },
   data () {
     return {

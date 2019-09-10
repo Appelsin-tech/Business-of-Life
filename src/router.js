@@ -57,9 +57,19 @@ export default new Router({
       component: () => import('./views/TheControlTicket')
     },
     {
-      path: '/control-event',
-      name: 'control-event',
-      component: () => import('./views/TheControlEvent')
+      path: '/event-control',
+      name: 'event-control',
+      component: () => import('./views/TheEventControl')
+    },
+    {
+      path: '/event-all-editing',
+      name: 'event-all-editing',
+      component: () => import('./views/TheEventAllEditing')
+    },
+    {
+      path: '/event-editing',
+      name: 'event-editing',
+      component: () => import('./views/TheEventEditing')
     },
     {
       path: '/event/:hash',

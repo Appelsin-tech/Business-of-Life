@@ -17,8 +17,10 @@
             <input type="password" class="input">
           </div>
           <button class="g-btn">
-            <span>Войти</span>
-            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+            <span>
+              Войти
+              <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+            </span>
           </button>
         </form>
       </div>
@@ -100,7 +102,7 @@ export default {
           .col();
           .size(3);
           .size-md(4);
-          .size-sm(6);
+          .size-sm(5);
           min-width: auto;
           height: 78px;
           padding-top: 0;
