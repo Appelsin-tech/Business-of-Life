@@ -1,13 +1,13 @@
 <template>
   <section class="p-hero p-default">
-    <div class="container page">
+    <div class="container page test-production">
       <div class="wrapper-content">
         <div class="content">
           <h1 class="visually-hidden">Business of Life</h1>
           <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
           <strong class="desc-strong g-caption">Эксклюзивная база знаний</strong>
-          <p class="desc-connect">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
-          <a class="g-btn" href="#">
+          <p class="desc-connect" v-if="false">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
+          <a class="g-btn" href="#" v-if="false">
             <span>
               Стать участником
               <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
@@ -39,6 +39,15 @@ export default {
       background: url("../assets/img/bg-hero.jpg") no-repeat center / cover;
       .lg-block({ background-position: center top;});
       .sm-block({opacity: 0.3})
+    }
+    .container {
+      &.test-production {
+        margin-bottom: 13vh;
+        .wrapper-content {
+          .sm-block({.decor-cube(250px, 250px);});
+          .xs-block({.decor-cube(@display: none;);})
+        }
+      }
     }
     .wrapper-content {
       position: relative;

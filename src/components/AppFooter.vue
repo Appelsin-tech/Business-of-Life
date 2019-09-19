@@ -2,7 +2,7 @@
   <footer class="s-footer" :class="{'border-class': borderClass}">
     <div class="container">
       <p class="copyright">© Все права принадлежат компании “Business of Life”</p>
-      <ul class="list-social">
+      <ul class="list-social" v-if="false">
         <li>
           <a href="#" class="item">
             <img class="vk" svg-inline src="../assets/img/icon/social/vk.svg" alt="">

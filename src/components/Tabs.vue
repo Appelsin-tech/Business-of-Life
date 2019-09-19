@@ -18,6 +18,9 @@ export default {
       activeIndex: 0
     }
   },
+  created() {
+    console.log(this.$style)
+  },
   methods: {
     getDataTimeInterval (i, item) {
       this.activeIndex = i

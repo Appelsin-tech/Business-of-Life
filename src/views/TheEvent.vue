@@ -1,32 +1,31 @@
 <template>
   <section class="p-event p-default p-default-inner">
-    <bread-crumbs/>
-    <div class="container">
-      <h1 class="g-caption g-caption-inner">бизнес-тренинг “старт с нуля”</h1>
+    <bread-crumbs v-if="false"/>
+    <div class="container" v-if="activeEvent">
+      <h1 class="g-caption g-caption-inner">{{activeEvent.event_title}}</h1>
       <div class="location">
-        <div class="location__desc">Город</div>
-        <v-select v-model="selectedCity" :multiple="false" :class="'v-select__event'" :searchable="false" selected="" label="cityName" :options="city"></v-select>
+        <p class="location__desc">Город</p>
+        <v-select @input="newActiveEvent" :value="activeEvent.city" :multiple="false" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
       </div>
       <section class="brief">
-        <div class="brief__img"></div>
+        <div class="brief__img" :style="{backgroundImage: `url(${responseData.img})`}"></div>
         <div class="brief__text info">
-          <p class="info__description">Мастер-класс, в котором объединены и проанализированы главные компетенции,
-            которые позволят быть эффективным и успешным в бизнесе, в работе и в жизни.</p>
+          <p class="info__description">{{activeEvent.description}}</p>
           <p class="info__item ">
             <strong class="info__item--bold">Дата:</strong>
-            <span class="info__item--normal">13 октября 2019</span>
+            <span class="info__item--normal">{{activeEvent.date}}</span>
           </p>
           <p class="info__item">
             <strong class="info__item--bold">Место:</strong>
-            <span class="info__item--normal">ул. Луначарскогог, 52, оф. 506 (ТЦ “Европа”)</span>
+            <span class="info__item--normal">{{activeEvent.address}}</span>
           </p>
           <p class="info__item">
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal">Александр Бухтияров, Роза Жаманкулова</span>
           </p>
           <div class="info__ticket ticket ticket--brief">
-            <p class="ticket__price">9000 <span class="currency">р</span></p>
-            <a href="#" class="g-btn g-btn--no-arrow" @click.prevent="$modal.show('modal-ticket-purchase')">
+            <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span></p>
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="$modal.show('modal-ticket-purchase')">
               <span>Купить билет</span>
             </a>
           </div>
@@ -35,43 +34,17 @@
       <section class="description">
         <h2 class="g-caption-section">Описание</h2>
         <div class="text-wrapper">
-          <p class="description__text">Мастер-класс, в котором объединены и проанализированы главные компетенции,
-            которые позволят быть эффективным и успешным в бизнесе, в работе и в жизни.
+          <p class="description__text">{{activeEvent.description}}
           </p>
-          <p class="description__text">Данная программа будет полезна всем, кто интересуется развитием своего бизнеса
-            или собственным профессиональным развитием.</p>
         </div>
-        <ul class="description__list">
-          <li class="description__item">
-            <p class="description__text">Компетенции будущего. Набор каких качеств и знаний, будет востребован в
-              ближайшие 20 лет.</p>
-          </li>
-          <li class="description__item">
-            <p class="description__text">Компетенции в бизнесе. Чему учить ваших детей и сотрудников.</p>
-          </li>
-          <li class="description__item">
-            <p class="description__text">Методы развития компетенций будущего.</p>
-          </li>
-          <li class="description__item">
-            <p class="description__text">Методы эффективного мышления и обработки информации.</p>
-          </li>
-          <li class="description__item">
-            <p class="description__text">Стратегическое мышление будущего</p>
-          </li>
-        </ul>
       </section>
       <section class="speakers">
         <h2 class="g-caption-section">Спикеры</h2>
         <div class="speakers__wrapper">
-          <div class="speakers__item item">
-            <div class="item__img"></div>
-            <p class="item__name">Александр Бухтияров</p>
-            <p class="item__post">Бизнес-тренер</p>
-          </div>
-          <div class="speakers__item item">
-            <div class="item__img"></div>
-            <p class="item__name">Александр Бухтияров</p>
-            <p class="item__post">Бизнес-тренер</p>
+          <div class="speakers__item item" v-for="speaker in activeEvent.speakers">
+            <div class="item__img" :style="{backgroundImage: `url(${speaker.img})`}"></div>
+            <p class="item__name">{{speaker.name}}</p>
+            <p class="item__post">{{speaker.role}}</p>
           </div>
         </div>
       </section>
@@ -79,25 +52,20 @@
         <h2 class="g-caption-section">Организационная информация</h2>
         <div class="org-info__wrapper">
           <div class="org-info__item item">
-            <p class="item__name">Дата и продолжительность:</p>
-            <p class="item__info">10 сентября, с 10:00 до 18:00
-              (предусмотрены 2 кофе-паузы и перерыв на обед)</p>
+            <p class="item__name">Дата:</p>
+            <p class="item__info">{{activeEvent.date}}</p>
           </div>
           <div class="org-info__item item">
             <p class="item__name">Место проведения:</p>
-            <p class="item__info">ул. Луначарскогог, 52, оф. 506 (ТЦ “Европа”)</p>
-          </div>
-          <div class="org-info__item item">
-            <p class="item__name">Целевая аудитория:</p>
-            <p class="item__info">все заинтересованные в развитии личности и бизнеса</p>
+            <p class="item__info">{{activeEvent.address}}</p>
           </div>
           <div class="org-info__item item">
             <p class="item__name">Контактная информация:</p>
-            <p class="item__info">+7 861 204-08-38 (круглосуточно)</p>
+            <a href="mailto: info@businessof.life" class="item__info item__info--link">info@businessof.life</a>
           </div>
         </div>
       </section>
-      <section class="other-activities">
+      <section class="other-activities" v-if="false">
         <h2 class="g-caption-section">Возможно, вас заинтересует</h2>
         <div class="slider-wrapper">
           <div class="swiper-pagination"></div>
@@ -119,7 +87,7 @@
                 </div>
                 <div class="ticket ticket--slide-event">
                   <p class="ticket__price">9000 <span class="currency">р</span></p>
-                  <a href="#" class="g-btn g-btn--no-arrow">
+                  <a href="#" class="g-btn g-btn--no-icon">
                     <span>Купить билет</span>
                   </a>
                 </div>
@@ -141,7 +109,7 @@
                 </div>
                 <div class="ticket--slide-event ticket">
                   <p class="ticket__price">9000 <span class="currency">р</span></p>
-                  <a href="#" class="g-btn g-btn--no-arrow">
+                  <a href="#" class="g-btn g-btn--no-icon">
                     <span>Купить билет</span>
                   </a>
                 </div>
@@ -163,7 +131,7 @@
                 </div>
                 <div class="ticket--slide-event ticket">
                   <p class="ticket__price">9000 <span class="currency">р</span></p>
-                  <a href="#" class="g-btn g-btn--no-arrow">
+                  <a href="#" class="g-btn g-btn--no-icon">
                     <span>Купить билет</span>
                   </a>
                 </div>
@@ -180,6 +148,7 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import BreadCrumbs from '../components/BreadCrumbs.vue'
+import API from '../api/index'
 
 export default {
   name: 'TheEvent',
@@ -190,24 +159,10 @@ export default {
   },
   data() {
     return {
-      selectedCity: {
-        cityName: 'Москва',
-        cityVal: 'Moscow'
-      },
-      city: [
-        {
-          cityName: 'Санкт-Петербург',
-          cityVal: 'SpB'
-        },
-        {
-          cityName: 'Омск',
-          cityVal: 'Omsk'
-        },
-        {
-          cityName: 'Москва',
-          cityVal: 'Moscow'
-        }
-      ],
+      val: null,
+      responseData: null,
+      activeEvent: false,
+      city: [],
       swiperOption: {
         slidesPerView: 3,
         speed: 300,
@@ -240,10 +195,47 @@ export default {
       }
     }
   },
+  methods: {
+    activeEventFilter(res) {
+      res.forEach((item) => {
+        if (item.url === this.$route.params.hash) {
+          this.activeEvent = item
+        }
+      })
+    },
+    activeCity() {
+      this.responseData.relations.forEach((item) => {
+        this.city.push({name: item.city, val: item.url})
+      })
+    },
+    newActiveEvent(value) {
+      this.val = value.val
+      let a = value.val + ''
+      this.$router.push({path: `/event/${a}`})
+    }
+  },
+  watch: {
+    val(newVal, oldVal) {
+      this.activeEventFilter(this.responseData.relations)
+    }
+  },
   computed: {
     swiper() {
       return this.$refs.mySwiperEvents.swiper
+    },
+    selectedCity() {
+      return {name: this.activeEvent.city, val: this.activeEvent.url}
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    next()
+  },
+  created() {
+    API.events.info({ url: this.$route.params.hash }).then(response => {
+      this.responseData = response.data.data
+      this.activeCity()
+      this.activeEventFilter(response.data.data.relations)
+    })
   }
 }
 </script>
@@ -261,6 +253,7 @@ export default {
       .xs-block({ margin-bottom: 20px; });
       &__desc {
         margin-right: 20px;
+        margin-bottom: 10px;
         font-size: 2.4rem;
         font-weight: 800;
         color: @colorBlue;
@@ -278,13 +271,16 @@ export default {
       align-items: center;
       .xs-block({ flex-direction: column; align-items: flex-start; });
       &__price {
+        display: flex;
+        align-items: baseline;
         flex-shrink: 0;
-        margin-right: 17%;
+        margin-right: 45px;
         font-size: 5rem;
         font-weight: 800;
         color: @colorBlue;
         .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
         .currency {
+          margin-left: 10px;
           font-size: 2rem;
           color: #000;
           .xs-block({ font-size: 1.6rem; })
@@ -301,14 +297,21 @@ export default {
         .ticket__currency {
           font-size: 2rem;
         }
-        .g-btn--no-arrow {
+        .g-btn--no-icon {
           flex-basis: 240px;
           .to(520px, { flex-basis: auto; });
         }
       }
       &--brief {
-        .g-btn--no-arrow {
-          flex-basis: 275px;
+        .sm-block({ flex-direction: column; align-items: flex-start; });
+        .ticket__price {
+          .sm-block({ margin-bottom: 20px; });
+        }
+        .g-btn--no-icon {
+          flex-shrink: 0;
+          width: 275px;
+          .lg-block({ width: 240px; });
+          .sm-block({ width: 200px; });
           .xs-block({ flex-basis: auto });
         }
       }
@@ -318,12 +321,15 @@ export default {
       margin-bottom: 100px;
       .sm-block({ margin-bottom: 80px; });
       &__img {
-        flex-shrink: 0;
-        width: 550px;
+        flex-shrink: 1;
+        max-width: 550px;
+        width: 100%;
         height: 550px;
         min-height: 200px;
         margin-right: 10%;
-        background: url("../assets/img/event.png") no-repeat left top / contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
         .lg-block({ width: 300px; height: 300px; });
         .md-block({ display: none; });
       }
@@ -331,14 +337,30 @@ export default {
         display: flex;
         flex-direction: column;
         padding-top: 4%;
-        .md-block({ padding-top: 0; })
+        max-width: min-content;
+        .md-block({ padding-top: 0; max-width: 80%;});
+        .sm-block({ max-width: 100%; });
       }
       .info {
         &__description {
+          position: relative;
           margin-bottom: 75px;
           font-size: 1.8rem;
+          max-height: 67px;
+          overflow: hidden;
           .md-block({ margin-bottom: 50px; });
-          .xs-block({ margin-bottom: 30px; font-size: 1.6rem; });
+          .sm-block({ max-height: 60px;});
+          .xs-block({ margin-bottom: 30px; font-size: 1.6rem; max-height: 50px;});
+          &::after {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(255,255,255,0.7) 50%, #fff 100%);
+          }
         }
         &__item {
           display: flex;
@@ -366,6 +388,7 @@ export default {
         .sm-block({ margin-bottom: 30px; });
         .description__text {
           margin-bottom: 20px;
+          line-height: 1.4;
           .sm-block({ margin-bottom: 15px; });
           &:last-of-type {
             margin-bottom: 0px;
@@ -423,7 +446,9 @@ export default {
           width: 160px;
           height: 160px;
           border-radius: 50%;
-          background: url("../assets/img/coach-1.jpg") no-repeat center / cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
         }
         &__name {
           margin-bottom: 15px;
@@ -463,6 +488,16 @@ export default {
           font-size: 2rem;
           font-weight: 800;
           .sm-block({ margin-bottom: 15px; });
+        }
+        &__info {
+          &--link {
+            color: @colorBlue;
+            transition: 0.3s;
+            border-bottom: 1px solid @colorBlue;
+            &:hover {
+              border-bottom-color: transparent;
+            }
+          }
         }
       }
     }

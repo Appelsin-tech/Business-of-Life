@@ -10,7 +10,7 @@
             Добавить событие
           </span>
         </a>
-        <a href="#" class="g-btn g-btn--no-arrow g-btn--white g-btn--border">
+        <a href="#" class="g-btn g-btn--no-icon g-btn--white g-btn--border">
           <span>Опубликовать все</span>
         </a>
       </div>

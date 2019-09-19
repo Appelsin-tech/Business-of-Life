@@ -31,10 +31,10 @@
             </div>
           </div>
           <div class="btn-wrapper">
-            <button type="submit" class="g-btn g-btn--no-arrow g-btn--white g-btn--border">
+            <button type="submit" class="g-btn g-btn--no-icon g-btn--white g-btn--border">
               <span>Сохранить</span>
             </button>
-            <button type="submit" class="g-btn g-btn--no-arrow" :disabled="$v.$invalid">
+            <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
               <span>Опубликовать</span>
             </button>
           </div>

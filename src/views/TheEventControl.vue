@@ -112,7 +112,6 @@ export default {
     },
     background(img) {
       if (img !== undefined) {
-        console.log(this.getImgUrl(img))
         return { backgroundImage: `url(${this.getImgUrl(img)}` }
       } else {
         return { backgroundImage: 'none' }

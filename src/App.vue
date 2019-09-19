@@ -4,9 +4,9 @@
     <div id="nav-menu" class="navigation-wrapper">
       <button class="arrow next-slide" ></button>
       <button class="arrow prev-slide"></button>
-      <ul id="mainMenu" class="main-nav-menu">
+      <ul id="mainMenu" class="main-nav-menu" v-if="false">
         <li>
-          <router-link to="/main" class="dots" active-class="active"  v-tooltip.right="'Главная'"/>
+          <router-link to="/" class="dots" active-class="active"  v-tooltip.right="'Главная'"/>
         </li>
         <li>
           <router-link to="/learning-stages" class="dots" active-class="active"  v-tooltip.right="'Этапы обучения'"/>
@@ -84,11 +84,6 @@ export default {
       showMenu: true
     }
   },
-  computed: {
-    borderClass () {
-      return this.$route.name === 'event' || this.$route.name === 'statistic'
-    }
-  }
 }
 </script>
 <style lang="less">

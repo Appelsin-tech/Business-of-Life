@@ -9,14 +9,22 @@
         </div>
       </div>
       <div class="row-form">
-        <form @submit.prevent="" class="form">
+        <form @submit.prevent="onSubmit" class="form">
           <div class="item-form">
-            <input type="text" class="input">
+            <input type="text" class="item-form__input" v-model="form.login" :class="{error: $v.form.login.$error}" @blur="$v.form.login.$touch()">
+            <div class="input-valid-error" v-if="$v.form.login.$error">
+              <template v-if="!$v.form.login.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.login.minLength">Значение не должно быть менее 3-х символов</template>
+            </div>
           </div>
           <div class="item-form">
-            <input type="password" class="input">
+            <input type="password" class="item-form__input" v-model="form.password" :class="{error: $v.form.password.$error}" @blur="$v.form.password.$touch()">
+            <div class="input-valid-error" v-if="$v.form.password.$error">
+              <template v-if="!$v.form.password.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.password.minLength">Значение должно быть не менее 6 символов</template>
+            </div>
           </div>
-          <button class="g-btn">
+          <button class="g-btn"  :disabled="$v.$invalid">
             <span>
               Войти
               <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
@@ -30,8 +38,34 @@
 </template>
 
 <script>
+import { minLength, required } from 'vuelidate/lib/validators'
 export default {
-  name: 'TheAuth'
+  name: 'TheAuth',
+  data() {
+    return {
+      form: {
+        login: '',
+        password: ''
+      }
+    }
+  },
+  validations: {
+    form: {
+      login: {
+        required,
+        minLength: minLength(3)
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+      }
+    }
+  },
+  methods: {
+    onSubmit() {
+      console.log('as')
+    },
+  }
 }
 </script>
 
@@ -76,26 +110,35 @@ export default {
       .md-block({ padding-left: 0;});
       .form {
         .row-flex();
-        align-items: center;
-        .md-block({ flex-direction: column;});
+        align-items: flex-start;
+        .md-block({ flex-direction: column; align-items: center;});
         .item-form {
           .col();
           .size(4.5);
           .size-md(6);
           .size-sm(8);
           .size-xs(11);
-          height: 78px;
           box-sizing: border-box;
-          .md-block({margin-bottom: 30px; height: 60px;});
+          .md-block({margin-bottom: 30px; });
           .xs-block({ margin-bottom: 20px; });
-          .input {
-            padding-left: 30px;
+          &__input {
+            padding-left: 25px;
             width: 100%;
-            height: 100%;
-            border: none;
+            height: 78px;
             background: rgba(214,214,214, 0.3);
             box-sizing: border-box;
-            .sm-block({ padding-left: 15px;});
+            transition: 0.3s;
+            border: 1px solid transparent;
+            .md-block({ padding-left: 18px; height: 65px;});
+            .xs-block({ padding-left: 10px; height: 40px;});
+            &:hover,
+            &:focus {
+              background: #fff;
+              border-color: #000;
+            }
+            &.error {
+              border-color: @colorError;
+            }
           }
         }
         .g-btn {

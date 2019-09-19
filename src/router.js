@@ -7,7 +7,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/main',
+      path: '/',
       name: 'main',
       component: () => import('./views/TheHero')
     },
@@ -78,7 +78,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/main'
+      redirect: '/'
     }
   ]
 })

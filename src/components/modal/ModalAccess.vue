@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="g-btn g-btn--no-arrow" :disabled="$v.$invalid">
+          <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
             <span>Войти</span>
           </button>
         </form>

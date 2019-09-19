@@ -9,7 +9,7 @@
             <span class="info-number__small-text">Номер вашего билета</span>
             <strong class="info-number__number">T-798jkhk2343</strong>
           </div>
-          <a href="#" class="g-btn g-btn--no-arrow">
+          <a href="#" class="g-btn g-btn--no-icon">
             <span>Использовать билет</span>
           </a>
         </div>

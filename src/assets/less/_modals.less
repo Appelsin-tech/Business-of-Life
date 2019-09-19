@@ -82,6 +82,27 @@
       font-size: 1.8rem;
       .ss-block({ margin-bottom: 12px;});
     }
+    &__text {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      padding-left: 25px;
+      color: @colorSecondFonts;
+      .lg-block({ padding-left: 18px;});
+      .xs-block({ padding-left: 10px;});
+      &--desc {
+        margin-right: 15px;
+      }
+      &--var {
+        display: flex;
+        align-items: center;
+      }
+      .svg {
+        margin-left: 15px;
+        width: 60px;
+        .sm-block({ width: 45px;})
+      }
+    }
     &__input {
       padding-left: 25px;
       padding-right: 5px;
@@ -92,18 +113,16 @@
       box-sizing: border-box;
       .lg-block({ padding-left: 18px; height: 65px;});
       .xs-block({ padding-left: 10px; height: 40px;});
+      &::placeholder {
+        color: @colorSecondFonts;
+      }
       &.error {
         border: 1px solid @colorMainRed;
       }
     }
-    &__error {
-      margin-top: 10px;
-      color: @colorMainRed;
-      .sm-block({ margin-top: 6px; font-size: 1.2rem;});
-    }
   }
   &__ticket-purchase {
-    .g-btn--no-arrow {
+    .g-btn--no-icon {
       span:first-child {
         margin-right: 35px;
         .sm-block({ margin-right: 25px;});
@@ -111,7 +130,7 @@
     }
   }
   &__access {
-    .g-btn--no-arrow {
+    .g-btn--no-icon {
       min-width: 220px;
     }
   }

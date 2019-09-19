@@ -8,56 +8,57 @@
         <div class="edit-grid">
           <div class="edit-grid__item item item--col-8">
             <label class="item__label" for="form-title">Название</label>
-            <input class="item__input" type="text" id="form-title">
+            <input class="item__input" type="text" id="form-title" v-model="form.title">
           </div>
           <div class="edit-grid__item item item--col-8 textarea">
             <label class="item__label" for="form-description">Описание</label>
             <textarea-resize>
                 <textarea class="item__input item__input--textarea"
-                          id="form-description" rows="1" ref="mi"></textarea>
+                          id="form-description" rows="1" v-model="form.description"></textarea>
             </textarea-resize>
           </div>
           <div class="edit-grid__item item item--col-4 photo">
             <span class="item__label">Фото</span>
             <div class="photo__wrapper">
-              <a href="#" class="photo__link photo__link--add">
+              <input type="file" class="visually-hidden" id="form__file">
+              <label class="photo__link photo__link--add" for="form__file">
                 <img svg-inline class="photo__icon" src="../assets/img/icon/camera.svg" alt="">
                 <span class="photo__text">Загрузить фото</span>
-              </a>
+              </label>
             </div>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form">Страна</label>
-            <v-select :multiple="false" :class="['v-select__modal']" :searchable="false" label="qualName" :options="qualification"></v-select>
+            <span class="item__label">Страна</span>
+            <v-select :multiple="false" :class="['v-select__modal']" :searchable="false" label="label" :options="selectCountry" v-model="form.country"></v-select>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form">Город</label>
-            <v-select :multiple="false" :class="['v-select__modal']" :searchable="false" label="qualName" :options="qualification"></v-select>
+            <span class="item__label">Город</span>
+            <v-select :multiple="false" :class="['v-select__modal']" :searchable="false" label="label" :options="selectCity" v-model="form.city"></v-select>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form">Адрес</label>
-            <input class="item__input" type="text" id="form">
+            <label class="item__label" for="form__address">Адрес</label>
+            <input class="item__input" type="text" id="form__address" v-model="form.address">
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form">Дата</label>
-            <input class="item__input" type="text" id="form">
+            <label class="item__label" for="form__date">Дата</label>
+            <input class="item__input" type="text" id="form__date" v-mask="'##.##.####'" v-model="form.date">
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form">Время</label>
-            <input class="item__input" type="text" id="form">
+            <label class="item__label" for="form__time">Время</label>
+            <input class="item__input" type="text" id="form__time" v-mask="'##:##'" v-model="form.time">
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form">Стоимость билета ($)</label>
-            <input class="item__input" type="text" id="form">
+            <label class="item__label" for="form__price">Стоимость билета ($)</label>
+            <currency-input class="item__input" id="form__price" currency="USD" v-model="form.price"/>
           </div>
         </div>
         <div class="btn-wrapper">
-          <a href="#" class="g-btn g-btn--no-arrow g-btn--white g-btn--border">
+          <button class="g-btn g-btn--no-icon g-btn--white g-btn--border">
             <span>Сохранить</span>
-          </a>
-          <a href="#" class="g-btn g-btn--no-arrow">
+          </button>
+          <button class="g-btn g-btn--no-icon">
             <span>Опубликовать</span>
-          </a>
+          </button>
         </div>
       </form>
     </div>
@@ -67,29 +68,55 @@
 <script>
 import BreadCrumbs from '../components/BreadCrumbs.vue'
 import TextareaResize from '../components/textareaResize'
+import { CurrencyInput } from 'vue-currency-input'
 
 export default {
   name: 'TheEventEditing',
-  components: { BreadCrumbs, TextareaResize },
+  components: { BreadCrumbs, TextareaResize, CurrencyInput },
   data() {
     return {
       resize: true,
-      errorSelect: {
-        selectedQualification: false,
-        selectedPayment: false
+      form: {
+        title: '',
+        description: '',
+        photo: '',
+        country: '',
+        city: '',
+        address: '',
+        date: '',
+        time: '',
+        price: 0
       },
-      qualification: [
+      errorSelect: {
+        selectedCountry: false,
+        selectedCity: false
+      },
+      selectCity: [
         {
-          qualVal: 'Москва',
-          qualName: 'Москва'
+          val: 'Москва',
+          label: 'Москва'
         },
         {
-          qualVal: 'Москва',
-          qualName: 'Rostov'
+          val: 'Ростов',
+          label: 'Ростов'
         },
         {
-          qualVal: 'Москва',
-          qualName: 'Kazan'
+          val: 'Иваново',
+          label: 'Иваново'
+        }
+      ],
+      selectCountry: [
+        {
+          val: 'Россия',
+          label: 'Россия'
+        },
+        {
+          val: 'Казахстан',
+          label: 'Казахстан'
+        },
+        {
+          val: 'Украина',
+          label: 'Украина'
         }
       ],
     }
@@ -171,6 +198,7 @@ export default {
         align-items: center;
         justify-content: center;
         transition: 0.3s;
+        cursor: pointer;
         &--add {
           z-index: 1;
           border: 1px solid #d7d7d7;

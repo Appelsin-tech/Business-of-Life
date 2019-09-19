@@ -1,9 +1,9 @@
 <template>
-  <header class="s-header" :class="[{active : showMenu},{'border-class': borderClass}]">
+  <header class="s-header" :class="{active : showMenu, 'border-class': borderClass}">
     <div class="container">
       <div class="wrapper-relative">
         <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
-        <div class="icon-wrapper icon-wrapper--desktop">
+        <div class="icon-wrapper icon-wrapper--desktop" v-if="false">
           <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
@@ -13,13 +13,13 @@
             <span>Информация</span>
           </a>
         </div>
-        <button class="burger" @click="showMenu = !showMenu">
+        <button class="burger" @click="showMenu = !showMenu" v-if="false">
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
-      <div class="wrapper-menu-list">
+      <div class="wrapper-menu-list" v-if="false">
         <ul class="menu-list">
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('main')">Главная</a>
