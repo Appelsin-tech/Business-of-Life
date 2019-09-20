@@ -1,10 +1,12 @@
 import { HTTP } from '../http'
+import response from '../response'
 
 export default {
   auth: (data) => new Promise((resolve, reject) => {
     HTTP.post('access/auth', data).then(response => {
       resolve(response.data)
-    }).catch(error => {
+    }).catch((error, res) => {
+      response.error(error.response.data)
       reject(error)
     })
   }),

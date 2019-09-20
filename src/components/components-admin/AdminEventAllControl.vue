@@ -6,30 +6,37 @@
       <div class="btn-wrapper">
         <a href="#" class="g-btn g-btn--icon-left">
           <span>
-            <img svg-inline class="svg-icon" src="../assets/img/icon/plus-circle.svg" alt="">
+            <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
             Добавить мероприятие
           </span>
         </a>
       </div>
       <div class="event">
-        <div class="event__item" v-for="(event, index) in eventArr" :key="index">
+        <div class="event__item" v-for="(event, index) in eventArr" :key="index" >
           <div class="event__img" :style="background(event.img)">
             <a href="#" class="img-link img-link--add" v-if="!event.img">
-              <img svg-inline class="img-link__icon" src="../assets/img/icon/camera.svg" alt="">
+              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
               <span class="img-link__text">Загрузить фото</span>
             </a>
             <a href="#" class="img-link img-link--change" v-if="event.img">
-              <img svg-inline class="img-link__icon" src="../assets/img/icon/camera.svg" alt="">
+              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
               <span class="img-link__text">Сменить фото</span>
             </a>
           </div>
-          <a href="#" class="event__title">{{event.name}}</a>
+          <a href="#" class="event__title" @click.prevent="$router.push({path: `/admin/event-all-editing/${event.ticket}`})">{{event.name}}</a>
           <div class="event__ticket-sold">
             <div class="event__ticket-sold-wrapper">
               <span class="event__ticket-sold-text">Продано билетов:</span>
               <span class="event__ticket-sold-number">{{event.ticket}}</span>
             </div>
-            <control-icon/>
+            <div class="control">
+              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">
+                <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+              </button>
+              <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
+                <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -38,11 +45,11 @@
         <div class="event__item event__item--past" v-for="(event, index) in eventArrSmal" :key="index" >
           <div class="event__img" :style="background(event.img)">
             <a href="#" class="img-link img-link--add" v-if="!event.img">
-              <img svg-inline class="img-link__icon" src="../assets/img/icon/camera.svg" alt="">
+              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
               <span class="img-link__text">Загрузить фото</span>
             </a>
             <a href="#" class="img-link img-link--change" v-if="event.img">
-              <img svg-inline class="img-link__icon" src="../assets/img/icon/camera.svg" alt="">
+              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
               <span class="img-link__text">Сменить фото</span>
             </a>
           </div>
@@ -52,13 +59,20 @@
               <span class="event__ticket-sold-text">Продано билетов:</span>
               <span class="event__ticket-sold-number">{{event.ticket}}</span>
             </div>
-            <control-icon/>
+            <div class="control">
+              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">
+                <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+              </button>
+              <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
+                <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <a href="#" class="g-btn g-btn--icon-left g-btn--event-pasts">
         <span>
-          <img svg-inline class="svg-icon" src="../assets/img/icon/eye.svg" alt="">
+          <img svg-inline class="svg-icon" src="../../assets/img/icon/eye.svg" alt="">
           Смотреть все
         </span>
       </a>
@@ -67,12 +81,11 @@
 </template>
 
 <script>
-import BreadCrumbs from '../components/BreadCrumbs.vue'
-import ControlIcon from '../components/ControlIcon.vue'
+import BreadCrumbs from '../BreadCrumbs.vue'
 
 export default {
-  name: 'TheEventControl',
-  components: { BreadCrumbs, ControlIcon },
+  name: 'AdminEventControl',
+  components: { BreadCrumbs},
   data() {
     return {
       eventArr: [
@@ -107,7 +120,7 @@ export default {
   },
   methods: {
     getImgUrl(src) {
-      const image = require(`../assets/img/${src}.png`)
+      const image = require(`../../assets/img/${src}.png`)
       return image
     },
     background(img) {
@@ -127,7 +140,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "../../assets/less/_importants";
   .p-control-event {
     .btn-wrapper {
       margin-left: 50px;
@@ -157,6 +170,77 @@ export default {
           box-shadow: none;
           background: none;
           border-radius: 0;
+        }
+      }
+      .control {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .control-link {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          border: 1px solid #d6d6d6;
+          transition: 0.3s;
+          cursor: pointer;
+          .md-block({ width: 40px; height: 40px; });
+          &:first-child {
+            margin-right: 10px;
+          }
+          &--refractor {
+            &:hover {
+              border-color: @colorSuccess;
+              .control-link__icon {
+                path {
+                  fill: @colorSuccess;
+                }
+              }
+            }
+          }
+          &--delete {
+            &:hover {
+              border-color: @colorError;
+              .control-link__icon {
+                path {
+                  fill: @colorError;
+                }
+              }
+            }
+          }
+          &__icon {
+            width: 25px;
+            height: 25px;
+            .md-block({ width: 18px; height: 18px; });
+            path {
+              transition: 0.3s;
+              fill: #d6d6d6;
+            }
+          }
+        }
+      }
+      .tooltip {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        background: #fff;
+        border-radius: 3px;
+        &__text {
+          &::after {
+            content: " ";
+            position: absolute;
+            bottom: 100%;  /* At the top of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent black transparent;
+          }
         }
       }
       &__img {

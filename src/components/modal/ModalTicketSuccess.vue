@@ -19,43 +19,17 @@
             <strong class="success__text-bold">Ваша оплата успешно прошла</strong>
           </div>
         </div>
-        <div class="ticket">
-          <div class="ticket__number">
-            <span class="ticket__number-text--light">Номер вашего билета</span>
-            <strong class="ticket__number-text--bold">T-798jkhk2343</strong>
-          </div>
-          <div class="ticket__qr-code" :style="{backgroundImage: `url(${getImgUrl('qr.png')})`}"></div>
-        </div>
-        <div class="btn-wrapper">
-          <a href="#" class="g-btn g-btn--icon-left" download="#">
-            <span>
-              <img svg-inline class="svg-icon svg-icon--download" src="../../assets/img/icon/download.svg" alt="">
-              Скачать билет
-            </span>
-          </a>
-          <a href="#" class="btn">
-            <img svg-inline class="btn__icon" src="../../assets/img/icon/telegram.svg" alt="">
-            <span class="btn__text">Отправить билет на почту</span>
-          </a>
-          <a href="#" class="btn">
-            <img svg-inline class="btn__icon" src="../../assets/img/icon/printer.svg" alt="">
-            <span class="btn__text">Распечатать билет</span>
-          </a>
-        </div>
+        <ticket-info :ticket-number="'T-798jkhk2343'" :qr-code="'https://i.pravatar.cc/512'"/>
       </div>
     </div>
   </modal>
 </template>
 
 <script>
+import TicketInfo from '../TicketInfo'
 export default {
   name: 'ModalTicketSuccess',
-  methods: {
-    getImgUrl(src) {
-      const image = require(`../../assets/img/${src}`)
-      return image
-    }
-  }
+  components: {TicketInfo}
 }
 </script>
 

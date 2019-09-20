@@ -47,6 +47,9 @@ export default {
         case 'event-editing':
           return true
           break
+        case 'my-ticket':
+          return true
+          break
         default:
           return false
       }

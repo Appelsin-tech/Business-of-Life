@@ -6,7 +6,7 @@
       <div class="btn-wrapper">
         <a href="#" class="g-btn g-btn--icon-left">
           <span>
-            <img svg-inline class="svg-icon" src="../assets/img/icon/plus-circle.svg" alt="">
+            <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
             Добавить событие
           </span>
         </a>
@@ -17,17 +17,24 @@
       <div class="event-wrapper">
         <div class="event" v-for="(event, i) in eventArr" :key="i">
           <div class="status" :class="event.status" v-tooltip.left="event.statusDesc">
-            <img svg-inline class="status__icon"  src="../assets/img/icon/check.svg" alt="">
+            <img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt="">
           </div>
           <div class="event__info-wrapper">
             <div class="event__info">
               <a href="#" class="event__title">{{event.name}}</a>
               <p class="event__location location">
-                <img svg-inline class="location__icon" src="../assets/img/icon/location.svg" alt="">
+                <img svg-inline class="location__icon" src="../../assets/img/icon/location.svg" alt="">
                 <span class="location__text">{{event.location}}</span>
               </p>
             </div>
-            <control-icon/>
+            <div class="control">
+              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: '/admin/event-editing'})">
+                <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+              </button>
+              <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
+                <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -36,12 +43,11 @@
 </template>
 
 <script>
-import BreadCrumbs from '../components/BreadCrumbs.vue'
-import ControlIcon from '../components/ControlIcon.vue'
+import BreadCrumbs from '../BreadCrumbs.vue'
 
 export default {
-  name: 'TheEvenAllEditing',
-  components: { BreadCrumbs, ControlIcon },
+  name: 'AdminEvenAllEditing',
+  components: { BreadCrumbs },
   data() {
     return {
       eventArr: [
@@ -70,7 +76,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "../../assets/less/_importants";
 
   .btn-wrapper {
     display: flex;
@@ -84,6 +90,77 @@ export default {
       &:first-child {
         margin-right: 20px;
         .ss-block({ margin-right: 0; margin-bottom: 10px;});
+      }
+    }
+  }
+  .control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .control-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid #d6d6d6;
+      transition: 0.3s;
+      cursor: pointer;
+      .md-block({ width: 40px; height: 40px; });
+      &:first-child {
+        margin-right: 10px;
+      }
+      &--refractor {
+        &:hover {
+          border-color: @colorSuccess;
+          .control-link__icon {
+            path {
+              fill: @colorSuccess;
+            }
+          }
+        }
+      }
+      &--delete {
+        &:hover {
+          border-color: @colorError;
+          .control-link__icon {
+            path {
+              fill: @colorError;
+            }
+          }
+        }
+      }
+      &__icon {
+        width: 25px;
+        height: 25px;
+        .md-block({ width: 18px; height: 18px; });
+        path {
+          transition: 0.3s;
+          fill: #d6d6d6;
+        }
+      }
+    }
+  }
+  .tooltip {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 3px;
+    &__text {
+      &::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%;  /* At the top of the tooltip */
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent black transparent;
       }
     }
   }

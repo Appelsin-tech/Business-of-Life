@@ -169,68 +169,8 @@
         .xs-block({ font-size: 1.6rem;})
       }
     }
-    .ticket {
-      display: flex;
-      margin-bottom: 70px;
-      max-width: 900px;
-      .sm-block({ flex-direction: column; align-items: center; margin-bottom: 40px;});
-      &__number {
-        padding: 40px;
-        margin-right: 40px;
-        flex-grow: 1;
-        background: #fff3f3;
-        .sm-block({ margin-right: 0; margin-bottom: 20px; padding: 25px; width: 100%; box-sizing: border-box;});
-        &-text--light {
-          display: block;
-          margin-bottom: 10px;
-        }
-        &-text--bold {
-          font-size: 4rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          .sm-block({ font-size: 3rem;})
-        }
-      }
-      &__qr-code {
-        width: 280px;
-        height: 280px;
-        flex-shrink: 0;
-        background-size: contain;
-        background-repeat: no-repeat;
-        .lg-block({ width: 240px; height: 240px;});
-        .sm-block({ width: 200px; height: 200px;})
-      }
-    }
-    .btn-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 900px;
-      .sm-block({ flex-direction: column;});
-      .btn {
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        color: #000;
-        .sm-block({ padding-left: 0; padding-top: 20px;});
-        &:hover,
-        &:focus {
-          color: #000;
-        }
-        &__icon {
-          width: 25px;
-          height: 25px;
-          margin-right: 10px;
-          path {
-            fill: @colorMainRed;
-          }
-        }
-        &__text {
-          font-weight: 800;
-          text-transform: uppercase;
-        }
-      }
-    }
+
+
   }
   &__event-edit {
     .modal__container {

@@ -6,6 +6,7 @@ import VueTheMask from 'vue-the-mask'
 import Vuelidate from 'vuelidate'
 import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
+import store from './store/index'
 
 Vue.config.productionTip = false
 Vue.use(VueModal, {dialog: true, dynamic: true, injectModalsContainer: true})
@@ -28,5 +29,6 @@ vSelect.props.components.default = () => ({
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

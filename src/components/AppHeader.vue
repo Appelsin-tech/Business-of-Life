@@ -95,27 +95,10 @@ export default {
   },
   computed: {
     borderClass () {
-      switch (this.$route.name) {
-        case 'control-ticket':
-          return true
-          break
-        case 'statistic':
-          return true
-          break
-        case 'event':
-          return true
-          break
-        case 'event-control':
-          return true
-          break
-        case 'event-all-editing':
-          return true
-          break
-        case 'event-editing':
-          return true
-          break
-        default:
-          return false
+      if (this.$route.meta.auth) {
+        return true
+      } else {
+        return false
       }
     }
   }

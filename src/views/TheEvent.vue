@@ -232,9 +232,9 @@ export default {
   },
   created() {
     API.events.info({ url: this.$route.params.hash }).then(response => {
-      this.responseData = response.data.data
+      this.responseData = response.data
       this.activeCity()
-      this.activeEventFilter(response.data.data.relations)
+      this.activeEventFilter(response.data.relations)
     })
   }
 }

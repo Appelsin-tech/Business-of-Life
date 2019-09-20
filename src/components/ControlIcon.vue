@@ -1,17 +1,18 @@
 <template>
   <div class="control">
-    <a href="#" class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click.prevent="$modal.show('modal-event-edit')">
+    <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show(modal)">
       <img svg-inline class="control-link__icon" src="../assets/img/icon/pencil.svg" alt="">
-    </a>
-    <a href="#" class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
+    </button>
+    <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
       <img svg-inline class="control-link__icon" src="../assets/img/icon/basket.svg" alt="">
-    </a>
+    </button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ControlIcon'
+  name: 'ControlIcon',
+  props: ['modal']
 }
 </script>
 

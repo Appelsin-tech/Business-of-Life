@@ -11,17 +11,17 @@
       <div class="row-form">
         <form @submit.prevent="onSubmit" class="form">
           <div class="item-form">
-            <input type="text" class="item-form__input" v-model="form.login" :class="{error: $v.form.login.$error}" @blur="$v.form.login.$touch()">
-            <div class="input-valid-error" v-if="$v.form.login.$error">
-              <template v-if="!$v.form.login.required">Поле не может быть пустым</template>
-              <template v-if="!$v.form.login.minLength">Значение не должно быть менее 3-х символов</template>
+            <input type="text" class="item-form__input" v-model="form.user" :class="{error: $v.form.user.$error}" @blur="$v.form.user.$touch()">
+            <div class="input-valid-error" v-if="$v.form.user.$error">
+              <template v-if="!$v.form.user.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.user.minLength">Значение не должно быть менее 3-х символов</template>
             </div>
           </div>
           <div class="item-form">
             <input type="password" class="item-form__input" v-model="form.password" :class="{error: $v.form.password.$error}" @blur="$v.form.password.$touch()">
             <div class="input-valid-error" v-if="$v.form.password.$error">
               <template v-if="!$v.form.password.required">Поле не может быть пустым</template>
-              <template v-if="!$v.form.password.minLength">Значение должно быть не менее 6 символов</template>
+              <template v-if="!$v.form.password.minLength">Значение должно быть не менее 5 символов</template>
             </div>
           </div>
           <button class="g-btn"  :disabled="$v.$invalid">
@@ -39,31 +39,39 @@
 
 <script>
 import { minLength, required } from 'vuelidate/lib/validators'
+import API from '../api/index'
+
 export default {
   name: 'TheAuth',
   data() {
     return {
       form: {
-        login: '',
+        user: '',
         password: ''
       }
     }
   },
   validations: {
     form: {
-      login: {
+      user: {
         required,
         minLength: minLength(3)
       },
       password: {
         required,
-        minLength: minLength(6)
+        minLength: minLength(5)
       }
     }
   },
   methods: {
     onSubmit() {
-      console.log('as')
+      API.access.auth(this.form).then(response => {
+        this.$store.dispatch('user/login').then(response => {
+          this.$router.push({path :'/admin/me'})
+        })
+      }).catch(error => {
+        console.log(error)
+      })
     },
   }
 }

@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import LineSaleStatistic from '../components/chart/LineSalesStatistic.js'
-import PieSaleStatistic from '../components/chart/PieSalesStatistic.js'
-import BreadCrumbs from '../components/BreadCrumbs.vue'
-import Tabs from '../components/Tabs'
-import ButtonFilters from '../components/ButtonFilters'
+import LineSaleStatistic from '../chart/LineSalesStatistic.js'
+import PieSaleStatistic from '../chart/PieSalesStatistic.js'
+import BreadCrumbs from '../BreadCrumbs.vue'
+import Tabs from '../Tabs'
+import ButtonFilters from '../ButtonFilters'
 
 export default {
-  name: 'TheStatistic',
+  name: 'AdminStatistic',
   components: { LineSaleStatistic, PieSaleStatistic, BreadCrumbs, Tabs, ButtonFilters },
   data() {
     return {
@@ -271,7 +271,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "../../assets/less/_importants";
   .chart {
     margin-bottom: 100px;
     .xs-block({ margin-bottom: 70px;});

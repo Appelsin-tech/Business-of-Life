@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="modal__container">
-        <h3 class="title">Редактировать событие</h3>
+        <h3 class="title">Редактировать мероприятие</h3>
         <form class="form-modal" @submit.prevent="onSubmit">
           <div class="form-modal__wrapper">
             <div class="form-modal__item">

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications position="bottom right" classes="my-noty" :width="widthNoty"/>
     <app-header/>
     <div id="nav-menu" class="navigation-wrapper">
       <button class="arrow next-slide" ></button>
@@ -7,6 +8,9 @@
       <ul id="mainMenu" class="main-nav-menu" v-if="false">
         <li>
           <router-link to="/" class="dots" active-class="active"  v-tooltip.right="'Главная'"/>
+        </li>
+        <li>
+          <router-link to="/admin" class="dots" active-class="active"  v-tooltip.right="'ADMIN'"/>
         </li>
         <li>
           <router-link to="/learning-stages" class="dots" active-class="active"  v-tooltip.right="'Этапы обучения'"/>
@@ -30,22 +34,7 @@
           <router-link to="/calendar" class="dots" active-class="active"  v-tooltip.right="'Календарь событий'"/>
         </li>
         <li>
-          <router-link to="/event/=event" class="dots" active-class="active" v-tooltip.right="'Событие'"/>
-        </li>
-        <li>
-          <router-link to="/event-all-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование всех событий'"/>
-        </li>
-        <li>
-          <router-link to="/event-editing" class="dots" active-class="active" v-tooltip.right="'Редактирование события'"/>
-        </li>
-        <li>
-          <router-link to="/event-control" class="dots" active-class="active" v-tooltip.right="'Управление мероприятиями'"/>
-        </li>
-        <li>
-          <router-link to="/control-ticket" class="dots" active-class="active" v-tooltip.right="'Управление билетом'"/>
-        </li>
-        <li>
-          <router-link to="/statistic" class="dots" active-class="active" v-tooltip.right="'Статистика'"/>
+          <router-link to="/event/3" class="dots" active-class="active" v-tooltip.right="'Событие'"/>
         </li>
       </ul>
     </div>
@@ -69,6 +58,7 @@ import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
 import ModalAccess from './components/modal/ModalAccess.vue'
 import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
 import ModalEventEdit from './components/modal/ModalEventEdit.vue'
+import { RouterMixin } from './mixins/router-mixin.js'
 
 export default {
   components: {
@@ -79,11 +69,18 @@ export default {
     ModalTicketSuccess,
     ModalEventEdit
   },
+  mixins: [RouterMixin],
   data () {
     return {
-      showMenu: true
+      showMenu: true,
+      widthNoty: 400
     }
   },
+  created() {
+    if(window.innerWidth < 500) {
+      this.widthNoty = 300
+    }
+  }
 }
 </script>
 <style lang="less">

@@ -474,3 +474,28 @@ input {
   color: @colorMainRed;
   .sm-block({ margin-top: 6px; font-size: 1.2rem;});
 }
+
+.my-noty {
+  font-size: 1.5rem;
+  margin: 15px;
+  padding: 10px;
+  color: #ffffff;
+  background: #44A4FC;
+  border-left: 5px solid #187FE7;
+  .xs-block({ padding: 7px; margin: 10px;});
+  .notification-title {
+    margin-bottom: 7px;
+  }
+  &.warn {
+    background: #ffb648;
+    border-left-color: #f48a06;
+  }
+  &.error {
+    background: #E54D42;
+    border-left-color: #B82E24;
+  }
+  &.success {
+    background: #68CD86;
+    border-left-color: #42A85F;
+  }
+}

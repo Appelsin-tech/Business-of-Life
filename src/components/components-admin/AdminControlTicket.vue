@@ -20,13 +20,13 @@
               <p class="info-status__text-strong strong-icon">
                 <span class="strong-icon__text">Использован</span>
                 <span class="strong-icon__icon">
-                  <img class="strong-icon__svg" svg-inline src="../assets/img/icon/check.svg" alt="">
+                  <img class="strong-icon__svg" svg-inline src="../../assets/img/icon/check.svg" alt="">
                 </span>
               </p>
             </div>
             <div class="info-status__search search">
               <input class="search__input" type="text">
-              <img svg-inline class="search__icon svg-inline" src="../assets/img/icon/search.svg" alt="">
+              <img svg-inline class="search__icon svg-inline" src="../../assets/img/icon/search.svg" alt="">
             </div>
           </div>
         </div>
@@ -48,16 +48,16 @@
 </template>
 
 <script>
-import BreadCrumbs from '../components/BreadCrumbs.vue'
+import BreadCrumbs from '../BreadCrumbs.vue'
 
 export default {
-  name: 'TheControlTicket',
+  name: 'AdminControlTicket',
   components: { BreadCrumbs }
 }
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "../../assets/less/_importants";
   .wrapper-control {
     .row-flex();
     justify-content: space-between;

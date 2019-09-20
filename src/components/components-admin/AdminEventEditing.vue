@@ -22,7 +22,7 @@
             <div class="photo__wrapper">
               <input type="file" class="visually-hidden" id="form__file">
               <label class="photo__link photo__link--add" for="form__file">
-                <img svg-inline class="photo__icon" src="../assets/img/icon/camera.svg" alt="">
+                <img svg-inline class="photo__icon" src="../../assets/img/icon/camera.svg" alt="">
                 <span class="photo__text">Загрузить фото</span>
               </label>
             </div>
@@ -66,12 +66,12 @@
 </template>
 
 <script>
-import BreadCrumbs from '../components/BreadCrumbs.vue'
-import TextareaResize from '../components/textareaResize'
+import BreadCrumbs from '../BreadCrumbs.vue'
+import TextareaResize from '../textareaResize'
 import { CurrencyInput } from 'vue-currency-input'
 
 export default {
-  name: 'TheEventEditing',
+  name: 'AdminEventEditing',
   components: { BreadCrumbs, TextareaResize, CurrencyInput },
   data() {
     return {
@@ -125,7 +125,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "../../assets/less/_importants";
   .edit-form {
     padding-left: 50px;
     .lg-block({ padding-left: 0; });

@@ -47,34 +47,53 @@ export default new Router({
       component: () => import('./views/TheCalendar')
     },
     {
-      path: '/statistic',
-      name: 'statistic',
-      component: () => import('./views/TheStatistic')
-    },
-    {
-      path: '/control-ticket',
-      name: 'control-ticket',
-      component: () => import('./views/TheControlTicket')
-    },
-    {
-      path: '/event-control',
-      name: 'event-control',
-      component: () => import('./views/TheEventControl')
-    },
-    {
-      path: '/event-all-editing',
-      name: 'event-all-editing',
-      component: () => import('./views/TheEventAllEditing')
-    },
-    {
-      path: '/event-editing',
-      name: 'event-editing',
-      component: () => import('./views/TheEventEditing')
-    },
-    {
       path: '/event/:hash',
       name: 'event',
       component: () => import('./views/TheEvent')
+    },
+    {
+      path: '/my-ticket/:hash',
+      name: 'my-ticket',
+      component: () => import('./views/TheMyTicket')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      redirect: '/admin/me',
+      meta: {auth: true},
+      component: () => import('./views/TheAdmin'),
+      children: [
+        {
+          path: 'me',
+          name: 'me',
+          component: () => import('./components/components-admin/AdminMe')
+        },
+        {
+          path: 'event-editing',
+          name: 'event-editing',
+          component: () => import('./components/components-admin/AdminEventEditing')
+        },
+        {
+          path: 'event-all-editing/:hash',
+          name: 'event-all-editing',
+          component: () => import('./components/components-admin/AdminEventAllEditing')
+        },
+        {
+          path: 'event-all-control',
+          name: 'event-all-control',
+          component: () => import('./components/components-admin/AdminEventAllControl')
+        },
+        {
+          path: 'control-ticket/:hash',
+          name: 'control-ticket',
+          component: () => import('./components/components-admin/AdminControlTicket')
+        },
+        {
+          path: 'statistic',
+          name: 'statistic',
+          component: () => import('./components/components-admin/AdminStatistic')
+        },
+      ]
     },
     {
       path: '*',
