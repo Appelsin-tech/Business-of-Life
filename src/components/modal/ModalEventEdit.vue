@@ -16,7 +16,7 @@
             <div class="form-modal__item">
               <label class="form-modal__label" for="form-title">Название</label>
               <input class="form-modal__input" id="form-title" :class="{error: $v.form.title.$error}" type="text" placeholder="Тренинг Искусство продаж " v-model="form.title" @blur="$v.form.title.$touch()">
-              <div class="form-modal__error" v-if="$v.form.title.$error">
+              <div class="input-valid-error" v-if="$v.form.title.$error">
                 <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
                 <template v-else-if="!$v.form.title.minLength">Логин не должен быть меньше 3-х символов</template>
               </div>
@@ -24,7 +24,7 @@
             <div class="form-modal__item">
               <label class="form-modal__label" for="form-city">Город</label>
               <input class="form-modal__input" id="form-city" :class="{error: $v.form.city.$error}" placeholder="Москва" v-model="form.city" @blur="$v.form.city.$touch()">
-              <div class="form-modal__error" v-if="$v.form.city.$error">
+              <div class="input-valid-error" v-if="$v.form.city.$error">
                 <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.city.minLength">Пароль должен быть не менее 6 символов</template>
               </div>

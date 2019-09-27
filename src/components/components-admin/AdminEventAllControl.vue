@@ -4,15 +4,15 @@
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Управление мероприятиями</h1>
       <div class="btn-wrapper">
-        <a href="#" class="g-btn g-btn--icon-left">
+        <button class="g-btn g-btn--icon-left" @click="$modal.show('modal-parent-event-create')">
           <span>
             <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
             Добавить мероприятие
           </span>
-        </a>
+        </button>
       </div>
-      <div class="event">
-        <div class="event__item" v-for="(event, index) in eventArr" :key="index" >
+      <div class="event" v-if="myParentEvents">
+        <div class="event__item" v-for="(event, index) in myParentEvents" :key="index" >
           <div class="event__img" :style="background(event.img)">
             <a href="#" class="img-link img-link--add" v-if="!event.img">
               <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
@@ -23,12 +23,12 @@
               <span class="img-link__text">Сменить фото</span>
             </a>
           </div>
-          <a href="#" class="event__title" @click.prevent="$router.push({path: `/admin/event-all-editing/${event.ticket}`})">{{event.name}}</a>
+          <a href="#" class="event__title" @click.prevent="$router.push({path: `/admin/event-editing/${event.id}`})">{{event.title}}</a>
           <div class="event__ticket-sold">
-            <div class="event__ticket-sold-wrapper">
-              <span class="event__ticket-sold-text">Продано билетов:</span>
-              <span class="event__ticket-sold-number">{{event.ticket}}</span>
-            </div>
+            <!--<div class="event__ticket-sold-wrapper">-->
+              <!--<span class="event__ticket-sold-text">Продано билетов:</span>-->
+              <!--<span class="event__ticket-sold-number">{{event.ticket}}</span>-->
+            <!--</div>-->
             <div class="control">
               <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">
                 <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
@@ -41,8 +41,8 @@
         </div>
       </div>
       <h2 class="g-caption-section">Прошедшие мероприятия</h2>
-      <div class="event">
-        <div class="event__item event__item--past" v-for="(event, index) in eventArrSmal" :key="index" >
+      <div class="event" >
+        <div class="event__item event__item--past" v-for="(event, index) in eventArr" :key="index" >
           <div class="event__img" :style="background(event.img)">
             <a href="#" class="img-link img-link--add" v-if="!event.img">
               <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
@@ -55,10 +55,6 @@
           </div>
           <a href="#" class="event__title">{{event.name}}</a>
           <div class="event__ticket-sold">
-            <div class="event__ticket-sold-wrapper">
-              <span class="event__ticket-sold-text">Продано билетов:</span>
-              <span class="event__ticket-sold-number">{{event.ticket}}</span>
-            </div>
             <div class="control">
               <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">
                 <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
@@ -82,40 +78,14 @@
 
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AdminEventControl',
   components: { BreadCrumbs},
   data() {
     return {
-      eventArr: [
-        {
-          name: 'Тренинг “искусство продаж”',
-          ticket: 60
-        },
-        {
-          name: 'Тренинг “искусство продаж”',
-          img: 'event',
-          ticket: 2
-        },
-        {
-          name: 'Тренинг “искусство продаж”',
-          ticket: 13
-        },
-        {
-          name: 'Тренинг “искусство продаж”',
-          img: 'qr',
-          ticket: 26
-        },
-        {
-          name: 'Тренинг “искусство продаж”',
-          ticket: 8
-        },
-        {
-          name: 'Тренинг “искусство продаж”',
-          ticket: 0
-        }
-      ]
+      resposneEvent: [],
     }
   },
   methods: {
@@ -132,9 +102,13 @@ export default {
     }
   },
   computed: {
-    eventArrSmal () {
-      return this.eventArr.slice(0, 3)
-    }
+    ...mapState('user', [
+      'myParentEvents'
+    ])
+  },
+  created() {
+    this.$store.dispatch('user/getMyParentEvents').then(() => {
+    })
   }
 }
 </script>

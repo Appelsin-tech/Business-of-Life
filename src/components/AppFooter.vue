@@ -28,31 +28,7 @@ export default {
   name: 'AppFooter',
   computed: {
     borderClass () {
-      switch (this.$route.name) {
-        case 'control-ticket':
-          return true
-          break
-        case 'statistic':
-          return true
-          break
-        case 'event':
-          return true
-          break
-        case 'event-control':
-          return true
-          break
-        case 'event-all-editing':
-          return true
-          break
-        case 'event-editing':
-          return true
-          break
-        case 'my-ticket':
-          return true
-          break
-        default:
-          return false
-      }
+      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event'
     }
   }
 }

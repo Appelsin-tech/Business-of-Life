@@ -7,6 +7,7 @@ import Vuelidate from 'vuelidate'
 import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
 import store from './store/index'
+import Datetime from 'vue-datetime'
 
 Vue.config.productionTip = false
 Vue.use(VueModal, {dialog: true, dynamic: true, injectModalsContainer: true})
@@ -16,6 +17,9 @@ Vue.component('v-select', vSelect)
 Vue.use(VTooltip, {
   defaultPlacement: 'left',
   delay: { show: 0, hide: 0 }
+})
+Vue.use(Datetime, {
+  valueZone: 'ru-RU'
 })
 
 vSelect.props.components.default = () => ({

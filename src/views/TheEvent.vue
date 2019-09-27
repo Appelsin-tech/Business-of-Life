@@ -2,7 +2,7 @@
   <section class="p-event p-default p-default-inner">
     <bread-crumbs v-if="false"/>
     <div class="container" v-if="activeEvent">
-      <h1 class="g-caption g-caption-inner">{{activeEvent.event_title}}</h1>
+      <h1 class="g-caption g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
         <v-select @input="newActiveEvent" :value="activeEvent.city" :multiple="false" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
@@ -10,7 +10,7 @@
       <section class="brief">
         <div class="brief__img" :style="{backgroundImage: `url(${responseData.img})`}"></div>
         <div class="brief__text info">
-          <p class="info__description">{{activeEvent.description}}</p>
+          <p class="info__description">{{responseData.snippet}}</p>
           <p class="info__item ">
             <strong class="info__item--bold">Дата:</strong>
             <span class="info__item--normal">{{activeEvent.date}}</span>
@@ -21,11 +21,11 @@
           </p>
           <p class="info__item">
             <strong class="info__item--bold">Спикеры:</strong>
-            <span class="info__item--normal">Александр Бухтияров, Роза Жаманкулова</span>
+            <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
           </p>
           <div class="info__ticket ticket ticket--brief">
             <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span></p>
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="$modal.show('modal-ticket-purchase')">
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="$modal.show('modal-adv-cash')">
               <span>Купить билет</span>
             </a>
           </div>
@@ -34,7 +34,7 @@
       <section class="description">
         <h2 class="g-caption-section">Описание</h2>
         <div class="text-wrapper">
-          <p class="description__text">{{activeEvent.description}}
+          <p class="description__text">{{responseData.description}}
           </p>
         </div>
       </section>
@@ -225,16 +225,25 @@ export default {
     },
     selectedCity() {
       return {name: this.activeEvent.city, val: this.activeEvent.url}
+    },
+    speakersName() {
+      if (this.activeEvent) {
+        return this.activeEvent.speakers.map(item => item.name)
+      } else {
+        return []
+      }
     }
   },
   beforeRouteUpdate (to, from, next) {
     next()
   },
   created() {
-    API.events.info({ url: this.$route.params.hash }).then(response => {
+    API.relations.info({ url: this.$route.params.hash }).then(response => {
       this.responseData = response.data
       this.activeCity()
       this.activeEventFilter(response.data.relations)
+    }).catch(error => {
+      this.$router.push({path: '/'})
     })
   }
 }
@@ -375,6 +384,13 @@ export default {
             margin-right: 25px;
             font-size: 2rem;
             font-weight: 800;
+          }
+          &--speakers {
+            &:last-of-type {
+              .symb {
+                display: none;
+              }
+            }
           }
         }
 

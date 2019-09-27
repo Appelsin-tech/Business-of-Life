@@ -3,7 +3,7 @@
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Управление билетом</h1>
-      <div class="wrapper-control">
+      <div class="wrapper-control" v-if="response">
         <div class="wrapper-control__col wrapper-control__col--number">
           <div class="info-number">
             <span class="info-number__small-text">Номер вашего билета</span>
@@ -43,16 +43,34 @@
           </div>
         </div>
       </div>
+      <div class="wrapper-control error" v-else>
+        <strong>{{errorTicket}}</strong>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
+import API from '../../api/index'
 
 export default {
   name: 'AdminControlTicket',
-  components: { BreadCrumbs }
+  components: { BreadCrumbs },
+  data() {
+    return {
+      response: false,
+      errorTicket: 'Билет не найден',
+    }
+  },
+  mounted() {
+    API.tickets.check({hash: this.$route.hash}).then(response => {
+      this.response = response
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 }
 </script>
 
@@ -62,6 +80,18 @@ export default {
     .row-flex();
     justify-content: space-between;
     .lg-block({ justify-content: flex-start;});
+    &.error {
+      padding: 30px;
+      border-radius: 6px;
+      background: @colorError;
+      .lg-block({ padding: 22px;});
+      strong {
+        font-size: 2rem;
+        color: #fff;
+        font-weight: 400;
+        .sm-block({ font-size: 1.6rem;});
+      }
+    }
     &__col {
       .col();
       display: flex;

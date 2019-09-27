@@ -1,6 +1,6 @@
 <template>
   <section class="p-me p-default p-default-inner">
-    <bread-crumbs v-if="false"/>
+    <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption g-caption-inner">Мои данные</h1>
       <div class="data-wrapper">
@@ -17,14 +17,14 @@
         <button class="logout" @click="$store.dispatch('user/logout')">Выйти</button>
       </div>
       <div class="menu">
-        <router-link to="/admin/event-all-control" class="menu__item item">
+        <router-link to="/admin/event-control" class="menu__item item">
           <div class="item__img"></div>
           <p class="item__title">Управление мероприятиями</p>
         </router-link>
-        <a href="#" class="menu__item item">
+        <router-link to="/admin/control-ticket/" class="menu__item item">
           <div class="item__img"></div>
           <p class="item__title">Проверить билет</p>
-        </a>
+        </router-link>
       </div>
     </div>
   </section>

@@ -48,6 +48,8 @@
     <modal-access/>
     <modal-ticket-success/>
     <modal-event-edit/>
+    <modal-parent-event-create/>
+    <modal-adv-cash/>
   </div>
 </template>
 
@@ -58,6 +60,8 @@ import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
 import ModalAccess from './components/modal/ModalAccess.vue'
 import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
 import ModalEventEdit from './components/modal/ModalEventEdit.vue'
+import ModalAdvCash from './components/modal/ModalAdvCash.vue'
+import ModalParentEventCreate from './components/modal/ModalParentEventCreate.vue'
 import { RouterMixin } from './mixins/router-mixin.js'
 
 export default {
@@ -67,7 +71,9 @@ export default {
     ModalTicketPurchase,
     ModalAccess,
     ModalTicketSuccess,
-    ModalEventEdit
+    ModalEventEdit,
+    ModalParentEventCreate,
+    ModalAdvCash
   },
   mixins: [RouterMixin],
   data () {

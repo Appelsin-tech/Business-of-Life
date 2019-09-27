@@ -95,11 +95,7 @@ export default {
   },
   computed: {
     borderClass () {
-      if (this.$route.meta.auth) {
-        return true
-      } else {
-        return false
-      }
+      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event'
     }
   }
 }

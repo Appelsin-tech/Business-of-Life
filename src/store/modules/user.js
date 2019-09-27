@@ -2,7 +2,8 @@ import API from '../../api/index'
 
 const state = () => ({
   logged: false,
-  profile: []
+  profile: [],
+  myParentEvents: []
 })
 
 const getters = {}
@@ -37,6 +38,13 @@ const actions = {
     }).catch(error => {
       console.log(error)
     })
+  },
+  getMyParentEvents({commit}) {
+    API.events.my().then(response => {
+      commit('SET_MY_PARENT_EVENT', response.data)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }
 
@@ -48,6 +56,9 @@ const mutations = {
   LOGOUT(state) {
     state.logged = false
     state.profile = []
+  },
+  SET_MY_PARENT_EVENT(state, events) {
+    state.myParentEvents = events
   }
 }
 

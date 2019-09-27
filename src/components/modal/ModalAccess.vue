@@ -21,7 +21,7 @@
               </div>
             </div>
             <div class="form-modal__item">
-              <input class="form-modal__input" :class="{error: $v.form.password.$error}" placeholder="Email" v-model="form.password" @blur="$v.form.password.$touch()">
+              <input class="form-modal__input" :class="{error: $v.form.password.$error}" placeholder="Пароль" v-model="form.password" @blur="$v.form.password.$touch()">
               <div class="form-modal__error" v-if="$v.form.password.$error">
                 <template v-if="!$v.form.password.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.password.minLength">Пароль должен быть не менее 6 символов</template>

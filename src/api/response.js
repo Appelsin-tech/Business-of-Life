@@ -28,4 +28,7 @@ export default {
       console.error(error.message)
     }
   },
+  success: (message) => {
+    Vue.notify({ type: 'success', title: 'Успешно', text: message })
+  }
 }

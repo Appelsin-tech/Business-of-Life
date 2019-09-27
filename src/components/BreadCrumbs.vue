@@ -5,9 +5,13 @@
         <li class="breadcrumbs__item">
           <router-link class="breadcrumbs__link" to="/">Главная</router-link>
           <span class="breadcrumbs__arrow">></span>
-          <router-link class="breadcrumbs__link" to="/calendar">Мероприятия</router-link>
-          <span class="breadcrumbs__arrow">></span>
-          <router-link class="breadcrumbs__link" to="/event/qwer">Event</router-link>
+        </li>
+        <li class="breadcrumbs__item">
+          <router-link class="breadcrumbs__link" to="/admin/me">Личный кабинет</router-link>
+          <span class="breadcrumbs__arrow" v-if="$route.meta.breadCrumbs">></span>
+        </li>
+        <li v-for="(item, index) in $route.matched">
+          <router-link class="breadcrumbs__link" :to="item.path" v-if="!item.meta.auth && item.meta.breadCrumbs">{{item.meta.breadCrumbs}} <span class="breadcrumbs__arrow" v-if="item === $route.meta.breadCrumbs[index]">></span></router-link>
         </li>
       </ul>
     </div>
@@ -24,6 +28,9 @@ export default {
   @import "../assets/less/_importants";
   .breadcrumbs {
     margin-bottom: 25px;
+    &__list {
+      display: flex;
+    }
     &__link {
       font-size: 1.4rem;
       color: @colorSecondFonts;

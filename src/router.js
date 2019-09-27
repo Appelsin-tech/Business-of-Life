@@ -69,23 +69,34 @@ export default new Router({
           component: () => import('./components/components-admin/AdminMe')
         },
         {
-          path: 'event-editing',
-          name: 'event-editing',
+          path: 'editing/:id/:event',
+          name: 'editing',
+          props: true,
           component: () => import('./components/components-admin/AdminEventEditing')
         },
         {
-          path: 'event-all-editing/:hash',
-          name: 'event-all-editing',
+          path: 'event-editing/:id',
+          name: 'event-editing',
+          props: true,
+          meta: {
+            breadCrumbs: 'Редактирование событий'
+          },
           component: () => import('./components/components-admin/AdminEventAllEditing')
         },
         {
-          path: 'event-all-control',
-          name: 'event-all-control',
-          component: () => import('./components/components-admin/AdminEventAllControl')
+          path: 'event-control',
+          name: 'event-control',
+          meta: {
+            breadCrumbs: 'Управление мероприятиями'
+          },
+          component: () => import('./components/components-admin/AdminEventAllControl'),
         },
         {
           path: 'control-ticket/:hash',
           name: 'control-ticket',
+          meta: {
+            breadCrumbs: 'Проверка билета'
+          },
           component: () => import('./components/components-admin/AdminControlTicket')
         },
         {

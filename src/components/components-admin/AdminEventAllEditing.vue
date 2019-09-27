@@ -4,7 +4,7 @@
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Редактирование событий</h1>
       <div class="btn-wrapper">
-        <a href="#" class="g-btn g-btn--icon-left">
+        <a href="#" class="g-btn g-btn--icon-left" @click.prevent="$router.push({path: `/admin/editing/${id}/${'new'}`})">
           <span>
             <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
             Добавить событие
@@ -14,21 +14,25 @@
           <span>Опубликовать все</span>
         </a>
       </div>
-      <div class="event-wrapper">
-        <div class="event" v-for="(event, i) in eventArr" :key="i">
+      <div class="event-wrapper" v-if="myEvent">
+        <div class="event" v-for="(event, i) in myEvent" :key="event.id">
           <div class="status" :class="event.status" v-tooltip.left="event.statusDesc">
             <img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt="">
           </div>
           <div class="event__info-wrapper">
             <div class="event__info">
-              <a href="#" class="event__title">{{event.name}}</a>
+              <a href="#" class="event__title">{{event.title}}</a>
               <p class="event__location location">
                 <img svg-inline class="location__icon" src="../../assets/img/icon/location.svg" alt="">
-                <span class="location__text">{{event.location}}</span>
+                <span class="location__text">{{event.country}} {{event.city}}</span>
+              </p>
+              <p class="event__date date">
+                <img svg-inline class="date__icon" src="../../assets/img/icon/timetable.svg" alt="">
+                <span class="date__text">{{event.date}}</span>
               </p>
             </div>
             <div class="control">
-              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: '/admin/event-editing'})">
+              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click.prevent="$router.push({path: `/admin/editing/${id}/${event.id}`})">
                 <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
               </button>
               <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
@@ -43,13 +47,17 @@
 </template>
 
 <script>
+import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AdminEvenAllEditing',
   components: { BreadCrumbs },
+  props: ['id'],
   data() {
     return {
+      myEvent: null,
       eventArr: [
         {
           name: 'Тренинг “искусство продаж”',
@@ -71,6 +79,17 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState('user', [
+      'myParentEvents'
+    ]),
+  },
+  mounted() {
+    API.events.info({url: this.id}).then(response => {
+      this.myEvent = response.data.relations
+      console.log(response)
+    })
   }
 }
 </script>
@@ -244,6 +263,7 @@ export default {
           text-decoration: none;
         }
       }
+      .date,
       .location {
         display: flex;
         align-items: center;
@@ -258,6 +278,9 @@ export default {
         &__text {
           color: @colorSecondFonts;
         }
+      }
+      .location {
+        margin-bottom: 20px;
       }
     }
   }

@@ -2,20 +2,19 @@
   <section class="p-event-editing p-default p-default-inner">
     <bread-crumbs/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner">Редактирование события</h1>
+      <h1 class="g-caption g-caption-inner">
+        <template v-if="event === 'new'">Создание события</template>
+        <template v-else>Редактирование события</template>
+      </h1>
       <h2 class="g-caption g-caption-section">Общая информация</h2>
-      <form class="edit-form">
+      <form class="edit-form" @submit.prevent="onSubmit">
         <div class="edit-grid">
           <div class="edit-grid__item item item--col-8">
             <label class="item__label" for="form-title">Название</label>
-            <input class="item__input" type="text" id="form-title" v-model="form.title">
-          </div>
-          <div class="edit-grid__item item item--col-8 textarea">
-            <label class="item__label" for="form-description">Описание</label>
-            <textarea-resize>
-                <textarea class="item__input item__input--textarea"
-                          id="form-description" rows="1" v-model="form.description"></textarea>
-            </textarea-resize>
+            <input class="item__input" type="text" id="form-title" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
+            <div class="input-valid-error" v-if="$v.form.title.$error">
+              <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4 photo">
             <span class="item__label">Фото</span>
@@ -26,38 +25,60 @@
                 <span class="photo__text">Загрузить фото</span>
               </label>
             </div>
+            <div class="input-valid-error" v-if="false">
+              <template v-if="false">Поле не может быть пустым</template>
+              <template v-else-if="false">Название не должно быть меньше 10 символов</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <span class="item__label">Страна</span>
-            <v-select :multiple="false" :class="['v-select__modal']" :searchable="false" label="label" :options="selectCountry" v-model="form.country"></v-select>
+            <label class="item__label" for="form__country">Страна</label>
+            <input class="item__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
+            <div class="input-valid-error" v-if="$v.form.country.$error">
+              <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <span class="item__label">Город</span>
-            <v-select :multiple="false" :class="['v-select__modal']" :searchable="false" label="label" :options="selectCity" v-model="form.city"></v-select>
+            <label class="item__label" for="form__city">Город</label>
+            <input class="item__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
+            <div class="input-valid-error" v-if="$v.form.city.$error">
+              <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4">
             <label class="item__label" for="form__address">Адрес</label>
-            <input class="item__input" type="text" id="form__address" v-model="form.address">
+            <input class="item__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
+            <div class="input-valid-error" v-if="$v.form.address.$error">
+              <template v-if="!$v.form.address.required">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__date">Дата</label>
-            <input class="item__input" type="text" id="form__date" v-mask="'##.##.####'" v-model="form.date">
+            <label class="item__label" for="form__date">Дата и время</label>
+            <flat-pickr v-model="form.date" :config="configDate" :class="['item__input', {error: $v.form.date.$error}]" @blur="$v.form.date.$touch()"></flat-pickr>
+            <div class="input-valid-error" v-if="$v.form.date.$error">
+              <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__time">Время</label>
-            <input class="item__input" type="text" id="form__time" v-mask="'##:##'" v-model="form.time">
+            <label class="item__label" for="form__t_price">Стоимость билета</label>
+            <input class="item__input" type="text" id="form__t_price" v-mask="'#################'" v-model="form.t_price" :class="{error: $v.form.t_price.$error}" @blur="$v.form.t_price.$touch()">
+            <div class="input-valid-error" v-if="$v.form.t_price.$error">
+              <template v-if="!$v.form.t_price.required">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__price">Стоимость билета ($)</label>
-            <currency-input class="item__input" id="form__price" currency="USD" v-model="form.price"/>
+            <span class="item__label">Валюта</span>
+            <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.t_currency}]" :searchable="false" :options="selectCurrency" v-model="form.t_currency" v-on:search:blur="validateSelect('t_currency')"></v-select>
+            <div class="input-valid-error" v-if="errorSelect.t_currency">
+              Выберите Валюту
+            </div>
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="g-btn g-btn--no-icon g-btn--white g-btn--border">
-            <span>Сохранить</span>
+          <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid || errorSelect.t_currency === true">
+            <span>Создать</span>
           </button>
-          <button class="g-btn g-btn--no-icon">
-            <span>Опубликовать</span>
+          <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid  || errorSelect.t_currency === true">
+            <span>Сохранить</span>
           </button>
         </div>
       </form>
@@ -66,81 +87,148 @@
 </template>
 
 <script>
+import flatPickr from 'vue-flatpickr-component'
+import { Russian } from 'flatpickr/dist/l10n/ru.js'
+import API from '../../api/index'
+import responseApi from '../../api/response'
 import BreadCrumbs from '../BreadCrumbs.vue'
-import TextareaResize from '../textareaResize'
-import { CurrencyInput } from 'vue-currency-input'
+import { minLength, required } from 'vuelidate/lib/validators'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AdminEventEditing',
-  components: { BreadCrumbs, TextareaResize, CurrencyInput },
+  props: ['id', 'event'],
+  components: { BreadCrumbs, flatPickr },
   data() {
     return {
       resize: true,
+      configDate: {
+        enableTime: true,
+        time_24hr: true,
+        locale: Russian,
+        dateFormat: 'd.m.Y H:i'
+      },
       form: {
+        event_id: this.id,
+        date: '',
         title: '',
-        description: '',
-        photo: '',
         country: '',
         city: '',
         address: '',
-        date: '',
-        time: '',
-        price: 0
+        t_currency: '',
+        t_price: null
       },
       errorSelect: {
-        selectedCountry: false,
-        selectedCity: false
+        t_currency: false
       },
-      selectCity: [
-        {
-          val: 'Москва',
-          label: 'Москва'
-        },
-        {
-          val: 'Ростов',
-          label: 'Ростов'
-        },
-        {
-          val: 'Иваново',
-          label: 'Иваново'
-        }
-      ],
-      selectCountry: [
-        {
-          val: 'Россия',
-          label: 'Россия'
-        },
-        {
-          val: 'Казахстан',
-          label: 'Казахстан'
-        },
-        {
-          val: 'Украина',
-          label: 'Украина'
-        }
-      ],
+      selectCurrency: ['USD', 'RUB'],
     }
   },
+  validations: {
+    form: {
+      title: {
+        required
+      },
+      date: {
+        required,
+        minLength: minLength(10)
+      },
+      country: {
+        required
+      },
+      city: {
+        required
+      },
+      address: {
+        required
+      },
+      t_currency: {
+        required
+      },
+      t_price: {
+        required
+      },
+    }
+  },
+  computed: {
+    ...mapState('user', [
+      'myParentEvents'
+    ]),
+  },
+  methods: {
+    onSubmit() {
+      if (this.event === 'new') {
+        API.relations.create(this.form).then(response => {
+          console.log(response)
+          // this.$router.push({path: `/admin/editing/${id}`})
+        })
+      } else {
+        API.relations.edit(this.form).then(response => {
+          responseApi.success('Событие отредактировано')
+          // this.$router.push({path: `/admin/editing/${id}`})
+        })
+      }
+    },
+    validateSelect(name) {
+      if (this.form[name] === '') {
+        this.errorSelect[name] = true
+      } else {
+        this.errorSelect[name] = false
+      }
+    },
+    myForm(arr) {
+      let newObg = arr.find(item => item.id === this.event)
+      this.form = {
+        id: newObg.id,
+        date: newObg.date,
+        title: newObg.title,
+        country: newObg.title,
+        city: newObg.city,
+        address: newObg.address,
+        t_currency: newObg.t_currency,
+        t_price: newObg.t_price
+      }
+    }
+  },
+  mounted() {
+    if (this.event === 'new') {
+      this.form = {
+        event_id: this.id,
+        date: '',
+        title: '',
+        country: '',
+        city: '',
+        address: '',
+        t_currency: '',
+        t_price: null
+      }
+    }
+    API.events.info({url: this.id}).then(response => {
+      this.myForm(response.data.relations)
+      console.log(response)
+    })
+  }
 }
 </script>
 
 <style scoped lang="less">
   @import "../../assets/less/_importants";
+  @import '~flatpickr/dist/flatpickr.css';
   .edit-form {
     padding-left: 50px;
     .lg-block({ padding-left: 0; });
     .btn-wrapper {
       display: flex;
       justify-content: flex-start;
-      .sm-block({ margin-left: 0; margin-bottom: 40px;});
-      .ss-block({ flex-direction: column; align-items: center;});
+      .sm-block({ margin-left: 0; margin-bottom: 40px; });
+      .ss-block({ flex-direction: column; align-items: center; });
       .g-btn {
         min-width: 250px;
-        .sm-block({ min-width: 220px;});
-        .ss-block({ min-width: 200px;});
+        .sm-block({ min-width: 220px; });
+        .ss-block({ min-width: 200px; });
         &:first-child {
           margin-right: 20px;
-          .ss-block({ margin-right: 0; margin-bottom: 20px;});
+          .ss-block({ margin-right: 0; margin-bottom: 20px; });
         }
       }
     }
