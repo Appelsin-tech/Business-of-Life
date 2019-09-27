@@ -45,7 +45,8 @@
       <section class="speakers">
         <h2 class="g-caption-section">Спикеры</h2>
         <div class="speakers__wrapper">
-          <div class="speakers__item item" v-for="speaker in activeEvent.speakers">
+          <p v-if="activeEvent.speakers.length === 0">будут указаны ближе к дате мероприятия</p>
+          <div class="speakers__item item" v-else v-for="speaker in activeEvent.speakers">
             <div class="item__img" :style="{backgroundImage: `url(${speaker.img})`}"></div>
             <p class="item__name">{{speaker.name}}</p>
             <p class="item__post">{{speaker.role}}</p>

@@ -77,9 +77,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      API.biling(this.form).then(response => {
+      API.biling.billing(this.form).then(response => {
         responseSuccess.success('Форма отправлена')
         this.$modal.hide('modal-adv-cash')
+      }).catch(error => {
+        responseSuccess.error(error)
       })
     },
     beforeOpen (event) {
