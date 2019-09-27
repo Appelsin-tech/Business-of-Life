@@ -19,13 +19,17 @@
             <strong class="info__item--bold">Место:</strong>
             <span class="info__item--normal">{{activeEvent.address}}</span>
           </p>
-          <p class="info__item">
+          <p class="info__item" v-if="activeEvent.speakers.length > 0">
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
           </p>
+          <p class="info__item" v-else>
+            <strong class="info__item--bold">Спикеры:</strong>
+            <span class="info__item--normal info__item--speakers">будут указаны ближе к дате мероприятия</span>
+          </p>
           <div class="info__ticket ticket ticket--brief">
             <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span></p>
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="$modal.show('modal-adv-cash')">
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="$modal.show('modal-adv-cash', {currency: activeEvent.tickets.currency, price: activeEvent.tickets.price})">
               <span>Купить билет</span>
             </a>
           </div>

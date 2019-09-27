@@ -1,7 +1,7 @@
 <template>
   <modal name='modal-adv-cash' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
          :adaptive="true"
-         :scrollable="true" :classes="'custom-modals'">
+         :scrollable="true" :classes="'custom-modals'" @before-open="beforeOpen">
     <div class="modal modal__adv-cash">
       <div class="close-modal" @click="$modal.hide('modal-adv-cash')" title="Закрыть">
         <div class="close-modal__wrapper">
@@ -12,7 +12,7 @@
       <div class="modal__container">
         <h3 class="title">Для оплаты билета</h3>
         <div class="instruction">
-          <p class="instruction__p">1. Перешлите 15 Euro на банковскую карту <strong>5169 4971 0737 2405</strong></p>
+          <p class="instruction__p">1. Перешлите {{price}} {{currency}} на банковскую карту <strong>5169 4971 0737 2405</strong></p>
           <p class="instruction__p">2. После оплаты заполните поля ниже и нажмите "Я оплатил"</p>
         </div>
         <form class="form-modal" @submit.prevent="onSubmit">
@@ -26,7 +26,7 @@
               </div>
             </div>
             <div class="form-modal__item">
-              <label class="form-modal__label" for="form-email">Email на который отправить билет</label>
+              <label class="form-modal__label" for="form-email">Email, на который отправить билет</label>
               <input class="form-modal__input" id="form-email" :class="{error: $v.form.email.$error}" type="email" placeholder="email@mail.ru " v-model="form.email" @blur="$v.form.email.$touch()">
               <div class="input-valid-error" v-if="$v.form.email.$error">
                 <template v-if="!$v.form.email.email">Не верный email</template>
@@ -55,6 +55,8 @@ export default {
   data() {
     return {
       name: '',
+      price: '',
+      currency: '',
       form: {
         wallet: '',
         emil: ''
@@ -79,7 +81,11 @@ export default {
         responseSuccess.success('Форма отправлена')
         this.$modal.hide('modal-adv-cash')
       })
-    }
+    },
+    beforeOpen (event) {
+      this.price = event.params.price
+      this.currency = event.params.currency
+    },
   }
 }
 </script>
