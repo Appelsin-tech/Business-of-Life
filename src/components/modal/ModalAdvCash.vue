@@ -65,7 +65,7 @@ export default {
       currency: '',
       form: {
         wallet: '',
-        emil: '',
+        email: '',
         relation: '',
         name: ''
       }
@@ -99,7 +99,7 @@ export default {
     beforeOpen (event) {
       this.price = event.params.price
       this.currency = event.params.currency
-      this.relation = event.params.id
+      this.form.relation = event.params.id
     },
   }
 }

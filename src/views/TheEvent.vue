@@ -43,11 +43,10 @@
           </p>
         </div>
       </section>
-      <section class="speakers">
+      <section class="speakers" v-if="activeEvent.speakers.length !== 0">
         <h2 class="g-caption-section">Спикеры</h2>
         <div class="speakers__wrapper">
-          <p v-if="activeEvent.speakers.length === 0">будут указаны ближе к дате мероприятия</p>
-          <div class="speakers__item item" v-else v-for="speaker in activeEvent.speakers">
+          <div class="speakers__item item" v-for="speaker in activeEvent.speakers">
             <div class="item__img" :style="{backgroundImage: `url(${speaker.img})`}"></div>
             <p class="item__name">{{speaker.name}}</p>
             <p class="item__post">{{speaker.role}}</p>
@@ -344,7 +343,7 @@ export default {
         margin-right: 10%;
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain;
+        background-size: cover;
         .lg-block({ width: 300px; height: 300px; });
         .md-block({ display: none; });
       }
@@ -361,21 +360,9 @@ export default {
           position: relative;
           margin-bottom: 75px;
           font-size: 1.8rem;
-          max-height: 67px;
           overflow: hidden;
           .md-block({ margin-bottom: 50px; });
-          .sm-block({ max-height: 60px;});
-          .xs-block({ margin-bottom: 30px; font-size: 1.6rem; max-height: 50px;});
-          &::after {
-            position: absolute;
-            content: '';
-            display: inline-block;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            height: 30px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(255,255,255,0.7) 50%, #fff 100%);
-          }
+          .xs-block({ margin-bottom: 30px; font-size: 1.6rem;});
         }
         &__item {
           display: flex;
