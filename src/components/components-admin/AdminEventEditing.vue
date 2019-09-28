@@ -133,7 +133,7 @@ export default {
         t_currency: 'Некорректная валюта продажи билета',
         t_price: 'Некорректная цена'
       },
-      selectCurrency: ['USD', 'RUB']
+      selectCurrency: ['USD', 'RUB', 'KZT']
     }
   },
   validations: {
