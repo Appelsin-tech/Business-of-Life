@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       response: false,
-      errorTicket: 'Билет не найден',
+      errorTicket: 'Билет не найден'
     }
   },
   mounted() {

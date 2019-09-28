@@ -95,7 +95,7 @@ export default {
   },
   computed: {
     borderClass () {
-      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event'
+      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page'
     }
   }
 }

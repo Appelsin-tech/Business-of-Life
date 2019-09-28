@@ -57,6 +57,18 @@ export default new Router({
       component: () => import('./views/TheMyTicket')
     },
     {
+      path: '/tickets',
+      name: 'tickets-page',
+      component: () => import('./views/TheCheckTicket'),
+      children: [
+        {
+          path: ':id',
+          name: 'tickets',
+          component: () => import('./views/TheCheckTicket')
+        }
+      ]
+    },
+    {
       path: '/admin',
       name: 'admin',
       redirect: '/admin/me',
