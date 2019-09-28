@@ -7,26 +7,7 @@ Vue.notify({
 })
 export default {
   error: (error) => {
-    if (error.reason) {
-      let errorMy = ''
-      switch (error.reason) {
-        case 'user_wrong':
-          errorMy = 'Пользователь не найден'
-          break
-        case 'recovery':
-          errorMy = 'Требуется восстановление доступа'
-          break
-        case 'password':
-          errorMy = 'Не верный пароль'
-          break
-        case 'banned':
-          errorMy = 'Пользователь забанен'
-          break
-      }
-      Vue.notify({ type: 'error', title: 'Ошибка', text: errorMy })
-    } else {
-      console.error(error.message)
-    }
+    Vue.notify({ type: 'error', title: 'Ошибка', text: error })
   },
   success: (message) => {
     Vue.notify({ type: 'success', title: 'Успешно', text: message })

@@ -14,7 +14,7 @@
           <span>Опубликовать все</span>
         </a>
       </div>
-      <div class="event-wrapper" v-if="myEvent">
+      <div class="event-wrapper" v-if="myEvent.length !== 0">
         <div class="event" v-for="(event, i) in myEvent" :key="event.id">
           <div class="status" :class="event.status" v-tooltip.left="event.statusDesc">
             <img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt="">
@@ -42,6 +42,7 @@
           </div>
         </div>
       </div>
+      <strong class="event-null" v-else>Событий не найдено</strong>
     </div>
   </section>
 </template>
@@ -57,7 +58,7 @@ export default {
   props: ['id'],
   data() {
     return {
-      myEvent: null,
+      myEvent: [],
       eventArr: [
         {
           name: 'Тренинг “искусство продаж”',
@@ -86,9 +87,8 @@ export default {
     ]),
   },
   mounted() {
-    API.events.info({url: this.id}).then(response => {
+    API.events.info({id: this.id}).then(response => {
       this.myEvent = response.data.relations
-      console.log(response)
     })
   }
 }
@@ -283,5 +283,14 @@ export default {
         margin-bottom: 20px;
       }
     }
+  }
+  .event-null {
+    display: block;
+    font-weight: 600;
+    font-size: 2.4rem;
+    margin-top: 120px;
+    margin-left: 50px;
+    .sm-block({ margin-left: 0; margin-top: 80px;});
+    .xs-block({ font-size: 2rem; margin-top: 50px;});
   }
 </style>

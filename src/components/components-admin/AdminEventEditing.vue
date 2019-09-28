@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid || errorSelect.t_currency === true">
+          <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid || errorSelect.t_currency === true" :class="{disabled: disabledForm}">
             <span>Создать</span>
           </button>
           <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid  || errorSelect.t_currency === true">
@@ -121,7 +121,19 @@ export default {
       errorSelect: {
         t_currency: false
       },
-      selectCurrency: ['USD', 'RUB'],
+      disabledForm: false,
+      errorResponse: {
+        status: 'Статус события не позволяет редактирование',
+        date: 'Неверная дата',
+        title: 'Неверная длина названия',
+        description: 'Неверная длина описания',
+        country: 'Неверная страна',
+        city: 'Неверный город',
+        address: 'Неверный адрес',
+        t_currency: 'Некорректная валюта продажи билета',
+        t_price: 'Некорректная цена'
+      },
+      selectCurrency: ['USD', 'RUB']
     }
   },
   validations: {
@@ -160,12 +172,18 @@ export default {
       if (this.event === 'new') {
         API.relations.create(this.form).then(response => {
           console.log(response)
+          this.disabledForm = true
+          responseApi.success('Событие создано')
           // this.$router.push({path: `/admin/editing/${id}`})
+        }).catch(error => {
+          console.log(error)
         })
       } else {
         API.relations.edit(this.form).then(response => {
           responseApi.success('Событие отредактировано')
           // this.$router.push({path: `/admin/editing/${id}`})
+        }).catch(error => {
+          responseApi.error(this.errorResponse[error.response.data.reason])
         })
       }
     },
@@ -185,8 +203,8 @@ export default {
         country: newObg.title,
         city: newObg.city,
         address: newObg.address,
-        t_currency: newObg.t_currency,
-        t_price: newObg.t_price
+        t_currency: newObg.tickets.currency,
+        t_price: newObg.tickets.price
       }
     }
   },
@@ -202,11 +220,12 @@ export default {
         t_currency: '',
         t_price: null
       }
+    } else {
+      API.events.info({id: this.id}).then(response => {
+        this.myForm(response.data.relations)
+      })
     }
-    API.events.info({url: this.id}).then(response => {
-      this.myForm(response.data.relations)
-      console.log(response)
-    })
+
   }
 }
 </script>
@@ -229,6 +248,10 @@ export default {
         &:first-child {
           margin-right: 20px;
           .ss-block({ margin-right: 0; margin-bottom: 20px; });
+        }
+        &.disabled {
+          opacity: 0.7;
+          pointer-events: none;
         }
       }
     }

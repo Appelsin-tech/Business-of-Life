@@ -41,7 +41,7 @@
         </div>
       </div>
       <h2 class="g-caption-section">Прошедшие мероприятия</h2>
-      <div class="event" >
+      <div class="event" v-if="false">
         <div class="event__item event__item--past" v-for="(event, index) in eventArr" :key="index" >
           <div class="event__img" :style="background(event.img)">
             <a href="#" class="img-link img-link--add" v-if="!event.img">

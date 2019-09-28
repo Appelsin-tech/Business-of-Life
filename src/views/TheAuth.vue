@@ -40,11 +40,18 @@
 <script>
 import { minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
+import responseApi from '../api/response'
 
 export default {
   name: 'TheAuth',
   data() {
     return {
+      errorResponse: {
+        user_wrong: 'Пользователь не найден',
+        recovery: 'Требуется восстановление доступа',
+        password: 'Не верный пароль',
+        banned: 'Пользователь забанен'
+      },
       form: {
         user: '',
         password: ''
@@ -70,7 +77,7 @@ export default {
           this.$router.push({path :'/admin/me'})
         })
       }).catch(error => {
-        console.log(error)
+        responseApi.error(this.errorResponse[error.response.data.reason])
       })
     },
   }
