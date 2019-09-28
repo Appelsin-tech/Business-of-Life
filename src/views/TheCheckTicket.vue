@@ -2,16 +2,19 @@
   <section class="p-description p-default p-default-inner">
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Информация о билете</h1>
-      <div class="search-wrapper">
+      <form class="search-wrapper" @submit.prevent="searchTicket" v-if="!profile.logged">
         <div class="search">
-          <input class="search__input" type="text" placeholder="Найти билет по номеру">
+          <input class="search__input" type="text" placeholder="Найти билет по номеру" v-model="form.hash">
           <img svg-inline class="search__icon svg-inline" src="../assets/img/icon/search.svg" alt="">
         </div>
-        <a href="#" class="g-btn g-btn--no-icon ">
+        <button class="g-btn g-btn--no-icon ">
           <span>Найти</span>
-        </a>
+        </button>
+      </form>
+      <div class="wrapper-control error" v-if="!existTicket">
+        <strong>Билет не найден</strong>
       </div>
-      <div class="wrapper-control" v-if="pageTickets">
+      <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(${'https://i.pravatar.cc/512'})`}"></div>
         </div>
@@ -31,7 +34,7 @@
             </p>
           </div>
         </div>
-        <div class="wrapper-control__col wrapper-control__col--status">
+        <div class="wrapper-control__col wrapper-control__col--status" v-if="profile.supervisor">
           <div class="info-status">
             <div class="info-status__status" :class="status[response.status]">
               <span class="info-status__text-small">Статус</span>
@@ -44,7 +47,7 @@
                 <!--</span>-->
               </p>
             </div>
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket" :class="{disabled: disabledBtn || status[response.status] === 'used' || status[response.status] === 'blocked'}" v-if="btnSupervisor">
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket" :class="{disabled: disabledBtn || status[response.status] === 'used' || status[response.status] === 'blocked'}" v-if="superV">
               <span>Использовать билет</span>
             </a>
           </div>
@@ -68,6 +71,11 @@ export default {
       pageTickets: false,
       errorTicket: 'Билет не найден',
       disabledBtn: false,
+      existTicket: false,
+      superV: false,
+      form: {
+        hash: ''
+      },
       status: {
         0: 'blocked',
         1: 'active',
@@ -79,19 +87,6 @@ export default {
     ...mapState('user', [
       'profile'
     ]),
-    btnSupervisor() {
-      if(this.profile.supervisor !== undefined) {
-        this.profile.supervisor.forEach(item => {
-          if(item.id === this.response.event_relation_id) {
-            return true
-          } else {
-            return false
-          }
-        })
-      } else {
-        return false
-      }
-    }
   },
   methods: {
     activateTicket() {
@@ -105,10 +100,30 @@ export default {
     checkTicked() {
       API.tickets.check({hash: this.$route.params.id}).then(response => {
         this.response = response.data
-        console.log(response)
+        this.existTicket = true
+        this.btnSupervisor()
+        // console.log(response)
       }).catch(error => {
         console.log(error)
       })
+    },
+    searchTicket() {
+      API.tickets.check(this.form).then(response => {
+        // console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    btnSupervisor() {
+      if(this.profile.supervisor !== undefined) {
+        this.profile.supervisor.forEach(item => {
+          if(item.id === this.response.event_relation_id) {
+            this.superV = true
+          }
+        })
+      } else {
+        this.superV = false
+      }
     }
   },
   mounted() {
