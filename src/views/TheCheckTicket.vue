@@ -34,7 +34,7 @@
             </p>
           </div>
         </div>
-        <div class="wrapper-control__col wrapper-control__col--status" v-if="profile.supervisor">
+        <div class="wrapper-control__col wrapper-control__col--status">
           <div class="info-status">
             <div class="info-status__status" :class="status[response.status]">
               <span class="info-status__text-small">Статус</span>
