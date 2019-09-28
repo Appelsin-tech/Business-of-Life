@@ -17,15 +17,22 @@
         </div>
         <form class="form-modal" @submit.prevent="onSubmit">
           <div class="form-modal__wrapper">
-            <div class="form-modal__item">
+            <div class="form-modal__item form-modal__item--col-8">
+              <label class="form-modal__label" for="form-name">Ваши ФИО</label>
+              <input class="form-modal__input" id="form-name" :class="{error: $v.form.name.$error}" type="text" placeholder="Петров Иван Сергеевич" v-model="form.name" @blur="$v.form.name.$touch()">
+              <div class="input-valid-error" v-if="$v.form.name.$error">
+                <template v-if="!$v.form.name.required">Поле не может быть пустым</template>
+              </div>
+            </div>
+            <div class="form-modal__item form-modal__item--col-8">
               <label class="form-modal__label" for="form-wallet">Счет с которого совершена оплата</label>
-              <input class="form-modal__input" id="form-wallet" :class="{error: $v.form.wallet.$error}" type="text" placeholder="1234 5678 9012 3456" v-model="form.wallet" @blur="$v.form.wallet.$touch()">
+              <input class="form-modal__input" id="form-wallet" :class="{error: $v.form.wallet.$error}" type="text" v-mask="'##################'" placeholder="1234 5678 9012 3456" v-model="form.wallet" @blur="$v.form.wallet.$touch()">
               <div class="input-valid-error" v-if="$v.form.wallet.$error">
                 <template v-if="!$v.form.wallet.required">Поле не может быть пустым</template>
                 <template v-else-if="!$v.form.wallet.minLength">Номер не должен быть меньше 12 символов</template>
               </div>
             </div>
-            <div class="form-modal__item">
+            <div class="form-modal__item form-modal__item--col-8">
               <label class="form-modal__label" for="form-email">Email, на который отправить билет</label>
               <input class="form-modal__input" id="form-email" :class="{error: $v.form.email.$error}" type="email" placeholder="email@mail.ru " v-model="form.email" @blur="$v.form.email.$touch()">
               <div class="input-valid-error" v-if="$v.form.email.$error">
@@ -46,7 +53,7 @@
 </template>
 
 <script>
-import { required, minLength, email } from 'vuelidate/lib/validators'
+import { required, minLength, email, integer } from 'vuelidate/lib/validators'
 import responseSuccess from '../../api/response'
 import API from '../../api/index'
 
@@ -54,12 +61,13 @@ export default {
   name: 'ModalAdvCash',
   data() {
     return {
-      name: '',
       price: '',
       currency: '',
       form: {
         wallet: '',
-        emil: ''
+        emil: '',
+        relation: '',
+        name: ''
       }
     }
   },
@@ -67,10 +75,14 @@ export default {
     form: {
       wallet: {
         required,
+        integer,
         minLength: minLength(12)
       },
       email: {
         email,
+        required
+      },
+      name: {
         required
       },
     }
@@ -87,6 +99,7 @@ export default {
     beforeOpen (event) {
       this.price = event.params.price
       this.currency = event.params.currency
+      this.relation = event.params.id
     },
   }
 }

@@ -29,7 +29,8 @@
           </p>
           <div class="info__ticket ticket ticket--brief">
             <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span></p>
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="$modal.show('modal-adv-cash', {currency: activeEvent.tickets.currency, price: activeEvent.tickets.price})">
+            <a href="#" class="g-btn g-btn--no-icon"
+               @click.prevent="$modal.show('modal-adv-cash', {currency: activeEvent.tickets.currency, price: activeEvent.tickets.price, id: activeEvent.id})">
               <span>Купить билет</span>
             </a>
           </div>
