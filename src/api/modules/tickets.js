@@ -15,4 +15,11 @@ export default {
       reject(error)
     })
   }),
+  issue: (data) => new Promise((resolve, reject) => {
+    HTTP.post('tickets/issue', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
 }

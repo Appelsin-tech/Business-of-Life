@@ -16,7 +16,7 @@
       </div>
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
-          <div class="ticket__qr-code" :style="{backgroundImage: `url(${'https://i.pravatar.cc/512'})`}"></div>
+          <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
         </div>
         <div class="wrapper-control__col wrapper-control__col--number">
           <div class="info-number">
@@ -102,14 +102,14 @@ export default {
         this.response = response.data
         this.existTicket = true
         this.btnSupervisor()
-        // console.log(response)
+        console.log(response)
       }).catch(error => {
         console.log(error)
       })
     },
     searchTicket() {
       API.tickets.check(this.form).then(response => {
-        // console.log(response)
+        console.log(response)
       }).catch(error => {
         console.log(error)
       })
