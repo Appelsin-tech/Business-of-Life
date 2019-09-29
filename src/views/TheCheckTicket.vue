@@ -110,7 +110,13 @@ export default {
     searchTicket() {
       API.tickets.check(this.form).then(response => {
         console.log(response)
+        this.$router.push({path: `/tickets/${this.form.hash}`})
+        this.pageTickets = true
+        this.existTicket = true
+        this.response = response.data
+        this.btnSupervisor()
       }).catch(error => {
+        this.existTicket = false
         console.log(error)
       })
     },
@@ -131,7 +137,10 @@ export default {
       this.pageTickets = true
       this.checkTicked()
     }
-  }
+  },
+  beforeRouteUpdate (to, from, next) {
+    next()
+  },
 }
 </script>
 
