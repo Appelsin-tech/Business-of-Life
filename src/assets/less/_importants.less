@@ -54,7 +54,6 @@ input {
   .wrapper();
   &.page {
     width: 100%;
-
   }
 }
 .visually-hidden {
@@ -122,15 +121,6 @@ input {
       transition: 0.3s;
     }
   }
-  &--no-icon {
-    min-width: auto;
-    justify-content: center;
-    .xs-block({flex-basis: auto;});
-    span {
-      padding: 0;
-      flex-grow: 0;
-    }
-  }
   &--icon-left {
     .svg-icon {
       left: 0;
@@ -157,6 +147,16 @@ input {
     &:hover,
     &:focus {
       border-color: @colorMainRed;
+    }
+  }
+  &--no-icon {
+    min-width: 180px;
+    justify-content: center;
+    .xs-block({flex-basis: auto;});
+    .sm-block({min-width: 180px;});
+    span {
+      padding: 0;
+      flex-grow: 0;
     }
   }
 }

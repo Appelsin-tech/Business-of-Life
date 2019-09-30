@@ -54,7 +54,6 @@
 
 <script>
 import { required, minLength, email, integer } from 'vuelidate/lib/validators'
-import responseSuccess from '../../api/response'
 import API from '../../api/index'
 
 export default {
@@ -90,10 +89,10 @@ export default {
   methods: {
     onSubmit() {
       API.biling.billing(this.form).then(response => {
-        responseSuccess.success('Форма отправлена')
+        API.response.success('Форма отправлена')
         this.$modal.hide('modal-adv-cash')
       }).catch(error => {
-        responseSuccess.error(error)
+        API.response.error(error)
       })
     },
     beforeOpen (event) {

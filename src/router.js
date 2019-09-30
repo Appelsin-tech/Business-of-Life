@@ -84,16 +84,24 @@ export default new Router({
           path: 'editing/:id/:event',
           name: 'editing',
           props: true,
-          component: () => import('./components/components-admin/AdminEventEditing')
+          component: () => import('./components/components-admin/AdminRelationEditing'),
+        },
+        {
+          path: 'event-create',
+          name: 'event-create',
+          meta: {
+            breadCrumbs: 'Создание мероприятия'
+          },
+          component: () => import('./components/components-admin/AdminEventRelationsEditing'),
         },
         {
           path: 'event-editing/:id',
           name: 'event-editing',
           props: true,
           meta: {
-            breadCrumbs: 'Редактирование событий'
+            breadCrumbs: 'Редактирование мероприятия'
           },
-          component: () => import('./components/components-admin/AdminEventAllEditing')
+          component: () => import('./components/components-admin/AdminEventRelationsEditing'),
         },
         {
           path: 'event-control',
@@ -101,7 +109,7 @@ export default new Router({
           meta: {
             breadCrumbs: 'Управление мероприятиями'
           },
-          component: () => import('./components/components-admin/AdminEventAllControl'),
+          component: () => import('./components/components-admin/AdminEventControl')
         },
         {
           path: 'control-ticket/:hash',

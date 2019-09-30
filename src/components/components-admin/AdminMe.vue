@@ -17,10 +17,10 @@
         <button class="logout" @click="$store.dispatch('user/logout')">Выйти</button>
       </div>
       <div class="menu">
-        <!--<router-link to="/admin/event-control" class="menu__item item">-->
-          <!--<div class="item__img"></div>-->
-          <!--<p class="item__title">Управление мероприятиями</p>-->
-        <!--</router-link>-->
+        <router-link to="/admin/event-control" class="menu__item item">
+          <div class="item__img"></div>
+          <p class="item__title">Управление мероприятиями</p>
+        </router-link>
         <router-link to="/tickets" class="menu__item item">
           <div class="item__img"></div>
           <p class="item__title">Проверить билет</p>

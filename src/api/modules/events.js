@@ -22,6 +22,20 @@ export default {
       reject(error)
     })
   }),
+  edit: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/edit', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
+  delete: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/delete', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
   my: () => new Promise((resolve, reject) => {
     HTTP.get('events/my').then(response => {
       resolve(response)

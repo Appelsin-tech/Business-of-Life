@@ -4,21 +4,21 @@
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Управление мероприятиями</h1>
       <div class="btn-wrapper">
-        <button class="g-btn g-btn--icon-left" @click="$modal.show('modal-parent-event-create')">
+        <router-link to="/admin/event-create" class="g-btn g-btn--icon-left">
           <span>
             <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
             Добавить мероприятие
           </span>
-        </button>
+        </router-link>
       </div>
       <div class="event" v-if="myParentEvents">
         <div class="event__item" v-for="(event, index) in myParentEvents" :key="index" >
-          <div class="event__img" :style="background(event.img)">
-            <a href="#" class="img-link img-link--add" v-if="!event.img">
+          <div class="event__img" >
+            <a href="#" class="img-link img-link--add" v-if="false">
               <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
               <span class="img-link__text">Загрузить фото</span>
             </a>
-            <a href="#" class="img-link img-link--change" v-if="event.img">
+            <a href="#" class="img-link img-link--change" v-if="false">
               <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
               <span class="img-link__text">Сменить фото</span>
             </a>
@@ -29,14 +29,11 @@
               <!--<span class="event__ticket-sold-text">Продано билетов:</span>-->
               <!--<span class="event__ticket-sold-number">{{event.ticket}}</span>-->
             <!--</div>-->
-            <div class="control">
-              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">
-                <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
-              </button>
-              <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
-                <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
-              </button>
-            </div>
+            <!--<div class="control">-->
+              <!--<button class="control__link control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
+                <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">-->
+              <!--</button>-->
+            <!--</div>-->
           </div>
         </div>
       </div>
@@ -77,6 +74,7 @@
 </template>
 
 <script>
+import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapState } from 'vuex'
 
@@ -99,6 +97,13 @@ export default {
       } else {
         return { backgroundImage: 'none' }
       }
+    },
+    deleteEvents(id) {
+      API.events.delete({id: id}).then(() => {
+        API.response.success('Мероприятие удалено')
+        this.$store.dispatch('user/getMyParentEvents').then(() => {
+        })
+      })
     }
   },
   computed: {
@@ -225,6 +230,7 @@ export default {
         background-position: center;
         background-repeat: no-repeat;
         transition: 0.3s;
+        background: @colorBorder;
         .to(1400px, { height: 350px;});
         .md-block({ height: 300px;});
         .xs-block({ height: 250px; margin-bottom: 20px;});

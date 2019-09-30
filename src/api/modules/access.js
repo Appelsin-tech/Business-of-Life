@@ -1,5 +1,4 @@
 import { HTTP } from '../http'
-import response from '../response'
 
 export default {
   auth: (data) => new Promise((resolve, reject) => {

@@ -1,5 +1,4 @@
 import { HTTP } from '../http'
-import response from '../response'
 
 export default {
   me: () => new Promise((resolve, reject) => {

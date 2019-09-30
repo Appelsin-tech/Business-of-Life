@@ -16,20 +16,20 @@
               <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
             </div>
           </div>
-          <div class="edit-grid__item item item--col-4 photo">
-            <span class="item__label">Фото</span>
-            <div class="photo__wrapper">
-              <input type="file" class="visually-hidden" id="form__file">
-              <label class="photo__link photo__link--add" for="form__file">
-                <img svg-inline class="photo__icon" src="../../assets/img/icon/camera.svg" alt="">
-                <span class="photo__text">Загрузить фото</span>
-              </label>
-            </div>
-            <div class="input-valid-error" v-if="false">
-              <template v-if="false">Поле не может быть пустым</template>
-              <template v-else-if="false">Название не должно быть меньше 10 символов</template>
-            </div>
-          </div>
+          <!--<div class="edit-grid__item item item&#45;&#45;col-4 photo">-->
+            <!--<span class="item__label">Фото</span>-->
+            <!--<div class="photo__wrapper">-->
+              <!--<input type="file" class="visually-hidden" id="form__file">-->
+              <!--<label class="photo__link photo__link&#45;&#45;add" for="form__file">-->
+                <!--<img svg-inline class="photo__icon" src="../../assets/img/icon/camera.svg" alt="">-->
+                <!--<span class="photo__text">Загрузить фото</span>-->
+              <!--</label>-->
+            <!--</div>-->
+            <!--<div class="input-valid-error" v-if="false">-->
+              <!--<template v-if="false">Поле не может быть пустым</template>-->
+              <!--<template v-else-if="false">Название не должно быть меньше 10 символов</template>-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="edit-grid__item item item--col-4">
             <label class="item__label" for="form__country">Страна</label>
             <input class="item__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
@@ -90,13 +90,12 @@
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
 import API from '../../api/index'
-import responseApi from '../../api/response'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { minLength, required } from 'vuelidate/lib/validators'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'AdminEventEditing',
+  name: 'AdminRelationEditing',
   props: ['id', 'event'],
   components: { BreadCrumbs, flatPickr },
   data() {
@@ -173,17 +172,17 @@ export default {
         API.relations.create(this.form).then(response => {
           console.log(response)
           this.disabledForm = true
-          responseApi.success('Событие создано')
+          API.response.success('Событие создано')
           // this.$router.push({path: `/admin/editing/${id}`})
         }).catch(error => {
           console.log(error)
         })
       } else {
         API.relations.edit(this.form).then(response => {
-          responseApi.success('Событие отредактировано')
+          API.response.success('Событие отредактировано')
           // this.$router.push({path: `/admin/editing/${id}`})
         }).catch(error => {
-          responseApi.error(this.errorResponse[error.response.data.reason])
+          API.response.error(this.errorResponse[error.response.data.reason])
         })
       }
     },
@@ -258,13 +257,15 @@ export default {
   }
   .edit-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: max-content;
     grid-column-gap: 100px;
     grid-row-gap: 50px;
     margin-bottom: 50px;
+    max-width: 1000px;
     .lg-block({ grid-column-gap: 50px; grid-row-gap: 30px; });
     .md-block({ grid-template-columns: 1fr 1fr; });
+    .sm-block({grid-column-gap: 30px;});
     .ss-block({ grid-template-columns: 1fr; grid-row-gap: 20px; });
     .photo {
       display: flex;

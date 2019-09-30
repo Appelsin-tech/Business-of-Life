@@ -40,7 +40,6 @@
 <script>
 import { minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
-import responseApi from '../api/response'
 
 export default {
   name: 'TheAuth',
@@ -77,7 +76,7 @@ export default {
           this.$router.push({path :'/admin/me'})
         })
       }).catch(error => {
-        responseApi.error(this.errorResponse[error.response.data.reason])
+        API.response.error(this.errorResponse[error.response.data.reason])
       })
     },
   }
