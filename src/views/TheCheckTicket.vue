@@ -92,7 +92,6 @@ export default {
     activateTicket() {
       API.tickets.use({hash: this.$route.params.id}).then(response => {
         this.checkTicked()
-        console.log(response)
       }).catch(error => {
         console.log(error)
       })
@@ -102,14 +101,12 @@ export default {
         this.response = response.data
         this.existTicket = true
         this.btnSupervisor()
-        console.log(response)
       }).catch(error => {
         console.log(error)
       })
     },
     searchTicket() {
       API.tickets.check(this.form).then(response => {
-        console.log(response)
         this.$router.push({path: `/tickets/${this.form.hash}`})
         this.pageTickets = true
         this.existTicket = true
@@ -138,9 +135,17 @@ export default {
       this.checkTicked()
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    next()
-  },
+
+  watch: {
+    '$route' (to, from) {
+      if(this.$route.params.id) {
+        this.pageTickets = true
+        this.checkTicked()
+      } else {
+        this.pageTickets = false
+      }
+    }
+  }
 }
 </script>
 
