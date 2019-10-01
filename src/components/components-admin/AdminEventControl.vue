@@ -14,14 +14,14 @@
       <div class="event" v-if="myParentEvents">
         <div class="event__item" v-for="(event, index) in myParentEvents" :key="index" >
           <div class="event__img" >
-            <a href="#" class="img-link img-link--add" v-if="false">
-              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
-              <span class="img-link__text">Загрузить фото</span>
-            </a>
-            <a href="#" class="img-link img-link--change" v-if="false">
-              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
-              <span class="img-link__text">Сменить фото</span>
-            </a>
+            <!--<a href="#" class="img-link img-link&#45;&#45;add">-->
+              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
+              <!--<span class="img-link__text">Загрузить фото</span>-->
+            <!--</a>-->
+            <!--<a href="#" class="img-link img-link&#45;&#45;change">-->
+              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
+              <!--<span class="img-link__text">Сменить фото</span>-->
+            <!--</a>-->
           </div>
           <a href="#" class="event__title" @click.prevent="$router.push({path: `/admin/event-editing/${event.id}`})">{{event.title}}</a>
           <div class="event__ticket-sold">

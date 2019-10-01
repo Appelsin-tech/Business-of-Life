@@ -12,7 +12,7 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption g-caption-section">Редактирование событий</h2>
-        <div class="btn-wrapper">
+        <div class="btn-wrapper" v-if="id">
           <a href="#" class="g-btn g-btn--icon-left" @click.prevent="$router.push({path: `/admin/editing/${id}/${'new'}`})">
             <span>
               <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">

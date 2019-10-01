@@ -6,6 +6,7 @@
         <input class="item__input" id="form-title" :class="{error: $v.form.title.$error}" type="text" placeholder="Тренинг Искусство продаж " v-model="form.title" @blur="$v.form.title.$touch()">
         <div class="input-valid-error" v-if="$v.form.title.$error">
           <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
+          <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
       <div class="edit-grid__item  item item--col-12">
@@ -13,6 +14,7 @@
         <input class="item__input" id="form-snippet" :class="{error: $v.form.snippet.$error}" type="text" placeholder="Краткое описание " v-model="form.snippet" @blur="$v.form.snippet.$touch()">
         <div class="input-valid-error" v-if="$v.form.snippet.$error">
           <template v-if="!$v.form.snippet.required">Поле не может быть пустым</template>
+          <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
       <div class="edit-grid__item textarea  item item--col-12">
@@ -22,6 +24,7 @@
         </textarea-resize>
         <div class="input-valid-error" v-if="$v.form.description.$error">
           <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
+          <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
       <div class="edit-grid__item item item--col-12">
@@ -29,6 +32,7 @@
         <input class="item__input" id="form-audience" :class="{error: $v.form.audience.$error}" type="text" placeholder="Тренинг Искусство продаж" v-model="form.audience" @blur="$v.form.audience.$touch()">
         <div class="input-valid-error" v-if="$v.form.audience.$error">
           <template v-if="!$v.form.audience.required">Поле не может быть пустым</template>
+          <template v-if="!$v.form.audience.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
     </div>
@@ -47,7 +51,7 @@
 </template>
 
 <script>
-import { minLength, required } from 'vuelidate/lib/validators'
+import { minLength, maxLength, required } from 'vuelidate/lib/validators'
 import API from '../../api/index'
 import TextareaResize from '../textareaResize'
 export default {
@@ -69,16 +73,19 @@ export default {
     form: {
       title: {
         required,
-        minLength: minLength(10)
+        maxLength: maxLength(100)
       },
       snippet: {
-        required
+        required,
+        maxLength: maxLength(150)
       },
       description: {
-        required
+        required,
+        maxLength: maxLength(5000)
       },
       audience: {
-        required
+        required,
+        maxLength: maxLength(150)
       },
     }
   },
