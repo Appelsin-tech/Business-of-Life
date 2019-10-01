@@ -503,3 +503,42 @@ input {
     border-left-color: #42A85F;
   }
 }
+.editor {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  .sm-block({ line-height: 2.2rem;});
+  strong {
+    font-weight: 600;
+  }
+  em {
+    font-style: italic;
+  }
+  a {
+    color: @colorBlue;
+    transition: 0.3s;
+    border-bottom: 1px solid @colorBlue;
+    font-weight: 600;
+    &:hover {
+      border-bottom-color: transparent;
+    }
+  }
+  ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style-position: inside;
+    .sm-block({ padding-left: 10px;});
+    li {
+      list-style: inherit;
+    }
+  }
+  ol {
+    margin: 0;
+    padding-left: 20px;
+    list-style-position: inside;
+    .sm-block({ padding-left: 10px;});
+    li {
+      list-style: inherit;
+    }
+
+  }
+}

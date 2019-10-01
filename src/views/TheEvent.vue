@@ -38,10 +38,7 @@
       </section>
       <section class="description">
         <h2 class="g-caption-section">Описание</h2>
-        <div class="text-wrapper">
-          <p class="description__text">{{responseData.description}}
-          </p>
-        </div>
+        <div class="text-wrapper editor" v-html="responseData.description"></div>
       </section>
       <section class="speakers" v-if="activeEvent.speakers.length !== 0">
         <h2 class="g-caption-section">Спикеры</h2>
