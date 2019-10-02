@@ -3,77 +3,77 @@
     <div class="container">
       <div class="wrapper-relative">
         <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
-        <div class="icon-wrapper icon-wrapper--desktop" v-if="false">
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
-            <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
-            <span>Календарь</span>
-          </a>
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('event/random-symbols')">
-            <img svg-inline src="../assets/img/icon/info.svg" alt="">
-            <span>Информация</span>
-          </a>
-        </div>
-        <button class="burger" @click="showMenu = !showMenu" v-if="false">
+        <!--<div class="icon-wrapper icon-wrapper&#45;&#45;desktop" >-->
+          <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('calendar')">-->
+            <!--<img svg-inline src="../assets/img/icon/calendar.svg" alt="">-->
+            <!--<span>Календарь</span>-->
+          <!--</a>-->
+          <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('event/random-symbols')">-->
+            <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
+            <!--<span>Информация</span>-->
+          <!--</a>-->
+        <!--</div>-->
+        <button class="burger" @click="showMenu = !showMenu">
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
-      <div class="wrapper-menu-list" v-if="false">
+      <div class="wrapper-menu-list">
         <ul class="menu-list">
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('main')">Главная</a>
           </li>
           <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('learning-stages')">Этапы обучения</a>
+            <a href="#" class="link" @click.prevent="goRouter('description')">О нас</a>
           </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('description')">Об академии</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('our-coach')">Наши тренеры</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('news')">Новости</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('auth')">Авторизация</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('event-all-editing')">Редактирование всех событий</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('event-editing')">Редактирование события</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('event-control')">Управление мероприятиями</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('control-ticket')">Управление билетом</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('statistic')">Статистика</a>
-          </li>
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('learning-stages')">Этапы обучения</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('our-coach')">Наши тренеры</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('news')">Новости</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('auth')">Авторизация</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('event-all-editing')">Редактирование всех событий</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('event-editing')">Редактирование события</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('event-control')">Управление мероприятиями</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('control-ticket')">Управление билетом</a>-->
+          <!--</li>-->
+          <!--<li class="item">-->
+            <!--<a href="#" class="link" @click.prevent="goRouter('statistic')">Статистика</a>-->
+          <!--</li>-->
         </ul>
-        <div class="icon-wrapper  icon-wrapper--mobile">
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
-            <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
-            <span>Календарь</span>
-          </a>
-          <a href="#" class="icon-red icon-red--mobile" @click.prevent="goRouter('event')">
-            <img svg-inline src="../assets/img/icon/info.svg" alt="">
-            <span>Информация</span>
-          </a>
-        </div>
+        <!--<div class="icon-wrapper  icon-wrapper&#45;&#45;mobile">-->
+          <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('calendar')">-->
+            <!--<img svg-inline src="../assets/img/icon/calendar.svg" alt="">-->
+            <!--<span>Календарь</span>-->
+          <!--</a>-->
+          <!--<a href="#" class="icon-red icon-red&#45;&#45;mobile" @click.prevent="goRouter('event')">-->
+            <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
+            <!--<span>Информация</span>-->
+          <!--</a>-->
+        <!--</div>-->
       </div>
     </div>
   </header>
@@ -215,12 +215,13 @@ export default {
       }
       .wrapper-menu-list {
         display: flex;
+        position: absolute;
+        left: 50%;
+        top: 250px;
+        transform: translateX(-50%);
         flex-direction: column;
         justify-self: center;
-        transform: translateY(50%);
         z-index: 9;
-        .lg-block({ transform: translateY(70%); });
-        .sm-block({ transform: translateY(20%); });
         .menu-list {
           position: relative;
           display: none;

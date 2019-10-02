@@ -5,37 +5,37 @@
     <div id="nav-menu" class="navigation-wrapper">
       <button class="arrow next-slide" ></button>
       <button class="arrow prev-slide"></button>
-      <ul id="mainMenu" class="main-nav-menu" v-if="false">
+      <ul id="mainMenu" class="main-nav-menu">
         <li>
-          <router-link to="/" class="dots" active-class="active"  v-tooltip.right="'Главная'"/>
+          <router-link to="/" class="dots" exact active-class="active"  v-tooltip.right="'Главная'"/>
         </li>
+        <!--<li>-->
+          <!--<router-link to="/admin" class="dots" active-class="active"  v-tooltip.right="'ADMIN'"/>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/learning-stages" class="dots" active-class="active"  v-tooltip.right="'Этапы обучения'"/>-->
+        <!--</li>-->
         <li>
-          <router-link to="/admin" class="dots" active-class="active"  v-tooltip.right="'ADMIN'"/>
+          <router-link to="/description" exact class="dots" active-class="active"  v-tooltip.right="'Описание проекта'"/>
         </li>
-        <li>
-          <router-link to="/learning-stages" class="dots" active-class="active"  v-tooltip.right="'Этапы обучения'"/>
-        </li>
-        <li>
-          <router-link to="/description" class="dots" active-class="active"  v-tooltip.right="'Описание проекта'"/>
-        </li>
-        <li>
-          <router-link to="/our-coach" class="dots" active-class="active"  v-tooltip.right="'Наши тренеры'"/>
-        </li>
-        <li>
-          <router-link to="/news" class="dots" active-class="active"  v-tooltip.right="'Новости'"/>
-        </li>
-        <li>
-          <router-link to="/photo-gallery" class="dots" active-class="active"  v-tooltip.right="'Фотогалерея'"/>
-        </li>
-        <li>
-          <router-link to="/auth" class="dots" active-class="active"  v-tooltip.right="'Авторизация'"/>
-        </li>
-        <li>
-          <router-link to="/calendar" class="dots" active-class="active"  v-tooltip.right="'Календарь событий'"/>
-        </li>
-        <li>
-          <router-link to="/event/3" class="dots" active-class="active" v-tooltip.right="'Событие'"/>
-        </li>
+        <!--<li>-->
+          <!--<router-link to="/our-coach" class="dots" active-class="active"  v-tooltip.right="'Наши тренеры'"/>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/news" class="dots" active-class="active"  v-tooltip.right="'Новости'"/>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/photo-gallery" class="dots" active-class="active"  v-tooltip.right="'Фотогалерея'"/>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/auth" class="dots" active-class="active"  v-tooltip.right="'Авторизация'"/>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/calendar" class="dots" active-class="active"  v-tooltip.right="'Календарь событий'"/>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/event/3" class="dots" active-class="active" v-tooltip.right="'Событие'"/>-->
+        <!--</li>-->
       </ul>
     </div>
     <main>
