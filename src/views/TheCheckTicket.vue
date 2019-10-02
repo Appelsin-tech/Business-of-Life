@@ -2,18 +2,8 @@
   <section class="p-description p-default p-default-inner">
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Информация о билете</h1>
-      <form class="search-wrapper" @submit.prevent="searchTicket" v-if="!profile.logged">
-        <div class="search">
-          <input class="search__input" type="text" placeholder="Найти билет по номеру" v-model="form.hash">
-          <img svg-inline class="search__icon svg-inline" src="../assets/img/icon/search.svg" alt="">
-        </div>
-        <button class="g-btn g-btn--no-icon ">
-          <span>Найти</span>
-        </button>
-      </form>
-      <div class="wrapper-control error" v-if="!existTicket">
-        <strong>Билет не найден</strong>
-      </div>
+      <ticket-search v-if="!profile.logged"/>
+
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
@@ -63,8 +53,10 @@
 <script>
 import API from '../api/index'
 import {mapState} from 'vuex'
+import TicketSearch from '../components/TicketSearch'
 export default {
   name: 'TheCheckTicket',
+  components: {TicketSearch},
   data() {
     return {
       response: false,
@@ -105,18 +97,6 @@ export default {
         console.log(error)
       })
     },
-    searchTicket() {
-      API.tickets.check(this.form).then(response => {
-        this.$router.push({path: `/tickets/${this.form.hash}`})
-        this.pageTickets = true
-        this.existTicket = true
-        this.response = response.data
-        this.btnSupervisor()
-      }).catch(error => {
-        this.existTicket = false
-        console.log(error)
-      })
-    },
     btnSupervisor() {
       if(this.profile.supervisor !== undefined) {
         this.profile.supervisor.forEach(item => {
@@ -127,7 +107,7 @@ export default {
       } else {
         this.superV = false
       }
-    }
+    },
   },
   mounted() {
     if(this.$route.params.id) {
@@ -143,6 +123,7 @@ export default {
         this.checkTicked()
       } else {
         this.pageTickets = false
+        console.log(from)
       }
     }
   }
@@ -151,75 +132,13 @@ export default {
 
 <style scoped lang="less">
   @import "../assets/less/_importants";
-  .search-wrapper {
-    display: flex;
-    margin-bottom: 40px;
-    .sm-block({ flex-direction: column; align-items: flex-start;});
-    .search {
-      position: relative;
-      height: 72px;
-      max-width: 400px;
-      width: 100%;
-      margin-right: 40px;
-      .md-block({ height: 60px;});
-      .sm-block({ margin-bottom: 20px; margin-right: 0;});
-      .xs-block({ height: 50px;});
-      &__input {
-        padding-left: 50px;
-        width: 100%;
-        height: 100%;
-        background: #f3f3f3;
-        box-sizing: border-box;
-        border: 1px solid transparent;
-        transition: 0.3s;
-        .xs-block({ padding-left: 30px;});
-        &:focus {
-          border-color: #000;
-          background: #fff;
-        }
-        &:focus + .search__icon {
-          path {
-            fill: #000;
-          }
-        }
-      }
-      &__icon {
-        position: absolute;
-        left: 14px;
-        top: calc(~"50% - 14px");
-        width: 28px;
-        height: 28px;
-        .xs-block({ width: 16px; height: 16px; top: calc(~"50% - 8px"); left: 7px;});
-        path {
-          fill: #fff;
-          transition: 0.3s;
-        }
-      }
-    }
-    .g-btn {
-      min-width: 180px;
-      padding: 24px 28px;
-      .md-block({ padding: 19px 28px;})
-    }
-  }
+
   .wrapper-control {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     .lg-block({ justify-content: space-around;});
     .md-block({ flex-direction: column;});
-    &.error {
-      padding: 30px;
-      border-radius: 6px;
-      background: @colorError;
-      .lg-block({ padding: 22px;});
-      strong {
-        font-size: 2rem;
-        color: #fff;
-        font-weight: 400;
-        .sm-block({ font-size: 1.6rem;});
-      }
-    }
     &__col {
       display: flex;
       flex-direction: column;
