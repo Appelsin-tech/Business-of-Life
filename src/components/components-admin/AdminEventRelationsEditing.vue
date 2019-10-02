@@ -2,7 +2,7 @@
   <section class="p-event-all-editing p-default p-default-inner">
     <bread-crumbs/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner">Мероприятие</h1>
+      <h1 class="g-caption g-caption-inner g-caption-inner--admin">Мероприятие</h1>
       <div class="event-description">
         <h2 class="g-caption g-caption-section">
           <template v-if="id">Редактирование мероприятия</template>

@@ -239,7 +239,7 @@ export default {
   beforeRouteUpdate (to, from, next) {
     next()
   },
-  created() {
+  mounted() {
     API.relations.info({ url: this.$route.params.hash }).then(response => {
       this.responseData = response.data
       this.activeCity()

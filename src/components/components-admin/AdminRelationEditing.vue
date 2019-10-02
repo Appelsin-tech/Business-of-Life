@@ -2,12 +2,12 @@
   <section class="p-event-editing p-default p-default-inner">
     <bread-crumbs/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner">
+      <h1 class="g-caption g-caption-inner g-caption-inner--admin">
         <template v-if="event === 'new'">Создание события</template>
         <template v-else>Редактирование события</template>
       </h1>
-      <h2 class="g-caption g-caption-section">Общая информация</h2>
       <form class="edit-form" @submit.prevent="onSubmit">
+        <h2 class="g-caption g-caption-section">Общая информация</h2>
         <div class="edit-grid">
           <div class="edit-grid__item item item--col-8">
             <label class="item__label" for="form-title">Название</label>
