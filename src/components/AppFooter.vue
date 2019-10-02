@@ -1,7 +1,12 @@
 <template>
   <footer class="s-footer" :class="{'border-class': borderClass}">
     <div class="container">
-      <p class="copyright">© Все права принадлежат компании “Business of Life”</p>
+      <div class="copyright-wrapper">
+        <p class="copyright">TОО "Business of Life"</p>
+        <p class="copyright">Казахстан, г. Алматы, Алмалинский р-н, ул. Айтиева зд. 96</p>
+        <a href="mailto:info@businessof.life" class="copyright copyright--link">info@businessof.life</a>
+        <p class="copyright">(с) Все права защищены</p>
+      </div>
       <ul class="list-social" v-if="false">
         <li>
           <a href="#" class="item">
@@ -53,9 +58,27 @@ export default {
       justify-content: space-between;
       align-items: center;
       .sm-block({ flex-direction: column;});
+      .copyright-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .sm-block({ align-items: center;});
+      }
       .copyright {
+        display: inline-block;
         font-size: 1.2rem;
         .sm-block({order: 2;});
+        &:not(:last-child) {
+          margin-bottom: 5px;
+        }
+        &--link {
+          color: @colorBlue;
+          border-bottom: 1px solid @colorBlue;
+          transition: 0.3s;
+          &:hover {
+            border-bottom-color: transparent;
+          }
+        }
       }
       .list-social {
         display: flex;
