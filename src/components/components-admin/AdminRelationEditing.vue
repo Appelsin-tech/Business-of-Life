@@ -81,6 +81,7 @@
             <span>Сохранить</span>
           </button>
         </div>
+        <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
       </form>
     </div>
   </section>

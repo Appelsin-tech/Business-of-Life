@@ -37,11 +37,8 @@
       </div>
     </div>
     <div class="btn-wrapper">
-      <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-if="!idEvent">
-        <span>Создать</span>
-      </button>
-      <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>
-        <span>Редактировать</span>
+      <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
+        <span>Сохранить</span>
       </button>
       <button class="g-btn g-btn--no-icon g-btn--white g-btn--border" type="button" @click="deleteEvent" v-if="btnDelete">
         <span>Удалить</span>
@@ -117,7 +114,7 @@ export default {
   },
   watch: {
     event(newVal, oldVal) {
-      if (newVal) {
+      if (newVal !== undefined) {
         this.form = {
           id: this.idEvent,
           title: this.event.title,

@@ -37,38 +37,38 @@
           </div>
         </div>
       </div>
-      <h2 class="g-caption-section">Прошедшие мероприятия</h2>
-      <div class="event" v-if="false">
-        <div class="event__item event__item--past" v-for="(event, index) in eventArr" :key="index" >
-          <div class="event__img" :style="background(event.img)">
-            <a href="#" class="img-link img-link--add" v-if="!event.img">
-              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
-              <span class="img-link__text">Загрузить фото</span>
-            </a>
-            <a href="#" class="img-link img-link--change" v-if="event.img">
-              <img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">
-              <span class="img-link__text">Сменить фото</span>
-            </a>
-          </div>
-          <a href="#" class="event__title">{{event.name}}</a>
-          <div class="event__ticket-sold">
-            <div class="control">
-              <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">
-                <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
-              </button>
-              <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'">
-                <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a href="#" class="g-btn g-btn--icon-left g-btn--event-pasts">
-        <span>
-          <img svg-inline class="svg-icon" src="../../assets/img/icon/eye.svg" alt="">
-          Смотреть все
-        </span>
-      </a>
+      <!--<h2 class="g-caption-section">Прошедшие мероприятия</h2>-->
+      <!--<div class="event" >-->
+        <!--<div class="event__item event__item&#45;&#45;past" v-for="(event, index) in eventArr" :key="index" >-->
+          <!--<div class="event__img" :style="background(event.img)">-->
+            <!--<a href="#" class="img-link img-link&#45;&#45;add" v-if="!event.img">-->
+              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
+              <!--<span class="img-link__text">Загрузить фото</span>-->
+            <!--</a>-->
+            <!--<a href="#" class="img-link img-link&#45;&#45;change" v-if="event.img">-->
+              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
+              <!--<span class="img-link__text">Сменить фото</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<a href="#" class="event__title">{{event.name}}</a>-->
+          <!--<div class="event__ticket-sold">-->
+            <!--<div class="control">-->
+              <!--<button class="control__link control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
+                <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">-->
+              <!--</button>-->
+              <!--<button class="control__link control-link control-link&#45;&#45;delete" v-tooltip.bottom="'Удалить'">-->
+                <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">-->
+              <!--</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<a href="#" class="g-btn g-btn&#45;&#45;icon-left g-btn&#45;&#45;event-pasts">-->
+        <!--<span>-->
+          <!--<img svg-inline class="svg-icon" src="../../assets/img/icon/eye.svg" alt="">-->
+          <!--Смотреть все-->
+        <!--</span>-->
+      <!--</a>-->
     </div>
   </section>
 </template>

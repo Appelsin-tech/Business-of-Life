@@ -19,11 +19,11 @@
               Добавить событие
             </span>
           </a>
-          <a href="#" class="g-btn g-btn--no-icon g-btn--white g-btn--border">
+          <a href="#" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="showButtonDelete">
             <span>Опубликовать все</span>
           </a>
         </div>
-        <div class="event-wrapper" v-if="showRelations">
+        <div class="event-wrapper" v-if="showRelations === 0">
           <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
             <div class="status" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
               <template v-if="status[relation.status].status === 'created'"><img svg-inline class="status__icon" src="../../assets/img/icon/close.svg" alt=""></template>
@@ -32,14 +32,18 @@
             </div>
             <div class="event__info-wrapper">
               <div class="event__info">
-                <a href="#" class="event__title">{{relation.title}} {{relation.id}}</a>
-                <p class="event__location location">
-                  <img svg-inline class="location__icon" src="../../assets/img/icon/location.svg" alt="">
-                  <span class="location__text">{{relation.country}} {{relation.city}}</span>
+                <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}}</a>
+                <p class="event__info-item location">
+                  <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
+                  <span class="text">{{relation.country}} {{relation.city}}</span>
                 </p>
-                <p class="event__date date">
-                  <img svg-inline class="date__icon" src="../../assets/img/icon/timetable.svg" alt="">
-                  <span class="date__text">{{relation.date}}</span>
+                <p class="event__info-item date">
+                  <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">
+                  <span class="text">{{relation.date}}</span>
+                </p>
+                <p class="event__info-item link">
+                  <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">
+                  <span class="text">https://businessof.life/event/{{relation.id}}</span>
                 </p>
               </div>
               <div class="control">
@@ -53,7 +57,9 @@
             </div>
           </div>
         </div>
-        <strong class="event-null" v-else>Событий не найдено</strong>
+        <strong class="event-null" v-else-if="showRelations === 1">Событий не найдено</strong>
+        <strong class="event-null" v-else>Чтобы создать событие - заполните информацию о мероприятии</strong>
+        <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
       </div>
     </div>
   </section>
@@ -72,7 +78,7 @@ export default {
   data() {
     return {
       myEvent: false,
-      showRelations: false,
+      showRelations: 2,
       status: {
         0: {
           class: 'created',
@@ -98,7 +104,7 @@ export default {
       'myParentEvents'
     ]),
     showButtonDelete() {
-      if(this.showRelations) {
+      if(this.showRelations === 0) {
         return !this.myEvent.relations.some(item => { return item.status === 3})
       } else {
         return false
@@ -117,9 +123,28 @@ export default {
       API.events.info({id: this.id}).then(response => {
         this.myEvent = response.data
         if (this.myEvent.relations.length !== 0 ) {
-          this.showRelations = true
+          this.showRelations = 0
+        } else {
+          this.showRelations = 1
         }
       })
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      if(this.id) {
+        API.events.info({id: this.id}).then(response => {
+          this.myEvent = response.data
+          if (this.myEvent.relations.length !== 0 ) {
+            this.showRelations = 0
+          } else {
+            this.showRelations = 1
+          }
+        })
+      } else {
+        this.myEvent = false
+        this.showRelations = 2
+      }
     }
   }
 }
@@ -127,9 +152,6 @@ export default {
 
 <style scoped lang="less">
   @import "../../assets/less/_importants";
-  .g-caption-section {
-    color: @colorBlue;
-  }
   .btn-wrapper {
     display: flex;
     justify-content: flex-start;
@@ -228,22 +250,26 @@ export default {
         }
         &__title {
           display: block;
-          margin-bottom: 20px;
+          margin-bottom: 25px;
           font-weight: 800;
           font-size: 2rem;
           text-transform: uppercase;
           text-decoration: underline;
           color: #000;
-          .md-block({ font-size: 1.6rem; margin-bottom: 12px;});
+          .md-block({ font-size: 1.6rem; margin-bottom: 15px;});
           &:hover {
             text-decoration: none;
           }
         }
-        .date,
-        .location {
+        &__info-item {
           display: flex;
           align-items: center;
-          &__icon {
+          margin-bottom: 20px;
+          .md-block({ margin-bottom: 10px;});
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+          .icon {
             margin-right: 15px;
             width: 15px;
             height: 15px;
@@ -251,12 +277,9 @@ export default {
               fill: #dedede;
             }
           }
-          &__text {
+          .text {
             color: @colorSecondFonts;
           }
-        }
-        .location {
-          margin-bottom: 20px;
         }
       }
     }
