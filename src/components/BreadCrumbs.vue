@@ -6,12 +6,11 @@
           <router-link class="breadcrumbs__link" to="/">Главная</router-link>
           <span class="breadcrumbs__arrow">></span>
         </li>
-        <li class="breadcrumbs__item">
-          <router-link class="breadcrumbs__link" to="/admin/me">Личный кабинет</router-link>
-          <span class="breadcrumbs__arrow" v-if="$route.meta.breadCrumbs">></span>
-        </li>
-        <li v-for="(item, index) in $route.matched">
-          <router-link class="breadcrumbs__link" :to="item.path" v-if="!item.meta.auth && item.meta.breadCrumbs">{{item.meta.breadCrumbs}} <span class="breadcrumbs__arrow" v-if="item === $route.meta.breadCrumbs[index]">></span></router-link>
+        <li v-for="(item, index) in $route.meta.breadCrumbs.parent">
+          <router-link class="breadcrumbs__link" :to="routePath(item)">
+            {{item.title}}
+            <span class="breadcrumbs__arrow" v-if="index !== $route.meta.breadCrumbs.parent.length - 1">></span>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -20,7 +19,16 @@
 
 <script>
 export default {
-  name: 'BreadCrumbs'
+  name: 'BreadCrumbs',
+  methods: {
+    routePath(d) {
+      if(d.path === '/admin/event-editing') {
+        return d.path + '/' + this.$route.params.id
+      } else {
+        return d.path
+      }
+    }
+  },
 }
 </script>
 
@@ -30,6 +38,7 @@ export default {
     margin-bottom: 25px;
     &__list {
       display: flex;
+      .sm-block({ flex-direction: column;})
     }
     &__link {
       font-size: 1.4rem;

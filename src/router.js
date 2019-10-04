@@ -72,34 +72,37 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       redirect: '/admin/me',
-      meta: {auth: true},
+      meta: { auth: true },
       component: () => import('./views/TheAdmin'),
       children: [
         {
           path: 'me',
           name: 'me',
-          component: () => import('./components/components-admin/AdminMe')
-        },
-        {
-          path: 'editing/:id/:event',
-          name: 'editing',
-          props: true,
-          component: () => import('./components/components-admin/AdminRelationEditing'),
+          component: () => import('./components/components-admin/AdminMe'),
+          meta: {
+            breadCrumbs: {
+              title: 'Личный кабинет',
+              parent: []
+            }
+          }
         },
         {
           path: 'event-create',
           name: 'event-create',
           meta: {
-            breadCrumbs: 'Создание мероприятия'
-          },
-          component: () => import('./components/components-admin/AdminEventRelationsEditing'),
-        },
-        {
-          path: 'event-editing/:id',
-          name: 'event-editing',
-          props: true,
-          meta: {
-            breadCrumbs: 'Редактирование мероприятия'
+            breadCrumbs: {
+              title: 'Создание мероприятия',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                },
+                {
+                  title: 'Управление мероприятиями',
+                  path: '/admin/event-control'
+                }
+              ]
+            }
           },
           component: () => import('./components/components-admin/AdminEventRelationsEditing'),
         },
@@ -107,9 +110,63 @@ export default new Router({
           path: 'event-control',
           name: 'event-control',
           meta: {
-            breadCrumbs: 'Управление мероприятиями'
+            breadCrumbs: {
+              title: 'Управление мероприятиями',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                }
+              ]
+            }
           },
           component: () => import('./components/components-admin/AdminEventControl')
+        },
+        {
+          path: 'event-editing/:id',
+          name: 'event-editing',
+          props: true,
+          meta: {
+            breadCrumbs: {
+              title: 'Редактирование мероприятия',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                },
+                {
+                  title: 'Управление мероприятиями',
+                  path: '/admin/event-control'
+                }
+              ]
+            }
+          },
+          component: () => import('./components/components-admin/AdminEventRelationsEditing'),
+        },
+        {
+          path: 'editing/:id/:event',
+          name: 'editing',
+          props: true,
+          meta: {
+            breadCrumbs: {
+              title: 'Редактирование события',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                },
+                {
+                  title: 'Управление мероприятиями',
+                  path: '/admin/event-control'
+                },
+                {
+                  title: 'Редактирование мероприятия',
+                  path: '/admin/event-editing'
+                }
+              ]
+            },
+          },
+          component: () => import('./components/components-admin/AdminRelationEditing'),
         },
         {
           path: 'control-ticket/:hash',

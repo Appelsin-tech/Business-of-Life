@@ -1,6 +1,5 @@
 <template>
   <section class="p-event p-default p-default-inner">
-    <bread-crumbs v-if="false"/>
     <div class="container" v-if="activeEvent">
       <h1 class="g-caption g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
@@ -149,13 +148,11 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import BreadCrumbs from '../components/BreadCrumbs.vue'
 import API from '../api/index'
 
 export default {
   name: 'TheEvent',
   components: {
-    BreadCrumbs,
     swiper,
     swiperSlide
   },
