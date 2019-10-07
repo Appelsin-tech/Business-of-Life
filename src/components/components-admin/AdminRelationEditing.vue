@@ -234,8 +234,6 @@ export default {
   @import "../../assets/less/_importants";
   @import '~flatpickr/dist/flatpickr.css';
   .edit-form {
-    padding-left: 50px;
-    .lg-block({ padding-left: 0; });
     .btn-wrapper {
       display: flex;
       justify-content: flex-start;

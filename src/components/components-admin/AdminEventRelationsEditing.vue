@@ -167,13 +167,9 @@ export default {
     }
   }
   .event-description {
-    padding-left: 50px;
     margin-bottom: 60px;
-    .sm-block({ padding-left: 0;});
   }
   .relations-list {
-    padding-left: 50px;
-    .sm-block({ padding-left: 0;});
     .event-wrapper {
       display: flex;
       flex-direction: column;
