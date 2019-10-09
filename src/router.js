@@ -9,11 +9,17 @@ export default new Router({
     {
       path: '/',
       name: 'main',
+      meta: {
+        navDots: true
+      },
       component: () => import('./views/TheHero')
     },
     {
       path: '/description',
       name: 'description',
+      meta: {
+        navDots: true
+      },
       component: () => import('./views/TheDescription')
     },
     {
@@ -34,6 +40,9 @@ export default new Router({
     {
       path: '/photo-gallery',
       name: 'photo-gallery',
+      meta: {
+        navDots: true
+      },
       component: () => import('./views/ThePhotoGallery')
     },
     {

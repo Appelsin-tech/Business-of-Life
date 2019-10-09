@@ -18,11 +18,11 @@
       </div>
       <div class="menu">
         <router-link to="/admin/event-control" class="menu__item item">
-          <div class="item__img"></div>
+          <div class="item__img item__img--event"></div>
           <p class="item__title">Управление мероприятиями</p>
         </router-link>
         <router-link to="/tickets" class="menu__item item">
-          <div class="item__img"></div>
+          <div class="item__img  item__img--tickets"></div>
           <p class="item__title">Проверить билет</p>
         </router-link>
       </div>
@@ -125,6 +125,12 @@ export default {
           .to(1400px, { height: 350px; });
           .md-block({ height: 300px; });
           .xs-block({ height: 250px; margin-bottom: 20px; });
+          &--event {
+            background-image: url('../../assets/img/admin-menu-events.jpg');
+          }
+          &--tickets {
+            background-image: url('../../assets/img/admin-menu-tickets.jpg');
+          }
           .img-link {
             position: absolute;
             left: 0;
