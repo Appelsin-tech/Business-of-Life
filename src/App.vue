@@ -15,6 +15,7 @@
     <modal-event-edit/>
     <modal-parent-event-create/>
     <modal-adv-cash/>
+    <modal-calendar-relations/>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
 import ModalEventEdit from './components/modal/ModalEventEdit.vue'
 import ModalAdvCash from './components/modal/ModalAdvCash.vue'
 import ModalParentEventCreate from './components/modal/ModalParentEventCreate.vue'
+import ModalCalendarRelations from './components/modal/ModalCalendarRelations.vue'
 import { RouterMixin } from './mixins/router-mixin.js'
 
 export default {
@@ -40,7 +42,8 @@ export default {
     ModalTicketSuccess,
     ModalEventEdit,
     ModalParentEventCreate,
-    ModalAdvCash
+    ModalAdvCash,
+    ModalCalendarRelations
   },
   mixins: [RouterMixin],
   data () {

@@ -5,7 +5,6 @@ export default {
     HTTP.post('access/auth', data).then(response => {
       resolve(response.data)
     }).catch((error, res) => {
-      response.error(error.response.data)
       reject(error)
     })
   }),

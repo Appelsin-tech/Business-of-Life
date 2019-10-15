@@ -542,3 +542,34 @@ input {
 
   }
 }
+
+.VueCarousel {
+  &.carousel-calendar {
+
+    .VueCarousel-wrapper {
+
+      .VueCarousel-inner {
+
+      }
+      .carousel-calendar__slide {
+
+      }
+    }
+  }
+  &.carousel-calendar-inner {
+    flex-grow: 1;
+    .VueCarousel-wrapper {
+      flex-grow: 1;
+    }
+    .VueCarousel-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .VueCarousel-navigation-button {
+        position: relative;
+        color: @colorMainRed;
+      }
+    }
+  }
+}
+
