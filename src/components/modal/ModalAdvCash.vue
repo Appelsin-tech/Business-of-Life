@@ -100,6 +100,28 @@ export default {
       this.currency = event.params.currency
       this.form.relation = event.params.id
     },
+    initWidgetPayment() {
+      const widget = new cp.CloudPayments()
+      widget.charge({
+        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
+        description: 'Покупка билета',
+        amount: 10,
+        currency: 'RUB',
+        skin: 'mini',
+        data: {
+          relation: '463'
+        }
+      },
+      function (options) {
+        // действие при успешной оплате
+      },
+      function (reason, options) {
+        // действие при неуспешной оплате
+      })
+    }
+  },
+  mounted() {
+    this.initWidgetPayment()
   }
 }
 </script>

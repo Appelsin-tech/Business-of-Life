@@ -4,7 +4,7 @@
       <h1 class="g-caption g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
-        <v-select @input="newActiveEvent"  :value="activeEvent.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
+        <v-select @input="newActiveEvent" :value="activeEvent.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
       </div>
       <section class="brief">
         <div class="brief__img" :style="{backgroundImage: `url(${responseData.img})`}"></div>
@@ -27,9 +27,14 @@
             <span class="info__item--normal info__item--speakers">будут указаны ближе к дате мероприятия</span>
           </p>
           <div class="info__ticket ticket ticket--brief">
-            <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span></p>
+            <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span>
+            </p>
+            <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon"-->
+               <!--@click.prevent="$modal.show('modal-adv-cash', {currency: activeEvent.tickets.currency, price: activeEvent.tickets.price, id: activeEvent.id})">-->
+              <!--<span>Купить билет</span>-->
+            <!--</a>-->
             <a href="#" class="g-btn g-btn--no-icon"
-               @click.prevent="$modal.show('modal-adv-cash', {currency: activeEvent.tickets.currency, price: activeEvent.tickets.price, id: activeEvent.id})">
+               @click.prevent="initWidgetPayment">
               <span>Купить билет</span>
             </a>
           </div>
@@ -204,13 +209,34 @@ export default {
     },
     activeCity() {
       this.responseData.relations.forEach((item) => {
-        this.city.push({name: item.city, val: item.url})
+        this.city.push({ name: item.city, val: item.url })
       })
     },
     newActiveEvent(value) {
       this.val = value.val
       let a = value.val + ''
-      this.$router.push({path: `/event/${a}`})
+      this.$router.push({ path: `/event/${a}` })
+    },
+    initWidgetPayment() {
+      const widget = new cp.CloudPayments()
+      widget.charge({
+        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
+        description: 'Покупка билета',
+        amount: this.activeEvent.tickets.price,
+        currency: this.activeEvent.tickets.currency,
+        skin: 'mini',
+        data: {
+          relation: this.$route.params.hash
+        }
+      },
+      function (options) {
+        console.log(options)
+        // API.response.success('Успешная оплата')
+      },
+      function (reason, options) {
+        console.log(reason, options)
+        // API.response.error('Ошибка')
+      })
     }
   },
   watch: {
@@ -223,7 +249,7 @@ export default {
       return this.$refs.mySwiperEvents.swiper
     },
     selectedCity() {
-      return {name: this.activeEvent.city, val: this.activeEvent.url}
+      return { name: this.activeEvent.city, val: this.activeEvent.url }
     },
     speakersName() {
       if (this.activeEvent) {
@@ -233,7 +259,7 @@ export default {
       }
     }
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     next()
   },
   mounted() {
@@ -242,7 +268,7 @@ export default {
       this.activeCity()
       this.activeEventFilter(response.data.relations)
     }).catch(error => {
-      this.$router.push({path: '/'})
+      this.$router.push({ path: '/' })
     })
   }
 }
@@ -346,7 +372,7 @@ export default {
         flex-direction: column;
         padding-top: 4%;
         max-width: min-content;
-        .md-block({ padding-top: 0; max-width: 80%;});
+        .md-block({ padding-top: 0; max-width: 80%; });
         .sm-block({ max-width: 100%; });
       }
       .info {
@@ -356,7 +382,7 @@ export default {
           font-size: 1.8rem;
           overflow: hidden;
           .md-block({ margin-bottom: 50px; });
-          .xs-block({ margin-bottom: 30px; font-size: 1.6rem;});
+          .xs-block({ margin-bottom: 30px; font-size: 1.6rem; });
         }
         &__item {
           display: flex;
