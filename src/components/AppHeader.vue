@@ -3,16 +3,16 @@
     <div class="container">
       <div class="wrapper-relative">
         <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
-        <!--<div class="icon-wrapper icon-wrapper&#45;&#45;desktop" >-->
-          <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('calendar')">-->
-            <!--<img svg-inline src="../assets/img/icon/calendar.svg" alt="">-->
-            <!--<span>Календарь</span>-->
-          <!--</a>-->
+        <div class="icon-wrapper icon-wrapper--desktop" >
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
+            <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
+            <span>Календарь</span>
+          </a>
           <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('event/random-symbols')">-->
             <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
             <!--<span>Информация</span>-->
           <!--</a>-->
-        <!--</div>-->
+        </div>
         <button class="burger" @click="showMenu = !showMenu">
           <span></span>
           <span></span>
@@ -42,9 +42,9 @@
           <!--<li class="item">-->
             <!--<a href="#" class="link" @click.prevent="goRouter('auth')">Авторизация</a>-->
           <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>-->
-          <!--</li>-->
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
+          </li>
           <!--<li class="item">-->
             <!--<a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>-->
           <!--</li>-->
@@ -258,7 +258,7 @@ export default {
           .lg-block({ margin-right: 50px; });
           .sm-block({ display: none; });
           .icon-red {
-            &:first-child {
+            &:nth-child(2) {
               margin-right: 80px;
               .lg-block({ margin-right: 50px; });
             }

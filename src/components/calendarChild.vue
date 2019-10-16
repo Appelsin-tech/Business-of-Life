@@ -80,6 +80,7 @@ export default {
         display: flex;
         margin-bottom: 20px;
         font-size: 1.4rem;
+        word-break: break-all;
         .svg-icon {
           margin-right: 10px;
           margin-top: -3px;
