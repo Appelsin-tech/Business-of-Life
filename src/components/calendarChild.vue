@@ -1,7 +1,9 @@
 <template>
   <div class="swiper-child">
       <div class="wrapper-info" v-for="(event, index) in arr" :key="event.id" v-show="indexSlide === index">
-        <h3 class="name-event">{{event.title}}</h3>
+        <h3 class="name-event">
+          <router-link class="name-event__link" :to="`/event/${event.id}`">{{event.title}}</router-link>
+        </h3>
         <div class="date-event">
           <p class="time">
             <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
@@ -63,6 +65,13 @@ export default {
       font-weight: 800;
       color: #000;
       .sm-block({ margin-bottom: 25px; });
+      &__link {
+        text-decoration: underline;
+        color: #000;
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
     .date-event {
       color: #666;

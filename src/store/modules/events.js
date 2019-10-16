@@ -6,39 +6,37 @@ const state = () => ({
 
 const getters = {
   filterEvents(state) {
-    let dateArr = [];
+    let finishArr = [];
 
-    state.publicEvents.forEach(item => {
-      let dateStamp = new Date(item.stamp * 1000).getDay()
-      dateArr.push({stamp: item.stamp, events: []})
-    })
+    let currentDateFull = new Date();
+    const date = new Date(currentDateFull.getFullYear(), currentDateFull.getMonth(), currentDateFull.getDate())
+    // let currentDateTime = new Date(currentDateFull.getFullYear(), currentDateFull.getMonth(), currentDateFull.getDate()).getTime(); // с 0 текущий день
+    // let currentDateLast = currentDateTime + 864000000;
 
-    function uniqByKeepLast (a, key) {
-      return [
-        ...new Map(
-          a.map(x => [key(x), x])
-        ).values()
-      ]
+    function addDays(date, days) {
+      const copy = new Date(Number(date))
+      copy.setDate(date.getDate() + days)
+      return copy
     }
 
-    let uniqArr = uniqByKeepLast(dateArr, item => item.stamp)
+    for (let i = 0; i < 10; i++) {
 
-    state.publicEvents.forEach(item => {
-      uniqArr.forEach(time => {
-        let parseStamp = new Date(item.stamp * 1000).getDay()
-        let parseStampTime = new Date(time.stamp * 1000).getDay()
-        if(item.stamp === time.stamp) {
-          time.events.push(item)
+      finishArr.push({
+        date: addDays(date, i),
+        day: addDays(date, i).getDate(),
+        weekday: addDays(date, i).toLocaleString('default', { weekday: 'long' }),
+        events: []
+      })
+
+      state.publicEvents.forEach(item => {
+        let parseSec = item.stamp * 1000
+        if(addDays(date, i).getTime() <= parseSec && parseSec <= addDays(date, i + 1).getTime()) {
+          finishArr[i].events.push(item)
         }
       })
-    })
-    // console.log(uniqArr)
-    uniqArr.forEach(item => {
-      let d = new Date(item.stamp * 1000);
-      item.day = d.getDate()
-      item.weekday = d.toLocaleString('default', { weekday: 'long' });
-    })
-    return uniqArr
+    }
+
+    return finishArr
   },
 }
 

@@ -105,11 +105,11 @@ export default {
   },
   mounted() {
     if(this.publicEvents.length === 0 ) {
-      let currentDate = new Date().getTime() / 1000
-      let lastDate = currentDate + 2592000
-      // console.log(currentDate)
-      this.$store.dispatch('events/eventsCalendar', {from: currentDate, to: lastDate}).then(() => {
+      let currentDate = new Date()
+      let currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000;
+      let lastDate = currentDateTime + 864000
 
+      this.$store.dispatch('events/eventsCalendar', {from: currentDateTime, to: lastDate}).then(() => {
         // console.dir(this.publicEvents)
       })
     }
