@@ -58,7 +58,6 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     flex-grow: 1;
-    .sm-block({ padding: 20px 15px; });
     .name-event {
       margin-bottom: 35px;
       font-size: 1.4rem;

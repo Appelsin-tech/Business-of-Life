@@ -53,6 +53,9 @@ export default new Router({
     {
       path: '/calendar',
       name: 'calendar',
+      meta: {
+        navDots: true
+      },
       component: () => import('./views/TheCalendar')
     },
     {

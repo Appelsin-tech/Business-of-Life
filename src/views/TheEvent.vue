@@ -4,7 +4,7 @@
       <h1 class="g-caption g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
-        <v-select @input="newActiveEvent" :value="activeEvent.city" :multiple="false" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
+        <v-select @input="newActiveEvent"  :value="activeEvent.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
       </div>
       <section class="brief">
         <div class="brief__img" :style="{backgroundImage: `url(${responseData.img})`}"></div>
