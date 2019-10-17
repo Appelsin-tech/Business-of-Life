@@ -196,8 +196,8 @@ export default new Router({
       ]
     },
     {
-      path: '/faq',
-      name: 'faq',
+      path: '/payment_policy',
+      name: 'payment_policy',
       meta: {
         navDots: true
       },

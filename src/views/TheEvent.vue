@@ -144,6 +144,7 @@
           <button class="swiper-button swiper-button--next"><span></span></button>
         </div>
       </section>
+      <router-link class="payments" to="/payment_policy">Оплата и возврат</router-link>
     </div>
   </section>
 </template>
@@ -590,6 +591,19 @@ export default {
             }
           }
         }
+      }
+    }
+    .payments {
+      display: inline-block;
+      margin-top: 50px;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: @colorBlue;
+      border-bottom: 1px solid @colorBlue;
+      transition: 0.3s;
+      .sm-block({ font-size: 2rem;});
+      &:hover {
+        border-bottom-color: transparent;
       }
     }
   }

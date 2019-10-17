@@ -57,7 +57,11 @@
             <li>Система авторизации гарантирует покупателю, что платежные реквизиты его платежной карты (номер, срок действия, CVV2/CVC2) не попадут в руки мошенников, так как эти данные не хранятся на сервере авторизации и не могут быть похищены.</li>
             <li>Покупатель вводит свои платежные данные непосредственно в системе авторизации CloudPayments, а не на сайте интернет-магазина, следовательно, платежные реквизиты карточки покупателя не будут доступны третьим лицам.</li>
           </ul>
-          IMG
+          <div class="img-wrapper">
+            <img src="../assets/img/faq/logo-small.png" alt="">
+            <img src="../assets/img/faq/mastercard-securecode.png" alt="">
+            <img src="../assets/img/faq/vbv.png" alt="">
+          </div>
         </div>
       </div>
       <div class="faq-item">
@@ -138,6 +142,18 @@ export default {
     .faq-item {
       margin-bottom: 50px;
       .sm-block({ margin-bottom: 30px;});
+      .img-wrapper {
+        img {
+          max-height: 153px;
+          margin-right: 15px;
+          margin-bottom: 15px;
+          .sm-block({max-height: 100px});
+          &:last-child {
+            max-height: 80px;
+            .sm-block({max-height: 50px});
+          }
+        }
+      }
     }
   }
 </style>
