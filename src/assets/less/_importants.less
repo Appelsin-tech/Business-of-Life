@@ -168,7 +168,7 @@ input {
   color: @colorBlue;
   .lg-block({ font-size: 5rem; });
   .sm-block({ font-size: 4rem; });
-  .sm-block({ font-size: 2.4rem; });
+  .xs-block({ font-size: 2.4rem; });
   &-inner {
     margin-bottom: 60px;
     font-size: 5rem;
@@ -505,7 +505,9 @@ input {
 .editor {
   font-size: 1.6rem;
   line-height: 2.5rem;
-  .sm-block({ line-height: 2.2rem; });
+  p {
+    margin-bottom: 16px;
+  }
   strong {
     font-weight: 600;
   }
@@ -522,23 +524,22 @@ input {
     }
   }
   ul {
-    margin: 0;
-    padding-left: 20px;
-    list-style-position: inside;
-    .sm-block({ padding-left: 10px; });
+    margin: 0 0 16px;
+    padding-left: 50px;
+    list-style-position: outside;
+    .sm-block({ padding-left: 20px; });
     li {
       list-style: inherit;
     }
   }
   ol {
-    margin: 0;
-    padding-left: 20px;
-    list-style-position: inside;
-    .sm-block({ padding-left: 10px; });
+    margin: 0 0 16px;
+    padding-left: 50px;
+    list-style-position: outside;
+    .sm-block({ padding-left: 20px; });
     li {
       list-style: inherit;
     }
-
   }
 }
 

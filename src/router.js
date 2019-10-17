@@ -196,6 +196,14 @@ export default new Router({
       ]
     },
     {
+      path: '/faq',
+      name: 'faq',
+      meta: {
+        navDots: true
+      },
+      component: () => import('./views/TheFaq')
+    },
+    {
       path: '*',
       redirect: '/'
     }

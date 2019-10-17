@@ -45,6 +45,9 @@
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
           </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('faq')">Оплата и возврат</a>
+          </li>
           <!--<li class="item">-->
             <!--<a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>-->
           <!--</li>-->
@@ -95,7 +98,7 @@ export default {
   },
   computed: {
     borderClass () {
-      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page'
+      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page' || this.$route.name === 'faq'
     }
   }
 }

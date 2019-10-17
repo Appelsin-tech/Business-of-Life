@@ -34,6 +34,9 @@
       <li>
         <router-link to="/calendar" class="dots" active-class="active"  v-tooltip.right="'Календарь событий'"/>
       </li>
+      <li>
+        <router-link to="/faq" class="dots" active-class="active"  v-tooltip.right="'FAQ'"/>
+      </li>
       <!--<li>-->
       <!--<router-link to="/event/3" class="dots" active-class="active" v-tooltip.right="'Событие'"/>-->
       <!--</li>-->
