@@ -22,10 +22,6 @@
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
           </p>
-          <p class="info__item" v-else>
-            <strong class="info__item--bold">Спикеры:</strong>
-            <span class="info__item--normal info__item--speakers">будут указаны ближе к дате мероприятия</span>
-          </p>
           <div class="info__ticket ticket ticket--brief">
             <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span>
             </p>
@@ -34,7 +30,7 @@
               <!--<span>Купить билет</span>-->
             <!--</a>-->
             <a href="#" class="g-btn g-btn--no-icon"
-               @click.prevent="initWidgetPayment">
+               @click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id})">
               <span>Купить билет</span>
             </a>
           </div>
@@ -42,7 +38,8 @@
       </section>
       <section class="description">
         <h2 class="g-caption-section">Описание</h2>
-        <div class="text-wrapper editor" v-html="responseData.description"></div>
+        <mavon-editor :boxShadow="false" :class="'mark-event'" :fontSize="'1.6rem'" :defaultOpen="'preview'" :subfield="false" v-model="responseData.description" :language="'ru'" :toolbars="markDown" :editable="false" :toolbarsFlag="false"/>
+        <!--<div class="text-wrapper editor" v-html="responseData.description"></div>-->
       </section>
       <section class="speakers" v-if="activeEvent.speakers.length !== 0">
         <h2 class="g-caption-section">Спикеры</h2>
@@ -196,6 +193,8 @@ export default {
             }
           }
         }
+      },
+      markDown: {
       }
     }
   },
@@ -216,27 +215,6 @@ export default {
       this.val = value.val
       let a = value.val + ''
       this.$router.push({ path: `/event/${a}` })
-    },
-    initWidgetPayment() {
-      const widget = new cp.CloudPayments()
-      widget.charge({
-        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
-        description: 'Покупка билета',
-        amount: this.activeEvent.tickets.price,
-        currency: this.activeEvent.tickets.currency,
-        skin: 'mini',
-        data: {
-          relation: this.$route.params.hash
-        }
-      },
-      function (options) {
-        console.log(options)
-        // API.response.success('Успешная оплата')
-      },
-      function (reason, options) {
-        console.log(reason, options)
-        // API.response.error('Ошибка')
-      })
     }
   },
   watch: {

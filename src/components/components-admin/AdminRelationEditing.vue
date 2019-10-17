@@ -171,7 +171,6 @@ export default {
     onSubmit() {
       if (this.event === 'new') {
         API.relations.create(this.form).then(response => {
-          console.log(response)
           this.disabledForm = true
           API.response.success('Событие создано')
           // this.$router.push({path: `/admin/editing/${id}`})
@@ -237,7 +236,8 @@ export default {
     .btn-wrapper {
       display: flex;
       justify-content: flex-start;
-      .sm-block({ margin-left: 0; margin-bottom: 40px; });
+      padding-left: 50px;
+      .sm-block({ margin-left: 0; margin-bottom: 40px; padding-left: 0;});
       .ss-block({ flex-direction: column; align-items: center; });
       .g-btn {
         min-width: 250px;
@@ -262,9 +262,10 @@ export default {
     grid-row-gap: 50px;
     margin-bottom: 50px;
     max-width: 1000px;
+    padding-left: 50px;
     .lg-block({ grid-column-gap: 50px; grid-row-gap: 30px; });
     .md-block({ grid-template-columns: 1fr 1fr; });
-    .sm-block({grid-column-gap: 30px;});
+    .sm-block({grid-column-gap: 30px; padding-left: 0;});
     .ss-block({ grid-template-columns: 1fr; grid-row-gap: 20px; });
     .photo {
       display: flex;

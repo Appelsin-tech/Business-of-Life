@@ -19,9 +19,10 @@
       </div>
       <div class="edit-grid__item textarea  item item--col-12">
         <label class="item__label" for="form-description">Полное описание</label>
-        <textarea-resize>
-          <textarea class="item__input item__input--textarea" rows="1" id="form-description" :class="{error: $v.form.description.$error}" type="text" placeholder="Полное и подробное описание мероприятия " v-model="form.description" @blur="$v.form.description.$touch()"></textarea>
-        </textarea-resize>
+        <mavon-editor :boxShadow="false" :class="'mark-admin'" v-model="form.description" :language="'ru'" :toolbars="markDown"/>
+        <!--<textarea-resize>-->
+          <!--<textarea class="item__input item__input&#45;&#45;textarea" rows="1" id="form-description" :class="{error: $v.form.description.$error}" type="text" placeholder="Полное и подробное описание мероприятия " v-model="form.description" @blur="$v.form.description.$touch()"></textarea>-->
+        <!--</textarea-resize>-->
         <div class="input-valid-error" v-if="$v.form.description.$error">
           <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
           <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
@@ -40,7 +41,7 @@
       <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
         <span>Сохранить</span>
       </button>
-      <button class="g-btn g-btn--no-icon g-btn--white g-btn--border" type="button" @click="deleteEvent" v-if="btnDelete">
+      <button class="g-btn g-btn--no-icon g-btn--white g-btn--border" type="button" @click="deleteEvent(idEvent)" v-if="btnDelete">
         <span>Удалить</span>
       </button>
     </div>
@@ -63,6 +64,41 @@ export default {
         snippet: '',
         description: '',
         audience: ''
+      },
+      markDown: {
+        bold: true,
+        italic: true,
+        header: true,
+        underline: true,
+        strikethrough: true,
+        mark: true,
+        superscript: true,
+        subscript: true,
+        quote: true,
+        ol: true,
+        ul: true,
+        link: true,
+        imagelink: false,
+        code: true,
+        table: true,
+        fullscreen: true,
+        readmodel: false,
+        htmlcode: true,
+        help: false,
+        /* 1.3.5 */
+        undo: true,
+        redo: true,
+        trash: true,
+        save: false,
+        /* 1.4.2 */
+        navigation: false,
+        /* 2.1.8 */
+        alignleft: true,
+        aligncenter: true,
+        alignright: true,
+        /* 2.2.1 */
+        subfield: true,
+        preview: true
       }
     }
   },
@@ -139,10 +175,14 @@ export default {
 </script>
 
 <style scoped lang="less">
+  @import '~mavon-editor/dist/css/index.css';
   @import "../../assets/less/_importants";
+
   .edit-grid {
     display: flex;
     flex-direction: column;
+    padding-left: 50px;
+    .sm-block({ padding-left: 0;});
   }
   .item {
     margin-bottom: 30px;
@@ -186,6 +226,8 @@ export default {
   .btn-wrapper {
     display: flex;
     justify-content: space-between;
+    padding-left: 50px;
+    .sm-block({ padding-left: 0;});
     .ss-block({ flex-direction: column; align-items: flex-start;});
     .g-btn {
       &--white {

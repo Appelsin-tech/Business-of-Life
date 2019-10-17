@@ -8,6 +8,9 @@ import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
 import store from './store/index'
 import Datetime from 'vue-datetime'
+import mavonEditor from 'mavon-editor'
+
+Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
 Vue.use(VueModal, {dialog: true, dynamic: true, injectModalsContainer: true})

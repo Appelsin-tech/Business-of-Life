@@ -1,7 +1,7 @@
 <template>
   <modal name='modal-ticket-purchase' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
          :adaptive="true"
-         :scrollable="true" :classes="'custom-modals'">
+         :scrollable="true" :classes="'custom-modals'" @before-open="beforeOpen">
 
     <div class="modal modal__ticket-purchase">
       <div class="close-modal" @click="$modal.hide('modal-ticket-purchase')" title="Закрыть">
@@ -101,8 +101,14 @@ import { alphaNum, email, integer, minLength, required } from 'vuelidate/lib/val
 
 export default {
   name: 'ModalTicketPurchase',
+  props: [''],
   data() {
     return {
+      eventData: {
+        price: '',
+        currency: '',
+        event_id: '',
+      },
       errorSelect: {
         selectedQualification: false,
         selectedPayment: false
@@ -188,7 +194,28 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('as')
+      this.WidgetPayment(this.eventData)
+    },
+    WidgetPayment(data) {
+      const widget = new cp.CloudPayments()
+      widget.charge({
+        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
+        description: 'Покупка билета',
+        amount: data.price,
+        currency: data.currency,
+        skin: 'mini',
+        data: {
+          relation: data.event_id
+        }
+      },
+      function (options) {
+        console.log(options)
+        // API.response.success('Успешная оплата')
+      },
+      function (reason, options) {
+        console.log(reason, options)
+        // API.response.error('Ошибка')
+      })
     },
     validateSelect(name) {
       if (this.form[name] === '') {
@@ -196,7 +223,12 @@ export default {
       } else {
         this.errorSelect[name] = false
       }
-    }
+    },
+    beforeOpen (event) {
+      this.eventData.price = event.params.price
+      this.eventData.currency = event.params.currency
+      this.eventData.event_id = event.params.event_id
+    },
   }
 }
 </script>

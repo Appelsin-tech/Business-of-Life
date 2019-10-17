@@ -236,6 +236,7 @@ export default {
       .swiper-container {
         .slide-calendar {
           flex-shrink: 0;
+          .md-block({max-width: 33.33%;})
         }
       }
       .item-swiper {

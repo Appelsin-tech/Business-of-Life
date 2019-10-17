@@ -5,14 +5,17 @@
           <router-link class="name-event__link" :to="`/event/${event.id}`">{{event.title}}</router-link>
         </h3>
         <div class="date-event">
-          <p class="time">
+          <div class="time">
             <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
             <span>{{event.date}}</span>
-          </p>
-          <p class="location ">
+          </div>
+          <div class="location ">
             <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">
-            <span>{{event.address}}</span>
-          </p>
+            <div class="location__text">
+              <span>{{event.country}}, {{event.city}}</span>
+              <span>{{event.address}}</span>
+            </div>
+          </div>
         </div>
       </div>
     <div class="wrapper-btn wrapper-btn--relation" v-if="arr.length > 1">
@@ -79,7 +82,7 @@ export default {
         display: flex;
         margin-bottom: 20px;
         font-size: 1.4rem;
-        word-break: break-all;
+        word-break: normal;
         .svg-icon {
           margin-right: 10px;
           margin-top: -3px;
@@ -89,6 +92,15 @@ export default {
           .sm-block({ width: 15px; height: 15px; margin-top: 0; });
           path {
             fill: @colorMainRed;
+          }
+        }
+      }
+      .location__text {
+        display: flex;
+        flex-direction: column;
+        span {
+          &:first-child {
+            margin-bottom: 8px;
           }
         }
       }

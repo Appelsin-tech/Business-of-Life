@@ -23,16 +23,16 @@
             <span>Опубликовать все</span>
           </a>
         </div>
-        <div class="event-wrapper" v-if="showRelations === 0">
+        <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
             <div class="status" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
-              <template v-if="status[relation.status].status === 'created'"><img svg-inline class="status__icon" src="../../assets/img/icon/close.svg" alt=""></template>
-              <template v-else-if="status[relation.status].status === 'waiting'"><img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
+              <template v-if="status[relation.status].class === 'created'"><img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt=""></template>
+              <template v-else-if="status[relation.status].class === 'waiting'"><img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
               <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt=""></template>
             </div>
             <div class="event__info-wrapper">
               <div class="event__info">
-                <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}}</a>
+                <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>
                 <p class="event__info-item location">
                   <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
                   <span class="text">{{relation.country}} {{relation.city}}</span>
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <strong class="event-null" v-else-if="showRelations === 1">Событий не найдено</strong>
+        <strong class="event-null" v-else-if="showRelations === 0">Событий не найдено</strong>
         <strong class="event-null" v-else>Чтобы создать событие - заполните информацию о мероприятии</strong>
         <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
       </div>
@@ -82,7 +82,7 @@ export default {
       status: {
         0: {
           class: 'created',
-          tooltip: 'Создано, но не опубликовано'
+          tooltip: 'Событие не опубликовано'
         },
         1: {
           class: 'waiting',
@@ -104,8 +104,10 @@ export default {
       'myParentEvents'
     ]),
     showButtonDelete() {
-      if(this.showRelations === 0) {
+      if(this.showRelations === 1) {
         return !this.myEvent.relations.some(item => { return item.status === 3})
+      } else if (this.showRelations === 0) {
+        return true
       } else {
         return false
       }
@@ -115,6 +117,14 @@ export default {
     deleteRelation(id) {
       API.relations.delete({id: id}).then(() => {
         API.response.success('Событие удалено')
+        API.events.info({id: this.id}).then(response => {
+          this.myEvent = response.data
+          if (this.myEvent.relations.length !== 0 ) {
+            this.showRelations = 1
+          } else {
+            this.showRelations = 0
+          }
+        })
       })
     }
   },
@@ -123,9 +133,9 @@ export default {
       API.events.info({id: this.id}).then(response => {
         this.myEvent = response.data
         if (this.myEvent.relations.length !== 0 ) {
-          this.showRelations = 0
-        } else {
           this.showRelations = 1
+        } else {
+          this.showRelations = 0
         }
       })
     }
@@ -136,9 +146,9 @@ export default {
         API.events.info({id: this.id}).then(response => {
           this.myEvent = response.data
           if (this.myEvent.relations.length !== 0 ) {
-            this.showRelations = 0
-          } else {
             this.showRelations = 1
+          } else {
+            this.showRelations = 0
           }
         })
       } else {
@@ -156,7 +166,8 @@ export default {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 60px;
-    .sm-block({ margin-bottom: 40px;});
+    padding-left: 50px;
+    .sm-block({ margin-bottom: 40px; padding-left: 0;});
     .ss-block({ flex-direction: column; align-items: flex-start;});
     .g-btn {
       .ss-block({ min-width: 230px;});
@@ -209,6 +220,10 @@ export default {
           &.created {
             border-color: @colorMainRed;
             .status__icon {
+              width: 20px;
+              height: 20px;
+              .md-block({ width: 17px; height: 17px;});
+              .ss-block({ width: 12px; height: 12px;});
               path {
                 fill: @colorMainRed;
               }

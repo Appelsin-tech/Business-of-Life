@@ -5,25 +5,26 @@
         <p class="copyright">TОО "Business of Life"</p>
         <p class="copyright">Казахстан, г. Алматы, Алмалинский р-н, ул. Айтиева зд. 96</p>
         <a href="mailto:info@businessof.life" class="copyright copyright--link">info@businessof.life</a>
+        <a href="tel:+77072350307" class="copyright copyright--tel">+7 (707) 235-03-07</a>
         <p class="copyright">(с) Все права защищены</p>
       </div>
-      <ul class="list-social" v-if="false">
-        <li>
-          <a href="#" class="item">
-            <img class="vk" svg-inline src="../assets/img/icon/social/vk.svg" alt="">
-          </a>
-        </li>
-        <li>
-          <a href="#" class="item">
-            <img class="yt" svg-inline src="../assets/img/icon/social/youtube.svg" alt="">
-          </a>
-        </li>
-        <li>
-          <a href="#" class="item">
-            <img class="inst" svg-inline src="../assets/img/icon/social/instagram.svg" alt="">
-          </a>
-        </li>
-      </ul>
+      <!--<ul class="list-social">-->
+        <!--<li>-->
+          <!--<a href="#" class="item">-->
+            <!--<img class="vk" svg-inline src="../assets/img/icon/social/vk.svg" alt="">-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="item">-->
+            <!--<img class="yt" svg-inline src="../assets/img/icon/social/youtube.svg" alt="">-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="item">-->
+            <!--<img class="inst" svg-inline src="../assets/img/icon/social/instagram.svg" alt="">-->
+          <!--</a>-->
+        <!--</li>-->
+      <!--</ul>-->
     </div>
   </footer>
 </template>
@@ -66,10 +67,10 @@ export default {
       }
       .copyright {
         display: inline-block;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         .sm-block({order: 2;});
         &:not(:last-child) {
-          margin-bottom: 5px;
+          margin-bottom: 10px;
         }
         &--link {
           color: @colorBlue;
@@ -78,6 +79,9 @@ export default {
           &:hover {
             border-bottom-color: transparent;
           }
+        }
+        &--tel {
+          color: @colorBlue;
         }
       }
       .list-social {
