@@ -365,8 +365,11 @@ input {
   }
 }
 
-#app .v--modal-overlay .v--modal-box {
-  overflow-y: auto;
+#app .v--modal-overlay {
+  z-index: 999;
+  .v--modal-box {
+    overflow-y: auto;
+  }
 }
 .test-btn {
   background: #6b7aff;
@@ -544,6 +547,7 @@ input {
 }
 
 .v-note-wrapper {
+  z-index: 900 !important;
   &.mark-admin {
     background: #f3f3f3 !important;
     border: 2px solid #f3f3f3;

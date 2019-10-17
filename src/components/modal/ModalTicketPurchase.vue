@@ -29,19 +29,6 @@
               </div>
             </div>
             <div class="form-modal__item">
-              <input v-mask="'##.##.####'" class="form-modal__input" value="" type="text" :class="{error: $v.form.date_registration.$error}" @blur="$v.form.date_registration.$touch()"
-                     v-model="form.date_registration" placeholder="Дата регистрации в компании">
-              <div class="input-valid-error" v-if="$v.form.date_registration.$error">
-                <template v-if="!$v.form.date_registration.required">Поле не может быть пустым</template>
-              </div>
-            </div>
-            <div class="form-modal__item">
-              <v-select v-model="form.selectedQualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация" label="qualName" :options="qualification"></v-select>
-              <div class="input-valid-error" v-if="errorSelect.selectedQualification">
-                Выберите квалификацию
-              </div>
-            </div>
-            <div class="form-modal__item">
               <input class="form-modal__input" :class="{error: $v.form.country.$error}" type="text" placeholder="Страна" v-model="form.country" @blur="$v.form.country.$touch()">
               <div class="input-valid-error" v-if="$v.form.country.$error">
                 <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
@@ -54,17 +41,17 @@
               </div>
             </div>
             <div class="form-modal__item">
-              <input class="form-modal__input" :class="{error: $v.form.number_seminar.$error}" type="number" placeholder="Какой по счету семинар" v-model="form.number_seminar" @blur="$v.form.number_seminar.$touch()">
-              <div class="input-valid-error" v-if="$v.form.number_seminar.$error">
-                <template v-if="!$v.form.number_seminar.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.number_seminar.integer">Значение должно быть целым числом</template>
-              </div>
+              <input v-mask="'##.##.####'" class="form-modal__input" value="" type="text"
+                     v-model="form.reg_d" placeholder="Дата регистрации в компании">
             </div>
             <div class="form-modal__item">
-              <input class="form-modal__input" :class="{error: $v.form.invited.$error}" type="number" placeholder="Сколько человек пригласил" v-model="form.invited" @blur="$v.form.invited.$touch()">
-              <div class="input-valid-error" v-if="$v.form.invited.$error">
-                <template v-if="!$v.form.invited.required">Поле не может быть пустым</template>
-              </div>
+              <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация"  :options="qualification"></v-select>
+            </div>
+            <div class="form-modal__item">
+              <input v-mask="'########'" class="form-modal__input" type="text" placeholder="Какой по счету семинар" v-model="form.seminar_с">
+            </div>
+            <div class="form-modal__item">
+              <input v-mask="'########'" class="form-modal__input" type="text" placeholder="Сколько человек пригласил" v-model="form.invited_c">
             </div>
             <div class="form-modal__item form-modal__item--col-12">
               <p class="form-modal__text">
@@ -87,9 +74,9 @@
             <span>Купить билет</span>
             <span>9000 р</span>
           </button>
-          <button type="button" class="test-btn" @click="$modal.show('modal-ticket-success')">
-            <span>Окно успешной оплаты</span>
-          </button>
+          <!--<button type="button" class="test-btn" @click="$modal.show('modal-ticket-success')">-->
+            <!--<span>Окно успешной оплаты</span>-->
+          <!--</button>-->
         </form>
       </div>
     </div>
@@ -98,36 +85,23 @@
 
 <script>
 import { alphaNum, email, integer, minLength, required } from 'vuelidate/lib/validators'
-
+import API from '../../api/index'
 export default {
   name: 'ModalTicketPurchase',
-  props: [''],
   data() {
     return {
       eventData: {
         price: '',
         currency: '',
-        event_id: '',
+        event_id: 5,
+        invoiceId: '',
       },
       errorSelect: {
         selectedQualification: false,
         selectedPayment: false
       },
       name: '',
-      qualification: [
-        {
-          qualVal: 'L&M',
-          qualName: 'Sigarets L&M'
-        },
-        {
-          qualVal: 'Marlboro',
-          qualName: 'Sigarets Marlboro'
-        },
-        {
-          qualVal: 'LD',
-          qualName: 'Sigarets LD'
-        }
-      ],
+      qualification: ['Key person', 'Top Key person', 'Gold person', 'Diamond person', 'Blue Sapphire', 'Korloff club'],
       payment: [
         {
           qualVal: 'card',
@@ -149,13 +123,13 @@ export default {
       form: {
         name: '',
         email: '',
-        number_seminar: '',
-        date_registration: '',
         country: '',
         city: '',
-        invited: '',
-        selectedQualification: '',
-        selectedPayment: ''
+        reg_d: '',
+        qualification: '',
+        seminar_с: '',
+        invited_c: '',
+        relation: ''
       }
     }
   },
@@ -163,38 +137,29 @@ export default {
     form: {
       name: {
         required,
-        minLength: minLength(3),
-        alphaNum
+        minLength: minLength(3)
       },
       email: {
         required,
         email
-      },
-      number_seminar: {
-        required,
-        integer
-      },
-      date_registration: {
-        required
       },
       country: {
         required
       },
       city: {
         required
-      },
-      invited: {
-        required,
-        integer
-      },
-      selectedPayment: {
-        required
       }
     }
   },
   methods: {
     onSubmit() {
-      this.WidgetPayment(this.eventData)
+      API.biling.invoice(this.form).then(response => {
+        this.eventData.invoiceId = response.data.id
+        this.WidgetPayment(this.eventData)
+      }).catch(error => {
+        API.response.error(error)
+      })
+      // this.WidgetPayment(this.eventData)
     },
     WidgetPayment(data) {
       const widget = new cp.CloudPayments()
@@ -203,18 +168,20 @@ export default {
         description: 'Покупка билета',
         amount: data.price,
         currency: data.currency,
+        invoiceId: data.invoiceId,
         skin: 'mini',
         data: {
           relation: data.event_id
         }
       },
-      function (options) {
-        console.log(options)
-        // API.response.success('Успешная оплата')
+      (options) => {
+        // console.log(options)
+        this.$modal.hide('modal-ticket-purchase')
       },
       function (reason, options) {
-        console.log(reason, options)
-        // API.response.error('Ошибка')
+        this.$modal.hide('modal-ticket-purchase')
+        console.log(options)
+        API.response.error(reason)
       })
     },
     validateSelect(name) {
@@ -228,6 +195,7 @@ export default {
       this.eventData.price = event.params.price
       this.eventData.currency = event.params.currency
       this.eventData.event_id = event.params.event_id
+      this.form.relation = event.params.event_id
     },
   }
 }
