@@ -12,7 +12,7 @@
           <p class="info__description">{{responseData.snippet}}</p>
           <p class="info__item ">
             <strong class="info__item--bold">Дата:</strong>
-            <span class="info__item--normal">{{activeEvent.date}}</span>
+            <span class="info__item--normal">{{parseDate}}</span>
           </p>
           <p class="info__item">
             <strong class="info__item--bold">Место:</strong>
@@ -235,6 +235,16 @@ export default {
         return this.activeEvent.speakers.map(item => item.name)
       } else {
         return []
+      }
+    },
+    parseDate() {
+      if (this.activeEvent) {
+        let onlyDate = this.activeEvent.date.split(' ')
+        let [day, month, year] = onlyDate[0].split('.')
+        let da = new Date(year, month - 1, day)
+        return da.toLocaleString('default', {day: 'numeric', month: 'long' }) + ' ' + onlyDate[1]
+      } else {
+        return '00'
       }
     }
   },

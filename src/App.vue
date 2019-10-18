@@ -4,7 +4,7 @@
     <app-header/>
     <main-nav/>
     <main>
-      <transition mode="out-in" name="fade">
+      <transition mode="out-in" name="fade" @before-enter="beforeEnter">
         <router-view/>
       </transition>
     </main>
@@ -55,6 +55,11 @@ export default {
   created() {
     if(window.innerWidth < 500) {
       this.widthNoty = 300
+    }
+  },
+  methods: {
+    beforeEnter () {
+      this.$root.$emit('scrollBeforeEnter')
     }
   }
 }

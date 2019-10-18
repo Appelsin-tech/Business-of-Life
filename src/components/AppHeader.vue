@@ -2,7 +2,9 @@
   <header class="s-header" :class="{active : showMenu, 'border-class': borderClass}">
     <div class="container">
       <div class="wrapper-relative">
-        <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
+        <a href="#" @click.prevent="goRouter('main')">
+          <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
+        </a>
         <div class="icon-wrapper icon-wrapper--desktop" >
           <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">

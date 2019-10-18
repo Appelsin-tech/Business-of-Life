@@ -131,7 +131,7 @@
 
 <script>
 export default {
-  name: 'TheFaq'
+  name: 'ThePaymentPolicy'
 }
 </script>
 

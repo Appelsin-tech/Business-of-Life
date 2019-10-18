@@ -5,6 +5,13 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 })
+      }, 500)
+    })
+  },
   routes: [
     {
       path: '/',
@@ -198,10 +205,7 @@ export default new Router({
     {
       path: '/payment_policy',
       name: 'payment_policy',
-      meta: {
-        navDots: true
-      },
-      component: () => import('./views/TheFaq')
+      component: () => import('./views/ThePaymentPolicy')
     },
     {
       path: '*',
