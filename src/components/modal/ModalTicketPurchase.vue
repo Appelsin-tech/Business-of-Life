@@ -72,7 +72,7 @@
           </div>
           <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid || errorSelect.selectedQualification === true || errorSelect.selectedPayment === true ">
             <span>Купить билет</span>
-            <span>9000 р</span>
+            <span>{{eventData.price}} {{eventData.currency}}</span>
           </button>
           <!--<button type="button" class="test-btn" @click="$modal.show('modal-ticket-success')">-->
             <!--<span>Окно успешной оплаты</span>-->
