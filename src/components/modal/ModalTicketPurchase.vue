@@ -42,7 +42,7 @@
             </div>
             <div class="form-modal__item">
               <input v-mask="'##.##.####'" class="form-modal__input" value="" type="text"
-                     v-model="form.reg_d" placeholder="Дата регистрации в компании" v-tooltip="'DD:MM:YYYY'">
+                     v-model="reg_d" placeholder="Дата регистрации в компании" v-tooltip="'DD:MM:YYYY'">
             </div>
             <div class="form-modal__item">
               <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация"  :options="qualification"></v-select>
@@ -120,12 +120,12 @@ export default {
           qualName: 'Bitcoin'
         }
       ],
+      reg_d: '',
       form: {
         name: '',
         email: '',
         country: '',
         city: '',
-        reg_d: '',
         qualification: '',
         seminar_с: '',
         invited_c: '',
@@ -152,12 +152,28 @@ export default {
     }
   },
   computed: {
-
+    regData() {
+      if(this.reg_d !== '') {
+        let [day, month, year] = this.reg_d.split('.')
+       return new Date(year, month - 1, day).getTime()
+      } else {
+        return ''
+      }
+    }
   },
   methods: {
     onSubmit() {
-      this.parseDate()
-      API.biling.invoice(this.form).then(response => {
+      API.biling.invoice({
+        name: this.form.name,
+        email: this.form.email,
+        country: this.form.country,
+        city: this.form.city,
+        qualification: this.form.qualification,
+        seminar_с: this.form.seminar_с,
+        invited_c: this.form.invited_c,
+        relation: this.form.relation,
+        reg_d: this.regData
+      }).then(response => {
         this.eventData.invoiceId = response.data.id
         this.WidgetPayment(this.eventData)
       }).catch(error => {
@@ -206,12 +222,6 @@ export default {
       this.eventData.event_id = event.params.event_id
       this.form.relation = event.params.event_id
     },
-    parseDate() {
-      if(this.form.reg_d !== '') {
-        let [day, month, year] = this.form.reg_d.split('.')
-        this.form.reg_d = new Date(year, month - 1, day).getTime()
-      }
-    }
   }
 }
 </script>
