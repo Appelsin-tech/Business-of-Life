@@ -1,5 +1,5 @@
 <template>
-  <section class="p-calendar p-default">
+  <section class="p-calendar p-default p-default-inner">
     <div class="container page">
       <div class="row-caption">
         <div class="content">

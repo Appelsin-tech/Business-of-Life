@@ -42,7 +42,7 @@
             </div>
             <div class="form-modal__item">
               <input v-mask="'##.##.####'" class="form-modal__input" value="" type="text"
-                     v-model="form.reg_d" placeholder="Дата регистрации в компании">
+                     v-model="form.reg_d" placeholder="Дата регистрации в компании" v-tooltip="'DD:MM:YYYY'">
             </div>
             <div class="form-modal__item">
               <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация"  :options="qualification"></v-select>
@@ -151,8 +151,12 @@ export default {
       }
     }
   },
+  computed: {
+
+  },
   methods: {
     onSubmit() {
+      this.parseDate()
       API.biling.invoice(this.form).then(response => {
         this.eventData.invoiceId = response.data.id
         this.WidgetPayment(this.eventData)
@@ -175,8 +179,13 @@ export default {
         }
       },
       (options) => {
-        // console.log(options)
-        this.$modal.hide('modal-ticket-purchase')
+        API.tickets.receive({invoice: options.invoiceId}).then(response => {
+          this.$modal.hide('modal-ticket-purchase')
+          this.$modal.show('modal-ticket-success', {ticket: response.data})
+        }).catch(error => {
+          API.response.error(error)
+        })
+
       },
       function (reason, options) {
         this.$modal.hide('modal-ticket-purchase')
@@ -197,6 +206,12 @@ export default {
       this.eventData.event_id = event.params.event_id
       this.form.relation = event.params.event_id
     },
+    parseDate() {
+      if(this.form.reg_d !== '') {
+        let [day, month, year] = this.form.reg_d.split('.')
+        this.form.reg_d = new Date(year, month - 1, day).getTime()
+      }
+    }
   }
 }
 </script>

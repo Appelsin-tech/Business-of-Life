@@ -3,33 +3,33 @@
     <div class="ticket__wrapper">
       <div class="ticket__number">
         <span class="ticket__number-text--light">Номер вашего билета</span>
-        <strong class="ticket__number-text--bold">{{ticketNumber}}</strong>
+        <strong class="ticket__number-text--bold">{{ticketArr[0].hash}}</strong>
       </div>
-      <div class="ticket__qr-code" :style="{backgroundImage: `url(${qrCode})`}"></div>
+      <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${ticketArr[0].hash})`}"></div>
     </div>
-    <div class="btn-wrapper">
-      <a href="#" class="g-btn g-btn--icon-left" download="#">
-            <span>
-              <img svg-inline class="svg-icon svg-icon--download" src="../assets/img/icon/download.svg" alt="">
-              Скачать билет
-            </span>
-      </a>
-      <a href="#" class="btn">
-        <img svg-inline class="btn__icon" src="../assets/img/icon/telegram.svg" alt="">
-        <span class="btn__text">Отправить билет на почту</span>
-      </a>
-      <a href="#" class="btn">
-        <img svg-inline class="btn__icon" src="../assets/img/icon/printer.svg" alt="">
-        <span class="btn__text">Распечатать билет</span>
-      </a>
-    </div>
+    <!--<div class="btn-wrapper">-->
+      <!--<a href="#" class="g-btn g-btn&#45;&#45;icon-left" download="#">-->
+            <!--<span>-->
+              <!--<img svg-inline class="svg-icon svg-icon&#45;&#45;download" src="../assets/img/icon/download.svg" alt="">-->
+              <!--Скачать билет-->
+            <!--</span>-->
+      <!--</a>-->
+      <!--<a href="#" class="btn">-->
+        <!--<img svg-inline class="btn__icon" src="../assets/img/icon/telegram.svg" alt="">-->
+        <!--<span class="btn__text">Отправить билет на почту</span>-->
+      <!--</a>-->
+      <!--<a href="#" class="btn">-->
+        <!--<img svg-inline class="btn__icon" src="../assets/img/icon/printer.svg" alt="">-->
+        <!--<span class="btn__text">Распечатать билет</span>-->
+      <!--</a>-->
+    <!--</div>-->
   </section>
 </template>
 
 <script>
 export default {
   name: 'TicketInfo',
-  props: ['ticketNumber', 'qrCode']
+  props: ['ticketArr']
 }
 </script>
 
@@ -53,10 +53,10 @@ export default {
         margin-bottom: 10px;
       }
       &-text--bold {
-        font-size: 4rem;
+        font-size: 3rem;
         font-weight: 800;
         text-transform: uppercase;
-        .sm-block({ font-size: 3rem; })
+        .sm-block({ font-size: 2.5rem; })
       }
     }
     &__qr-code {

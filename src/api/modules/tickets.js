@@ -22,4 +22,11 @@ export default {
       reject(error)
     })
   }),
+  receive: (data) => new Promise((resolve, reject) => {
+    HTTP.post('tickets/receive', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
 }

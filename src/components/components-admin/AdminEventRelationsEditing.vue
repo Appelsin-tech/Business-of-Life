@@ -184,6 +184,7 @@ export default {
     .event-wrapper {
       display: flex;
       flex-direction: column;
+      padding-left: 50px;
       .sm-block({ padding-left: 0;});
       .event {
         display: flex;

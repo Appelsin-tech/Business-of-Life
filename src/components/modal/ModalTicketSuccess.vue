@@ -1,7 +1,7 @@
 <template>
   <modal name='modal-ticket-success' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
          :adaptive="true"
-         :scrollable="true" :classes="'custom-modals'">
+         :scrollable="true" :classes="'custom-modals'" @before-open="beforeOpen">
     <div class="modal modal__ticket-success">
       <div class="modal__container modal__container--ticket-success">
         <div class="close-modal" @click="$modal.hide('modal-ticket-success')" title="Закрыть">
@@ -19,7 +19,7 @@
             <strong class="success__text-bold">Ваша оплата успешно прошла</strong>
           </div>
         </div>
-        <ticket-info :ticket-number="'T-798jkhk2343'" :qr-code="'https://i.pravatar.cc/512'"/>
+        <ticket-info :ticketArr="ticketArr"/>
       </div>
     </div>
   </modal>
@@ -29,7 +29,17 @@
 import TicketInfo from '../TicketInfo'
 export default {
   name: 'ModalTicketSuccess',
-  components: {TicketInfo}
+  components: {TicketInfo},
+  data() {
+    return {
+      ticketArr: []
+    }
+  },
+  methods: {
+    beforeOpen (event) {
+      this.ticketArr = event.params.ticket
+    }
+  }
 }
 </script>
 

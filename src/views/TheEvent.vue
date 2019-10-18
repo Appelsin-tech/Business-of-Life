@@ -22,7 +22,7 @@
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
           </p>
-          <div class="info__ticket ticket ticket--brief">
+          <div class="info__ticket ticket--brief">
             <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span>
             </p>
             <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon"-->
@@ -68,6 +68,24 @@
           </div>
         </div>
       </section>
+      <!--<section class="tickets">-->
+        <!--<h2 class="g-caption-section">Билеты</h2>-->
+        <!--<div class="tickets-wrapper">-->
+          <!--<div class="tickets-item">-->
+            <!--<h3 class="tickets-item__title">Эконом</h3>-->
+            <!--<div class="mavon">-->
+              <!--<mavon-editor :boxShadow="false" :class="'mark-event'" :fontSize="'1.6rem'" :defaultOpen="'preview'" :subfield="false" v-model="responseData.description" :language="'ru'" :toolbars="markDown" :editable="false" :toolbarsFlag="false"/>-->
+            <!--</div>-->
+            <!--<p class="tickets-item__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span></p>-->
+            <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon"-->
+               <!--@click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id})">-->
+              <!--<span>Купить билет</span>-->
+            <!--</a>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<mavon-editor :boxShadow="false" :class="'mark-event'" :fontSize="'1.6rem'" :defaultOpen="'preview'" :subfield="false" v-model="responseData.description" :language="'ru'" :toolbars="markDown" :editable="false" :toolbarsFlag="false"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="text-wrapper editor" v-html="responseData.description"></div>&ndash;&gt;-->
+      <!--</section>-->
       <section class="other-activities" v-if="false">
         <h2 class="g-caption-section">Возможно, вас заинтересует</h2>
         <div class="slider-wrapper">
@@ -289,26 +307,10 @@ export default {
         .xs-block({ font-size: 1.8rem; })
       }
     }
-    .ticket {
+    .info__ticket {
       display: flex;
       align-items: center;
       .xs-block({ flex-direction: column; align-items: flex-start; });
-      &__price {
-        display: flex;
-        align-items: baseline;
-        flex-shrink: 0;
-        margin-right: 45px;
-        font-size: 5rem;
-        font-weight: 800;
-        color: @colorBlue;
-        .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
-        .currency {
-          margin-left: 10px;
-          font-size: 2rem;
-          color: #000;
-          .xs-block({ font-size: 1.6rem; })
-        }
-      }
       &--slide-event {
         justify-content: space-between;
         .to(520px, { flex-direction: column; align-items: flex-start; });
@@ -338,6 +340,23 @@ export default {
           .xs-block({ flex-basis: auto });
         }
       }
+      .ticket__price {
+        display: flex;
+        align-items: baseline;
+        flex-shrink: 0;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        font-size: 5rem;
+        font-weight: 800;
+        color: @colorBlue;
+        .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
+        .currency {
+          margin-left: 10px;
+          font-size: 2rem;
+          color: #000;
+          .xs-block({ font-size: 1.6rem; })
+        }
+      }
     }
     .brief {
       display: flex;
@@ -361,6 +380,7 @@ export default {
         flex-direction: column;
         padding-top: 4%;
         max-width: min-content;
+        min-width: 50%;
         .md-block({ padding-top: 0; max-width: 80%; });
         .sm-block({ max-width: 100%; });
       }
@@ -514,6 +534,44 @@ export default {
             border-bottom: 1px solid @colorBlue;
             &:hover {
               border-bottom-color: transparent;
+            }
+          }
+        }
+      }
+    }
+    .tickets {
+      .tickets-wrapper {
+        .row-flex();
+        .tickets-item {
+          .col();
+          .size(4);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 30px 15px;
+          box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.4);
+          &__title {
+            margin-bottom: 40px;
+            font-size: 2.4rem;
+            font-weight: 800;
+          }
+          .mavon {
+            margin-bottom: 20px;
+          }
+          &__price {
+            display: flex;
+            align-items: baseline;
+            flex-shrink: 0;
+            margin-bottom: 20px;
+            font-size: 5rem;
+            font-weight: 800;
+            color: @colorBlue;
+            .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
+            .currency {
+              margin-left: 10px;
+              font-size: 2rem;
+              color: #000;
+              .xs-block({ font-size: 1.6rem; })
             }
           }
         }
