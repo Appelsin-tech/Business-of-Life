@@ -99,6 +99,15 @@ export default {
     borderClass () {
       return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page' || this.$route.name === 'payment_policy'
     }
+  },
+  watch: {
+    showMenu(newVal, oldVal) {
+      if(newVal) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+    }
   }
 }
 </script>
@@ -111,7 +120,7 @@ export default {
     left: 0;
     right: 0;
     padding-top: 30px;
-    z-index: 9;
+    z-index: 991;
     .lg-block({ padding-top: 20px; });
     &::after {
       content: '';
@@ -133,6 +142,7 @@ export default {
       border-bottom: 1px solid @colorBorder;
     }
     &.active {
+      position: fixed;
       bottom: 0;
       &::after {
         transform: scale(1);
@@ -219,8 +229,8 @@ export default {
         display: flex;
         position: absolute;
         left: 50%;
-        top: 250px;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
         flex-direction: column;
         justify-self: center;
         z-index: 9;

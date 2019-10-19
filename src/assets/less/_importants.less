@@ -367,6 +367,11 @@ input {
 
 #app .v--modal-overlay {
   z-index: 999;
+  &.top-position {
+    .v--modal-box {
+      .md-block({ top: 0 !important; });
+    }
+  }
   .v--modal-box {
     overflow-y: auto;
   }

@@ -1,7 +1,10 @@
 <template>
-  <modal name='modal-ticket-purchase' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
+  <modal name='modal-ticket-purchase' transition="pop-out" height="auto" width="100%" :maxWidth="1170"
          :adaptive="true"
-         :scrollable="true" :classes="'custom-modals'" @before-open="beforeOpen">
+         :pivot-y="0.5"
+         :reset="true"
+         :scrollable="true" :class="['custom-modals', 'top-position']"
+         @before-open="beforeOpen">
 
     <div class="modal modal__ticket-purchase">
       <div class="close-modal" @click="$modal.hide('modal-ticket-purchase')" title="Закрыть">
@@ -45,7 +48,7 @@
                      v-model="reg_d" placeholder="Дата регистрации в компании" v-tooltip="'DD:MM:YYYY'">
             </div>
             <div class="form-modal__item">
-              <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация"  :options="qualification"></v-select>
+              <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
             </div>
             <div class="form-modal__item">
               <input v-mask="'########'" class="form-modal__input" type="text" placeholder="Какой по счету семинар" v-model="form.seminar_с">
@@ -75,7 +78,7 @@
             <span>{{eventData.price}} {{eventData.currency}}</span>
           </button>
           <!--<button type="button" class="test-btn" @click="$modal.show('modal-ticket-success')">-->
-            <!--<span>Окно успешной оплаты</span>-->
+          <!--<span>Окно успешной оплаты</span>-->
           <!--</button>-->
         </form>
       </div>
@@ -84,8 +87,9 @@
 </template>
 
 <script>
-import { alphaNum, email, integer, minLength, required } from 'vuelidate/lib/validators'
+import { email, minLength, required } from 'vuelidate/lib/validators'
 import API from '../../api/index'
+
 export default {
   name: 'ModalTicketPurchase',
   data() {
@@ -153,12 +157,20 @@ export default {
   },
   computed: {
     regData() {
-      if(this.reg_d !== '') {
+      if (this.reg_d !== '') {
         let [day, month, year] = this.reg_d.split('.')
-       return new Date(year, month - 1, day).getTime()
+        return new Date(year, month - 1, day).getTime()
       } else {
         return ''
       }
+    },
+    modalPurchase() {
+      return this.$refs.modalPurchaseTop
+      // if (this.$refs.modalPurchase.$data.shift.top <= 0) {
+      //   return true
+      // } else {
+      //   return false
+      // }
     }
   },
   methods: {
@@ -184,30 +196,30 @@ export default {
     WidgetPayment(data) {
       const widget = new cp.CloudPayments()
       widget.charge({
-        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
-        description: 'Покупка билета',
-        amount: data.price,
-        currency: data.currency,
-        invoiceId: data.invoiceId,
-        skin: 'mini',
-        data: {
-          relation: data.event_id
-        }
-      },
-      (options) => {
-        API.tickets.receive({invoice: options.invoiceId}).then(response => {
-          this.$modal.hide('modal-ticket-purchase')
-          this.$modal.show('modal-ticket-success', {ticket: response.data})
-        }).catch(error => {
-          API.response.error(error)
-        })
+          publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
+          description: 'Покупка билета',
+          amount: data.price,
+          currency: data.currency,
+          invoiceId: data.invoiceId,
+          skin: 'mini',
+          data: {
+            relation: data.event_id
+          }
+        },
+        (options) => {
+          API.tickets.receive({ invoice: options.invoiceId }).then(response => {
+            this.$modal.hide('modal-ticket-purchase')
+            this.$modal.show('modal-ticket-success', { ticket: response.data })
+          }).catch(error => {
+            API.response.error(error)
+          })
 
-      },
-      function (reason, options) {
-        this.$modal.hide('modal-ticket-purchase')
-        console.log(options)
-        API.response.error(reason)
-      })
+        },
+        function (reason, options) {
+          this.$modal.hide('modal-ticket-purchase')
+          console.log(options)
+          API.response.error(reason)
+        })
     },
     validateSelect(name) {
       if (this.form[name] === '') {
@@ -216,7 +228,7 @@ export default {
         this.errorSelect[name] = false
       }
     },
-    beforeOpen (event) {
+    beforeOpen(event) {
       this.eventData.price = event.params.price
       this.eventData.currency = event.params.currency
       this.eventData.event_id = event.params.event_id

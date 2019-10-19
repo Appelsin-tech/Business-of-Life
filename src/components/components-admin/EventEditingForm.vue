@@ -19,7 +19,7 @@
       </div>
       <div class="edit-grid__item textarea  item item--col-12">
         <label class="item__label" for="form-description">Полное описание</label>
-        <mavon-editor :boxShadow="false" :class="'mark-admin'" v-model="form.description" :language="'ru'" :toolbars="markDown"/>
+        <mavon-editor :TabSize="4" :boxShadow="false" :class="'mark-admin'" v-model="form.description" :language="'ru'" :toolbars="markDown"/>
         <!--<textarea-resize>-->
           <!--<textarea class="item__input item__input&#45;&#45;textarea" rows="1" id="form-description" :class="{error: $v.form.description.$error}" type="text" placeholder="Полное и подробное описание мероприятия " v-model="form.description" @blur="$v.form.description.$touch()"></textarea>-->
         <!--</textarea-resize>-->

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-description p-default">
+  <section class="p-description p-default p-default-inner">
     <div class="container page">
       <div class="col-text">
         <div class="content">

@@ -68,7 +68,7 @@ export default {
       .copyright {
         display: inline-block;
         font-size: 1.4rem;
-        .sm-block({order: 2;});
+        .sm-block({order: 2; text-align: center;});
         &:not(:last-child) {
           margin-bottom: 10px;
         }
