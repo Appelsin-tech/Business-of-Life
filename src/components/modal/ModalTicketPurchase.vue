@@ -44,8 +44,7 @@
               </div>
             </div>
             <div class="form-modal__item">
-              <input v-mask="'##.##.####'" class="form-modal__input" value="" type="text"
-                     v-model="reg_d" placeholder="Дата регистрации в компании" v-tooltip="'DD:MM:YYYY'">
+              <flat-pickr v-model="reg_d" :config="configDate" :class="'form-modal__input'" :placeholder="'Дата регистрации в компании'"></flat-pickr>
             </div>
             <div class="form-modal__item">
               <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
@@ -89,11 +88,20 @@
 <script>
 import { email, minLength, required } from 'vuelidate/lib/validators'
 import API from '../../api/index'
+import flatPickr from 'vue-flatpickr-component'
+import { Russian } from 'flatpickr/dist/l10n/ru.js'
 
 export default {
   name: 'ModalTicketPurchase',
+  components: { flatPickr },
   data() {
     return {
+      configDate: {
+        enableTime: false,
+        time_24hr: true,
+        locale: Russian,
+        dateFormat: 'd.m.Y'
+      },
       eventData: {
         price: '',
         currency: '',
@@ -164,14 +172,6 @@ export default {
         return ''
       }
     },
-    modalPurchase() {
-      return this.$refs.modalPurchaseTop
-      // if (this.$refs.modalPurchase.$data.shift.top <= 0) {
-      //   return true
-      // } else {
-      //   return false
-      // }
-    }
   },
   methods: {
     onSubmit() {
@@ -196,30 +196,30 @@ export default {
     WidgetPayment(data) {
       const widget = new cp.CloudPayments()
       widget.charge({
-          publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
-          description: 'Покупка билета',
-          amount: data.price,
-          currency: data.currency,
-          invoiceId: data.invoiceId,
-          skin: 'mini',
-          data: {
-            relation: data.event_id
-          }
-        },
-        (options) => {
-          API.tickets.receive({ invoice: options.invoiceId }).then(response => {
-            this.$modal.hide('modal-ticket-purchase')
-            this.$modal.show('modal-ticket-success', { ticket: response.data })
-          }).catch(error => {
-            API.response.error(error)
-          })
-
-        },
-        function (reason, options) {
+        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
+        description: 'Покупка билета',
+        amount: data.price,
+        currency: data.currency,
+        invoiceId: data.invoiceId,
+        skin: 'mini',
+        data: {
+          relation: data.event_id
+        }
+      },
+      (options) => {
+        API.tickets.receive({ invoice: options.invoiceId }).then(response => {
           this.$modal.hide('modal-ticket-purchase')
-          console.log(options)
-          API.response.error(reason)
+          this.$modal.show('modal-ticket-success', { ticket: response.data })
+        }).catch(error => {
+          API.response.error(error)
         })
+
+      },
+      function (reason, options) {
+        this.$modal.hide('modal-ticket-purchase')
+        console.log(options)
+        API.response.error(reason)
+      })
     },
     validateSelect(name) {
       if (this.form[name] === '') {
@@ -239,5 +239,5 @@ export default {
 </script>
 
 <style scoped lang="less">
-
+  @import '~flatpickr/dist/flatpickr.css';
 </style>
