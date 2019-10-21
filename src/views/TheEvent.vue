@@ -38,8 +38,7 @@
       </section>
       <section class="description">
         <h2 class="g-caption-section">Описание</h2>
-        <mavon-editor :boxShadow="false" :class="'mark-event'" :fontSize="'1.6rem'" :defaultOpen="'preview'" :subfield="false" v-model="responseData.description" :language="'ru'" :toolbars="markDown" :editable="false" :toolbarsFlag="false"/>
-        <!--<div class="text-wrapper editor" v-html="responseData.description"></div>-->
+        <div class="text-wrapper editor" v-html="responseData.description"></div>
       </section>
       <section class="speakers" v-if="activeEvent.speakers.length !== 0">
         <h2 class="g-caption-section">Спикеры</h2>
@@ -213,8 +212,6 @@ export default {
           }
         }
       },
-      markDown: {
-      }
     }
   },
   methods: {

@@ -43,9 +43,9 @@ input {
   &-inner {
     display: block;
     padding-top: 200px;
-    padding-bottom: 250px;
-    .lg-block({ padding-top: 150px; padding-bottom: 210px;});
-    .xs-block({ padding-top: 125px; padding-bottom: 210px; });
+    padding-bottom: 270px;
+    .lg-block({ padding-top: 150px; padding-bottom: 230px;});
+    .xs-block({ padding-top: 125px; });
   }
 }
 .container {
@@ -513,9 +513,13 @@ input {
 .editor {
   font-size: 1.6rem;
   line-height: 2.5rem;
-  p {
+  p:first-child {
+    margin-top: 16px;
+  }
+  p:last-child {
     margin-bottom: 16px;
   }
+
   strong {
     font-weight: 600;
   }
@@ -551,42 +555,28 @@ input {
   }
 }
 
-.v-note-wrapper {
-  z-index: 900 !important;
-  &.mark-admin {
-    background: #f3f3f3 !important;
-    border: 2px solid #f3f3f3;
-    box-sizing: border-box;
-    .v-note-op {
-      background: #f3f3f3 !important;
-    }
-    .v-note-panel {
-      background: #f3f3f3 !important;
-      .v-note-edit.divarea-wrapper .content-input-wrapper {
-        height: 100%;
-      }
-      .v-note-show {
-        .v-show-content {
-          background: #fff !important;
-        }
-      }
+.ck-content {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  ul, ol {
+    margin: auto;
+    padding: inherit;
+    padding-left: 50px;
+    .sm-block({ padding-left: 20px; });
+    li {
+      list-style: inherit;
+
     }
   }
-  &.mark-event {
-    border: none !important;
-    font-family: @fontMontserrat !important;
-    font-size: 1.6rem !important;
-    .v-note-panel {
-      .v-show-content {
-        background: #fff !important;
-        padding: 0 !important;
-      }
-      .v-note-edit.divarea-wrapper .content-input-wrapper {
-        background: #fff !important;
-        padding: 0 !important;
-
-      }
+  strong {
+    font-weight: bold;
+  }
+  &.ck.ck-editor__editable_inline > p {
+    &:first-child {
+      margin-top: 16px;
+    }
+    &:last-child {
+      margin-bottom: 16px;
     }
   }
 }
-

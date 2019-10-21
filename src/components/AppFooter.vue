@@ -7,6 +7,9 @@
         <a href="mailto:info@businessof.life" class="copyright copyright--link">info@businessof.life</a>
         <a href="tel:+77072350307" class="copyright copyright--tel">+7 (707) 235-03-07</a>
         <p class="copyright">(с) Все права защищены</p>
+        <p class="copyright">
+          <router-link class="copyright--link" to="/payment_policy">Оплата и возврат</router-link>
+        </p>
       </div>
       <!--<ul class="list-social">-->
         <!--<li>-->

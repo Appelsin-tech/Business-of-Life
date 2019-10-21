@@ -19,10 +19,7 @@
       </div>
       <div class="edit-grid__item textarea  item item--col-12">
         <label class="item__label" for="form-description">Полное описание</label>
-        <mavon-editor :TabSize="4" :boxShadow="false" :class="'mark-admin'" v-model="form.description" :language="'ru'" :toolbars="markDown"/>
-        <!--<textarea-resize>-->
-          <!--<textarea class="item__input item__input&#45;&#45;textarea" rows="1" id="form-description" :class="{error: $v.form.description.$error}" type="text" placeholder="Полное и подробное описание мероприятия " v-model="form.description" @blur="$v.form.description.$touch()"></textarea>-->
-        <!--</textarea-resize>-->
+        <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
         <div class="input-valid-error" v-if="$v.form.description.$error">
           <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
           <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
@@ -49,56 +46,38 @@
 </template>
 
 <script>
-import { minLength, maxLength, required } from 'vuelidate/lib/validators'
+
+import { maxLength, required } from 'vuelidate/lib/validators'
 import API from '../../api/index'
-import TextareaResize from '../textareaResize'
+import CKEditor from '@ckeditor/ckeditor5-vue'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+
 export default {
   name: 'EventEditingForm',
   props: ['idEvent', 'event', 'btnDelete'],
-  components: {TextareaResize},
+  components: { ckeditor: CKEditor.component },
   data() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {
+        language: 'ru',
+        image_previewText: '',
+        toolbar: [
+          'bold',
+          'italic',
+          'bulletedList',
+          'numberedList',
+          'undo',
+          'redo'
+        ]
+      },
       name: '',
       form: {
         title: '',
         snippet: '',
         description: '',
         audience: ''
-      },
-      markDown: {
-        bold: true,
-        italic: true,
-        header: true,
-        underline: true,
-        strikethrough: true,
-        mark: true,
-        superscript: true,
-        subscript: true,
-        quote: true,
-        ol: true,
-        ul: true,
-        link: true,
-        imagelink: false,
-        code: true,
-        table: true,
-        fullscreen: true,
-        readmodel: false,
-        htmlcode: true,
-        help: false,
-        /* 1.3.5 */
-        undo: true,
-        redo: true,
-        trash: true,
-        save: false,
-        /* 1.4.2 */
-        navigation: false,
-        /* 2.1.8 */
-        alignleft: true,
-        aligncenter: true,
-        alignright: true,
-        /* 2.2.1 */
-        subfield: true,
-        preview: true
       }
     }
   },
@@ -124,7 +103,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      if(this.idEvent) {
+      if (this.idEvent) {
         API.events.edit(this.form).then(response => {
           API.response.success('Мероприятие отредактировано')
         }).catch(error => {
@@ -134,7 +113,7 @@ export default {
         API.events.create(this.form).then(response => {
           API.response.success('Мероприятие создано')
           this.$store.dispatch('user/getMyParentEvents').then(() => {
-            this.$router.push({path: `/admin/event-editing/${response.data.id}`})
+            this.$router.push({ path: `/admin/event-editing/${response.data.id}` })
           })
         }).catch(error => {
           console.log(error)
@@ -142,9 +121,9 @@ export default {
       }
     },
     deleteEvent(id) {
-      API.events.delete({id: id}).then(()=> {
+      API.events.delete({ id: id }).then(() => {
         API.response.success('Мероприятие удалено')
-        this.$router.push({path: '/admin/event-control'})
+        this.$router.push({ path: '/admin/event-control' })
       })
     }
   },
@@ -162,7 +141,7 @@ export default {
     }
   },
   mounted() {
-    if(this.event) {
+    if (this.event) {
       this.form = {
         title: this.event.title,
         snippet: this.event.snippet,
@@ -182,7 +161,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding-left: 50px;
-    .sm-block({ padding-left: 0;});
+    .sm-block({ padding-left: 0; });
   }
   .item {
     margin-bottom: 30px;
@@ -227,11 +206,11 @@ export default {
     display: flex;
     justify-content: space-between;
     padding-left: 50px;
-    .sm-block({ padding-left: 0;});
-    .ss-block({ flex-direction: column; align-items: flex-start;});
+    .sm-block({ padding-left: 0; });
+    .ss-block({ flex-direction: column; align-items: flex-start; });
     .g-btn {
       &--white {
-        .ss-block({margin-top: 10px;});
+        .ss-block({ margin-top: 10px; });
       }
     }
   }
