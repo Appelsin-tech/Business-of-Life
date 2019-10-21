@@ -36,4 +36,18 @@ export default {
       reject(error)
     })
   }),
+  publish: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/publish', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
+  unpublish: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/unpublish', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
 }

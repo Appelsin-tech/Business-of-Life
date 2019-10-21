@@ -3,7 +3,7 @@
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner g-caption-inner--admin">Мероприятие</h1>
-      <div class="event-description">
+      <div class="event-editing">
         <h2 class="g-caption g-caption-section">
           <template v-if="id">Редактирование мероприятия</template>
           <template v-else>Создание мероприятия</template>
@@ -19,9 +19,9 @@
               Добавить событие
             </span>
           </a>
-          <a href="#" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="showButtonDelete">
-            <span>Опубликовать все</span>
-          </a>
+          <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon g-btn&#45;&#45;white g-btn&#45;&#45;border" v-if="showButtonDelete">-->
+            <!--<span>Опубликовать все</span>-->
+          <!--</a>-->
         </div>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
@@ -47,6 +47,12 @@
                 </p>
               </div>
               <div class="control">
+                <button class="control__link control-link control-link--public" v-tooltip.bottom="'Опубликовать'" @click="publicRelation(relation.id)" v-if="relation.status !== 3">
+                  <img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">
+                </button>
+                <button class="control__link control-link control-link--unpublic" v-tooltip.bottom="'Снять с публикации'" @click="unPublicRelation(relation.id)" v-else>
+                  <img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">
+                </button>
                 <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
                   <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
                 </button>
@@ -117,19 +123,10 @@ export default {
     deleteRelation(id) {
       API.relations.delete({id: id}).then(() => {
         API.response.success('Событие удалено')
-        API.events.info({id: this.id}).then(response => {
-          this.myEvent = response.data
-          if (this.myEvent.relations.length !== 0 ) {
-            this.showRelations = 1
-          } else {
-            this.showRelations = 0
-          }
-        })
+        this.getInfoEvent()
       })
-    }
-  },
-  mounted() {
-    if(this.id) {
+    },
+    getInfoEvent() {
       API.events.info({id: this.id}).then(response => {
         this.myEvent = response.data
         if (this.myEvent.relations.length !== 0 ) {
@@ -138,6 +135,23 @@ export default {
           this.showRelations = 0
         }
       })
+    },
+    publicRelation(id) {
+      API.relations.publish({id: id}).then((response) => {
+        this.getInfoEvent()
+        API.response.success('Событие опубликовано')
+      })
+    },
+    unPublicRelation(id) {
+      API.relations.unpublish({id: id}).then((response) => {
+        this.getInfoEvent()
+        API.response.success('Событие снято с публикации')
+      })
+    }
+  },
+  mounted() {
+    if(this.id) {
+      this.getInfoEvent()
     }
   },
   watch: {
@@ -177,7 +191,7 @@ export default {
       }
     }
   }
-  .event-description {
+  .event-editing {
     margin-bottom: 60px;
   }
   .relations-list {
@@ -319,7 +333,9 @@ export default {
     .control {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      max-width: 160px;
       .control-link {
         position: relative;
         display: flex;
@@ -331,7 +347,25 @@ export default {
         border: 1px solid #d6d6d6;
         transition: 0.3s;
         cursor: pointer;
+        margin-right: 10px;
+        margin-bottom: 10px;
         .md-block({ width: 40px; height: 40px; });
+        &--public {
+          border-color: @colorSuccess;
+          .control-link__icon {
+            path {
+              fill: @colorSuccess;
+            }
+          }
+        }
+        &--unpublic {
+          border-color: @colorError;
+          .control-link__icon {
+            path {
+              fill: @colorError;
+            }
+          }
+        }
         &--refractor {
           &:hover {
             border-color: @colorSuccess;
@@ -343,7 +377,6 @@ export default {
           }
         }
         &--delete {
-          margin-left: 10px;
           &:hover {
             border-color: @colorError;
             .control-link__icon {

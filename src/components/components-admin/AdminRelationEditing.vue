@@ -81,8 +81,29 @@
             <span>Сохранить</span>
           </button>
         </div>
-        <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
       </form>
+      <div class="tickets">
+        <h2 class="g-caption g-caption-section">Билеты</h2>
+        <div class="tickets-wrapper">
+          <div class="tickets-item">
+            <h3 class="title">Стандарт</h3>
+            <div class="description editor">
+              <p>Стартовые семинары</p>
+              <p>большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил</p>
+              <p>го популяризации в новое время</p>
+            </div>
+            <p class="price">1.5 <span class="currency">KZT</span>
+            </p>
+          </div>
+          <div class="tickets-item create">
+            <a class="create-link" href="#">
+              <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
+              <span>Добавить</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
@@ -233,6 +254,7 @@ export default {
   @import "../../assets/less/_importants";
   @import '~flatpickr/dist/flatpickr.css';
   .edit-form {
+    margin-bottom: 50px;
     .btn-wrapper {
       display: flex;
       justify-content: flex-start;
@@ -402,6 +424,77 @@ export default {
         .xs-block({ padding-left: 10px; height: 40px; });
         &.error {
           border: 1px solid @colorMainRed;
+        }
+      }
+    }
+  }
+
+  .tickets {
+    &-wrapper {
+      .row-flex();
+      padding-left: 50px;
+      .sm-block({ padding-left:0;});
+    }
+    &-item {
+      .col();
+      .size(3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 30px;
+      box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
+      .title {
+        margin-bottom: 30px;
+        font-size: 3rem;
+        font-weight: 800;
+        color: #000;
+        text-transform: lowercase;
+        .lg-block({ font-size: 2.4rem; });
+        .sm-block({ font-size: 2rem; });
+        .xs-block({ font-size: 1.6rem; });
+      }
+      .description {
+        margin-bottom: 40px;
+      }
+      .price {
+        display: flex;
+        align-items: baseline;
+        flex-shrink: 0;
+        font-size: 5rem;
+        font-weight: 800;
+        color: @colorBlue;
+        .xs-block({ font-size: 3.5rem; });
+        .currency {
+          margin-left: 10px;
+          font-size: 2rem;
+          color: #000;
+          .xs-block({ font-size: 1.6rem; })
+        }
+      }
+      &.create {
+        justify-content: center;
+        .create-link {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: #000;
+          &:hover {
+            span {
+              border-bottom-color: transparent;
+            }
+          }
+          svg {
+            width: 35px;
+            height: 35px;
+            margin-bottom: 35px;
+            path {
+              fill: @colorMainRed;
+            }
+          }
+          span {
+            border-bottom: 1px solid #000;
+            transition: 0.3s;
+          }
         }
       }
     }

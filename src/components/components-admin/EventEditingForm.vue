@@ -160,10 +160,14 @@ export default {
     display: flex;
     flex-direction: column;
     padding-left: 50px;
+    margin-bottom: 50px;
     .sm-block({ padding-left: 0; });
   }
   .item {
     margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0;
+    }
     &.textarea {
       display: flex;
       flex-direction: column;
