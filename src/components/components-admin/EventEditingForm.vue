@@ -154,7 +154,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import '~mavon-editor/dist/css/index.css';
   @import "../../assets/less/_importants";
 
   .edit-grid {
