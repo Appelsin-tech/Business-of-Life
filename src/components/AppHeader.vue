@@ -10,6 +10,10 @@
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
           </a>
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('admin')" v-if="logged">
+            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
+            <span>{{profile.login}}</span>
+          </a>
           <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('event/random-symbols')">-->
             <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
             <!--<span>Информация</span>-->
@@ -82,6 +86,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'AppHeader',
   data() {
@@ -98,7 +104,11 @@ export default {
   computed: {
     borderClass () {
       return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page' || this.$route.name === 'payment_policy'
-    }
+    },
+    ...mapState('user', [
+      'logged',
+      'profile'
+    ]),
   },
   watch: {
     showMenu(newVal, oldVal) {
@@ -270,9 +280,10 @@ export default {
           .lg-block({ margin-right: 50px; });
           .sm-block({ display: none; });
           .icon-red {
-            &:nth-child(2) {
-              margin-right: 80px;
-              .lg-block({ margin-right: 50px; });
+            margin-right: 50px;
+            .lg-block({ margin-right: 30px; });
+            &:last-child {
+              margin-right: 0;
             }
           }
         }
