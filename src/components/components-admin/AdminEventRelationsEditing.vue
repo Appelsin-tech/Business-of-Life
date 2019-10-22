@@ -44,12 +44,6 @@
                 </p>
               </div>
               <div class="control">
-                <!--<button class="control__link control-link control-link&#45;&#45;public" v-tooltip.bottom="'Опубликовать'" @click="publicRelation(relation.id)" v-if="relation.status !== 3">-->
-                  <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
-                <!--</button>-->
-                <!--<button class="control__link control-link control-link&#45;&#45;unpublic" v-tooltip.bottom="'Снять с публикации'" @click="unPublicRelation(relation.id)" v-else>-->
-                  <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
-                <!--</button>-->
                 <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
                   <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
                 </button>
@@ -335,22 +329,6 @@ export default {
         margin-right: 10px;
         margin-bottom: 10px;
         .md-block({ width: 40px; height: 40px; });
-        &--public {
-          border-color: @colorSuccess;
-          .control-link__icon {
-            path {
-              fill: @colorSuccess;
-            }
-          }
-        }
-        &--unpublic {
-          border-color: @colorError;
-          .control-link__icon {
-            path {
-              fill: @colorError;
-            }
-          }
-        }
         &--refractor {
           &:hover {
             border-color: @colorSuccess;

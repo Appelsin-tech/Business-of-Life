@@ -68,8 +68,8 @@
       .col();
       .size(6);
       .size-ss(12);
-      margin-bottom: 35px;
-      .sm-block({ margin-bottom: 25px;});
+      margin-bottom: 25px;
+      .sm-block({ margin-bottom: 20px;});
       .xs-block({ margin-bottom: 15px;});
       &--col-12 {
         .size(12);
@@ -207,7 +207,6 @@
         display: flex;
         flex-direction: column;
         .form-modal__input--textarea {
-
           padding-top: 28px;
           padding-bottom: 20px;
           height: auto;
@@ -251,6 +250,22 @@
         flex-basis: 30%;
         .lg-block({ flex-basis: 25%;});
         .sm-block({min-width: 150px;});
+      }
+    }
+  }
+  &__ticket-create {
+    .form-modal__wrapper {
+      justify-content: center;
+    }
+    .btn-wrapper {
+      display: flex;
+      .sm-block({ flex-direction: column;});
+      .g-btn {
+        align-self: center;
+        &:first-child {
+          margin-right: 20px;
+          .sm-block({ margin-bottom: 10px; margin-right: 0;})
+        }
       }
     }
   }

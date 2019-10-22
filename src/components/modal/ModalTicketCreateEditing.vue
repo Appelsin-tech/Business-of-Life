@@ -1,38 +1,41 @@
 <template>
-  <modal name='modal-create-ticket' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
+  <modal name='modal-ticket-create' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
          :adaptive="true"
          :scrollable="true" :classes="'custom-modals'">
     <div class="modal modal__ticket-create">
-      <div class="close-modal" @click="$modal.hide('modal-create-ticket')" title="Закрыть">
+      <div class="close-modal" @click="$modal.hide('modal-ticket-create')" title="Закрыть">
         <div class="close-modal__wrapper">
           <span class="close-modal__line"></span>
           <span class="close-modal__line"></span>
         </div>
       </div>
       <div class="modal__container">
-        <h3 class="title">Создать мероприятие</h3>
+        <h3 class="title">Билет</h3>
         <form class="form-modal" @submit.prevent="onSubmit">
           <div class="form-modal__wrapper">
-            <div class="form-modal__item">
-              <label class="form-modal__label" for="form-title">Название</label>
-              <v-select v-model="form.type" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Тип билета" :options="selectType"></v-select>
+            <div class="form-modal__item form-modal__item--col-8">
+              <label class="form-modal__label" for="form-title">Тип билета</label>
+              <v-select v-model="form.type" :multiple="false" :class="['v-select__modal', {'error': errorSelect.type}]" v-on:search:blur="validateSelect('type')" :searchable="false" placeholder="Тип билета" :options="selectType"></v-select>
               <div class="input-valid-error" v-if="errorSelect.type">
-                Выберите Валюту
+                Выберите тип билета
               </div>
             </div>
-            <div class="form-modal__item">
+            <div class="form-modal__item form-modal__item--col-8">
+              <label class="form-modal__label">Описание</label>
               <ckeditor :editor="editor" v-model="form.description" :config="editorConfig" :class="{error: $v.form.description.$error}"  @blur="$v.form.description.$touch()"></ckeditor>
               <div class="input-valid-error" v-if="$v.form.description.$error">
                 <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
               </div>
             </div>
-            <div class="form-modal__item">
+            <div class="form-modal__item form-modal__item--col-8">
+              <label class="form-modal__label">Цена</label>
               <input class="form-modal__input" v-mask="'#################'" v-model="form.price">
             </div>
-            <div class="form-modal__item">
+            <div class="form-modal__item form-modal__item--col-8">
+              <label class="form-modal__label">Валюта</label>
               <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.t_currency}]" :searchable="false" :options="selectCurrency" v-model="form.currency" v-on:search:blur="validateSelect('t_currency')"></v-select>
-              <div class="input-valid-error" v-if="errorSelect.currency">
+              <div class="input-valid-error" v-if="errorSelect.t_currency">
                 Выберите Валюту
               </div>
             </div>
@@ -52,7 +55,7 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
@@ -76,8 +79,8 @@ export default {
         ]
       },
       errorSelect: {
-        selectedQualification: false,
-        selectedPayment: false
+        type: false,
+        t_currency: false
       },
       showError: false,
       name: '',
@@ -85,7 +88,7 @@ export default {
         type: '',
         description: '',
         price: '',
-        currency: ''
+        t_currency: ''
       },
       selectType: ['стандарт', 'базовый', 'VIP'],
       selectCurrency: ['USD', 'RUB', 'KZT']
@@ -93,20 +96,29 @@ export default {
   },
   validations: {
     form: {
-      title: {
-        required,
-        minLength: minLength(3)
+      price: {
+        required
       },
-      city: {
+      description: {
         required,
-        minLength: minLength(3)
+        maxLength: maxLength(200)
+      },
+      t_currency: {
+        required
       }
     }
   },
   methods: {
     onSubmit() {
       console.log('as')
-    }
+    },
+    validateSelect(name) {
+      if (this.form[name] === '') {
+        this.errorSelect[name] = true
+      } else {
+        this.errorSelect[name] = false
+      }
+    },
   }
 }
 </script>
