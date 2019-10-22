@@ -16,7 +16,7 @@
           <div class="info-date">
             <p class="info-text info-date__date">
               <span class="info-text__regular">Дата покупки:</span>
-              <strong class="info-text__strong">{{response.registered}}</strong>
+              <strong class="info-text__strong">{{parseDate}}</strong>
             </p>
             <p class="info-text info-date__price">
               <span class="info-text__regular">Стоимость билета:</span>
@@ -79,6 +79,16 @@ export default {
     ...mapState('user', [
       'profile'
     ]),
+    parseDate() {
+      if (this.response.registered) {
+        let onlyDate = this.response.registered.split(' ')
+        let [day, month, year] = onlyDate[0].split('.')
+        let da = new Date(year, month - 1, day)
+        return da.toLocaleString('default', {day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
+      } else {
+        return '00'
+      }
+    }
   },
   methods: {
     activateTicket() {

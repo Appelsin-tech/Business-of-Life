@@ -40,10 +40,14 @@ const actions = {
     })
   },
   getMyParentEvents({commit}) {
-    API.events.my().then(response => {
-      commit('SET_MY_PARENT_EVENT', response.data)
-    }).catch(error => {
-      console.log(error)
+    return new Promise((resolve, reject) => {
+      API.events.my().then(response => {
+        commit('SET_MY_PARENT_EVENT', response.data)
+        resolve()
+      }).catch(error => {
+        console.log(error)
+        reject(error)
+      })
     })
   }
 }

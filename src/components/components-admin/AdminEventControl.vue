@@ -101,8 +101,7 @@ export default {
     deleteEvents(id) {
       API.events.delete({id: id}).then(() => {
         API.response.success('Мероприятие удалено')
-        this.$store.dispatch('user/getMyParentEvents').then(() => {
-        })
+        this.$store.dispatch('user/getMyParentEvents')
       })
     }
   },
@@ -111,9 +110,10 @@ export default {
       'myParentEvents'
     ])
   },
-  created() {
-    this.$store.dispatch('user/getMyParentEvents').then(() => {
-    })
+  mounted() {
+    if(this.myParentEvents.length === 0) {
+      this.$store.dispatch('user/getMyParentEvents')
+    }
   }
 }
 </script>

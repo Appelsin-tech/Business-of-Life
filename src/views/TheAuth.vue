@@ -1,5 +1,5 @@
 <template>
-  <section class="p-auth p-default">
+  <section class="p-auth p-default p-default-inner">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
