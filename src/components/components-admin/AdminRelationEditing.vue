@@ -80,6 +80,10 @@
           <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid  || errorSelect.t_currency === true">
             <span>Сохранить</span>
           </button>
+          <button type="button" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="event !== 'new'" @click="newStatus">
+            <span v-if="statusRelation === 3 ">Снять с публикации</span>
+            <span v-else>Опубликовать</span>
+          </button>
         </div>
       </form>
       <div class="tickets">
@@ -129,6 +133,7 @@ export default {
         locale: Russian,
         dateFormat: 'd.m.Y H:i'
       },
+      statusRelation: 0,
       form: {
         event_id: this.id,
         date: '',
@@ -216,6 +221,7 @@ export default {
     },
     myForm(arr) {
       let newObg = arr.find(item => item.id === this.event)
+      this.statusRelation = newObg.status
       this.form = {
         id: newObg.id,
         date: newObg.date,
@@ -226,7 +232,20 @@ export default {
         t_currency: newObg.tickets.currency,
         t_price: newObg.tickets.price
       }
-    }
+    },
+    newStatus() {
+      if(this.statusRelation === 3) {
+        API.relations.unpublish({id: this.event}).then((response) => {
+          this.statusRelation = response.status
+          API.response.success('Событие снято с публикации')
+        })
+      } else {
+        API.relations.publish({id: this.event}).then((response) => {
+          this.statusRelation = response.status
+          API.response.success('Событие опубликовано')
+        })
+      }
+    },
   },
   mounted() {
     if (this.event === 'new') {

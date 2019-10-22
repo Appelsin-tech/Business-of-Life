@@ -19,9 +19,6 @@
               Добавить событие
             </span>
           </a>
-          <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon g-btn&#45;&#45;white g-btn&#45;&#45;border" v-if="showButtonDelete">-->
-            <!--<span>Опубликовать все</span>-->
-          <!--</a>-->
         </div>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
@@ -47,12 +44,12 @@
                 </p>
               </div>
               <div class="control">
-                <button class="control__link control-link control-link--public" v-tooltip.bottom="'Опубликовать'" @click="publicRelation(relation.id)" v-if="relation.status !== 3">
-                  <img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">
-                </button>
-                <button class="control__link control-link control-link--unpublic" v-tooltip.bottom="'Снять с публикации'" @click="unPublicRelation(relation.id)" v-else>
-                  <img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">
-                </button>
+                <!--<button class="control__link control-link control-link&#45;&#45;public" v-tooltip.bottom="'Опубликовать'" @click="publicRelation(relation.id)" v-if="relation.status !== 3">-->
+                  <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
+                <!--</button>-->
+                <!--<button class="control__link control-link control-link&#45;&#45;unpublic" v-tooltip.bottom="'Снять с публикации'" @click="unPublicRelation(relation.id)" v-else>-->
+                  <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
+                <!--</button>-->
                 <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
                   <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
                 </button>
@@ -136,18 +133,6 @@ export default {
         }
       })
     },
-    publicRelation(id) {
-      API.relations.publish({id: id}).then((response) => {
-        this.getInfoEvent()
-        API.response.success('Событие опубликовано')
-      })
-    },
-    unPublicRelation(id) {
-      API.relations.unpublish({id: id}).then((response) => {
-        this.getInfoEvent()
-        API.response.success('Событие снято с публикации')
-      })
-    }
   },
   mounted() {
     if(this.id) {
