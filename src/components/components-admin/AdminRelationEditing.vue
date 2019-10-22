@@ -17,18 +17,18 @@
             </div>
           </div>
           <!--<div class="edit-grid__item item item&#45;&#45;col-4 photo">-->
-            <!--<span class="item__label">Фото</span>-->
-            <!--<div class="photo__wrapper">-->
-              <!--<input type="file" class="visually-hidden" id="form__file">-->
-              <!--<label class="photo__link photo__link&#45;&#45;add" for="form__file">-->
-                <!--<img svg-inline class="photo__icon" src="../../assets/img/icon/camera.svg" alt="">-->
-                <!--<span class="photo__text">Загрузить фото</span>-->
-              <!--</label>-->
-            <!--</div>-->
-            <!--<div class="input-valid-error" v-if="false">-->
-              <!--<template v-if="false">Поле не может быть пустым</template>-->
-              <!--<template v-else-if="false">Название не должно быть меньше 10 символов</template>-->
-            <!--</div>-->
+          <!--<span class="item__label">Фото</span>-->
+          <!--<div class="photo__wrapper">-->
+          <!--<input type="file" class="visually-hidden" id="form__file">-->
+          <!--<label class="photo__link photo__link&#45;&#45;add" for="form__file">-->
+          <!--<img svg-inline class="photo__icon" src="../../assets/img/icon/camera.svg" alt="">-->
+          <!--<span class="photo__text">Загрузить фото</span>-->
+          <!--</label>-->
+          <!--</div>-->
+          <!--<div class="input-valid-error" v-if="false">-->
+          <!--<template v-if="false">Поле не может быть пустым</template>-->
+          <!--<template v-else-if="false">Название не должно быть меньше 10 символов</template>-->
+          <!--</div>-->
           <!--</div>-->
           <div class="edit-grid__item item item--col-4">
             <label class="item__label" for="form__country">Страна</label>
@@ -89,17 +89,8 @@
       <div class="tickets">
         <h2 class="g-caption g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <div class="tickets-item">
-            <h3 class="title">Стандарт</h3>
-            <div class="description editor">
-              <p>Стартовые семинары</p>
-              <p>большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил</p>
-              <p>го популяризации в новое время</p>
-            </div>
-            <p class="price">1.5 <span class="currency">KZT</span>
-            </p>
-          </div>
-          <div class="tickets-item create">
+          <ticket v-for="(item, i) in [0, 1, 2, 3]" :key="i"/>
+          <div class="ticket-create">
             <a class="create-link" href="#">
               <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
               <span>Добавить</span>
@@ -113,6 +104,7 @@
 </template>
 
 <script>
+import Ticket from '../Ticket'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
 import API from '../../api/index'
@@ -123,7 +115,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'AdminRelationEditing',
   props: ['id', 'event'],
-  components: { BreadCrumbs, flatPickr },
+  components: { BreadCrumbs, flatPickr, Ticket },
   data() {
     return {
       resize: true,
@@ -234,13 +226,13 @@ export default {
       }
     },
     newStatus() {
-      if(this.statusRelation === 3) {
-        API.relations.unpublish({id: this.event}).then((response) => {
+      if (this.statusRelation === 3) {
+        API.relations.unpublish({ id: this.event }).then((response) => {
           this.statusRelation = response.status
           API.response.success('Событие снято с публикации')
         })
       } else {
-        API.relations.publish({id: this.event}).then((response) => {
+        API.relations.publish({ id: this.event }).then((response) => {
           this.statusRelation = response.status
           API.response.success('Событие опубликовано')
         })
@@ -260,7 +252,7 @@ export default {
         t_price: null
       }
     } else {
-      API.events.info({id: this.id}).then(response => {
+      API.events.info({ id: this.id }).then(response => {
         this.myForm(response.data.relations)
       })
     }
@@ -278,7 +270,7 @@ export default {
       display: flex;
       justify-content: flex-start;
       padding-left: 50px;
-      .sm-block({ margin-left: 0; margin-bottom: 40px; padding-left: 0;});
+      .sm-block({ margin-left: 0; margin-bottom: 40px; padding-left: 0; });
       .ss-block({ flex-direction: column; align-items: center; });
       .g-btn {
         min-width: 250px;
@@ -306,7 +298,7 @@ export default {
     padding-left: 50px;
     .lg-block({ grid-column-gap: 50px; grid-row-gap: 30px; });
     .md-block({ grid-template-columns: 1fr 1fr; });
-    .sm-block({grid-column-gap: 30px; padding-left: 0;});
+    .sm-block({ grid-column-gap: 30px; padding-left: 0; });
     .ss-block({ grid-template-columns: 1fr; grid-row-gap: 20px; });
     .photo {
       display: flex;
@@ -452,68 +444,47 @@ export default {
     &-wrapper {
       .row-flex();
       padding-left: 50px;
-      .sm-block({ padding-left:0;});
+      justify-content: center;
+      .sm-block({ padding-left: 0; });
     }
-    &-item {
+    .ticket-create {
       .col();
       .size(3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      .size-lg(4);
+      .size-md(5);
+      .size-sm(6);
+      .size-ss(10);
+      .size-xs(12);
+      margin-bottom: 25px;
       padding: 40px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
-      .title {
-        margin-bottom: 30px;
-        font-size: 3rem;
-        font-weight: 800;
-        color: #000;
-        text-transform: lowercase;
-        .lg-block({ font-size: 2.4rem; });
-        .sm-block({ font-size: 2rem; });
-        .xs-block({ font-size: 1.6rem; });
-      }
-      .description {
-        margin-bottom: 40px;
-      }
-      .price {
+      min-height: 300px;
+      .sm-block({ padding: 30px 20px; box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);});
+      .xs-block({ min-height: 200px;});
+      .create-link {
         display: flex;
-        align-items: baseline;
-        flex-shrink: 0;
-        font-size: 5rem;
-        font-weight: 800;
-        color: @colorBlue;
-        .xs-block({ font-size: 3.5rem; });
-        .currency {
-          margin-left: 10px;
-          font-size: 2rem;
-          color: #000;
-          .xs-block({ font-size: 1.6rem; })
-        }
-      }
-      &.create {
-        justify-content: center;
-        .create-link {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          color: #000;
-          &:hover {
-            span {
-              border-bottom-color: transparent;
-            }
-          }
-          svg {
-            width: 35px;
-            height: 35px;
-            margin-bottom: 35px;
-            path {
-              fill: @colorMainRed;
-            }
-          }
+        flex-direction: column;
+        align-items: center;
+        color: #000;
+        &:hover {
           span {
-            border-bottom: 1px solid #000;
-            transition: 0.3s;
+            border-bottom-color: transparent;
           }
+        }
+        svg {
+          width: 35px;
+          height: 35px;
+          margin-bottom: 35px;
+          path {
+            fill: @colorMainRed;
+          }
+        }
+        span {
+          border-bottom: 1px solid #000;
+          transition: 0.3s;
         }
       }
     }
