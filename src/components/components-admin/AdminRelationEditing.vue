@@ -294,7 +294,6 @@ export default {
     grid-column-gap: 100px;
     grid-row-gap: 50px;
     margin-bottom: 50px;
-    max-width: 1000px;
     padding-left: 50px;
     .lg-block({ grid-column-gap: 50px; grid-row-gap: 30px; });
     .md-block({ grid-template-columns: 1fr 1fr; });
