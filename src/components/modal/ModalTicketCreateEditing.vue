@@ -129,11 +129,15 @@ export default {
     },
     beforeOpen(event) {
       if (event.params !== undefined) {
-        if (event.params.new) {
-          this.newTicket = event.params.new
+        console.log(event.params)
+        this.newTicket = event.params.new
+        if(this.newTicket) {
+          this.form.title = ''
+          this.form.description = ''
+          this.form.price = ''
+          this.form.t_currency = ''
         }
         if (event.params.ticket) {
-          console.log(event.params.ticket)
           this.form.title = event.params.ticket.title
           this.form.description = event.params.ticket.description
           this.form.price = event.params.ticket.price
