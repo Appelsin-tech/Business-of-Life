@@ -292,10 +292,10 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: max-content;
     grid-column-gap: 100px;
-    grid-row-gap: 50px;
+    grid-row-gap: 30px;
     margin-bottom: 50px;
     padding-left: 50px;
-    .lg-block({ grid-column-gap: 50px; grid-row-gap: 30px; });
+    .lg-block({ grid-column-gap: 50px;});
     .md-block({ grid-template-columns: 1fr 1fr; });
     .sm-block({ grid-column-gap: 30px; padding-left: 0; });
     .ss-block({ grid-template-columns: 1fr; grid-row-gap: 20px; });
@@ -303,12 +303,12 @@ export default {
       display: flex;
       flex-direction: column;
       position: relative;
-      height: 400px;
+      height: 350px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       transition: 0.3s;
-      .to(1400px, { height: 350px; });
+      .lg-block({ height: 320px; });
       .md-block({ height: 300px; });
       .xs-block({ height: 200px; margin-bottom: 0; });
       &:hover {
@@ -410,27 +410,27 @@ export default {
           height: auto;
           resize: none;
           outline: none;
-          min-height: 75px;
-          .lg-block({ min-height: 65px; });
+          min-height: 68px;
+          .lg-block({ min-height: 60px; });
           .xs-block({ min-height: 40px; padding-top: 12px; padding-bottom: 12px; });
         }
       }
       &__label {
         display: inline-block;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         font-weight: 800;
         font-size: 1.8rem;
-        .ss-block({ margin-bottom: 12px; });
+        .ss-block({ margin-bottom: 10px; });
       }
       &__input {
         padding-left: 25px;
         padding-right: 15px;
         width: 100%;
-        height: 75px;
+        height: 68px;
         background: #f3f3f3;
         border: 1px solid #fff;
         box-sizing: border-box;
-        .lg-block({ padding-left: 18px; height: 65px; });
+        .lg-block({ padding-left: 18px; height: 60px; });
         .xs-block({ padding-left: 10px; height: 40px; });
         &.error {
           border: 1px solid @colorMainRed;

@@ -131,7 +131,7 @@ export default {
         }
       }
       .g-btn {
-        height: 72px;
+        height: 68px;
         padding-top: 0;
         padding-bottom: 0;
         box-sizing: border-box;
@@ -189,7 +189,7 @@ export default {
         }
         .search {
           position: relative;
-          height: 72px;
+          height: 68px;
           .md-block({ height: 60px;});
           .xs-block({ height: 50px;});
           &__input {

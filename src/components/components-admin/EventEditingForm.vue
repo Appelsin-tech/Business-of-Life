@@ -165,6 +165,7 @@ export default {
   }
   .item {
     margin-bottom: 30px;
+    .ss-block({ margin-bottom: 20px;});
     &:last-child {
       margin-bottom: 0;
     }
@@ -178,27 +179,27 @@ export default {
         height: auto;
         resize: none;
         outline: none;
-        min-height: 75px;
-        .lg-block({ min-height: 65px; });
+        min-height: 68px;
+        .lg-block({ min-height: 60px; });
         .xs-block({ min-height: 40px; padding-top: 12px; padding-bottom: 12px; });
       }
     }
     &__label {
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-weight: 800;
       font-size: 1.8rem;
-      .ss-block({ margin-bottom: 12px; });
+      .ss-block({ margin-bottom: 10px; });
     }
     &__input {
       padding-left: 25px;
       padding-right: 15px;
       width: 100%;
-      height: 75px;
+      height: 68px;
       background: #f3f3f3;
       border: 1px solid #fff;
       box-sizing: border-box;
-      .lg-block({ padding-left: 18px; height: 65px; });
+      .lg-block({ padding-left: 18px; height: 60px; });
       .xs-block({ padding-left: 10px; height: 40px; });
       &.error {
         border: 1px solid @colorMainRed;

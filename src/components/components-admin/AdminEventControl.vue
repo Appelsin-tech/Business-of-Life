@@ -12,7 +12,7 @@
         </router-link>
       </div>
       <div class="event" v-if="myParentEvents">
-        <div class="event__item" v-for="(event, index) in myParentEvents" :key="index" >
+        <router-link class="event__item" v-for="(event, index) in myParentEvents" :key="index" :to="`/admin/event-editing/${event.id}`">
           <div class="event__img" >
             <!--<a href="#" class="img-link img-link&#45;&#45;add">-->
               <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
@@ -23,7 +23,7 @@
               <!--<span class="img-link__text">Сменить фото</span>-->
             <!--</a>-->
           </div>
-          <a href="#" class="event__title" @click.prevent="$router.push({path: `/admin/event-editing/${event.id}`})">{{event.title}}</a>
+          <p class="event__title">{{event.title}}</p>
           <div class="event__ticket-sold">
             <!--<div class="event__ticket-sold-wrapper">-->
               <!--<span class="event__ticket-sold-text">Продано билетов:</span>-->
@@ -35,7 +35,7 @@
               <!--</button>-->
             <!--</div>-->
           </div>
-        </div>
+        </router-link>
       </div>
       <!--<h2 class="g-caption-section">Прошедшие мероприятия</h2>-->
       <!--<div class="event" >-->
@@ -69,6 +69,7 @@
           <!--Смотреть все-->
         <!--</span>-->
       <!--</a>-->
+      <router-link to="/admin/me" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
@@ -145,6 +146,11 @@ export default {
         border-radius: 6px;
         .md-block({ padding-top: 3vw;});
         .sm-block({padding: 20px 20px; margin-bottom: 15px;});
+        &:hover {
+          .event__title {
+            text-decoration: none;
+          }
+        }
         &--past {
           box-shadow: none;
           background: none;
@@ -301,7 +307,6 @@ export default {
         }
       }
       &__title {
-        margin-bottom: 60px;
         font-weight: 800;
         font-size: 2rem;
         text-transform: uppercase;

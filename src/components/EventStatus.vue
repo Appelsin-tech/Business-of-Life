@@ -107,22 +107,32 @@ export default {
           justify-content: center;
           align-items: center;
           margin-right: 30px;
-          width: 50px;
-          height: 50px;
+          width: 45px;
+          height: 45px;
           border-width: 1px;
           border-style: solid;
           border-color: #000;
           border-radius: 50%;
           flex-shrink: 0;
+          box-sizing: border-box;
           .md-block({ width: 40px; height: 40px; margin-right: 25px;});
           .sm-block({ margin-right: 30px;});
           .ss-block({ width: 30px; height: 30px; margin-right: 15px;});
+          .status-icon {
+            width: 22px;
+            height: 22px;
+            .md-block({ width: 20px; height: 20px;});
+            .ss-block({ width: 15px; height: 15px;});
+            path {
+              fill: #000;
+            }
+          }
           &.created {
             border-color: @colorMainRed;
             .status-icon {
-              width: 20px;
-              height: 20px;
-              .md-block({ width: 17px; height: 17px;});
+              width: 18px;
+              height: 18px;
+              .md-block({ width: 15px; height: 15px;});
               .ss-block({ width: 12px; height: 12px;});
               path {
                 fill: @colorMainRed;
@@ -145,15 +155,7 @@ export default {
               }
             }
           }
-          .status-icon {
-            width: 25px;
-            height: 25px;
-            .md-block({ width: 20px; height: 20px;});
-            .ss-block({ width: 15px; height: 15px;});
-            path {
-              fill: #000;
-            }
-          }
+
         }
         .text {
           color: #000;
