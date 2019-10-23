@@ -14,6 +14,10 @@
             <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
             <span>{{profile.login}}</span>
           </a>
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('auth')" v-else>
+            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
+            <span>Войти</span>
+          </a>
           <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('event/random-symbols')">-->
             <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
             <!--<span>Информация</span>-->

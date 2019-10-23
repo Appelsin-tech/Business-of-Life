@@ -102,6 +102,9 @@ export default {
       API.tickets.check({hash: this.$route.params.id}).then(response => {
         this.response = response.data
         this.existTicket = true
+        // API.relations.info({url: this.response.event_relation_id}).then(res => {
+        //   console.log(res)
+        // })
         this.btnSupervisor()
       }).catch(error => {
         console.log(error)
