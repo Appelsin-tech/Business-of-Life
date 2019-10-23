@@ -14,7 +14,7 @@
       <span>Купить билет</span>
     </a>
     <div class="control" v-else>
-      <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create')">
+      <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: {title: 'стандарт', description: 'Описание', price: 1000, t_currency: 'KZT'}})">
         <img svg-inline class="control-link__icon" src="../assets/img/icon/pencil.svg" alt="">
       </button>
       <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="">

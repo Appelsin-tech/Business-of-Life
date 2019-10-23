@@ -32,18 +32,6 @@
               </div>
             </div>
             <div class="form-modal__item">
-              <input class="form-modal__input" :class="{error: $v.form.country.$error}" type="text" placeholder="Страна" v-model="form.country" @blur="$v.form.country.$touch()">
-              <div class="input-valid-error" v-if="$v.form.country.$error">
-                <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
-              </div>
-            </div>
-            <div class="form-modal__item">
-              <input class="form-modal__input" :class="{error: $v.form.city.$error}" type="text" placeholder="Город" v-model="form.city" @blur="$v.form.city.$touch()">
-              <div class="input-valid-error" v-if="$v.form.city.$error">
-                <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
-              </div>
-            </div>
-            <div class="form-modal__item">
               <flat-pickr v-model="reg_d" :config="configDate" :class="'form-modal__input'" :placeholder="'Дата регистрации в компании'"></flat-pickr>
             </div>
             <div class="form-modal__item">
@@ -154,12 +142,6 @@ export default {
       email: {
         required,
         email
-      },
-      country: {
-        required
-      },
-      city: {
-        required
       }
     }
   },
@@ -233,6 +215,8 @@ export default {
       this.eventData.currency = event.params.currency
       this.eventData.event_id = event.params.event_id
       this.form.relation = event.params.event_id
+      this.form.city = event.params.city
+      this.form.country = event.params.country
     },
   }
 }

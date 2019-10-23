@@ -91,7 +91,7 @@
         <div class="tickets-wrapper">
           <ticket v-for="(item, i) in [0, 1, 2, 3]" :key="i"/>
           <div class="ticket-create">
-            <a class="create-link" href="#">
+            <a class="create-link" href="#" @click.prevent="$modal.show('modal-ticket-create', {new: true})">
               <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
               <span>Добавить</span>
             </a>

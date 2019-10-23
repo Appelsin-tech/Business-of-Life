@@ -31,7 +31,7 @@
             <!--<span>Купить билет</span>-->
             <!--</a>-->
             <a href="#" class="g-btn g-btn--no-icon"
-               @click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id})">
+               @click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id, country: activeEvent.country, city: activeEvent.city})">
               <span>Купить билет</span>
             </a>
           </div>
