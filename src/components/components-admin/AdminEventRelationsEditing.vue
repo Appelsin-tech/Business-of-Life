@@ -69,7 +69,7 @@ import { mapState } from 'vuex'
 import EventEditingForm from './EventEditingForm'
 
 export default {
-  name: 'AdminEvenAllEditing',
+  name: 'AdminEventRelationEditing',
   components: { BreadCrumbs, EventEditingForm },
   props: ['id'],
   data() {

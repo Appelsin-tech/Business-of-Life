@@ -218,7 +218,7 @@ export default {
         id: newObg.id,
         date: newObg.date,
         title: newObg.title,
-        country: newObg.title,
+        country: newObg.country,
         city: newObg.city,
         address: newObg.address,
         t_currency: newObg.tickets.currency,
