@@ -23,12 +23,11 @@
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
           </p>
-          <!--<div class="info__ticket ticket&#45;&#45;brief">-->
-            <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon"-->
-               <!--@click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id, country: activeEvent.country, city: activeEvent.city})">-->
-              <!--<span>Купить билет</span>-->
-            <!--</a>-->
-          <!--</div>-->
+          <div class="info__ticket ticket--brief">
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="scrollMeTo('section-tickets')">
+              <span>Купить билет</span>
+            </a>
+          </div>
         </div>
       </section>
       <section class="description">
@@ -62,7 +61,7 @@
           </div>
         </div>
       </section>
-      <section class="tickets">
+      <section class="tickets" ref="section-tickets">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <ticket :btn="true" v-for="(item, i) in activeEvent.tickets" :key="item.id" :ticket="item" :event="activeEvent"/>
@@ -246,6 +245,15 @@ export default {
       this.myEvent = false
       this.city = []
       this.getEvent()
+    },
+    scrollMeTo(refName) {
+      let element = this.$refs[refName]
+      let top = element.offsetTop
+      // window.scrollTo(0, top)
+      window.scrollTo({
+        top: top - 20,
+        behavior: "smooth"
+      });
     }
   },
   watch: {

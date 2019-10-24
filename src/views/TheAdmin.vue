@@ -21,6 +21,7 @@ export default {
     transition: 0.3s;
     color: @colorSecondFonts;
     border-bottom: 1px solid @colorSecondFonts;
+    .sm-block({ margin-top: 50px;});
     &:hover {
       border-bottom-color: transparent;
     }

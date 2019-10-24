@@ -84,7 +84,12 @@
           </div>
         </div>
       </div>
-      <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
+      <div class="link-wrapper">
+        <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${event}`">
+          <span>Предпросмотр</span>
+        </router-link>
+        <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
+      </div>
     </div>
   </section>
 </template>
@@ -468,6 +473,15 @@ export default {
           transition: 0.3s;
         }
       }
+    }
+  }
+  .link-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .preview {
+      margin-top: 80px;
+      .sm-block({ margin-top: 50px;});
     }
   }
 </style>
