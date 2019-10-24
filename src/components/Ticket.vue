@@ -1,23 +1,18 @@
 <template>
   <div class="ticket">
-    <h3 class="title">Стандарт</h3>
-    <div class="description editor">
-      <p>Стартовые семинары</p>
-      <p>большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только
-        успешно пережил</p>
-      <p>го популяризации в новое время</p>
-    </div>
-    <p class="price">1.5 <span class="currency">KZT</span>
+    <h3 class="title">{{ticket.title}}</h3>
+    <div class="description editor" v-html="ticket.desc"></div>
+    <p class="price">{{ticket.price}} <span class="currency">{{ticket.currency}}</span>
     </p>
     <a href="#" class="g-btn g-btn--no-icon" v-if="btn"
-       @click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id})">
+       @click.prevent="$modal.show('modal-ticket-purchase', {price: ticket.price, currency: ticket.currency, event_id: event.id, country: event.country, city: event.city})">
       <span>Купить билет</span>
     </a>
     <div class="control" v-else>
-      <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: {title: 'стандарт', description: 'Описание', price: 1000, t_currency: 'KZT'}})">
+      <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: ticket})">
         <img svg-inline class="control-link__icon" src="../assets/img/icon/pencil.svg" alt="">
       </button>
-      <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="">
+      <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteTicket">
         <img svg-inline class="control-link__icon" src="../assets/img/icon/basket.svg" alt="">
       </button>
     </div>
@@ -25,9 +20,18 @@
 </template>
 
 <script>
+import API from '../api/index'
 export default {
   name: 'Ticket',
-  props: ['btn']
+  props: ['btn', 'ticket', 'event'],
+  methods: {
+    deleteTicket() {
+      API.tickets.delete({id: this.ticket.id}).then(response => {
+        API.response.success('Билет удален')
+        this.$root.$emit('ticket-edit')
+      })
+    }
+  }
 }
 </script>
 
@@ -60,6 +64,7 @@ export default {
       .xs-block({ font-size: 1.6rem; margin-bottom: 10px; });
     }
     .description {
+      flex-grow: 1;
       margin-bottom: 40px;
       .sm-block({ margin-bottom: 25px; });
       .xs-block({ margin-bottom: 15px; });

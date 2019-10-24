@@ -23,18 +23,12 @@
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
           </p>
-          <div class="info__ticket ticket--brief">
-            <p class="ticket__price">{{activeEvent.tickets.price}} <span class="currency">{{activeEvent.tickets.currency}}</span>
-            </p>
+          <!--<div class="info__ticket ticket&#45;&#45;brief">-->
             <!--<a href="#" class="g-btn g-btn&#45;&#45;no-icon"-->
-            <!--@click.prevent="$modal.show('modal-adv-cash', {currency: activeEvent.tickets.currency, price: activeEvent.tickets.price, id: activeEvent.id})">-->
-            <!--<span>Купить билет</span>-->
+               <!--@click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id, country: activeEvent.country, city: activeEvent.city})">-->
+              <!--<span>Купить билет</span>-->
             <!--</a>-->
-            <a href="#" class="g-btn g-btn--no-icon"
-               @click.prevent="$modal.show('modal-ticket-purchase', {price: activeEvent.tickets.price, currency: activeEvent.tickets.currency, event_id: activeEvent.id, country: activeEvent.country, city: activeEvent.city})">
-              <span>Купить билет</span>
-            </a>
-          </div>
+          <!--</div>-->
         </div>
       </section>
       <section class="description">
@@ -68,13 +62,11 @@
           </div>
         </div>
       </section>
-      <section class="tickets" style="display: none">
+      <section class="tickets">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <ticket :btn="true"/>
+          <ticket :btn="true" v-for="(item, i) in activeEvent.tickets" :key="item.id" :ticket="item" :event="activeEvent"/>
         </div>
-        <!--<mavon-editor :boxShadow="false" :class="'mark-event'" :fontSize="'1.6rem'" :defaultOpen="'preview'" :subfield="false" v-model="responseData.description" :language="'ru'" :toolbars="markDown" :editable="false" :toolbarsFlag="false"/>-->
-        <!--<div class="text-wrapper editor" v-html="responseData.description"></div>-->
       </section>
       <!--<section class="other-activities" v-if="false">-->
       <!--<h2 class="g-caption-section">Возможно, вас заинтересует</h2>-->

@@ -58,29 +58,15 @@
               <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
             </div>
           </div>
-          <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__t_price">Стоимость билета</label>
-            <input class="item__input" type="text" id="form__t_price" v-mask="'#################'" v-model="form.t_price" :class="{error: $v.form.t_price.$error}" @blur="$v.form.t_price.$touch()">
-            <div class="input-valid-error" v-if="$v.form.t_price.$error">
-              <template v-if="!$v.form.t_price.required">Поле не может быть пустым</template>
-            </div>
-          </div>
-          <div class="edit-grid__item item item--col-4">
-            <span class="item__label">Валюта</span>
-            <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.t_currency}]" :searchable="false" :options="selectCurrency" v-model="form.t_currency" v-on:search:blur="validateSelect('t_currency')"></v-select>
-            <div class="input-valid-error" v-if="errorSelect.t_currency">
-              Выберите Валюту
-            </div>
-          </div>
         </div>
         <div class="btn-wrapper">
-          <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid || errorSelect.t_currency === true" :class="{disabled: disabledForm}">
+          <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
             <span>Создать</span>
           </button>
-          <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid  || errorSelect.t_currency === true">
+          <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid">
             <span>Сохранить</span>
           </button>
-          <button type="button" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="event !== 'new'" @click="newStatus">
+          <button type="button" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="event !== 'new' && ticketsList.length !== 0" @click="newStatus">
             <span v-if="statusRelation === 3 ">Снять с публикации</span>
             <span v-else>Опубликовать</span>
           </button>
@@ -89,9 +75,9 @@
       <div class="tickets">
         <h2 class="g-caption g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <ticket v-for="(item, i) in [0, 1, 2, 3]" :key="i"/>
+          <ticket v-for="(item, i) in ticketsList" :key="item.id" :ticket="item"/>
           <div class="ticket-create">
-            <a class="create-link" href="#" @click.prevent="$modal.show('modal-ticket-create', {new: true})">
+            <a class="create-link" href="#" @click.prevent="$modal.show('modal-ticket-create', {new: true, relation_id: event})">
               <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
               <span>Добавить</span>
             </a>
@@ -119,6 +105,7 @@ export default {
   data() {
     return {
       resize: true,
+      ticketsList: '',
       configDate: {
         enableTime: true,
         time_24hr: true,
@@ -133,8 +120,6 @@ export default {
         country: '',
         city: '',
         address: '',
-        t_currency: '',
-        t_price: null
       },
       errorSelect: {
         t_currency: false
@@ -148,10 +133,7 @@ export default {
         country: 'Неверная страна',
         city: 'Неверный город',
         address: 'Неверный адрес',
-        t_currency: 'Некорректная валюта продажи билета',
-        t_price: 'Некорректная цена'
       },
-      selectCurrency: ['USD', 'RUB', 'KZT']
     }
   },
   validations: {
@@ -170,12 +152,6 @@ export default {
         required
       },
       address: {
-        required
-      },
-      t_currency: {
-        required
-      },
-      t_price: {
         required
       },
     }
@@ -214,6 +190,7 @@ export default {
     myForm(arr) {
       let newObg = arr.find(item => item.id === this.event)
       this.statusRelation = newObg.status
+      this.ticketsList = newObg.tickets
       this.form = {
         id: newObg.id,
         date: newObg.date,
@@ -238,6 +215,11 @@ export default {
         })
       }
     },
+    getInfoRelation() {
+      API.events.info({ id: this.id }).then(response => {
+        this.myForm(response.data.relations)
+      })
+    }
   },
   mounted() {
     if (this.event === 'new') {
@@ -252,8 +234,9 @@ export default {
         t_price: null
       }
     } else {
-      API.events.info({ id: this.id }).then(response => {
-        this.myForm(response.data.relations)
+      this.getInfoRelation()
+      this.$root.$on('ticket-edit', () => {
+        this.getInfoRelation()
       })
     }
 
@@ -443,7 +426,6 @@ export default {
     &-wrapper {
       .row-flex();
       padding-left: 50px;
-      justify-content: center;
       .sm-block({ padding-left: 0; });
     }
     .ticket-create {
@@ -460,7 +442,7 @@ export default {
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
-      min-height: 300px;
+      min-height: 400px;
       .sm-block({ padding: 30px 20px; box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);});
       .xs-block({ min-height: 200px;});
       .create-link {

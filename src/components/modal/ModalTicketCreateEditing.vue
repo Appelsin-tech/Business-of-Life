@@ -1,7 +1,7 @@
 <template>
   <modal name='modal-ticket-create' transition="pop-out" height="auto" width="100%" :maxWidth="1170" :maxHeight="680"
          :adaptive="true"
-         :scrollable="true" :classes="'custom-modals'" @before-open="beforeOpen">
+         :scrollable="true" :classes="'custom-modals'" @before-open="beforeOpen" @before-close="beforeClose">
     <div class="modal modal__ticket-create">
       <div class="close-modal" @click="$modal.hide('modal-ticket-create')" title="Закрыть">
         <div class="close-modal__wrapper">
@@ -19,6 +19,7 @@
               <div class="input-valid-error" v-if="$v.form.title.$error">
                 <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
+                <template v-if="!$v.form.title.minLength">Минимальное количество символов - 3</template>
               </div>
             </div>
             <div class="form-modal__item form-modal__item--col-12">
@@ -38,8 +39,8 @@
             </div>
             <div class="form-modal__item ">
               <label class="form-modal__label">Валюта</label>
-              <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.t_currency}]" :searchable="false" :options="selectCurrency" v-model="form.t_currency" v-on:search:blur="validateSelect('t_currency')"></v-select>
-              <div class="input-valid-error" v-if="errorSelect.t_currency">
+              <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.currency}]" :searchable="false" :options="selectCurrency" v-model="form.currency" v-on:search:blur="validateSelect('currency')"></v-select>
+              <div class="input-valid-error" v-if="errorSelect.currency">
                 Выберите Валюту
               </div>
             </div>
@@ -59,10 +60,11 @@
 </template>
 
 <script>
-import { maxLength, required } from 'vuelidate/lib/validators'
+import { maxLength, minLength, required } from 'vuelidate/lib/validators'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+import API from '../../api/index'
 
 export default {
   name: 'ModalTicketCreateEditing',
@@ -75,6 +77,7 @@ export default {
       editorConfig: {
         language: 'ru',
         image_previewText: '',
+        initialData: '',
         toolbar: [
           'bold',
           'italic',
@@ -85,7 +88,7 @@ export default {
         ]
       },
       errorSelect: {
-        t_currency: false
+        currency: false
       },
       showError: false,
       name: '',
@@ -93,7 +96,7 @@ export default {
         title: '',
         description: '',
         price: '',
-        t_currency: ''
+        currency: ''
       },
       selectCurrency: ['USD', 'RUB', 'KZT']
     }
@@ -102,6 +105,7 @@ export default {
     form: {
       title: {
         required,
+        minLength: minLength(3),
         maxLength: maxLength(30)
       },
       price: {
@@ -111,14 +115,25 @@ export default {
         required,
         maxLength: maxLength(200)
       },
-      t_currency: {
+      currency: {
         required
       }
     }
   },
   methods: {
     onSubmit() {
-      console.log('as')
+      if(this.newTicket) {
+        API.tickets.create(this.form).then(response => {
+          API.response.success('Билет создан')
+          this.$root.$emit('ticket-edit')
+          this.$modal.hide('modal-ticket-create')
+        })
+      } else {
+        API.tickets.edit(this.form).then(response => {
+          API.response.success('Билет отредактирован')
+          this.$root.$emit('ticket-edit')
+        })
+      }
     },
     validateSelect(name) {
       if (this.form[name] === '') {
@@ -129,21 +144,25 @@ export default {
     },
     beforeOpen(event) {
       if (event.params !== undefined) {
-        console.log(event.params)
         this.newTicket = event.params.new
         if(this.newTicket) {
-          this.form.title = ''
-          this.form.description = ''
-          this.form.price = ''
-          this.form.t_currency = ''
+          this.form.relation_id = event.params.relation_id
         }
         if (event.params.ticket) {
           this.form.title = event.params.ticket.title
-          this.form.description = event.params.ticket.description
+          this.form.description = event.params.ticket.desc
           this.form.price = event.params.ticket.price
-          this.form.t_currency = event.params.ticket.t_currency
+          this.form.currency = event.params.ticket.currency
+          this.form.id = event.params.ticket.id
         }
       }
+    },
+    beforeClose(event) {
+      this.form.title = ''
+      this.form.description = ''
+      this.form.price = ''
+      this.form.currency = ''
+      this.editorConfig.initialData = ''
     }
   }
 }

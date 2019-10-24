@@ -29,4 +29,25 @@ export default {
       reject(error)
     })
   }),
+  create: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/tickets/create', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
+  edit: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/tickets/edit', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
+  delete: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/tickets/delete', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
 }

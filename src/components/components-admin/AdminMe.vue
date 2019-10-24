@@ -117,13 +117,14 @@ export default {
         &__img {
           position: relative;
           margin-bottom: 40px;
-          height: 400px;
+          height: 350px;
+          width: 350px;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
           background-color: #f3f3f3;
-          .to(1400px, { height: 350px; });
-          .md-block({ height: 300px; });
+          .to(1430px, { width: auto;});
+          .md-block({ height: 300px;});
           .xs-block({ height: 250px; margin-bottom: 20px; });
           &--event {
             background-image: url('../../assets/img/admin-menu-events.jpg');
