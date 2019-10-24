@@ -53,7 +53,7 @@ export default {
       position: relative;
       padding-left: 100px;
       padding-top: 80px;
-      max-width: 870px;
+      max-width: 800px;
       box-sizing: border-box;
       z-index: 2;
       transform: translateY(-6%);

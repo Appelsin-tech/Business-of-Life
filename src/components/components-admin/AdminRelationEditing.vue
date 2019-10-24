@@ -172,6 +172,7 @@ export default {
         API.relations.create(this.form).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
+          console.log(response)
           // this.$router.push({path: `/admin/editing/${id}`})
         }).catch(error => {
           console.log(error)
@@ -203,8 +204,6 @@ export default {
         country: newObg.country,
         city: newObg.city,
         address: newObg.address,
-        t_currency: newObg.tickets.currency,
-        t_price: newObg.tickets.price
       }
     },
     newStatus() {
@@ -234,9 +233,7 @@ export default {
         title: '',
         country: '',
         city: '',
-        address: '',
-        t_currency: '',
-        t_price: null
+        address: ''
       }
     } else {
       this.getInfoRelation()

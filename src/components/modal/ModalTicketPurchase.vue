@@ -129,7 +129,8 @@ export default {
         qualification: '',
         seminar_с: '',
         invited_c: '',
-        relation: ''
+        relation: '',
+        ticket_id: ''
       }
     }
   },
@@ -165,7 +166,7 @@ export default {
         qualification: this.form.qualification,
         seminar_с: this.form.seminar_с,
         invited_c: this.form.invited_c,
-        relation: this.form.relation,
+        ticket_id: this.form.ticket_id,
         reg_d: this.regData
       }).then(response => {
         this.eventData.invoiceId = response.data.id
@@ -215,6 +216,7 @@ export default {
       this.eventData.currency = event.params.currency
       this.eventData.event_id = event.params.event_id
       this.form.relation = event.params.event_id
+      this.form.ticket_id = event.params.ticket_id
       this.form.city = event.params.city
       this.form.country = event.params.country
     },

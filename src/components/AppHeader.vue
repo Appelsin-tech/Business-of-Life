@@ -10,10 +10,13 @@
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
           </a>
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('admin')" v-if="logged">
+          <div href="#" class="icon-red icon-red--desktop user user-desktop"  v-if="logged">
             <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
-            <span>{{profile.login}}</span>
-          </a>
+            <div class="link">
+              <span class="lk" @click="goRouter('admin')">{{profile.login}}</span>
+              <a class="exit" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
+            </div>
+          </div>
           <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('auth')" v-else>
             <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
             <span>Войти</span>
@@ -55,6 +58,9 @@
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
           </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('admin')" v-if="logged">Личный кабинет</a>
+          </li>
           <!--<li class="item">-->
             <!--<a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>-->
           <!--</li>-->
@@ -74,6 +80,20 @@
             <!--<a href="#" class="link" @click.prevent="goRouter('statistic')">Статистика</a>-->
           <!--</li>-->
         </ul>
+        <div class="icon-wrapper icon-wrapper--mobile">
+          <div href="#" class="icon-red icon-red--desktop user user-mobile" @click="activeClass" v-if="logged">
+            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
+            <div class="link">
+              <span class="lk">{{profile.login}}</span>
+              <a class="exit" :class="{active : showLogout}" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
+            </div>
+          </div>
+          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('auth')" v-else>
+            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
+            <span>Войти</span>
+          </a>
+        </div>
+
         <!--<div class="icon-wrapper  icon-wrapper&#45;&#45;mobile">-->
           <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('calendar')">-->
             <!--<img svg-inline src="../assets/img/icon/calendar.svg" alt="">-->
@@ -96,13 +116,17 @@ export default {
   name: 'AppHeader',
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      showLogout: false
     }
   },
   methods: {
     goRouter(rout) {
       this.showMenu = false
       this.$router.push({ path: `/${rout}` })
+    },
+    activeClass () {
+      this.showLogout = !this.showLogout
     }
   },
   computed: {
@@ -308,6 +332,7 @@ export default {
         .icon-red {
           display: flex;
           align-items: center;
+          position: relative;
           &:hover {
             span {
               color: #666666;
@@ -371,6 +396,98 @@ export default {
           opacity: 1;
           transform: translateY(0px);
         }
+      }
+    }
+    .icon-red {
+      display: flex;
+      align-items: center;
+      position: relative;
+      &:hover {
+        span {
+          color: #666666;
+          border-bottom-color: #666666;
+        }
+      }
+      svg {
+        margin-right: 20px;
+        width: 35px;
+        height: 35px;
+        .lg-block({ width: 30px; height: 30px; });
+        path {
+          fill: @colorMainRed;
+        }
+      }
+      span {
+        font-size: 1.4rem;
+        color: #000;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s;
+        .sm-block({ font-size: 2rem; });
+      }
+      &.user {
+        padding-right: 25px;
+        cursor: pointer;
+        &:hover {
+          span {
+            color: #000;
+            border-bottom-color: transparent;
+          }
+          .link {
+            .exit {
+              opacity: 1;
+              pointer-events: auto;
+            }
+          }
+          &::after {
+            transform: rotate(180deg);
+          }
+        }
+        &.active {
+          .exit {
+            opacity: 1;
+            pointer-events: auto;
+          }
+          &::after {
+            transform: rotate(180deg);
+          }
+        }
+        &-desktop {
+          .sm-block({ display: none;});
+        }
+        &-mobile {
+          display: none;
+          .sm-block({ display: block;});
+        }
+        .link {
+          position: relative;
+          text-align: right;
+          .exit {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            bottom: -40px;
+            right: 0;
+            color: #000;
+            padding-top: 20px;
+            transition: 0.3s;
+            &.active {
+              opacity: 1;
+              pointer-events: auto;
+            }
+          }
+        }
+        &::after {
+          position: absolute;
+          content: '';
+          right: 0;
+          top: 15px;
+          border-top: 8px solid  @colorBlue;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          transition: 0.3s;
+          .lg-block({ top: 12px;})
+        }
+
       }
     }
   }

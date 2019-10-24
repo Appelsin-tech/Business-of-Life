@@ -2,18 +2,8 @@
   <section class="p-me p-default p-default-inner">
     <bread-crumbs/>
     <div class="container">
-      <h1 class="g-caption g-caption-inner">Мои данные</h1>
+      <h1 class="g-caption g-caption-inner">Личный кабинет</h1>
       <div class="data-wrapper">
-        <div class="info">
-          <p class="info__item">
-            <span class="info__desc">Пользователь:</span>
-            <span class="info__data">{{profile.login}}</span>
-          </p>
-          <p class="info__item">
-            <span class="info__desc">Почта:</span>
-            <a href="#" class="info__data info__data--mail">{{profile.email}}</a>
-          </p>
-        </div>
         <button class="logout" @click="$store.dispatch('user/logout')">Выйти</button>
       </div>
       <div class="menu">
@@ -24,6 +14,10 @@
         <router-link to="/tickets" class="menu__item item">
           <div class="item__img  item__img--tickets"></div>
           <p class="item__title">Проверить билет</p>
+        </router-link>
+        <router-link to="/admin/statistic" class="menu__item item">
+          <div class="item__img  item__img--statistic"></div>
+          <p class="item__title">Статистика продаж</p>
         </router-link>
       </div>
     </div>
@@ -131,6 +125,9 @@ export default {
           }
           &--tickets {
             background-image: url('../../assets/img/admin-menu-tickets.jpg');
+          }
+          &--statistic {
+            background-image: url('../../assets/img/admin-menu-statistic.jpg');
           }
           .img-link {
             position: absolute;

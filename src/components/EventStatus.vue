@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     newStatus() {
-      if(this.statusRelation === 3) {
+      if(this.idStatus === 3) {
         API.relations.unpublish({id: this.idRelation}).then((response) => {
           this.statusRelation = response.status
           this.$emit('newStatus')

@@ -13,7 +13,7 @@
       </div>
       <div class="event" v-if="myParentEvents">
         <router-link class="event__item" v-for="(event, index) in myParentEvents" :key="index" :to="`/admin/event-editing/${event.id}`">
-          <div class="event__img" >
+          <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
             <!--<a href="#" class="img-link img-link&#45;&#45;add">-->
               <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
               <!--<span class="img-link__text">Загрузить фото</span>-->
@@ -236,7 +236,7 @@ export default {
         background-position: center;
         background-repeat: no-repeat;
         transition: 0.3s;
-        background: @colorBorder;
+        background-color: @colorBorder;
         .to(1400px, { height: 350px;});
         .md-block({ height: 300px;});
         .xs-block({ height: 250px; margin-bottom: 20px;});

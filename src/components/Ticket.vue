@@ -5,7 +5,7 @@
     <p class="price">{{ticket.price}} <span class="currency">{{ticket.currency}}</span>
     </p>
     <a href="#" class="g-btn g-btn--no-icon" v-if="btn"
-       @click.prevent="$modal.show('modal-ticket-purchase', {price: ticket.price, currency: ticket.currency, event_id: event.id, country: event.country, city: event.city})">
+       @click.prevent="$modal.show('modal-ticket-purchase', {price: ticket.price, currency: ticket.currency, ticket_id: ticket.id, event_id: event.id, country: event.country, city: event.city})">
       <span>Купить билет</span>
     </a>
     <div class="control" v-else>
@@ -58,7 +58,6 @@ export default {
       font-size: 3rem;
       font-weight: 800;
       color: #000;
-      text-transform: lowercase;
       .lg-block({ font-size: 2.4rem; });
       .sm-block({ font-size: 2rem; margin-bottom: 20px; });
       .xs-block({ font-size: 1.6rem; margin-bottom: 10px; });
