@@ -6,7 +6,7 @@
           <span class="desc-light">Календарь событий</span>
           <h1 class="g-caption">Расписание мероприятий</h1>
           <div class="wrapper-date-icon">
-            <p class="date">Ближайшие 10 дней</p>
+            <p class="date">Ближайшие 30 дней</p>
             <div class="wrapper-btn wrapper-btn--calendar">
               <button class="swiper-button swiper-button--prev"><span></span></button>
               <button class="swiper-button swiper-button--next"><span></span></button>
@@ -107,7 +107,7 @@ export default {
     if(this.publicEvents.length === 0 ) {
       let currentDate = new Date()
       let currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000;
-      let lastDate = currentDateTime + 864000
+      let lastDate = currentDateTime + 2678400
 
       this.$store.dispatch('events/eventsCalendar', {from: currentDateTime, to: lastDate}).then(() => {
         // console.dir(this.publicEvents)

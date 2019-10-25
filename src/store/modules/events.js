@@ -19,7 +19,7 @@ const getters = {
       return copy
     }
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 31; i++) {
 
       finishArr.push({
         date: addDays(date, i),

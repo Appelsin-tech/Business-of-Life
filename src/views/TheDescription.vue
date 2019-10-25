@@ -15,12 +15,12 @@
           <p class="desc">Мы уверены, что принесем хорошие результаты каждому дистрибьютору компании, который имеет
             смелые цели, стремится сделать свою жизнь лучше, готов учиться, действовать, и превращать свои мечты в
             реальность!</p>
-          <!--<a class="g-btn" href="#">-->
-            <!--<span>-->
-              <!--Подробнее-->
-            <!--<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">-->
-            <!--</span>-->
-          <!--</a>-->
+          <router-link to="/calendar" class="g-btn">
+            <span>
+              Наши мероприятия
+            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+            </span>
+          </router-link>
         </div>
       </div>
       <div class="col-img">

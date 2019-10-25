@@ -187,7 +187,15 @@ export default new Router({
           path: 'control-ticket/:hash',
           name: 'control-ticket',
           meta: {
-            breadCrumbs: 'Проверка билета'
+            breadCrumbs: {
+              title: 'Проверка билета',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                }
+              ]
+            }
           },
           component: () => import('./components/components-admin/AdminControlTicket')
         },

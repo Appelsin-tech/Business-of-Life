@@ -3,9 +3,6 @@
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption g-caption-inner">Личный кабинет</h1>
-      <div class="data-wrapper">
-        <button class="logout" @click="$store.dispatch('user/logout')">Выйти</button>
-      </div>
       <div class="menu">
         <router-link to="/admin/event-control" class="menu__item item">
           <div class="item__img item__img--event"></div>
@@ -97,12 +94,11 @@ export default {
         margin-bottom: 35px;
         display: flex;
         flex-direction: column;
-        padding: 50px 3vw;
+        padding: 50px;
         border-radius: 6px;
         transition: 0.3s;
         box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-        .md-block({ padding-top: 3vw; });
-        .sm-block({ padding: 20px 20px; margin-bottom: 15px; });
+        .sm-block({ padding: 20px 20px 30px; margin-bottom: 15px; });
         &:hover {
           .item__title {
             text-decoration: none;

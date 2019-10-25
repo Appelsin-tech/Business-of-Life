@@ -64,7 +64,7 @@
       <section class="tickets" ref="section-tickets">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <ticket :btn="true" v-for="(item, i) in activeEvent.tickets" :key="item.id" :ticket="item" :event="activeEvent"/>
+          <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeEvent"/>
         </div>
       </section>
       <section class="other-activities" v-if="false">
@@ -266,6 +266,11 @@ export default {
       'myParentEvents',
       'logged'
     ]),
+    filterTicketsList() {
+      return this.activeEvent.tickets.sort((a, b) => {
+        return a - b
+      })
+    },
     swiper() {
       return this.$refs.mySwiperEvents.swiper
     },

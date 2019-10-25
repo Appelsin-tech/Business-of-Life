@@ -7,12 +7,12 @@
           <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
           <strong class="desc-strong g-caption">Эксклюзивная база знаний</strong>
           <p class="desc-connect" v-if="false">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
-          <a class="g-btn" href="#" v-if="false">
+          <router-link to="/description" class="g-btn">
             <span>
               Стать участником
               <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
             </span>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -67,6 +67,8 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        position: relative;
+        z-index: 5;
         .g-caption {
           margin-bottom: 40px;
           .lg-block({ margin-bottom: 30px;});

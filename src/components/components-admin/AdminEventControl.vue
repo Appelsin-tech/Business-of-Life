@@ -141,11 +141,10 @@ export default {
         margin-bottom: 35px;
         display: flex;
         flex-direction: column;
-        padding: 50px 3vw;
+        padding: 50px;
         box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
         border-radius: 6px;
-        .md-block({ padding-top: 3vw;});
-        .sm-block({padding: 20px 20px; margin-bottom: 15px;});
+        .sm-block({padding: 20px 20px 30px; margin-bottom: 15px;});
         &:hover {
           .event__title {
             text-decoration: none;
@@ -231,13 +230,14 @@ export default {
       &__img {
         position: relative;
         margin-bottom: 40px;
-        height: 400px;
+        height: 350px;
+        width: 350px;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         transition: 0.3s;
         background-color: @colorBorder;
-        .to(1400px, { height: 350px;});
+        .to(1430px, { width: auto;});
         .md-block({ height: 300px;});
         .xs-block({ height: 250px; margin-bottom: 20px;});
         &:hover {
@@ -312,7 +312,7 @@ export default {
         text-transform: uppercase;
         text-decoration: underline;
         color: #000;
-        .md-block({ margin-bottom: 45px; font-size: 1.6rem;});
+        .md-block({font-size: 1.6rem;});
         &:hover {
           text-decoration: none;
         }

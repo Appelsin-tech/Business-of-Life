@@ -75,8 +75,8 @@
       <div class="tickets">
         <h2 class="g-caption g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <ticket v-for="(item, i) in ticketsList" :key="item.id" :ticket="item"/>
-          <div class="ticket-create">
+          <ticket v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item"/>
+          <div class="ticket-create" :class="{disabled: event === 'new'}">
             <a class="create-link" href="#" @click.prevent="$modal.show('modal-ticket-create', {new: true, relation_id: event})">
               <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
               <span>Добавить</span>
@@ -85,7 +85,7 @@
         </div>
       </div>
       <div class="link-wrapper">
-        <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${event}`">
+        <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${event}`" :class="{disabled: event === 'new'}">
           <span>Предпросмотр</span>
         </router-link>
         <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
@@ -110,7 +110,8 @@ export default {
   data() {
     return {
       resize: true,
-      ticketsList: '',
+      ticketsList: [],
+      disabledNewTicket: true,
       configDate: {
         enableTime: true,
         time_24hr: true,
@@ -165,6 +166,11 @@ export default {
     ...mapState('user', [
       'myParentEvents'
     ]),
+    filterTicketsList() {
+      return this.ticketsList.sort((a, b) => {
+        return a - b
+      })
+    }
   },
   methods: {
     onSubmit() {
@@ -172,8 +178,8 @@ export default {
         API.relations.create(this.form).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
-          console.log(response)
-          // this.$router.push({path: `/admin/editing/${id}`})
+          console.log(response.id)
+          this.$router.push({path: `/admin/editing/${this.id}/${response.id}`})
         }).catch(error => {
           console.log(error)
         })
@@ -226,6 +232,9 @@ export default {
     }
   },
   mounted() {
+    this.$root.$on('ticket-edit', () => {
+      this.getInfoRelation()
+    })
     if (this.event === 'new') {
       this.form = {
         event_id: this.id,
@@ -237,11 +246,7 @@ export default {
       }
     } else {
       this.getInfoRelation()
-      this.$root.$on('ticket-edit', () => {
-        this.getInfoRelation()
-      })
     }
-
   }
 }
 </script>
@@ -447,6 +452,12 @@ export default {
       min-height: 400px;
       .sm-block({ padding: 30px 20px; box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);});
       .xs-block({ min-height: 200px;});
+      &.disabled {
+        .create-link {
+          pointer-events: none;
+          opacity: 0.6;
+        }
+      }
       .create-link {
         display: flex;
         flex-direction: column;
@@ -479,6 +490,10 @@ export default {
     .preview {
       margin-top: 80px;
       .sm-block({ margin-top: 50px;});
+      &.disabled {
+        opacity: 0.7;
+        pointer-events: none;
+      }
     }
   }
 </style>
