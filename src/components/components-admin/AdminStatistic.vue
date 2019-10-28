@@ -3,74 +3,45 @@
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Статистика</h1>
-      <div class="chart">
-        <div class="chart__wrapper-text">
-          <h2 class="chart__title">Статистика продаж</h2>
-          <div class="chart__wrapper-filters">
-            <span class="chart__date">Февраль 2019 - Июль 2019</span>
-            <tabs :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
+      <div class="wrapper" v-if="myParentEvents.length > 0">
+        <div class="chart">
+          <div class="chart__wrapper-text">
+            <h2 class="chart__title">Статистика продаж</h2>
+            <div class="chart__wrapper-filters">
+              <!--<span class="chart__date">Февраль 2019 - Июль 2019</span>-->
+              <tabs class="tabs" :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
+            </div>
           </div>
+          <line-sale-statistic :chart-data="dataLineSales" :options="optionsLine" :class="'chart-container'"/>
         </div>
-        <line-sale-statistic :chart-data="dataLineSales" :options="optionsLine" :class="'chart-container'"/>
+        <div class="chart">
+          <div class="chart__wrapper-text">
+            <h2 class="chart__title">География</h2>
+            <div class="chart__wrapper-filters chart__wrapper-filters--btn">
+              <button-filters :button="['Страна', 'Город']" v-on:activeBtn="otherPie"/>
+              <tabs class="tabs" :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
+            </div>
+          </div>
+          <div class="chart__pie-wrapper chart-pie">
+            <div class="chart-pie__data">
+              <strong class="chart-pie__label">{{activePie}}</strong>
+              <ul class="chart-pie__list" v-if="dataPieSales.labels">
+                <li class="chart-pie__item item" v-for="(item, index) in labelPieCity" :key="index">
+                  <span class="item__dots" :style="{backgroundColor: item.color}"></span>
+                  <span class="item__label">{{item.label}}</span>
+                  <span class="item__value">{{item.data}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="chart-pie__col-pie">
+              <pie-sale-statistic :chart-data="dataPieSales" :options="optionsPie" :class="'chart-container-pie'"/>
+            </div>
+          </div>
+          <!--<button class="test-btn" @click="pieDataCity">RANDOM VAL</button>-->
+        </div>
       </div>
-      <div class="chart">
-        <div class="chart__wrapper-text">
-          <h2 class="chart__title">Статистика посещений</h2>
-          <div class="chart__wrapper-filters">
-            <span class="chart__date">Февраль 2019 - Июль 2019</span>
-            <tabs :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
-          </div>
-        </div>
-        <line-sale-statistic :chart-data="dataLineVisits" :options="optionsLine" :class="'chart-container'"/>
-      </div>
-      <div class="chart chart--inner">
-        <div class="chart__wrapper-text">
-          <h2 class="chart__title">География</h2>
-          <div class="chart__wrapper-filters chart__wrapper-filters--btn">
-            <button-filters :button="['Продажи', 'Посещения']"/>
-            <tabs :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
-          </div>
-        </div>
-        <div class="chart__pie-wrapper chart-pie">
-          <div class="chart-pie__data">
-            <strong class="chart-pie__label">Города</strong>
-            <ul class="chart-pie__list" v-if="dataPieSales.labels">
-              <li class="chart-pie__item item" v-for="(item, index) in labelPieCity" :key="index">
-                <span class="item__dots" :style="{backgroundColor: item.color}"></span>
-                <span class="item__label">{{item.label}}</span>
-                <span class="item__value">{{item.data}}</span>
-              </li>
-            </ul>
-          </div>
-          <div class="chart-pie__col-pie">
-            <pie-sale-statistic :chart-data="dataPieSales" :options="optionsPie" :class="'chart-container-pie'"/>
-          </div>
-        </div>
-        <button class="test-btn" @click="pieDataCity">RANDOM VAL</button>
-      </div>
-      <div class="chart chart--inner">
-        <div class="chart__wrapper-text">
-          <div class="chart__wrapper-filters chart__wrapper-filters--btn">
-            <tabs :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
-          </div>
-        </div>
-        <div class="chart__pie-wrapper chart-pie">
-          <div class="chart-pie__data">
-            <strong class="chart-pie__label">Страна</strong>
-            <ul class="chart-pie__list" v-if="dataPieSales.labels">
-              <li class="chart-pie__item item" v-for="(item, index) in labelPieCountry" :key="index">
-                <span class="item__dots" :style="{backgroundColor: item.color}"></span>
-                <span class="item__label">{{item.label}}</span>
-                <span class="item__value">{{item.data}}</span>
-              </li>
-            </ul>
-          </div>
-          <div class="chart-pie__col-pie">
-            <pie-sale-statistic :chart-data="dataPieSales" :options="optionsPie" :class="'chart-container-pie'"/>
-          </div>
-        </div>
-        <button class="test-btn" @click="pieDataCountry">RANDOM VAL</button>
-      </div>
+      <div class="no-event" v-else>У вас еще нет мероприятий</div>
+      <router-link :to="`/admin/me`" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
@@ -81,12 +52,14 @@ import PieSaleStatistic from '../chart/PieSalesStatistic.js'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import Tabs from '../Tabs'
 import ButtonFilters from '../ButtonFilters'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AdminStatistic',
   components: { LineSaleStatistic, PieSaleStatistic, BreadCrumbs, Tabs, ButtonFilters },
   data() {
     return {
+      activePie: 'Страна',
       dataPie: [
         {
           color: '#4e6186',
@@ -126,29 +99,8 @@ export default {
           }
         ]
       },
-      dataLineVisits: {
-        datasets: [
-          {
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderColor: '#adfec3',
-            data: [{
-              x: '1AM', y: 18
-            }, {
-              x: '2AM', y: 9
-            }, {
-              x: '15AM', y: 15
-            }, {
-              x: '21AM', y: 2
-            }]
-          }
-        ]
-      },
       dataPieSales: {},
       dataTabs: [
-        {
-          name: 'За сегодня',
-          id: 'd'
-        },
         {
           name: 'За месяц',
           id: 'm'
@@ -223,15 +175,22 @@ export default {
         })
       })
       return arr
-    }
+    },
+    ...mapState('user', [
+      'myParentEvents',
+      'logged'
+    ]),
   },
   mounted() {
     this.pieDataCity()
     this.pieDataCountry()
   },
   methods: {
+    otherPie(event) {
+      this.activePie = event
+    },
     setIntervalGraph(e) {
-      console.log(e)
+      // console.log(e)
     },
     randomVal () {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
@@ -272,6 +231,18 @@ export default {
 
 <style scoped lang="less">
   @import "../../assets/less/_importants";
+  .p-statistic {
+    display: flex;
+    flex-direction: column;
+    .breadcrumbs {
+      align-self: stretch;
+    }
+    .container.page {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+  }
   .chart {
     margin-bottom: 100px;
     .xs-block({ margin-bottom: 70px;});
@@ -358,5 +329,21 @@ export default {
     width: 100%;
     height: 40vh;
     .sm-block({ height: 30vh })
+  }
+  .tabs {
+    margin-left: auto;
+  }
+  .no-event {
+    margin-bottom: auto;
+    padding: 20px 20px 20px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 2rem;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    .sm-block({ padding: 15px; font-size: 1.6rem; border-radius: 5px;})
+  }
+  .back-btn {
+    align-self: flex-start;
   }
 </style>

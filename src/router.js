@@ -75,11 +75,33 @@ export default new Router({
       path: '/tickets',
       name: 'tickets-page',
       component: () => import('./views/TheCheckTicket'),
+      meta: {
+        breadCrumbs: {
+          title: 'Проверка билета',
+          parent: [
+            {
+              title: 'Личный кабинет',
+              path: '/admin/me'
+            }
+          ]
+        }
+      },
       children: [
         {
           path: ':id',
           name: 'tickets',
-          component: () => import('./views/TheCheckTicket')
+          component: () => import('./views/TheCheckTicket'),
+          meta: {
+            breadCrumbs: {
+              title: 'Проверка билета',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -202,6 +224,17 @@ export default new Router({
         {
           path: 'statistic',
           name: 'statistic',
+          meta: {
+            breadCrumbs: {
+              title: 'Статистика продаж',
+              parent: [
+                {
+                  title: 'Личный кабинет',
+                  path: '/admin/me'
+                }
+              ]
+            }
+          },
           component: () => import('./components/components-admin/AdminStatistic')
         },
       ]

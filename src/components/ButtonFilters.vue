@@ -4,7 +4,7 @@
             v-for="(btn, index) in button"
             :key="index"
             :class="{active: activeIndex === index}"
-            @click="activeBtn(index)"
+            @click="activeBtn(index, btn)"
     >{{btn}}</button>
   </div>
 </template>
@@ -19,8 +19,9 @@ export default {
     }
   },
   methods: {
-    activeBtn(i) {
+    activeBtn(i, btn) {
       this.activeIndex = i
+      this.$emit('activeBtn', btn)
     }
   }
 }

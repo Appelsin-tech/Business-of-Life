@@ -32,7 +32,9 @@ export default {
   components: {TicketInfo},
   data() {
     return {
-      ticketArr: []
+      ticketArr: [
+        {hash: 'T-D4D5DB6E161C1351', registered: '28.10.2019 12:38', title: 'Стандарт', event_title: 'Hello World', event_id: 4}
+      ]
     }
   },
   methods: {

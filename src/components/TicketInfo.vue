@@ -2,8 +2,22 @@
   <section class="ticket">
     <div class="ticket__wrapper">
       <div class="ticket__number">
-        <span class="ticket__number-text--light">Номер вашего билета</span>
-        <strong class="ticket__number-text--bold">{{ticketArr[0].hash}}</strong>
+        <p class="info-text info-text--num">
+          <span class="ticket__number-text--light">Номер вашего билета</span>
+          <strong class="ticket__number-text--bold">{{ticketArr[0].hash}}</strong>
+        </p>
+        <p class="info-text">
+          <span class="info-text__regular">Событие:</span>
+          <router-link :to="`/event/${ticketArr[0].event_id}`" class="info-text__strong link">{{ticketArr[0].event_title}}</router-link>
+        </p>
+        <p class="info-text">
+          <span class="info-text__regular">Дата и время:</span>
+          <strong class="info-text__strong">{{parseDate}}</strong>
+        </p>
+        <p class="info-text">
+          <span class="info-text__regular">Билет:</span>
+          <strong class="info-text__strong">{{ticketArr[0].title}}</strong>
+        </p>
       </div>
       <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${ticketArr[0].hash})`}"></div>
     </div>
@@ -29,7 +43,19 @@
 <script>
 export default {
   name: 'TicketInfo',
-  props: ['ticketArr']
+  props: ['ticketArr'],
+  computed: {
+    parseDate() {
+      if (this.ticketArr[0].registered) {
+        let onlyDate = this.ticketArr[0].registered.split(' ')
+        let [day, month, year] = onlyDate[0].split('.')
+        let da = new Date(year, month - 1, day)
+        return da.toLocaleString('default', {day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
+      } else {
+        return '00'
+      }
+    }
+  }
 }
 </script>
 
@@ -43,10 +69,12 @@ export default {
       .sm-block({ flex-direction: column; align-items: center; margin-bottom: 40px; });
     }
     &__number {
+      display: flex;
+      flex-direction: column;
       padding: 40px;
       margin-right: 40px;
       flex-grow: 1;
-      background: #fff3f3;
+      background: #f4f8ef;
       .sm-block({ margin-right: 0; margin-bottom: 20px; padding: 25px; width: 100%; box-sizing: border-box; });
       &-text--light {
         display: block;
@@ -57,6 +85,31 @@ export default {
         font-weight: 800;
         text-transform: uppercase;
         .sm-block({ font-size: 2.5rem; })
+      }
+      .info-text {
+        margin-bottom: 10px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        &--num {
+          margin-bottom: auto;
+          padding-bottom: 30px;
+        }
+        &__regular {
+          margin-right: 20px;
+          font-weight: 400;
+        }
+        &__strong {
+          font-weight: 800;
+          &.link {
+            text-transform: uppercase;
+            color: #000;
+            text-decoration: underline;
+            &:hover {
+              text-decoration: none;
+            }
+          }
+        }
       }
     }
     &__qr-code {

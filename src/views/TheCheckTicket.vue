@@ -1,9 +1,9 @@
 <template>
   <section class="p-description p-default p-default-inner">
+    <bread-crumbs v-if="logged"/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Информация о билете</h1>
       <ticket-search v-if="!profile.logged"/>
-
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
@@ -14,12 +14,16 @@
             <strong class="info-number__number">{{this.$route.params.id}}</strong>
           </div>
           <div class="info-date">
+            <p class="info-text">
+              <span class="info-text__regular">Событие:</span>
+              <router-link :to="`/event/${response.event_relation_id}`" class="info-text__strong link">Hello World</router-link>
+            </p>
             <p class="info-text info-date__date">
-              <span class="info-text__regular">Дата покупки:</span>
+              <span class="info-text__regular">Дата и время:</span>
               <strong class="info-text__strong">{{parseDate}}</strong>
             </p>
             <p class="info-text info-date__price">
-              <span class="info-text__regular">Стоимость билета:</span>
+              <span class="info-text__regular">Билет:</span>
               <strong class="info-text__strong">{{response.price}} {{response.currency}}</strong>
             </p>
           </div>
@@ -54,9 +58,10 @@
 import API from '../api/index'
 import {mapState} from 'vuex'
 import TicketSearch from '../components/TicketSearch'
+import BreadCrumbs from '../components/BreadCrumbs'
 export default {
   name: 'TheCheckTicket',
-  components: {TicketSearch},
+  components: {TicketSearch, BreadCrumbs},
   data() {
     return {
       response: false,
@@ -77,7 +82,8 @@ export default {
   },
   computed: {
     ...mapState('user', [
-      'profile'
+      'profile',
+      'logged'
     ]),
     parseDate() {
       if (this.response.registered) {
@@ -260,16 +266,25 @@ export default {
 
       }
       .info-date {
-        &__date {
-          margin-bottom: 30px;
-        }
         .info-text {
+          margin-bottom: 20px;
+          &:last-child {
+            margin-bottom: 0;
+          }
           &__regular {
             margin-right: 20px;
             font-weight: 400;
           }
           &__strong {
             font-weight: 800;
+            &.link {
+              text-transform: uppercase;
+              color: #000;
+              text-decoration: underline;
+              &:hover {
+                text-decoration: none;
+              }
+            }
           }
         }
       }

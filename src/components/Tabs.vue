@@ -19,7 +19,7 @@ export default {
     }
   },
   created() {
-    console.log(this.$style)
+    // console.log(this.$style)
   },
   methods: {
     getDataTimeInterval (i, item) {
