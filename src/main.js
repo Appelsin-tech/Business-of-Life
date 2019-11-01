@@ -9,6 +9,12 @@ import VTooltip from 'v-tooltip'
 import store from './store/index'
 import Datetime from 'vue-datetime'
 
+const moment = require('moment')
+moment.locale('ru')
+Vue.use(require('vue-moment'), {
+  moment
+})
+
 Vue.config.productionTip = false
 Vue.use(VueModal, {dialog: true, dynamic: true, injectModalsContainer: true})
 Vue.use(VueTheMask)

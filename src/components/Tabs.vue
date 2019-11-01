@@ -4,7 +4,7 @@
         v-for="(item, index) in dataTabs"
         :key="index"
         :class="{active: activeIndex === index}"
-        @click="getDataTimeInterval(index, item.id)"
+        @click="getDataTimeInterval(index, item)"
     >{{item.name}}</li>
   </ul>
 </template>
@@ -25,15 +25,15 @@ export default {
     getDataTimeInterval (i, item) {
       this.activeIndex = i
       let date = new Date()
-      switch (item) {
-        case 'd':
-          this.$emit('interval', date.getDay())
-          break
+      switch (item.id) {
         case 'm':
-          this.$emit('interval', [ 1, new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() ])
+          this.$emit('interval', item)
           break
         case 'hy':
-          this.$emit('interval', [ 1, new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() ])
+          this.$emit('interval', item)
+          break
+        case 'y':
+          this.$emit('interval', item)
           break
       }
     }

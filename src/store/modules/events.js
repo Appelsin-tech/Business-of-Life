@@ -10,8 +10,6 @@ const getters = {
 
     let currentDateFull = new Date();
     const date = new Date(currentDateFull.getFullYear(), currentDateFull.getMonth(), currentDateFull.getDate())
-    // let currentDateTime = new Date(currentDateFull.getFullYear(), currentDateFull.getMonth(), currentDateFull.getDate()).getTime(); // с 0 текущий день
-    // let currentDateLast = currentDateTime + 864000000;
 
     function addDays(date, days) {
       const copy = new Date(Number(date))

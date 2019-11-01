@@ -1,54 +1,53 @@
 <template>
-  <section class="p-statistic p-default p-default-inner">
+  <section class='p-statistic p-default p-default-inner'>
     <bread-crumbs/>
-    <div class="container page">
-      <h1 class="g-caption g-caption-inner">Статистика</h1>
-      <div class="wrapper" v-if="myParentEvents.length > 0">
-        <div class="chart">
-          <div class="chart__wrapper-text">
-            <h2 class="chart__title">Статистика продаж</h2>
-            <div class="chart__wrapper-filters">
-              <!--<span class="chart__date">Февраль 2019 - Июль 2019</span>-->
-              <tabs class="tabs" :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
+    <div class='container page'>
+      <h1 class='g-caption g-caption-inner'>Статистика </h1>
+      <div class='wrapper' v-if="responseData.length > 0">
+        <div class='chart'>
+          <div class='chart__wrapper-text'>
+            <h2 class='chart__title'>Статистика продаж</h2>
+            <div class='chart__wrapper-filters'>
+              <tabs class='tabs' :dataTabs='dataTabs' v-on:interval='setIntervalGraph'/>
             </div>
           </div>
-          <line-sale-statistic :chart-data="dataLineSales" :options="optionsLine" :class="'chart-container'"/>
+          <highcharts class="hc" :options="chartOptions" :updateArgs="updateArgs"></highcharts>
         </div>
-        <div class="chart">
-          <div class="chart__wrapper-text">
-            <h2 class="chart__title">География</h2>
-            <div class="chart__wrapper-filters chart__wrapper-filters--btn">
-              <button-filters :button="['Страна', 'Город']" v-on:activeBtn="otherPie"/>
-              <tabs class="tabs" :dataTabs="dataTabs" v-on:interval="setIntervalGraph"/>
-            </div>
-          </div>
-          <div class="chart__pie-wrapper chart-pie">
-            <div class="chart-pie__data">
-              <strong class="chart-pie__label">{{activePie}}</strong>
-              <ul class="chart-pie__list" v-if="dataPieSales.labels">
-                <li class="chart-pie__item item" v-for="(item, index) in labelPieCity" :key="index">
-                  <span class="item__dots" :style="{backgroundColor: item.color}"></span>
-                  <span class="item__label">{{item.label}}</span>
-                  <span class="item__value">{{item.data}}</span>
-                </li>
-              </ul>
-            </div>
-            <div class="chart-pie__col-pie">
-              <pie-sale-statistic :chart-data="dataPieSales" :options="optionsPie" :class="'chart-container-pie'"/>
-            </div>
-          </div>
-          <!--<button class="test-btn" @click="pieDataCity">RANDOM VAL</button>-->
-        </div>
+        <!--<div class='chart'>-->
+        <!--<div class='chart__wrapper-text'>-->
+        <!--<h2 class='chart__title'>География</h2>-->
+        <!--<div class='chart__wrapper-filters chart__wrapper-filters&#45;&#45;btn'>-->
+        <!--<button-filters :button="['Страна', 'Город']"/>-->
+        <!--<tabs class='tabs' :dataTabs='dataTabs' v-on:interval='setIntervalGraph'/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class='chart__pie-wrapper chart-pie'>-->
+        <!--<div class='chart-pie__data'>-->
+        <!--<strong class='chart-pie__label'>{{activePie}}</strong>-->
+        <!--<ul class='chart-pie__list'>-->
+        <!--<li class='chart-pie__item item'>-->
+        <!--<span class='item__dots'></span>-->
+        <!--<span class='item__label'></span>-->
+        <!--<span class='item__value'></span>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--<div class='chart-pie__col-pie'>-->
+        <!--&lt;!&ndash;<pie-sale-statistic :chart-data='dataPieSales' :options='optionsPie' :class='"chart-container-pie"'/>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<button class='test-btn' @click='pieDataCity'>RANDOM VAL</button>&ndash;&gt;-->
+        <!--</div>-->
       </div>
-      <div class="no-event" v-else>У вас еще нет мероприятий</div>
-      <router-link :to="`/admin/me`" class="back-btn">Назад</router-link>
+      <div class='no-event' v-else>У вас еще нет мероприятий</div>
+      <router-link :to='`/admin/me`' class='back-btn'>Назад</router-link>
     </div>
   </section>
 </template>
 
 <script>
-import LineSaleStatistic from '../chart/LineSalesStatistic.js'
-import PieSaleStatistic from '../chart/PieSalesStatistic.js'
+import { Chart } from 'highcharts-vue'
+import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import Tabs from '../Tabs'
 import ButtonFilters from '../ButtonFilters'
@@ -56,181 +55,228 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'AdminStatistic',
-  components: { LineSaleStatistic, PieSaleStatistic, BreadCrumbs, Tabs, ButtonFilters },
+  components: { BreadCrumbs, Tabs, ButtonFilters, highcharts: Chart },
   data() {
     return {
+      categoryArr: [],
+      ticketsArr: [],
       activePie: 'Страна',
-      dataPie: [
-        {
-          color: '#4e6186',
-          label: 'Moscow',
-          value: 10
-        },
-        {
-          color: '#ffac2a',
-          label: 'SpB',
-          value: 20
-        },
-        {
-          color: '#cc4a4a',
-          label: 'Ivanovo',
-          value: 3
-        },
-        {
-          color: '#43b8bf',
-          label: 'Rostov',
-          value: 6
-        }
-      ],
-      dataLineSales: {
-        datasets: [
-          {
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderColor: '#fe8028',
-            data: [{
-              x: '1AM', y: 5
-            }, {
-              x: '2AM', y: 9
-            }, {
-              x: '15AM', y: 4
-            }, {
-              x: '21AM', y: 19
-            }]
-          }
-        ]
-      },
-      dataPieSales: {},
+      updateArgs: [true, true, true],
+      currentTab: 'm',
       dataTabs: [
         {
           name: 'За месяц',
-          id: 'm'
+          id: 'm',
+          time: 30
         },
         {
           name: 'За полгода',
-          id: 'hy'
+          id: 'hy',
+          time: 180
         },
         {
           name: 'За год',
-          id: 'y'
+          id: 'y',
+          time: 365
+        },
+        // {
+        //   name: 'За все время',
+        //   id: 'all'
+        // }
+      ],
+      responseData: [],
+      testStatistic: [
+        {
+          id: '2222',
+          currency: 'KZT',
+          amount: 1000,
+          date: '24.10.2019 11:52',
+          stamp: 1572613350, // 1 ноября
+          relation: 'Тестовое событие',
+          ticket: 'Премиум билет'
         },
         {
-          name: 'За все время',
-          id: 'all'
+          id: '225706779',
+          currency: 'KZT',
+          amount: 1000,
+          date: '24.10.2019 11:52',
+          stamp: 1572519348, // 1 дней назад
+          relation: 'Тестовое событие',
+          ticket: 'Премиум билет'
+        },
+        {
+          id: '226089131',
+          currency: 'KZT',
+          amount: 5000,
+          date: '25.10.2019 07:18',
+          stamp: 1572173846, // 5 дней назад
+          relation: 'Starting seminar - Донецк',
+          ticket: 'СТАНДАРТ'
+        },
+        {
+          id: '227792040',
+          currency: 'KZT',
+          amount: 100,
+          date: '28.10.2019 12:38',
+          stamp: 1572173846, // 5 дней назад
+          relation: 'Тестовое событие',
+          ticket: 'стандарт'
+        },
+        {
+          id: '227793845',
+          currency: 'KZT',
+          amount: 100,
+          date: '28.10.2019 12:43',
+          stamp: 1570100290, // 29 дней назад
+          relation: 'Тестовое событие',
+          ticket: 'стандарт'
+        },
+        {
+          id: '1111',
+          currency: 'KZT',
+          amount: 100,
+          date: '28.10.2019 12:43',
+          stamp: 1568285971, // 50 дней назад
+          relation: 'Тестовое событие',
+          ticket: 'стандарт'
         }
-      ]
+      ],
     }
   },
   computed: {
-    optionsLine() {
+    category() {
+      return this.categoryArr
+    },
+    tickets() {
+      return [{
+        name: 'Билеты',
+        data: this.ticketsArr // sample data
+      }]
+    },
+    chartOptions() {
       return {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
+        title: false,
+        chart: {
+          type: 'column'
         },
-        steppedLine: true,
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              format: 'hour',
-              tooltipFormat: 'll'
-            }
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: false
-            }
-          }]
-        }
-      }
-    },
-    optionsPie() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
+        xAxis: {
+          type: 'datetime',
+          dateTimeLabelFormats: { // don't display the dummy year
+            day: '%e. %b'
+          },
+          categories: this.category.map(i => i.string)
         },
+        yAxis: {
+          allowDecimals: false,
+          title: {
+            text: 'Количество'
+          }
+        },
+        // series: this.filterTickets
+        series: this.tickets
       }
-    },
-    labelPieCity () {
-      let arr = []
-      this.dataPieSales.labels.forEach((item, i) => {
-        arr.push({
-          label: item,
-          color: this.dataPieSales.datasets[0].backgroundColor[i],
-          data: this.dataPieSales.datasets[0].data[i]
-        })
-      })
-      return arr
-    },
-    labelPieCountry () {
-      let arr = []
-      this.dataPieSales.labels.forEach((item, i) => {
-        arr.push({
-          label: item,
-          color: this.dataPieSales.datasets[0].backgroundColor[i],
-          data: this.dataPieSales.datasets[0].data[i]
-        })
-      })
-      return arr
     },
     ...mapState('user', [
       'myParentEvents',
       'logged'
     ]),
   },
-  mounted() {
-    this.pieDataCity()
-    this.pieDataCountry()
-  },
   methods: {
-    otherPie(event) {
-      this.activePie = event
-    },
     setIntervalGraph(e) {
-      // console.log(e)
+      this.currentTab = e.id
     },
-    randomVal () {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-    },
-    randomColor() {
-      let letters = '0123456789ABCDEF'
-      let color = '#'
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)]
-      }
-      return color
-    },
-    pieDataCity () {
-      this.dataPieSales = {
-        labels: ['Moscow', 'SpB', 'Ivanovo', 'Rostov'],
-        datasets: [
-          {
-            backgroundColor: [this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor()],
-            data: [this.randomVal(), this.randomVal(), this.randomVal(), this.randomVal()]
+    sortingDate(interval) {
+      switch (interval) {
+        case 'm':
+          this.getInterval(this.$moment().subtract(30, 'days').valueOf())
+          this.categoryArr = []
+          this.ticketsArr = []
+          for (let i = 0; i < 31; i++) {
+            this.ticketsArr[i] = 0
+            this.categoryArr.unshift({
+              time: this.$moment().subtract(i, 'days'),
+              string: this.$moment().subtract(i, 'days').format('D, MMM')
+            })
+            this.responseData.forEach(item => {
+              if (this.$moment(item.stamp * 1000).isBetween(this.$moment().subtract(i + 1, 'days'), this.$moment().subtract(i, 'days'))) {
+                this.ticketsArr[i] += 1
+              }
+            })
           }
-        ]
+          this.ticketsArr.reverse()
+          break
+        case 'hy':
+          this.getInterval(this.$moment().subtract(6, 'month').valueOf())
+          this.categoryArr = []
+          this.ticketsArr = []
+          for (let i = 0; i < 6; i++) {
+            this.ticketsArr[i] = 0
+            this.categoryArr.unshift({
+              time: this.$moment().subtract(i, 'month'),
+              string: this.$moment().subtract(i, 'month').format('MMM, Y')
+            })
+            this.responseData.forEach(item => {
+              if (this.$moment(item.stamp * 1000).isBetween(this.$moment().subtract(i + 1, 'month'), this.$moment().subtract(i, 'month'), 'month', '(]')) {
+                this.ticketsArr[i] += 1
+              }
+            })
+          }
+          this.ticketsArr.reverse()
+          break
+        case 'y':
+          this.getInterval(this.$moment().subtract(12, 'month').valueOf())
+          this.categoryArr = []
+          this.ticketsArr = []
+          for (let i = 0; i < 12; i++) {
+            this.ticketsArr[i] = 0
+            this.categoryArr.unshift({
+              time: this.$moment().subtract(i, 'month'),
+              string: this.$moment().subtract(i, 'month').format('MMM, Y')
+            })
+            this.responseData.forEach(item => {
+              if (this.$moment(item.stamp * 1000).isBetween(this.$moment().subtract(i + 1, 'month'), this.$moment().subtract(i, 'month'), 'month', '(]')) {
+                this.ticketsArr[i] += 1
+              }
+            })
+          }
+          this.ticketsArr.reverse()
+          break
+        case 'all':
+          this.getInterval()
+          this.categoryArr = []
+          this.ticketsArr = []
+          for (let i = 0; i < 30; i++) {
+            // categoryArr.unshift(this.addDays(date, i).getDate())
+          }
+          break
       }
     },
-    pieDataCountry () {
-      this.dataPieSales = {
-        labels: ['Russia', 'Georgia', 'China', 'Germany'],
-        datasets: [
-          {
-            backgroundColor: [this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor()],
-            data: [this.randomVal(), this.randomVal(), this.randomVal(), this.randomVal()]
-          }
-        ]
-      }
+    async getInterval(fromTime) {
+      await API.statistics.orders({
+        from: fromTime / 1000,
+        to: this.$moment().valueOf() / 1000
+      }).then(response => {
+        this.responseData = response
+        console.log(response)
+      })
+    }
+  },
+  watch: {
+    currentTab(newVal) {
+      this.sortingDate(newVal)
+    }
+  },
+  async mounted() {
+    await this.getInterval(this.$moment().subtract(30, 'days').valueOf())
+    if (this.responseData.length > 0) {
+      this.sortingDate('m')
     }
   }
 }
 </script>
 
-<style scoped lang="less">
-  @import "../../assets/less/_importants";
+<style scoped lang='less'>
+  @import '../../assets/less/_importants';
   .p-statistic {
     display: flex;
     flex-direction: column;
@@ -245,10 +291,10 @@ export default {
   }
   .chart {
     margin-bottom: 100px;
-    .xs-block({ margin-bottom: 70px;});
+    .xs-block({ margin-bottom: 70px; });
     &--inner {
       margin-bottom: 70px;
-      .xs-block({ margin-bottom: 50px;});
+      .xs-block({ margin-bottom: 50px; });
     }
     &__wrapper-text {
       margin-bottom: 80px;
@@ -339,9 +385,9 @@ export default {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 2rem;
-    box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    .sm-block({ padding: 15px; font-size: 1.6rem; border-radius: 5px;})
+    .sm-block({ padding: 15px; font-size: 1.6rem; border-radius: 5px; })
   }
   .back-btn {
     align-self: flex-start;
