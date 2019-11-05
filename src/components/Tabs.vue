@@ -29,10 +29,10 @@ export default {
         case 'm':
           this.$emit('interval', item)
           break
-        case 'hy':
+        case 'y':
           this.$emit('interval', item)
           break
-        case 'y':
+        case 'all':
           this.$emit('interval', item)
           break
       }
