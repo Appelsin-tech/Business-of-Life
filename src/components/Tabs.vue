@@ -2,9 +2,9 @@
   <ul class="tab-chart">
     <li class="tab-chart__item"
         v-for="(item, index) in dataTabs"
-        :key="index"
+        :key="item.id"
         :class="{active: activeIndex === index}"
-        @click="getDataTimeInterval(index, item)"
+        @click="activeInterval(index, item)"
     >{{item.name}}</li>
   </ul>
 </template>
@@ -18,13 +18,9 @@ export default {
       activeIndex: 0
     }
   },
-  created() {
-    // console.log(this.$style)
-  },
   methods: {
-    getDataTimeInterval (i, item) {
+    activeInterval (i, item) {
       this.activeIndex = i
-      let date = new Date()
       switch (item.id) {
         case 'm':
           this.$emit('interval', item)

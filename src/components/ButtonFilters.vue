@@ -2,10 +2,10 @@
   <div class="filters">
     <button class="filters__btn"
             v-for="(btn, index) in button"
-            :key="index"
+            :key="btn.id"
             :class="{active: activeIndex === index}"
             @click="activeBtn(index, btn)"
-    >{{btn}}</button>
+    >{{btn.name}}</button>
   </div>
 </template>
 
@@ -21,7 +21,14 @@ export default {
   methods: {
     activeBtn(i, btn) {
       this.activeIndex = i
-      this.$emit('activeBtn', btn)
+      switch (btn.id) {
+        case 'country':
+          this.$emit('location', btn)
+          break
+        case 'city':
+          this.$emit('location', btn)
+          break
+      }
     }
   }
 }
