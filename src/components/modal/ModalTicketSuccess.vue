@@ -19,7 +19,14 @@
             <strong class="success__text-bold">Ваша оплата успешно прошла</strong>
           </div>
         </div>
-        <ticket-info :ticketArr="ticketArr"/>
+        <ticket-info :ticketArr="ticketArr" class="modal"/>
+        <div class="info">
+          <span class="info-icon">i</span>
+          <div class="text">
+            <p>Сылка на билет была отправлена на {{email}}</p>
+            <p>Чтобы пройти на мероприятие покажите QR-код или назовите номер билета контролеру</p>
+          </div>
+        </div>
       </div>
     </div>
   </modal>
@@ -34,12 +41,14 @@ export default {
     return {
       ticketArr: [
         {hash: 'T-D4D5DB6E161C1351', title: 'Стандарт', event: {title: 'Hello World', date: '28.10.2019 12:38', relation_id: 4}}
-      ]
+      ],
+      email: 'asd@gmail.com'
     }
   },
   methods: {
     beforeOpen (event) {
       this.ticketArr = event.params.ticket
+      this.email = event.params.email
     }
   }
 }

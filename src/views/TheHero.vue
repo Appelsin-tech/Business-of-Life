@@ -21,7 +21,10 @@
 
 <script>
 export default {
-  name: 'TheHero'
+  name: 'TheHero',
+  mounted() {
+    this.$modal.show('modal-ticket-success')
+  }
 }
 </script>
 

@@ -139,13 +139,15 @@
     }
   }
   &__ticket-success {
+    .ticket__wrapper {
+      max-width: 100%;
+    }
     .success {
       display: flex;
       align-items: center;
-      padding-left: 60px;
       margin-bottom: 80px;
-      .sm-block({ margin-bottom: 50px; padding-left: 30px;});
-      .xs-block({ margin-bottom: 30px; padding-left: 20px; align-items: flex-start;});
+      .sm-block({ margin-bottom: 50px;});
+      .xs-block({ margin-bottom: 30px; align-items: flex-start;});
       &__icon {
         display: flex;
         justify-content: center;
@@ -171,6 +173,30 @@
         font-size: 2rem;
         font-weight: 800;
         .xs-block({ font-size: 1.6rem;})
+      }
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      .info-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-right: 20px;
+        width: 36px;
+        height: 36px;
+        font-size: 26px;
+        font-weight: 600;
+        color: @colorError;
+        border: 1px solid @colorError;
+        border-radius: 50%;
+        line-height: 0;
+      }
+      .text {
+        p {
+          line-height: 1.5;
+        }
       }
     }
   }

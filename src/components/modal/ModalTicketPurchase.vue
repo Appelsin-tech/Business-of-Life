@@ -192,7 +192,7 @@ export default {
       (options) => {
         API.tickets.receive({ invoice: options.invoiceId }).then(response => {
           this.$modal.hide('modal-ticket-purchase')
-          this.$modal.show('modal-ticket-success', { ticket: response.data })
+          this.$modal.show('modal-ticket-success', { ticket: response.data, email: this.form.email })
         }).catch(error => {
           API.response.error(error)
         })
