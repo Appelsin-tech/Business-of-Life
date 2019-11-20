@@ -37,6 +37,9 @@ var settings = {
     fields: '20px' /* side fields */
   },
   breakPoints: {
+    xxl: {
+      width: '1430px'
+    },
     xl: {
       width: '1300px'
     },

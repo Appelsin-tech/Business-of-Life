@@ -1,13 +1,15 @@
 <template>
   <div>
     <form class="search-wrapper" @submit.prevent="searchTicket" >
-      <div class="search">
+      <div class="col search">
         <input class="search__input" type="text" placeholder="Найти билет по номеру" v-model="hash">
         <img svg-inline class="search__icon svg-inline" src="../assets/img/icon/search.svg" alt="">
       </div>
-      <button class="g-btn g-btn--no-icon ">
-        <span>Найти</span>
-      </button>
+      <div class="col btn-col">
+        <button class="g-btn g-btn--no-icon ">
+          <span>Найти</span>
+        </button>
+      </div>
     </form>
     <div class="error" v-if="notFound">
       <strong>Билет не найден</strong>
@@ -48,17 +50,29 @@ export default {
   @import "../assets/less/_importants";
 
   .search-wrapper {
-    display: flex;
+    .row-flex();
     margin-bottom: 40px;
     .sm-block({ flex-direction: column; align-items: flex-start;});
+    .col {
+      .col();
+      &.btn-col {
+        .size(4);
+        .shift(0.25);
+        .shift-sm(0);
+        .size-xs(12);
+        .shift-xs(0);
+      }
+    }
     .search {
+      .size(3.75);
+      .size-lg(5.5);
+      .size-sm(8);
+      .size-ss(12);
       position: relative;
       height: 72px;
-      max-width: 400px;
-      width: 100%;
-      margin-right: 40px;
+      /*width: 100%;*/
       .md-block({ height: 60px;});
-      .sm-block({ margin-bottom: 20px; margin-right: 0;});
+      .sm-block({ margin-bottom: 20px;});
       .xs-block({ height: 50px;});
       &__input {
         padding-left: 50px;

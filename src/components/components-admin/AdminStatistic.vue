@@ -36,12 +36,15 @@ export default {
   },
   methods: {
     async getInterval(fromTime) {
-      await API.statistics.orders({
-        from: fromTime / 1000,
-        to: this.$moment().valueOf() / 1000
-      }).then(response => {
-        this.responseData = response
-      })
+      if(this.logged) {
+        await API.statistics.orders({
+          from: fromTime / 1000,
+          to: this.$moment().valueOf() / 1000
+        }).then(response => {
+          this.responseData = response
+        })
+      }
+
     }
   },
   async mounted() {

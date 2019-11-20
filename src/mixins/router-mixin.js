@@ -1,13 +1,13 @@
 import { mapState } from 'vuex'
 export const RouterMixin = {
   beforeCreate () {
-    //асинхронный запрос на авторизацию пользователя
+    // асинхронный запрос на авторизацию пользователя
     this.$store.dispatch('user/login').then(() => {
-      //регистрация глобального хука для объекта route
-     this.$router.beforeEach((to, from, next) => {
+      // регистрация глобального хука для объекта route
+      this.$router.beforeEach((to, from, next) => {
         if (to.matched.some(record => record.meta.auth)) {
           if (!this.logged) {
-            next({path: '/'})
+            next({ path: '/' })
           } else {
             next()
           }
@@ -15,9 +15,10 @@ export const RouterMixin = {
           next()
         }
       })
+      // console.log(this.$route.matched.some(record => record.meta.auth))
       if (this.$route.matched.some(record => record.meta.auth)) {
         if (!this.logged) {
-          this.$router.push({path: '/'})
+          this.$router.push({ path: '/' })
         }
       }
     })
@@ -25,13 +26,13 @@ export const RouterMixin = {
   computed: {
     ...mapState('user', [
       'logged'
-    ]),
+    ])
   },
   watch: {
     logged (newValue, oldValue) {
       if (!newValue && this.$route.matched.some(record => record.meta.auth)) {
-          this.$router.push({path: '/'})
+        this.$router.push({ path: '/' })
       }
-    },
+    }
   }
 }

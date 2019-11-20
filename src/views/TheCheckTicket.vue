@@ -150,28 +150,46 @@ export default {
   @import "../assets/less/_importants";
 
   .wrapper-control {
+    .row-flex();
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    .lg-block({ justify-content: space-around;});
-    .md-block({ flex-direction: column;});
+    .sm-block({ flex-direction: column;});
     &__col {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      .lg-block({ margin-bottom: 50px;});
+      margin-bottom: 50px;
+      .col();
       &--qr {
-        width: 300px;
-        height: 300px;
-        .sm-block({ width: 200px; height: 200px;});
+        .size(3.75);
+        .size-lg(5.5);
+        .size-sm(8);
+        .size-ss(12);
         .ticket__qr-code {
-          width: 100%;
-          height: 100%;
+          width: 300px;
+          height: 300px;
+          margin-left: -13px;
+          margin-top: -13px;
           background-size: contain;
+          .sm-block({ width: 200px; height: 200px;
+            margin-top: 0; margin-left: -9px;});
         }
       }
       &--status {
-        .lg-block({ width: 100%;})
+        .size(3.75);
+        .size-lg(5.5);
+        .size-sm(8);
+        .size-ss(12);
+      }
+      &--number {
+        .size(4);
+        .size-xxl(5);
+        .size-lg(6);
+        .size-sm(12);
+        .shift(0.25);
+        .shift-sm(0);
+        .size-xs(12);
+        .shift-xs(0);
       }
       .info-number {
         display: flex;
@@ -197,7 +215,7 @@ export default {
       .info-status {
         display: flex;
         flex-direction: column;
-
+        width: 100%;
         .lg-block({ margin: 0 auto; min-width: 300px;});
         .md-block({ margin-right: auto; margin-left:0;});
         &__status {
