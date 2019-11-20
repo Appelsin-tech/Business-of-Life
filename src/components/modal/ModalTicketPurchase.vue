@@ -200,7 +200,6 @@ export default {
       },
       function (reason, options) {
         this.$modal.hide('modal-ticket-purchase')
-        console.log(options)
         API.response.error(reason)
       })
     },

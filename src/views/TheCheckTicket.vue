@@ -16,7 +16,7 @@
           <div class="info-date">
             <p class="info-text">
               <span class="info-text__regular">Событие:</span>
-              <router-link :to="`/event/${response.event_relation_id}`" class="info-text__strong link">Hello World</router-link>
+              <router-link :to="`/event/${ticket.event.relation_id}`" class="info-text__strong link">{{ticket.event.title}}</router-link>
             </p>
             <p class="info-text info-date__date">
               <span class="info-text__regular">Дата и время:</span>
@@ -24,24 +24,24 @@
             </p>
             <p class="info-text info-date__price">
               <span class="info-text__regular">Билет:</span>
-              <strong class="info-text__strong">{{response.price}} {{response.currency}}</strong>
+              <strong class="info-text__strong">{{ticket.title}}</strong>
             </p>
           </div>
         </div>
         <div class="wrapper-control__col wrapper-control__col--status">
           <div class="info-status">
-            <div class="info-status__status" :class="status[response.status]">
+            <div class="info-status__status" :class="status[ticket.status]">
               <span class="info-status__text-small">Статус</span>
               <p class="info-status__text-strong strong-icon">
-                <span class="strong-icon__text" v-if="status[response.status] === 'used'">Использован</span>
-                <span class="strong-icon__text" v-else-if="status[response.status] === 'blocked'">Блокирован</span>
+                <span class="strong-icon__text" v-if="status[ticket.status] === 'used'">Использован</span>
+                <span class="strong-icon__text" v-else-if="status[ticket.status] === 'blocked'">Блокирован</span>
                 <span class="strong-icon__text" v-else>Активен</span>
                 <!--<span class="strong-icon__icon">-->
                   <!--<img class="strong-icon__svg" svg-inline src="../assets/img/icon/check.svg" alt="">-->
                 <!--</span>-->
               </p>
             </div>
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket" :class="{disabled: disabledBtn || status[response.status] === 'used' || status[response.status] === 'blocked'}" v-if="superV">
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" v-if="superV">
               <span>Использовать билет</span>
             </a>
           </div>
@@ -64,7 +64,7 @@ export default {
   components: {TicketSearch, BreadCrumbs},
   data() {
     return {
-      response: false,
+      ticket: false,
       pageTickets: false,
       errorTicket: 'Билет не найден',
       disabledBtn: false,
@@ -86,8 +86,8 @@ export default {
       'logged'
     ]),
     parseDate() {
-      if (this.response.registered) {
-        let onlyDate = this.response.registered.split(' ')
+      if (this.ticket.event.date) {
+        let onlyDate = this.ticket.event.date.split(' ')
         let [day, month, year] = onlyDate[0].split('.')
         let da = new Date(year, month - 1, day)
         return da.toLocaleString('default', {day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
@@ -106,11 +106,8 @@ export default {
     },
     checkTicked() {
       API.tickets.check({hash: this.$route.params.id}).then(response => {
-        this.response = response.data
+        this.ticket = response.data
         this.existTicket = true
-        // API.relations.info({url: this.response.event_relation_id}).then(res => {
-        //   console.log(res)
-        // })
         this.btnSupervisor()
       }).catch(error => {
         console.log(error)
@@ -119,7 +116,7 @@ export default {
     btnSupervisor() {
       if(this.profile.supervisor !== undefined) {
         this.profile.supervisor.forEach(item => {
-          if(item.id === this.response.event_relation_id) {
+          if(item.id === this.ticket.event_relation_id) {
             this.superV = true
           }
         })

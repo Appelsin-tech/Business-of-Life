@@ -171,7 +171,6 @@ export default {
           newArr.push(item)
         } else {
           if (newArr.find(c => c.name === item.name)) {
-            console.log(true)
             newArr.forEach(t => {
               if (t.name === item.name) {
                 t.y += 1

@@ -8,7 +8,7 @@
         </p>
         <p class="info-text">
           <span class="info-text__regular">Событие:</span>
-          <router-link :to="`/event/${ticketArr[0].event_id}`" class="info-text__strong link">{{ticketArr[0].event_title}}</router-link>
+          <router-link :to="`/event/${ticketArr[0].event.relation_id}`" class="info-text__strong link">{{ticketArr[0].event.title}}</router-link>
         </p>
         <p class="info-text">
           <span class="info-text__regular">Дата и время:</span>
@@ -46,8 +46,8 @@ export default {
   props: ['ticketArr'],
   computed: {
     parseDate() {
-      if (this.ticketArr[0].registered) {
-        let onlyDate = this.ticketArr[0].registered.split(' ')
+      if (this.ticketArr[0].event.date) {
+        let onlyDate = this.ticketArr[0].event.date.split(' ')
         let [day, month, year] = onlyDate[0].split('.')
         let da = new Date(year, month - 1, day)
         return da.toLocaleString('default', {day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
