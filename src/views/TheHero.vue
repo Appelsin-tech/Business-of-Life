@@ -22,9 +22,6 @@
 <script>
 export default {
   name: 'TheHero',
-  mounted() {
-    this.$modal.show('modal-ticket-success')
-  }
 }
 </script>
 

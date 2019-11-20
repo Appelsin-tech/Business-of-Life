@@ -40,9 +40,9 @@ export default {
   data() {
     return {
       ticketArr: [
-        {hash: 'T-D4D5DB6E161C1351', title: 'Стандарт', event: {title: 'Hello World', date: '28.10.2019 12:38', relation_id: 4}}
+        {hash: 'T-', title: 'Стандарт', event: {title: 'Test', date: '28.10.2019 12:38', relation_id: 4}}
       ],
-      email: 'asd@gmail.com'
+      email: 'test@gmail.com'
     }
   },
   methods: {
