@@ -7,7 +7,7 @@
         <admin-statistic-chart-sales :defaultResponse="responseData"/>
         <admin-statistic-chart-location :defaultResponse="responseData"/>
       </div>
-      <div class='no-event' v-else>У вас еще нет мероприятий</div>
+      <div class='no-event' v-else>У вас еще нет мероприятий с продажами</div>
       <router-link :to='`/admin/me`' class='back-btn'>Назад</router-link>
     </div>
   </section>

@@ -1,4 +1,7 @@
 module.exports = {
+  devServer: {
+    disableHostCheck: true
+  },
   lintOnSave: false,
   chainWebpack: config => {
     config.module.rule('vue')
