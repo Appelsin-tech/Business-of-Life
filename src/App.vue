@@ -22,7 +22,7 @@ import AppFooter from './components/AppFooter'
 import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
 import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
 import ModalTicketCreateEditing from './components/modal/ModalTicketCreateEditing'
-import { RouterMixin } from './mixins/router-mixin.js'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -33,7 +33,6 @@ export default {
     ModalTicketSuccess,
     ModalTicketCreateEditing
   },
-  mixins: [RouterMixin],
   data () {
     return {
       showMenu: true,
@@ -41,6 +40,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('user/login')
     if (window.innerWidth < 500) {
       this.widthNoty = 300
     }
@@ -48,6 +48,18 @@ export default {
   methods: {
     beforeEnter () {
       this.$root.$emit('scrollBeforeEnter')
+    }
+  },
+  computed: {
+    ...mapGetters('user', [
+      'logged'
+    ])
+  },
+  watch: {
+    logged (newValue, oldValue) {
+      if (!newValue && this.$route.matched.some(record => record.meta.auth)) {
+        this.$router.push({ path: '/' })
+      }
     }
   }
 }

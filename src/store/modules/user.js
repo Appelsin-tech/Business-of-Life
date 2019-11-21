@@ -2,11 +2,13 @@ import API from '../../api/index'
 
 const state = () => ({
   logged: false,
-  profile: [],
+  profile: null,
   myParentEvents: []
 })
 
-const getters = {}
+const getters = {
+  logged: state => !!state.profile
+}
 
 const actions = {
   async auth({ commit }, form) {
@@ -59,7 +61,7 @@ const mutations = {
   },
   LOGOUT(state) {
     state.logged = false
-    state.profile = []
+    state.profile = null
   },
   SET_MY_PARENT_EVENT(state, events) {
     state.myParentEvents = events

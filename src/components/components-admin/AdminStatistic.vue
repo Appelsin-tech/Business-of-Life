@@ -16,7 +16,7 @@
 <script>
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import AdminStatisticChartSales from '../AdminStatisticChartSales'
 import AdminStatisticChartLocation from '../AdminStatisticChartLocation'
 
@@ -31,6 +31,8 @@ export default {
   computed: {
     ...mapState('user', [
       'myParentEvents',
+    ]),
+    ...mapGetters('user', [
       'logged'
     ]),
   },

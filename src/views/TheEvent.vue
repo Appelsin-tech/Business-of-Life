@@ -153,7 +153,7 @@ import Ticket from '../components/Ticket'
 import EventStatus from '../components/EventStatus'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import API from '../api/index'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'TheEvent',
@@ -163,7 +163,7 @@ export default {
     EventStatus,
     Ticket
   },
-  data() {
+  data () {
     return {
       val: null,
       responseData: null,
@@ -199,28 +199,28 @@ export default {
             }
           }
         }
-      },
+      }
     }
   },
   methods: {
-    activeEventFilter(res) {
+    activeEventFilter (res) {
       res.forEach((item) => {
         if (item.url === this.$route.params.hash) {
           this.activeEvent = item
         }
       })
     },
-    activeCity() {
+    activeCity () {
       this.responseData.relations.forEach((item) => {
         this.city.push({ name: item.city, val: item.url })
       })
     },
-    newActiveEvent(value) {
+    newActiveEvent (value) {
       this.val = value.val
       let a = value.val + ''
       this.$router.push({ path: `/event/${a}` })
     },
-    statusInfo() {
+    statusInfo () {
       if (this.logged) {
         this.$store.dispatch('user/getMyParentEvents').then(() => {
           if (this.myParentEvents.some(item => item.id === this.responseData.id)) {
@@ -229,7 +229,7 @@ export default {
         })
       }
     },
-    getEvent() {
+    getEvent () {
       API.relations.info({ url: this.$route.params.hash }).then(response => {
         this.responseData = response.data
         this.activeCity()
@@ -239,52 +239,54 @@ export default {
         this.$router.push({ path: '/' })
       })
     },
-    refreshStatus() {
+    refreshStatus () {
       this.responseData = null
       this.activeEvent = false
       this.myEvent = false
       this.city = []
       this.getEvent()
     },
-    scrollMeTo(refName) {
+    scrollMeTo (refName) {
       let element = this.$refs[refName]
       let top = element.offsetTop
       // window.scrollTo(0, top)
       window.scrollTo({
         top: top - 20,
-        behavior: "smooth"
-      });
+        behavior: 'smooth'
+      })
     }
   },
   watch: {
-    val(newVal, oldVal) {
+    val (newVal, oldVal) {
       this.activeEventFilter(this.responseData.relations)
     }
   },
   computed: {
     ...mapState('user', [
-      'myParentEvents',
+      'myParentEvents'
+    ]),
+    ...mapGetters('user', [
       'logged'
     ]),
-    filterTicketsList() {
+    filterTicketsList () {
       return this.activeEvent.tickets.sort((a, b) => {
         return a - b
       })
     },
-    swiper() {
+    swiper () {
       return this.$refs.mySwiperEvents.swiper
     },
-    selectedCity() {
+    selectedCity () {
       return { name: this.activeEvent.city, val: this.activeEvent.url }
     },
-    speakersName() {
+    speakersName () {
       if (this.activeEvent) {
         return this.activeEvent.speakers.map(item => item.name)
       } else {
         return []
       }
     },
-    parseDate() {
+    parseDate () {
       if (this.activeEvent) {
         let onlyDate = this.activeEvent.date.split(' ')
         let [day, month, year] = onlyDate[0].split('.')
@@ -295,10 +297,10 @@ export default {
       }
     }
   },
-  beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate (to, from, next) {
     next()
   },
-  mounted() {
+  mounted () {
     this.getEvent()
   }
 }

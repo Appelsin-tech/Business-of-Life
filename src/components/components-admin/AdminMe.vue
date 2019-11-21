@@ -44,7 +44,9 @@ export default {
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 60px;
-      .sm-block({ margin-bottom: 40px; });
+      .sm-block({
+        margin-bottom: 40px;
+      });
       .info {
         display: flex;
         flex-direction: column;
@@ -83,7 +85,9 @@ export default {
     .menu {
       .row-flex();
       margin-bottom: 80px;
-      .lg-block({ justify-content: center; });
+      .lg-block({
+        justify-content: center;
+      });
       .item {
         .col();
         .size(4);
@@ -98,7 +102,12 @@ export default {
         border-radius: 6px;
         transition: 0.3s;
         box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-        .sm-block({ padding: 20px 20px 30px; margin-bottom: 15px; });
+        .sm-block({
+          margin-bottom: 20px;
+          padding: 20px;
+          flex-direction: row;
+          align-items: center;
+        });
         &:hover {
           .item__title {
             text-decoration: none;
@@ -113,9 +122,20 @@ export default {
           background-position: center;
           background-repeat: no-repeat;
           background-color: #f3f3f3;
-          .to(1430px, { width: auto;});
-          .md-block({ height: 300px;});
-          .xs-block({ height: 250px; margin-bottom: 20px; });
+          .to(1430px, {
+            width: auto;
+          });
+          .md-block({
+            height: 300px;
+          });
+          .sm-block({
+            width: 70px;
+            height: 70px;
+            margin-bottom: 0;
+            margin-right: 20px;
+            flex-shrink: 0
+          });
+          /*.xs-block({ height: 250px; margin-bottom: 20px; });*/
           &--event {
             background-image: url('../../assets/img/admin-menu-events.jpg');
           }
@@ -143,7 +163,9 @@ export default {
           text-transform: uppercase;
           text-decoration: underline;
           color: #000;
-          .md-block({ font-size: 1.6rem; });
+          .md-block({
+            font-size: 1.6rem;
+          });
         }
       }
     }

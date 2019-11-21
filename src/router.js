@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import store from './store/index'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   scrollBehavior (to, from, savedPosition) {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -250,3 +250,12 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.auth) && !store.getters['user/logged']) {
+    next({ path: '/auth' })
+  } else {
+    next()
+  }
+})
+export default router

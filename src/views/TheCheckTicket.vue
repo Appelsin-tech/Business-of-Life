@@ -36,9 +36,6 @@
                 <span class="strong-icon__text" v-if="status[ticket.status] === 'used'">Использован</span>
                 <span class="strong-icon__text" v-else-if="status[ticket.status] === 'blocked'">Блокирован</span>
                 <span class="strong-icon__text" v-else>Активен</span>
-                <!--<span class="strong-icon__icon">-->
-                  <!--<img class="strong-icon__svg" svg-inline src="../assets/img/icon/check.svg" alt="">-->
-                <!--</span>-->
               </p>
             </div>
             <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" v-if="superV">
@@ -47,22 +44,19 @@
           </div>
         </div>
       </div>
-      <!--<div class="wrapper-control error">-->
-        <!--<strong>{{errorTicket}}</strong>-->
-      <!--</div>-->
     </div>
   </section>
 </template>
 
 <script>
 import API from '../api/index'
-import {mapState} from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import TicketSearch from '../components/TicketSearch'
 import BreadCrumbs from '../components/BreadCrumbs'
 export default {
   name: 'TheCheckTicket',
-  components: {TicketSearch, BreadCrumbs},
-  data() {
+  components: { TicketSearch, BreadCrumbs },
+  data () {
     return {
       ticket: false,
       pageTickets: false,
@@ -82,30 +76,32 @@ export default {
   },
   computed: {
     ...mapState('user', [
-      'profile',
+      'profile'
+    ]),
+    ...mapGetters('user', [
       'logged'
     ]),
-    parseDate() {
+    parseDate () {
       if (this.ticket.event.date) {
         let onlyDate = this.ticket.event.date.split(' ')
         let [day, month, year] = onlyDate[0].split('.')
         let da = new Date(year, month - 1, day)
-        return da.toLocaleString('default', {day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
+        return da.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
       } else {
         return '00'
       }
     }
   },
   methods: {
-    activateTicket() {
-      API.tickets.use({hash: this.$route.params.id}).then(response => {
+    activateTicket () {
+      API.tickets.use({ hash: this.$route.params.id }).then(response => {
         this.checkTicked()
       }).catch(error => {
         console.log(error)
       })
     },
-    checkTicked() {
-      API.tickets.check({hash: this.$route.params.id}).then(response => {
+    checkTicked () {
+      API.tickets.check({ hash: this.$route.params.id }).then(response => {
         this.ticket = response.data
         this.existTicket = true
         this.btnSupervisor()
@@ -113,20 +109,20 @@ export default {
         console.log(error)
       })
     },
-    btnSupervisor() {
-      if(this.profile.supervisor !== undefined) {
+    btnSupervisor () {
+      if (this.profile.supervisor !== undefined) {
         this.profile.supervisor.forEach(item => {
-          if(item.id === this.ticket.event_relation_id) {
+          if (item.id === this.ticket.event_relation_id) {
             this.superV = true
           }
         })
       } else {
         this.superV = false
       }
-    },
+    }
   },
-  mounted() {
-    if(this.$route.params.id) {
+  mounted () {
+    if (this.$route.params.id) {
       this.pageTickets = true
       this.checkTicked()
     }
@@ -134,7 +130,7 @@ export default {
 
   watch: {
     '$route' (to, from) {
-      if(this.$route.params.id) {
+      if (this.$route.params.id) {
         this.pageTickets = true
         this.checkTicked()
       } else {
@@ -182,6 +178,7 @@ export default {
         .size-ss(12);
       }
       &--number {
+        padding-bottom: 13px;
         .size(4);
         .size-xxl(5);
         .size-lg(6);
@@ -195,7 +192,7 @@ export default {
         display: flex;
         flex-direction: column;
         margin-bottom: auto;
-        .md-block({ margin-bottom: 40px;});
+        .sm-block({ margin-bottom: 40px;});
         &__small-text {
           margin-bottom: 15px;
         }
@@ -278,7 +275,9 @@ export default {
             }
           }
         }
-
+        .g-btn {
+          align-self: flex-start;
+        }
       }
       .info-date {
         .info-text {

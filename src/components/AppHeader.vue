@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'AppHeader',
@@ -134,8 +134,10 @@ export default {
       return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page' || this.$route.name === 'payment_policy'
     },
     ...mapState('user', [
-      'logged',
       'profile'
+    ]),
+    ...mapGetters('user', [
+      'logged'
     ]),
   },
   watch: {
