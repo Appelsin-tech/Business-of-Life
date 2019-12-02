@@ -98,6 +98,11 @@ export default {
       .location__text {
         display: flex;
         flex-direction: column;
+        max-height: 100px;
+        overflow: hidden;
+        .lg-block({max-height: 130px;});
+        .sm-block({max-height: 120px;});
+        .xs-block({max-height: 107px;});
         span {
           &:first-child {
             margin-bottom: 8px;
