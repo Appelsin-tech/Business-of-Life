@@ -7,6 +7,19 @@
           <h1 class="g-caption">Расписание мероприятий</h1>
           <div class="wrapper-date-icon">
             <p class="date">Ближайшие 30 дней</p>
+            <div class="calendar-small" :class="{active: showCalendarMini}">
+              <div class="svg-wrapper"    @click="showCalendarMini = !showCalendarMini">
+                <img svg-inline class="svg-square" src="../assets/img/icon/calendar-square.svg" alt="">
+              </div>
+              <transition name="fade">
+                <div class="calendar-wrapper" v-if="showCalendarMini">
+                  <v-calendar :attributes='calendarMini' :is-expanded="true" :nav-visibility="'hidden'" :class="'calendarMini'" >
+                  </v-calendar>
+                </div>
+              </transition>
+
+
+            </div>
             <div class="wrapper-btn wrapper-btn--calendar">
               <button class="swiper-button swiper-button--prev"><span></span></button>
               <button class="swiper-button swiper-button--next"><span></span></button>
@@ -35,8 +48,9 @@
 </template>
 
 <script>
+import 'v-calendar/lib/v-calendar.min.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import calendarChild from '../components/calendarChild'
 
 export default {
@@ -51,6 +65,7 @@ export default {
       indexInnerEvent: 0,
       showRelation: false,
       arr: [1, 2, 3],
+      showCalendarMini: false,
       swiperOptionCalendar: {
         slidesPerView: 7,
         speed: 300,
@@ -96,20 +111,37 @@ export default {
       'filterEvents'
       // ...
     ]),
+    calendarMini() {
+      let optionsArr = []
+      let options = {
+        key: 'today',
+        color: 'red',
+        contentClass: 'wwwwwwww',
+        highlight: {
+          height: '5px',
+          backgroundColor: '#e23a3a',
+          color: 'white',
+          class: 'qqqqqqqqq',
+          borderRadius: '0px'// Class provided by TailwindCSS
+          // Other properties are available too, like `height` & `borderRadius`
+        },
+        contentStyle: {
+          color: '#fff'
+        },
+        dates: this.publicEvents.map(item => item.stamp * 1000)
+      }
+      optionsArr[0] = options
+      return optionsArr
+    }
   },
-  methods: {
-
-  },
-  watch: {
-
-  },
+  methods: {},
   mounted() {
-    if(this.publicEvents.length === 0 ) {
+    if (this.publicEvents.length === 0) {
       let currentDate = new Date()
-      let currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000;
+      let currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000
       let lastDate = currentDateTime + 2678400
 
-      this.$store.dispatch('events/eventsCalendar', {from: currentDateTime, to: lastDate}).then(() => {
+      this.$store.dispatch('events/eventsCalendar', { from: currentDateTime, to: lastDate }).then(() => {
         // console.dir(this.publicEvents)
       })
     }
@@ -126,12 +158,24 @@ export default {
       position: relative;
       padding-top: 90px;
       padding-left: 90px;
-      margin-bottom: 80px;
+      margin-bottom: 60px;
       .decor-cube(300px, 300px);
-      .lg-block({ padding-top: 60px; padding-left: 60px; margin-bottom: 100px; .decor-cube(260px, 260px); });
-      .sm-block({ margin-bottom: 110px; .decor-cube(220px, 220px); });
-      .to(630px, { margin-bottom: 60px; });
-      .xs-block({ padding-left: 0; padding-top: 0; margin-bottom: 25px; .decor-cube(@display: none;); });
+      .lg-block({
+        padding-top: 60px;
+        padding-left: 60px;
+        margin-bottom: 24px;
+        .decor-cube(210px, 210px);
+      });
+      .sm-block({
+        margin-bottom: 27px;
+        .decor-cube(190px, 190px);
+      });
+      .xs-block({
+        padding-left: 0;
+        padding-top: 0;
+        margin-bottom: 25px;
+        .decor-cube(@display: none;);
+      });
       .content {
         display: flex;
         flex-direction: column;
@@ -151,15 +195,87 @@ export default {
             font-weight: 800;
             font-size: 2.4rem;
             text-transform: uppercase;
-            .sm-block({ font-weight: 600; font-size: 2rem; })
+            .sm-block({
+              font-weight: 600;
+              font-size: 2rem;
+            })
           }
-          .svg-square {
-            margin-right: 40px;
-            width: 25px;
-            height: 25px;
-            .sm-block({ width: 20px; height: 20px; });
-            path {
-              fill: @colorMainRed;
+          .calendar-small {
+            position: relative;
+            font-size: 0;
+            &.active {
+              .svg-wrapper {
+                .svg-square {
+                  path {
+                    fill: @colorMainRed;
+                  }
+                }
+              }
+              .calendar-wrapper {
+                z-index: 99;
+                pointer-events: auto;
+                /*animation: cal-show 0.2s forwards;*/
+              }
+            }
+            .svg-wrapper {
+              cursor: pointer;
+              margin-right: 40px;
+              .svg-square {
+                width: 25px;
+                height: 25px;
+                outline: none;
+                .sm-block({
+                  width: 20px;
+                  height: 20px;
+                });
+                path {
+                  transition: 0.3s;
+                  fill: @colorBlue;
+                }
+              }
+            }
+            .calendar-wrapper {
+              position: absolute;
+              top: 87px;
+              left: -160px;
+              width: 375px;
+              padding: 20px 25px;
+              background-color: #fff;
+              box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+              box-sizing: border-box;
+              transition: 0.3s;
+              pointer-events: none;
+              z-index: 99;
+              .lg-block({width: 312px; top: 50px; left: -100px;});
+              .sm-block({padding: 10px; top: 47px;
+                width: 282px;});
+              .to(630px, {
+                left: -241px;
+              });
+              .to(375px, {
+                left: -200px;
+              });
+            }
+            @keyframes cal-show {
+              0% {
+                display: block;
+                opacity: 0;
+                transform: translateY(-10px);
+              }
+              100% {
+                opacity: 1;
+                transform: translateY(0px);
+              }
+            }
+            @keyframes cal-hide {
+              0% {
+                opacity: 1;
+                transform: translateY(0px);
+              }
+              100% {
+                opacity: 0;
+                transform: translateY(-10px);
+              }
             }
           }
         }
@@ -194,7 +310,10 @@ export default {
         .swiper-button {
           width: 16px;
           height: 16px;
-          .sm-block({ width: 13px; height: 13px; });
+          .sm-block({
+            width: 13px;
+            height: 13px;
+          });
           &--prev {
             margin-right: 15px;
           }
@@ -213,7 +332,10 @@ export default {
           width: 16px;
           height: 16px;
           flex-shrink: 0;
-          .sm-block({ width: 13px; height: 13px; });
+          .sm-block({
+            width: 13px;
+            height: 13px;
+          });
           &--prev {
             margin-right: 15px;
           }
@@ -231,8 +353,12 @@ export default {
     }
     .row-slider {
       padding-left: 90px;
-      .lg-block({ padding-left: 60px; });
-      .xs-block({ padding-left: 0; });
+      .lg-block({
+        padding-left: 60px;
+      });
+      .xs-block({
+        padding-left: 0;
+      });
       .swiper-container {
         .slide-calendar {
           flex-shrink: 0;
@@ -245,8 +371,12 @@ export default {
         height: 470px;
         background: #fff;
         border-right: 1px solid #e7e7e7;
-        .sm-block({ height: 400px; });
-        .xs-block({ height: 350px; });
+        .sm-block({
+          height: 400px;
+        });
+        .xs-block({
+          height: 350px;
+        });
         &.active {
           background: @colorMainRed;
           .day-week {
@@ -280,12 +410,16 @@ export default {
         .day-week {
           padding: 30px 20px;
           border-bottom: 1px solid #e7e7e7;
-          .sm-block({ padding: 20px 15px; });
+          .sm-block({
+            padding: 20px 15px;
+          });
           .day {
             font-size: 3rem;
             font-weight: 800;
             color: @colorBlue;
-            .sm-block({ font-size: 2.4rem; });
+            .sm-block({
+              font-size: 2.4rem;
+            });
           }
           .week {
             font-size: 1.4rem;

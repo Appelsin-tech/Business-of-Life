@@ -587,3 +587,46 @@ input {
     }
   }
 }
+
+.calendarMini {
+  background-color: transparent !important;
+  border: none !important;
+  .c-header {
+    margin-bottom: 20px;
+    .lg-block({
+      margin-bottom: 10px;})
+  }
+  .c-title {
+    font-family: @fontMontserrat;
+    font-size: 2.4rem !important;
+    font-weight: 800 !important;
+    color: @colorBlue;
+    text-transform: uppercase;
+    .lg-block({
+      font-size: 2rem !important;})
+  }
+  .c-day-content,
+  .c-weekday {
+    width: auto !important;
+    height: auto !important;
+    font-family: @fontMontserrat;
+    font-size: 1.6rem !important;
+    .lg-block({
+      font-size: 1.4rem !important;})
+  }
+  .c-day {
+    display: flex;
+    justify-content: center;
+    min-height: 45px !important;
+    .lg-block({
+      min-height: 36px !important;})
+  }
+  .c-day-background {
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 0 !important;
+    .lg-block({
+      width: 26px !important;
+      height: 26px !important;})
+  }
+}

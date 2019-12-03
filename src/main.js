@@ -8,6 +8,9 @@ import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
 import store from './store/index'
 import Datetime from 'vue-datetime'
+import VCalendar from 'v-calendar'
+Vue.use(VCalendar)
+
 
 const moment = require('moment')
 moment.locale('ru')
