@@ -6,9 +6,9 @@ const state = () => ({
 
 const getters = {
   filterEvents(state) {
-    let finishArr = [];
+    let finishArr = []
 
-    let currentDateFull = new Date();
+    let currentDateFull = new Date()
     const date = new Date(currentDateFull.getFullYear(), currentDateFull.getMonth(), currentDateFull.getDate())
 
     function addDays(date, days) {
@@ -25,10 +25,13 @@ const getters = {
         weekday: addDays(date, i).toLocaleString('default', { weekday: 'long' }),
         events: []
       })
-
+      if (i === 0) {
+        finishArr[0].stamp = new Date().getTime()
+      }
       state.publicEvents.forEach(item => {
         let parseSec = item.stamp * 1000
-        if(addDays(date, i).getTime() <= parseSec && parseSec <= addDays(date, i + 1).getTime()) {
+        if (addDays(date, i).getTime() <= parseSec && parseSec <= addDays(date, i + 1).getTime()) {
+          finishArr[i].stamp = parseSec
           finishArr[i].events.push(item)
         }
       })

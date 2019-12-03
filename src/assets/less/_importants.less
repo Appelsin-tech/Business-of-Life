@@ -605,7 +605,17 @@ input {
     .lg-block({
       font-size: 2rem !important;})
   }
-  .c-day-content,
+  .c-day-content {
+    width: 45px !important;
+    height: 45px !important;
+    font-family: @fontMontserrat;
+    font-size: 1.6rem !important;
+    .lg-block({
+      width: 35px !important;
+      height: 35px !important;
+      font-size: 1.4rem !important;})
+  }
+
   .c-weekday {
     width: auto !important;
     height: auto !important;
@@ -617,9 +627,6 @@ input {
   .c-day {
     display: flex;
     justify-content: center;
-    min-height: 45px !important;
-    .lg-block({
-      min-height: 36px !important;})
   }
   .c-day-background {
     width: 35px !important;

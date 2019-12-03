@@ -13,7 +13,7 @@
               </div>
               <transition name="fade">
                 <div class="calendar-wrapper" v-if="showCalendarMini">
-                  <v-calendar :attributes='calendarMini' :is-expanded="true" :nav-visibility="'hidden'" :class="'calendarMini'" >
+                  <v-calendar @dayclick="scrollToSlide" :attributes='calendarMini' :is-expanded="true" :nav-visibility="'hidden'" :class="'calendarMini'" >
                   </v-calendar>
                 </div>
               </transition>
@@ -31,12 +31,12 @@
 
         <swiper :options="swiperOptionCalendar" ref="calendarSwiper">
           <swiper-slide v-for="(item, i) in filterEvents" :key="i">
-            <div class="item-swiper">
+            <div class="item-swiper" :class="[i === activeScrollSlide ? 'activeSlideColor' : '']">
               <div class="day-week">
                 <p class="day">{{item.day}}</p>
                 <p class="week">{{item.weekday}}</p>
               </div>
-              <calendar-child :arr="item.events"/>
+              <calendar-child :arr="item.events" :class="[i === activeScrollSlide ? 'activeSlideColor' : '']"/>
               <!--<div class="test-btn"  @click="relationSwiper.update()">qwdqwd</div>-->
             </div>
           </swiper-slide>
@@ -64,11 +64,13 @@ export default {
     return {
       indexInnerEvent: 0,
       showRelation: false,
+      activeScrollSlide: false,
       arr: [1, 2, 3],
       showCalendarMini: false,
       swiperOptionCalendar: {
         slidesPerView: 7,
         speed: 300,
+        threshold: 8,
         slideClass: 'slide-calendar',
         navigation: {
           nextEl: '.swiper-button--next',
@@ -113,7 +115,23 @@ export default {
     ]),
     calendarMini() {
       let optionsArr = []
-      let options = {
+      let options1 = {
+        key: 'today',
+        color: 'red',
+        contentClass: 'wwwwwwww',
+        highlight: {
+          height: '5px',
+          backgroundColor: 'rgba(226,58,58,0.65)',
+          color: 'white',
+          borderRadius: '0px'
+        },
+        contentStyle: {
+          color: '#fff',
+          cursor: 'pointer'
+        },
+        dates: this.publicEvents.map(item => item.stamp * 1000)
+      }
+      let options2 = {
         key: 'today',
         color: 'red',
         contentClass: 'wwwwwwww',
@@ -121,20 +139,36 @@ export default {
           height: '5px',
           backgroundColor: '#e23a3a',
           color: 'white',
-          class: 'qqqqqqqqq',
-          borderRadius: '0px'// Class provided by TailwindCSS
-          // Other properties are available too, like `height` & `borderRadius`
+          borderRadius: '0px'
         },
         contentStyle: {
-          color: '#fff'
+          color: '#fff',
+          cursor: 'pointer'
         },
-        dates: this.publicEvents.map(item => item.stamp * 1000)
+        dates: [new Date()]
       }
-      optionsArr[0] = options
+      optionsArr[0] = options1
+      optionsArr[1] = options2
       return optionsArr
     }
   },
-  methods: {},
+  methods: {
+    scrollToSlide(e) {
+      let a
+      this.filterEvents.forEach((item, index) => {
+        if (item.stamp !== undefined) {
+          if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
+            a = index
+          }
+        }
+      })
+      if (a !== undefined) {
+        this.activeScrollSlide = a
+        this.showCalendarMini = false
+        this.calendarSwiper.slideTo(a)
+      }
+    }
+  },
   mounted() {
     if (this.publicEvents.length === 0) {
       let currentDate = new Date()
@@ -214,7 +248,6 @@ export default {
               .calendar-wrapper {
                 z-index: 99;
                 pointer-events: auto;
-                /*animation: cal-show 0.2s forwards;*/
               }
             }
             .svg-wrapper {
@@ -238,7 +271,6 @@ export default {
               position: absolute;
               top: 87px;
               left: -160px;
-              width: 375px;
               padding: 20px 25px;
               background-color: #fff;
               box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
@@ -246,36 +278,14 @@ export default {
               transition: 0.3s;
               pointer-events: none;
               z-index: 99;
-              .lg-block({width: 312px; top: 50px; left: -100px;});
-              .sm-block({padding: 10px; top: 47px;
-                width: 282px;});
+              .lg-block({ top: 50px; left: -100px;});
+              .sm-block({padding: 10px; top: 47px;});
               .to(630px, {
                 left: -241px;
               });
               .to(375px, {
                 left: -200px;
               });
-            }
-            @keyframes cal-show {
-              0% {
-                display: block;
-                opacity: 0;
-                transform: translateY(-10px);
-              }
-              100% {
-                opacity: 1;
-                transform: translateY(0px);
-              }
-            }
-            @keyframes cal-hide {
-              0% {
-                opacity: 1;
-                transform: translateY(0px);
-              }
-              100% {
-                opacity: 0;
-                transform: translateY(-10px);
-              }
             }
           }
         }
@@ -287,7 +297,9 @@ export default {
       .swiper-button {
         cursor: pointer;
         &.swiper-button-disabled {
-          opacity: 0.5;
+          span {
+            opacity: 0.5;
+          }
         }
         &:first-of-type {
           span {
@@ -377,7 +389,7 @@ export default {
         .xs-block({
           height: 350px;
         });
-        &.active {
+        &.activeSlideColor {
           background: @colorMainRed;
           .day-week {
             .day {
@@ -426,7 +438,6 @@ export default {
             color: #666666;
           }
         }
-
       }
     }
   }
