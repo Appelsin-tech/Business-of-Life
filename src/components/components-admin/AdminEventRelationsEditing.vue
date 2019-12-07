@@ -21,38 +21,73 @@
           </a>
         </div>
         <div class="event-wrapper" v-if="showRelations === 1">
-          <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
-            <div class="status" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
-              <template v-if="status[relation.status].class === 'created'"><img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt=""></template>
-              <template v-else-if="status[relation.status].class === 'waiting'"><img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
-              <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt=""></template>
-            </div>
-            <div class="event__info-wrapper">
-              <div class="event__info">
-                <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>
-                <p class="event__info-item location">
-                  <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
-                  <span class="text">{{relation.country}} {{relation.city}}</span>
-                </p>
-                <p class="event__info-item date">
-                  <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">
-                  <span class="text">{{relation.date}}</span>
-                </p>
-                <p class="event__info-item link">
-                  <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">
-                  <span class="text">https://businessof.life/event/{{relation.id}}</span>
-                </p>
+          <div class="event-wrapper--inner">
+            <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
+              <div class="status" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
+                <template v-if="status[relation.status].class === 'created'"><img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt=""></template>
+                <template v-else-if="status[relation.status].class === 'waiting'"><img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
+                <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt=""></template>
               </div>
-              <div class="control">
-                <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
-                  <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
-                </button>
-                <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
-                  <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
-                </button>
+              <div class="event__info-wrapper">
+                <div class="event__info">
+                  <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>
+                  <p class="event__info-item location">
+                    <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
+                    <span class="text">{{relation.country}} {{relation.city}}</span>
+                  </p>
+                  <p class="event__info-item date">
+                    <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">
+                    <span class="text">{{relation.date}}</span>
+                  </p>
+                  <p class="event__info-item link">
+                    <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">
+                    <span class="text">https://businessof.life/event/{{relation.id}}</span>
+                  </p>
+                </div>
+                <div class="control">
+                  <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
+                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+                  </button>
+                  <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
+                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+<!--          <h3 class="g-caption g-caption-section g-caption-section&#45;&#45;inner">Прошедшие события</h3>-->
+<!--          <div class="event-wrapper&#45;&#45;inner">-->
+<!--            <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">-->
+<!--              <div class="status past" v-tooltip.left="'Прошедшее событие'">-->
+<!--                <img svg-inline class="status__icon status__icon&#45;&#45;past" src="../../assets/img/icon/clock.svg" alt="">-->
+<!--              </div>-->
+<!--              <div class="event__info-wrapper">-->
+<!--                <div class="event__info">-->
+<!--                  <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>-->
+<!--                  <p class="event__info-item location">-->
+<!--                    <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">-->
+<!--                    <span class="text">{{relation.country}} {{relation.city}}</span>-->
+<!--                  </p>-->
+<!--                  <p class="event__info-item date">-->
+<!--                    <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">-->
+<!--                    <span class="text">{{relation.date}}</span>-->
+<!--                  </p>-->
+<!--                  <p class="event__info-item link">-->
+<!--                    <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
+<!--                    <span class="text">https://businessof.life/event/{{relation.id}}</span>-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--                <div class="control">-->
+<!--                  <button class="control__link control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">-->
+<!--                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">-->
+<!--                  </button>-->
+<!--                  <button class="control__link control-link control-link&#45;&#45;delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">-->
+<!--                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <strong class="event-null" v-else-if="showRelations === 0">Событий не найдено</strong>
         <strong class="event-null" v-else>Чтобы создать событие - заполните информацию о мероприятии</strong>
@@ -75,6 +110,8 @@ export default {
   data() {
     return {
       myEvent: false,
+      ev1: '',
+      ev2: '',
       showRelations: 2,
       status: {
         0: {
@@ -108,6 +145,12 @@ export default {
       } else {
         return false
       }
+    },
+    myEventPast () {
+
+    },
+    myEventFilter () {
+
     }
   },
   methods: {
@@ -115,6 +158,11 @@ export default {
       API.relations.delete({id: id}).then(() => {
         API.response.success('Событие удалено')
         this.getInfoEvent()
+      })
+    },
+    filterRelations() {
+      this.myEvent.forEach(item => {
+        item.stamp * 1000
       })
     },
     getInfoEvent() {
@@ -177,8 +225,11 @@ export default {
     .event-wrapper {
       display: flex;
       flex-direction: column;
-      padding-left: 50px;
-      .sm-block({ padding-left: 0;});
+      &--inner {
+        margin-bottom: 30px;
+        padding-left: 50px;
+        .sm-block({ padding-left: 0;});
+      }
       .event {
         display: flex;
         padding: 45px 55px;
@@ -221,6 +272,18 @@ export default {
               .ss-block({ width: 12px; height: 12px;});
               path {
                 fill: @colorMainRed;
+              }
+            }
+          }
+          &.past {
+            border: none;
+            .status__icon {
+              width: 100%;
+              height: 100%;
+/*              .md-block({ width: 15px; height: 15px;});
+              .ss-block({ width: 12px; height: 12px;});*/
+              * {
+                fill: @colorWait;
               }
             }
           }

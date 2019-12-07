@@ -2,10 +2,10 @@
   <div class="ticket">
     <h3 class="title">{{ticket.title}}</h3>
     <div class="description editor" v-html="ticket.desc"></div>
-    <p class="price">{{ticket.price}} <span class="currency">{{ticket.currency}}</span>
-    </p>
+    <p class="price">{{ticket.price}} <span class="currency">{{ticket.currency}}</span></p>
+    <p class="price-secondary">({{ticket.price_kzt}} KZT)</p>
     <a href="#" class="g-btn g-btn--no-icon" v-if="btn"
-       @click.prevent="$modal.show('modal-ticket-purchase', {price: ticket.price, currency: ticket.currency, ticket_id: ticket.id, event_id: event.id, country: event.country, city: event.city})">
+       @click.prevent="openModalPurchase">
       <span>Купить билет</span>
     </a>
     <div class="control" v-else>
@@ -29,6 +29,19 @@ export default {
       API.tickets.delete({id: this.ticket.id}).then(response => {
         API.response.success('Билет удален')
         this.$root.$emit('ticket-edit')
+      })
+    },
+    openModalPurchase() {
+      API.tickets.fields({id: this.ticket.id}).then( response => {
+        this.$modal.show('modal-ticket-purchase', {
+          price: this.ticket.price,
+          currency: this.ticket.currency,
+          fields: response.data,
+          ticket_id: this.ticket.id,
+          event_id: this.event.id,
+          country: this.event.country,
+          city: this.event.city
+        })
       })
     }
   }
@@ -72,6 +85,7 @@ export default {
       display: flex;
       align-items: baseline;
       flex-shrink: 0;
+      margin-bottom: 5px;
       font-size: 5rem;
       font-weight: 800;
       color: @colorBlue;
@@ -81,6 +95,9 @@ export default {
         font-size: 2rem;
         color: #000;
         .xs-block({ font-size: 1.6rem; })
+      }
+      &-secondary {
+        font-weight: 400;
       }
     }
     .control {

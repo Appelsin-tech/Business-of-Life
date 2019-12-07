@@ -58,6 +58,18 @@
               <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
             </div>
           </div>
+          <div class="edit-grid__item item item--col-8">
+            <label class="item__label" for="form-title">Контактная информация</label>
+            <ckeditor :editor="editor" v-model="form.contacts" :config="editorConfig" @blur="$v.form.contacts.$touch()"></ckeditor>
+<!--            <input class="item__input" type="text" id="form-contact" v-model="form.contact" :class="{error: $v.form.contacts.$error}" @blur="$v.form.contacts.$touch()">-->
+            <div class="input-valid-error" v-if="$v.form.contacts.$error">
+              <template v-if="!$v.form.contacts.required">Поле не может быть пустым</template>
+            </div>
+            <p class="instruction-link">
+              <span>* чтобы добавить телефон создайте ссылку с префиксом tel: (tel:+79999999999) без пробелов и других символов, затем отредактируйте ссылку</span>
+              <span>* чтобы добавить почту создайте ссылку с префиксом mailto: (mailto:test@test.com)  без пробелов и других символов, затем отредактируйте ссылку</span>
+            </p>
+          </div>
         </div>
         <div class="btn-wrapper">
           <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
@@ -102,13 +114,30 @@ import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { minLength, required } from 'vuelidate/lib/validators'
 import { mapState } from 'vuex'
+import CKEditor from '@ckeditor/ckeditor5-vue'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 
 export default {
   name: 'AdminRelationEditing',
   props: ['id', 'event'],
-  components: { BreadCrumbs, flatPickr, Ticket },
+  components: { BreadCrumbs, flatPickr, Ticket,  ckeditor: CKEditor.component },
   data() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {
+        language: 'ru',
+        image_previewText: '',
+        toolbar: [
+          'bold',
+          'italic',
+          'bulletedList',
+          'numberedList',
+          'undo',
+          'redo',
+          'link'
+        ]
+      },
       resize: true,
       ticketsList: [],
       disabledNewTicket: true,
@@ -126,6 +155,7 @@ export default {
         country: '',
         city: '',
         address: '',
+        contacts: ''
       },
       errorSelect: {
         t_currency: false
@@ -138,8 +168,8 @@ export default {
         description: 'Неверная длина описания',
         country: 'Неверная страна',
         city: 'Неверный город',
-        address: 'Неверный адрес',
-      },
+        address: 'Неверный адрес'
+      }
     }
   },
   validations: {
@@ -160,6 +190,9 @@ export default {
       address: {
         required
       },
+      contacts: {
+        required
+      }
     }
   },
   computed: {
@@ -178,7 +211,6 @@ export default {
         API.relations.create(this.form).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
-          console.log(response.id)
           this.$router.push({path: `/admin/editing/${this.id}/${response.id}`})
         }).catch(error => {
           console.log(error)
@@ -210,6 +242,7 @@ export default {
         country: newObg.country,
         city: newObg.city,
         address: newObg.address,
+        contacts: newObg.contacts
       }
     },
     newStatus() {
@@ -242,7 +275,8 @@ export default {
         title: '',
         country: '',
         city: '',
-        address: ''
+        address: '',
+        contacts: ''
       }
     } else {
       this.getInfoRelation()
@@ -424,6 +458,15 @@ export default {
         .xs-block({ padding-left: 10px; height: 40px; });
         &.error {
           border: 1px solid @colorMainRed;
+        }
+      }
+      .instruction-link {
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        font-size: 1.4rem;
+        span:first-child {
+          margin-bottom: 8px;
         }
       }
     }

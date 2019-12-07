@@ -50,4 +50,11 @@ export default {
       reject(error)
     })
   }),
+  fields: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/tickets/fields', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
 }

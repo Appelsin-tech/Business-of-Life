@@ -44,6 +44,32 @@
                 Выберите Валюту
               </div>
             </div>
+            <div class="form-modal__item form-modal__item--col-12">
+              <label class="form-modal__label form-modal__label--checkbox">Уточнить у пользователя</label>
+              <div class="checkbox-wrapper">
+                <div class="item">
+                  <input class="checkbox-input" :value="4" number type="checkbox" id="date_reg" v-model="form.fields">
+                  <label class="checkbox-label" for="date_reg">Дата регистрации в компании</label>
+                </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="5" type="checkbox" id="status" v-model="form.fields">
+                  <label class="checkbox-label" for="status">Статус</label>
+                </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="6" type="checkbox" id="qualification" v-model="form.fields">
+                  <label class="checkbox-label" for="qualification">Квалификация</label>
+                </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="7" type="checkbox" id="seminar_с" v-model="form.fields">
+                  <label class="checkbox-label" for="seminar_с">Какой по счету семинар</label>
+                </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="8" type="checkbox" id="invited_c" v-model="form.fields">
+                  <label class="checkbox-label" for="invited_c">Сколько человек пригласил</label>
+                </div>
+              </div>
+              <button type="button" class="editing-label disabled">Редактировать поля</button>
+            </div>
           </div>
           <div class="btn-wrapper">
             <button type="submit" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="!newTicket">
@@ -96,7 +122,8 @@ export default {
         title: '',
         description: '',
         price: '',
-        currency: ''
+        currency: '',
+        fields: [1, 2, 3]
       },
       selectCurrency: ['USD', 'RUB', 'KZT']
     }
@@ -145,7 +172,7 @@ export default {
     beforeOpen(event) {
       if (event.params !== undefined) {
         this.newTicket = event.params.new
-        if(this.newTicket) {
+        if (this.newTicket) {
           this.form.relation_id = event.params.relation_id
         }
         if (event.params.ticket) {
@@ -163,6 +190,7 @@ export default {
       this.form.price = ''
       this.form.currency = ''
       this.editorConfig.initialData = ''
+      this.fields = [1,2,3]
     }
   }
 }

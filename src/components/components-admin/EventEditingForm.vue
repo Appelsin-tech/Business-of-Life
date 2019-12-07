@@ -69,7 +69,8 @@ export default {
           'bulletedList',
           'numberedList',
           'undo',
-          'redo'
+          'redo',
+          'link'
         ]
       },
       name: '',

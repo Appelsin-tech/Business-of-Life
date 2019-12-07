@@ -57,7 +57,8 @@
           </div>
           <div class="org-info__item item">
             <p class="item__name">Контактная информация:</p>
-            <a href="mailto: info@businessof.life" class="item__info item__info--link">info@businessof.life</a>
+            <div class="text-wrapper editor" v-html="activeEvent.contacts"></div>
+<!--            <a href="mailto: info@businessof.life" class="item__info item__info&#45;&#45;link">info@businessof.life</a>-->
           </div>
         </div>
       </section>
@@ -67,82 +68,82 @@
           <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeEvent"/>
         </div>
       </section>
-      <section class="other-activities" v-if="false">
-      <h2 class="g-caption-section">Возможно, вас заинтересует</h2>
-      <div class="slider-wrapper">
-      <div class="swiper-pagination"></div>
-      <button class="swiper-button swiper-button--prev"><span></span></button>
-      <swiper :options="swiperOption" ref="mySwiperEvents">
-      <swiper-slide>
-      <div class="slide-event__wrapper">
-      <div class="slide-event__img"></div>
-      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>
-      <div class="slide-event__date">
-      <p class="slide-event__time">
-      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
-      <span>14.00 - 16.00</span>
-      </p>
-      <p class="slide-event__location">
-      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">
-      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>
-      </p>
-      </div>
-      <div class="ticket ticket--slide-event">
-      <p class="ticket__price">9000 <span class="currency">р</span></p>
-      <a href="#" class="g-btn g-btn--no-icon">
-      <span>Купить билет</span>
-      </a>
-      </div>
-      </div>
-      </swiper-slide>
-      <swiper-slide>
-      <div class="slide-event__wrapper">
-      <div class="slide-event__img"></div>
-      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>
-      <div class="slide-event__date">
-      <p class="slide-event__time">
-      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
-      <span>14.00 - 16.00</span>
-      </p>
-      <p class="slide-event__location">
-      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">
-      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>
-      </p>
-      </div>
-      <div class="ticket--slide-event ticket">
-      <p class="ticket__price">9000 <span class="currency">р</span></p>
-      <a href="#" class="g-btn g-btn--no-icon">
-      <span>Купить билет</span>
-      </a>
-      </div>
-      </div>
-      </swiper-slide>
-      <swiper-slide>
-      <div class="slide-event__wrapper">
-      <div class="slide-event__img"></div>
-      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>
-      <div class="slide-event__date">
-      <p class="slide-event__time">
-      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
-      <span>14.00 - 16.00</span>
-      </p>
-      <p class="slide-event__location">
-      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">
-      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>
-      </p>
-      </div>
-      <div class="ticket--slide-event ticket">
-      <p class="ticket__price">9000 <span class="currency">р</span></p>
-      <a href="#" class="g-btn g-btn--no-icon">
-      <span>Купить билет</span>
-      </a>
-      </div>
-      </div>
-      </swiper-slide>
-      </swiper>
-      <button class="swiper-button swiper-button--next"><span></span></button>
-      </div>
-      </section>
+<!--      <section class="other-activities" v-if="false">-->
+<!--      <h2 class="g-caption-section">Возможно, вас заинтересует</h2>-->
+<!--      <div class="slider-wrapper">-->
+<!--      <div class="swiper-pagination"></div>-->
+<!--      <button class="swiper-button swiper-button&#45;&#45;prev"><span></span></button>-->
+<!--      <swiper :options="swiperOption" ref="mySwiperEvents">-->
+<!--      <swiper-slide>-->
+<!--      <div class="slide-event__wrapper">-->
+<!--      <div class="slide-event__img"></div>-->
+<!--      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>-->
+<!--      <div class="slide-event__date">-->
+<!--      <p class="slide-event__time">-->
+<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">-->
+<!--      <span>14.00 - 16.00</span>-->
+<!--      </p>-->
+<!--      <p class="slide-event__location">-->
+<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">-->
+<!--      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>-->
+<!--      </p>-->
+<!--      </div>-->
+<!--      <div class="ticket ticket&#45;&#45;slide-event">-->
+<!--      <p class="ticket__price">9000 <span class="currency">р</span></p>-->
+<!--      <a href="#" class="g-btn g-btn&#45;&#45;no-icon">-->
+<!--      <span>Купить билет</span>-->
+<!--      </a>-->
+<!--      </div>-->
+<!--      </div>-->
+<!--      </swiper-slide>-->
+<!--      <swiper-slide>-->
+<!--      <div class="slide-event__wrapper">-->
+<!--      <div class="slide-event__img"></div>-->
+<!--      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>-->
+<!--      <div class="slide-event__date">-->
+<!--      <p class="slide-event__time">-->
+<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">-->
+<!--      <span>14.00 - 16.00</span>-->
+<!--      </p>-->
+<!--      <p class="slide-event__location">-->
+<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">-->
+<!--      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>-->
+<!--      </p>-->
+<!--      </div>-->
+<!--      <div class="ticket&#45;&#45;slide-event ticket">-->
+<!--      <p class="ticket__price">9000 <span class="currency">р</span></p>-->
+<!--      <a href="#" class="g-btn g-btn&#45;&#45;no-icon">-->
+<!--      <span>Купить билет</span>-->
+<!--      </a>-->
+<!--      </div>-->
+<!--      </div>-->
+<!--      </swiper-slide>-->
+<!--      <swiper-slide>-->
+<!--      <div class="slide-event__wrapper">-->
+<!--      <div class="slide-event__img"></div>-->
+<!--      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>-->
+<!--      <div class="slide-event__date">-->
+<!--      <p class="slide-event__time">-->
+<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">-->
+<!--      <span>14.00 - 16.00</span>-->
+<!--      </p>-->
+<!--      <p class="slide-event__location">-->
+<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">-->
+<!--      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>-->
+<!--      </p>-->
+<!--      </div>-->
+<!--      <div class="ticket&#45;&#45;slide-event ticket">-->
+<!--      <p class="ticket__price">9000 <span class="currency">р</span></p>-->
+<!--      <a href="#" class="g-btn g-btn&#45;&#45;no-icon">-->
+<!--      <span>Купить билет</span>-->
+<!--      </a>-->
+<!--      </div>-->
+<!--      </div>-->
+<!--      </swiper-slide>-->
+<!--      </swiper>-->
+<!--      <button class="swiper-button swiper-button&#45;&#45;next"><span></span></button>-->
+<!--      </div>-->
+<!--      </section>-->
       <router-link class="payments" to="/payment_policy">Оплата и возврат</router-link>
     </div>
   </section>
