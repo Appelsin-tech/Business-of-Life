@@ -213,7 +213,9 @@ export default {
           return false
         }
       }
-      this.parseDate()
+      if(this.fieldsData['field_4'] !== undefined) {
+        this.parseDate()
+      }
       API.biling.invoice(this.fieldsData).then(response => {
         this.eventData.invoiceId = response.data.id
         this.WidgetPayment(this.eventData)
