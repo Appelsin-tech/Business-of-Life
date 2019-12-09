@@ -32,7 +32,7 @@
             </div>
             <div class="form-modal__item ">
               <label class="form-modal__label">Цена</label>
-              <input class="form-modal__input" v-mask="'#################'" :class="{error: $v.form.price.$error}" v-model="form.price" @blur="$v.form.price.$touch()">
+              <the-mask class="form-modal__input" mask="XXXXXXXXXXXXXXXXXXX" :tokens="currencyMask" :class="{error: $v.form.price.$error}" v-model="form.price" @blur="$v.form.price.$touch()"/>
               <div class="input-valid-error" v-if="$v.form.price.$error">
                 <template v-if="!$v.form.price.required">Поле не может быть пустым</template>
               </div>
@@ -48,7 +48,7 @@
               <label class="form-modal__label form-modal__label--checkbox">Уточнить у пользователя</label>
               <div class="checkbox-wrapper">
                 <div class="item">
-                  <input class="checkbox-input" :value="4" number type="checkbox" id="date_reg" v-model="form.fields">
+                  <input class="checkbox-input" :value="4" type="checkbox" id="date_reg" v-model="form.fields">
                   <label class="checkbox-label" for="date_reg">Дата регистрации в компании</label>
                 </div>
                 <div class="item">
@@ -124,6 +124,11 @@ export default {
         price: '',
         currency: '',
         fields: [1, 2, 3]
+      },
+      currencyMask: {
+        X: {
+          pattern: /[0-9.]/
+        }
       },
       selectCurrency: ['USD', 'RUB', 'KZT']
     }

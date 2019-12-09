@@ -124,6 +124,7 @@ export default {
     deleteEvent(id) {
       API.events.delete({ id: id }).then(() => {
         API.response.success('Мероприятие удалено')
+        this.$store.dispatch('user/getMyParentEvents')
         this.$router.push({ path: '/admin/event-control' })
       })
     }

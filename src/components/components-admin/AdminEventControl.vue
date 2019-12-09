@@ -99,12 +99,6 @@ export default {
         return { backgroundImage: 'none' }
       }
     },
-    deleteEvents(id) {
-      API.events.delete({id: id}).then(() => {
-        API.response.success('Мероприятие удалено')
-        this.$store.dispatch('user/getMyParentEvents')
-      })
-    }
   },
   computed: {
     ...mapState('user', [

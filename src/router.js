@@ -110,6 +110,7 @@ const router = new Router({
       name: 'admin',
       redirect: '/admin/me',
       meta: { auth: true },
+      beforeEnter: requireAuth,
       component: () => import('./views/TheAdmin'),
       children: [
         {
@@ -250,12 +251,13 @@ const router = new Router({
     }
   ]
 })
+async function requireAuth (to, from, next) {
+  await store.dispatch('user/login')
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.auth) && !store.getters['user/logged']) {
-    next({ path: '/auth' })
+  if (!store.getters['user/logged']) {
+    next('auth')
   } else {
     next()
   }
-})
+}
 export default router
