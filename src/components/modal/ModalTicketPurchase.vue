@@ -24,9 +24,16 @@
               <v-select v-if="item.id === '6'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
               <v-select v-else-if="item.id === '5'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStatus}]" :searchable="false" placeholder="Статус" :options="status"></v-select>
               <flat-pickr v-else-if="item.id === '4'" :config="configDate" :class="'form-modal__input'" v-model="fieldsData['field_' + item.id]"></flat-pickr>
-              <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]">
-              <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]">
-              <input v-else class="form-modal__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]">
+              <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <input v-else class="form-modal__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <div class="input-valid-error" v-if="$v.fieldsData.field_2.$error && item.id === '2'">
+                <template v-if="!$v.fieldsData.field_2.required">Поле не может быть пустым</template>
+                <template v-if="!$v.fieldsData.field_2.email">Не корректный email</template>
+              </div>
+              <div class="input-valid-error" v-else-if="$v.fieldsData['field_' + item.id].$error">
+                <template v-if="!$v.fieldsData['field_' + item.id].required">Поле не может быть пустым</template>
+              </div>
             </div>
 
             <!--            <div class="form-modal__item">-->
@@ -82,20 +89,12 @@
                 </span>
               </p>
             </div>
-            <!--            <div class="form-modal__item">-->
-            <!--              <v-select v-model="form.selectedPayment" :multiple="false" :class="['v-select__modal',{'error': errorSelect.selectedPayment}]" :searchable="false" placeholder="Способ оплаты" label="qualName" :options="payment" v-on:search:blur="validateSelect('selectedPayment')"></v-select>-->
-            <!--              <div class="input-valid-error" v-if="errorSelect.selectedPayment">-->
-            <!--                Выберите способ оплаты-->
-            <!--              </div>-->
-            <!--            </div>-->
           </div>
-          <button type="submit" class="g-btn g-btn--no-icon">
+          <button type="button" class="test-btn" @click="$v.$reset()">reset</button>
+          <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
             <span>Купить билет</span>
             <span>{{eventData.price}} {{eventData.currency}}</span>
           </button>
-          <!--<button type="button" class="test-btn" @click="$modal.show('modal-ticket-success')">-->
-          <!--<span>Окно успешной оплаты</span>-->
-          <!--</button>-->
         </form>
       </div>
     </div>
@@ -106,13 +105,14 @@
 import API from '../../api/index'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
+import { email, required, minLength, alphaNum, numeric } from 'vuelidate/lib/validators'
 
 export default {
   name: 'ModalTicketPurchase',
   components: { flatPickr },
   data() {
     return {
-      fields: '',
+      fields: [],
       fieldsData: {},
       newFieldsData: {},
       configDate: {
@@ -154,65 +154,43 @@ export default {
           qualName: 'Bitcoin'
         }
       ],
-      reg_d: '',
-
-      form: {
-        name: '',
-        email: '',
-        country: '',
-        city: '',
-        qualification: '',
-        seminar_с: '',
-        invited_c: '',
-        relation: '',
-        ticket_id: '',
-        phone: '',
-        status: ''
-      }
+      reg_d: ''
     }
   },
-  // validations: {
-  //   let fieldsData = {}
-  //   for (let key in this.fieldsData) {
-  //     fieldsData[key] = {}
-  //     fieldsData[key][required] = required
-  //     if (key === '2') {
-  //       fieldsData[key][email] = email
-  //     }
-  //   }
-  //
-  //   fieldsData: {
-  //     field_1: {
-  //       required
-  //     },
-  //     field_2: {
-  //       required
-  //     },
-  //     field_3: {
-  //       required
-  //     }
-  //   }
-  //   // return {fieldsData: fieldsData}
-  // },
-  computed: {
-    regData() {
-      if (this.fieldsData[4] !== '') {
-        let [day, month, year] = this.fieldsData[4].split('.')
-        return new Date(year, month - 1, day).getTime()
-      } else {
-        return ''
-      }
+  validations() {
+    let fieldsData = {}
+    for (let key in this.fieldsData) {
+      fieldsData[key] = {}
+      fieldsData[key].required = required
     }
+    this.fields.forEach(item => {
+      fieldsData['field_' + item.id] = {}
+      fieldsData['field_' + item.id].required = required
+      if (item.id === '2') {
+        fieldsData['field_2'].email = email
+      } else if (item.id === '3') {
+        fieldsData['field_3'].numeric = numeric
+      }
+    })
+    return {fieldsData: fieldsData}
+  },
+  computed: {
+
   },
   methods: {
     onSubmit() {
-      for (let i = 0; i < this.fields.length; i++) {
-        let a = 'field_' + this.fields[i].id
-        if (this.fieldsData[a] === undefined || this.fieldsData[a] === '') {
-          API.response.error('Заполните все поля')
-          return false
-        }
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        API.response.error('Заполните все поля')
+        return
       }
+      // for (let i = 0; i < this.fields.length; i++) {
+      //   let a = 'field_' + this.fields[i].id
+      //   if (this.fieldsData[a] === undefined || this.fieldsData[a] === '') {
+      //     API.response.error('Заполните все поля')
+      //     return false
+      //   }
+      // }
       if(this.fieldsData['field_4'] !== undefined) {
         this.parseDate()
       }
@@ -226,29 +204,28 @@ export default {
     WidgetPayment(data) {
       const widget = new cp.CloudPayments()
       widget.charge({
-          publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
-          description: 'Покупка билета',
-          amount: data.price,
-          currency: data.currency,
-          invoiceId: data.invoiceId,
-          skin: 'mini',
-          data: {
-            relation: data.event_id
-          }
-        },
-        (options) => {
-          API.tickets.receive({ invoice: options.invoiceId }).then(response => {
-            this.$modal.hide('modal-ticket-purchase')
-            this.$modal.show('modal-ticket-success', { ticket: response.data, email: this.form.email })
-          }).catch(error => {
-            API.response.error(error)
-          })
-
-        },
-        function (reason, options) {
+        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
+        description: 'Покупка билета',
+        amount: data.price,
+        currency: data.currency,
+        invoiceId: data.invoiceId,
+        skin: 'mini',
+        data: {
+          relation: data.event_id
+        }
+      },
+      (options) => {
+        API.tickets.receive({ invoice: options.invoiceId }).then(response => {
           this.$modal.hide('modal-ticket-purchase')
-          API.response.error(reason)
+          this.$modal.show('modal-ticket-success', { ticket: response.data, email: this.form.email })
+        }).catch(error => {
+          API.response.error(error)
         })
+      },
+      function (reason, options) {
+        this.$modal.hide('modal-ticket-purchase')
+        API.response.error(reason)
+      })
     },
     parseDate() {
       if (this.fieldsData['field_4'] !== '') {
@@ -277,10 +254,11 @@ export default {
       this.disabledBtn = true
     },
     beforeClose(event) {
+      this.$v.$reset()
       this.eventData.price = ''
       this.eventData.currency = ''
       this.fieldsData = {}
-      this.fields = ''
+      this.fields = []
     },
   }
 }

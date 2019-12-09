@@ -14,6 +14,12 @@
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
+        <template v-else-if="status[idStatus].class === 'past'">
+          <div class="status-icon-wrapper" :class="status[idStatus].class">
+            <img svg-inline class="status-icon" src="../assets/img/icon/clock.svg" alt="">
+          </div>
+          <span class="text">{{status[idStatus].tooltip}}</span>
+        </template>
         <template v-else>
           <div class="status-icon-wrapper" :class="status[idStatus].class">
             <img svg-inline class="status-icon" src="../assets/img/icon/check.svg" alt="">
@@ -26,7 +32,7 @@
           <span>Редактировать</span>
         </button>
         <button class="g-btn g-btn--no-icon g-btn--white g-btn--border"  @click="newStatus">
-          <span v-if="idStatus === 3 ">Снять с публикации</span>
+          <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>
           <span v-else>Опубликовать</span>
         </button>
       </div>
@@ -59,13 +65,17 @@ export default {
         3: {
           class: 'public',
           tooltip: 'Опубликовано'
+        },
+        4: {
+          class: 'past',
+          tooltip: 'Прошедшее событие'
         }
       }
     }
   },
   methods: {
     newStatus() {
-      if(this.idStatus === 3) {
+      if(this.idStatus === 3 || this.idStatus === 4) {
         API.relations.unpublish({id: this.idRelation}).then((response) => {
           this.statusRelation = response.status
           this.$emit('newStatus')
@@ -125,6 +135,16 @@ export default {
             .ss-block({ width: 15px; height: 15px;});
             path {
               fill: #000;
+            }
+          }
+          &.past {
+            border: none;
+            .status-icon {
+              width: 100%;
+              height: 100%;
+              * {
+                fill: @colorWait;
+              }
             }
           }
           &.created {

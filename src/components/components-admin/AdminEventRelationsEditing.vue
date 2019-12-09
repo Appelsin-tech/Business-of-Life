@@ -22,11 +22,15 @@
         </div>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
-            <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">
+            <div class="event" v-for="(relation, i) in myFutureEvents" :key="relation.id">
               <div class="status" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
-                <template v-if="status[relation.status].class === 'created'"><img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt=""></template>
-                <template v-else-if="status[relation.status].class === 'waiting'"><img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
-                <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt=""></template>
+                <template v-if="status[relation.status].class === 'created'">
+                  <img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt="">
+                </template>
+                <template v-else-if="status[relation.status].class === 'waiting'">
+                  <img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
+                <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt="">
+                </template>
               </div>
               <div class="event__info-wrapper">
                 <div class="event__info">
@@ -55,39 +59,39 @@
               </div>
             </div>
           </div>
-<!--          <h3 class="g-caption g-caption-section g-caption-section&#45;&#45;inner">Прошедшие события</h3>-->
-<!--          <div class="event-wrapper&#45;&#45;inner">-->
-<!--            <div class="event" v-for="(relation, i) in myEvent.relations" :key="relation.id">-->
-<!--              <div class="status past" v-tooltip.left="'Прошедшее событие'">-->
-<!--                <img svg-inline class="status__icon status__icon&#45;&#45;past" src="../../assets/img/icon/clock.svg" alt="">-->
-<!--              </div>-->
-<!--              <div class="event__info-wrapper">-->
-<!--                <div class="event__info">-->
-<!--                  <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>-->
-<!--                  <p class="event__info-item location">-->
-<!--                    <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">-->
-<!--                    <span class="text">{{relation.country}} {{relation.city}}</span>-->
-<!--                  </p>-->
-<!--                  <p class="event__info-item date">-->
-<!--                    <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">-->
-<!--                    <span class="text">{{relation.date}}</span>-->
-<!--                  </p>-->
-<!--                  <p class="event__info-item link">-->
-<!--                    <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
-<!--                    <span class="text">https://businessof.life/event/{{relation.id}}</span>-->
-<!--                  </p>-->
-<!--                </div>-->
-<!--                <div class="control">-->
-<!--                  <button class="control__link control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">-->
-<!--                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">-->
-<!--                  </button>-->
-<!--                  <button class="control__link control-link control-link&#45;&#45;delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">-->
-<!--                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <h3 class="g-caption g-caption-section g-caption-section--inner">Прошедшие события</h3>
+          <div class="event-wrapper--inner">
+            <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">
+              <div class="status past" v-tooltip.left="'Прошедшее событие'">
+                <img svg-inline class="status__icon status__icon--past" src="../../assets/img/icon/clock.svg" alt="">
+              </div>
+              <div class="event__info-wrapper">
+                <div class="event__info">
+                  <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>
+                  <p class="event__info-item location">
+                    <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
+                    <span class="text">{{relation.country}} {{relation.city}}</span>
+                  </p>
+                  <p class="event__info-item date">
+                    <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">
+                    <span class="text">{{relation.date}}</span>
+                  </p>
+                  <p class="event__info-item link">
+                    <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">
+                    <span class="text">https://businessof.life/event/{{relation.id}}</span>
+                  </p>
+                </div>
+                <div class="control">
+                  <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
+                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+                  </button>
+                  <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
+                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <strong class="event-null" v-else-if="showRelations === 0">Событий не найдено</strong>
         <strong class="event-null" v-else>Чтобы создать событие - заполните информацию о мероприятии</strong>
@@ -110,6 +114,8 @@ export default {
   data() {
     return {
       myEvent: false,
+      myFutureEvents: [],
+      myPastEvents: [],
       ev1: '',
       ev2: '',
       showRelations: 2,
@@ -138,37 +144,42 @@ export default {
       'myParentEvents'
     ]),
     showButtonDelete() {
-      if(this.showRelations === 1) {
-        return !this.myEvent.relations.some(item => { return item.status === 3})
+      if (this.showRelations === 1) {
+        return !this.myEvent.relations.some(item => {
+          return item.status === 3
+        })
       } else if (this.showRelations === 0) {
         return true
       } else {
         return false
       }
     },
-    myEventPast () {
-
-    },
-    myEventFilter () {
-
-    }
   },
   methods: {
     deleteRelation(id) {
-      API.relations.delete({id: id}).then(() => {
+      API.relations.delete({ id: id }).then(() => {
+        this.myPastEvents = []
+        this.myFutureEvents = []
         API.response.success('Событие удалено')
         this.getInfoEvent()
       })
     },
     filterRelations() {
-      this.myEvent.forEach(item => {
-        item.stamp * 1000
+      this.myEvent.relations.forEach(item => {
+        let currentMoment = this.$moment()
+        let itemStamp = item.stamp * 1000
+        if (currentMoment - itemStamp > 0 && item.status === 3) {
+          this.myPastEvents.push(item)
+        } else {
+          this.myFutureEvents.push(item)
+        }
       })
     },
     getInfoEvent() {
-      API.events.info({id: this.id}).then(response => {
+      API.events.info({ id: this.id }).then(response => {
         this.myEvent = response.data
-        if (this.myEvent.relations.length !== 0 ) {
+        this.filterRelations()
+        if (this.myEvent.relations.length !== 0) {
           this.showRelations = 1
         } else {
           this.showRelations = 0
@@ -177,16 +188,16 @@ export default {
     },
   },
   mounted() {
-    if(this.id) {
+    if (this.id) {
       this.getInfoEvent()
     }
   },
   watch: {
-    '$route' (to, from) {
-      if(this.id) {
-        API.events.info({id: this.id}).then(response => {
+    '$route'(to, from) {
+      if (this.id) {
+        API.events.info({ id: this.id }).then(response => {
           this.myEvent = response.data
-          if (this.myEvent.relations.length !== 0 ) {
+          if (this.myEvent.relations.length !== 0) {
             this.showRelations = 1
           } else {
             this.showRelations = 0
@@ -208,13 +219,24 @@ export default {
     justify-content: flex-start;
     margin-bottom: 60px;
     padding-left: 50px;
-    .sm-block({ margin-bottom: 40px; padding-left: 0;});
-    .ss-block({ flex-direction: column; align-items: flex-start;});
+    .sm-block({
+      margin-bottom: 40px;
+      padding-left: 0;
+    });
+    .ss-block({
+      flex-direction: column;
+      align-items: flex-start;
+    });
     .g-btn {
-      .ss-block({ min-width: 230px;});
+      .ss-block({
+        min-width: 230px;
+      });
       &:first-child {
         margin-right: 20px;
-        .ss-block({ margin-right: 0; margin-bottom: 10px;});
+        .ss-block({
+          margin-right: 0;
+          margin-bottom: 10px;
+        });
       }
     }
   }
@@ -228,16 +250,24 @@ export default {
       &--inner {
         margin-bottom: 30px;
         padding-left: 50px;
-        .sm-block({ padding-left: 0;});
+        .sm-block({
+          padding-left: 0;
+        });
       }
       .event {
         display: flex;
         padding: 45px 55px;
         margin-bottom: 15px;
         box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-        .md-block({ padding: 40px 50px;});
-        .sm-block({ padding: 30px 30px 30px 20px;});
-        .xs-block({padding: 20px;});
+        .md-block({
+          padding: 40px 50px;
+        });
+        .sm-block({
+          padding: 30px 30px 30px 20px;
+        });
+        .xs-block({
+          padding: 20px;
+        });
         .status {
           display: flex;
           justify-content: center;
@@ -251,14 +281,30 @@ export default {
           border-radius: 50%;
           flex-shrink: 0;
           box-sizing: border-box;
-          .md-block({ width: 40px; height: 40px; margin-right: 45px;});
-          .sm-block({ margin-right: 30px;});
-          .ss-block({ width: 30px; height: 30px; margin-right: 15px;});
+          .md-block({
+            width: 40px;
+            height: 40px;
+            margin-right: 45px;
+          });
+          .sm-block({
+            margin-right: 30px;
+          });
+          .ss-block({
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+          });
           &__icon {
             width: 22px;
             height: 22px;
-            .md-block({ width: 20px; height: 20px;});
-            .ss-block({ width: 15px; height: 15px;});
+            .md-block({
+              width: 20px;
+              height: 20px;
+            });
+            .ss-block({
+              width: 15px;
+              height: 15px;
+            });
             path {
               fill: #000;
             }
@@ -268,8 +314,14 @@ export default {
             .status__icon {
               width: 18px;
               height: 18px;
-              .md-block({ width: 15px; height: 15px;});
-              .ss-block({ width: 12px; height: 12px;});
+              .md-block({
+                width: 15px;
+                height: 15px;
+              });
+              .ss-block({
+                width: 12px;
+                height: 12px;
+              });
               path {
                 fill: @colorMainRed;
               }
@@ -280,8 +332,6 @@ export default {
             .status__icon {
               width: 100%;
               height: 100%;
-/*              .md-block({ width: 15px; height: 15px;});
-              .ss-block({ width: 12px; height: 12px;});*/
               * {
                 fill: @colorWait;
               }
@@ -309,13 +359,21 @@ export default {
           align-items: center;
           justify-content: space-between;
           flex-grow: 1;
-          .ss-block({ flex-direction: column; align-items: flex-start;})
+          .ss-block({
+            flex-direction: column;
+            align-items: flex-start;
+          })
         }
         &__info {
           margin-right: auto;
           padding-right: 50px;
-          .sm-block({ padding-right: 30px;});
-          .ss-block({ margin-bottom: 30px; padding-right: 0;});
+          .sm-block({
+            padding-right: 30px;
+          });
+          .ss-block({
+            margin-bottom: 30px;
+            padding-right: 0;
+          });
         }
         &__title {
           display: block;
@@ -325,7 +383,10 @@ export default {
           text-transform: uppercase;
           text-decoration: underline;
           color: #000;
-          .md-block({ font-size: 1.6rem; margin-bottom: 15px;});
+          .md-block({
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+          });
           &:hover {
             text-decoration: none;
           }
@@ -334,7 +395,9 @@ export default {
           display: flex;
           align-items: center;
           margin-bottom: 20px;
-          .md-block({ margin-bottom: 10px;});
+          .md-block({
+            margin-bottom: 10px;
+          });
           &:last-of-type {
             margin-bottom: 0;
           }
@@ -364,7 +427,7 @@ export default {
         &::after {
           content: " ";
           position: absolute;
-          bottom: 100%;  /* At the top of the tooltip */
+          bottom: 100%; /* At the top of the tooltip */
           left: 50%;
           margin-left: -5px;
           border-width: 5px;
@@ -392,7 +455,10 @@ export default {
         cursor: pointer;
         margin-right: 10px;
         margin-bottom: 10px;
-        .md-block({ width: 40px; height: 40px; });
+        .md-block({
+          width: 40px;
+          height: 40px;
+        });
         &--refractor {
           &:hover {
             border-color: @colorSuccess;
@@ -416,7 +482,10 @@ export default {
         &__icon {
           width: 25px;
           height: 25px;
-          .md-block({ width: 18px; height: 18px; });
+          .md-block({
+            width: 18px;
+            height: 18px;
+          });
           path {
             transition: 0.3s;
             fill: #d6d6d6;
@@ -430,9 +499,17 @@ export default {
       font-size: 2.4rem;
       margin-top: 120px;
       margin-left: 50px;
-      .lg-block({ margin-top: 90px;});
-      .sm-block({ margin-left: 0; margin-top: 50px;});
-      .xs-block({ font-size: 2rem; margin-top: 50px;});
+      .lg-block({
+        margin-top: 90px;
+      });
+      .sm-block({
+        margin-left: 0;
+        margin-top: 50px;
+      });
+      .xs-block({
+        font-size: 2rem;
+        margin-top: 50px;
+      });
     }
   }
 </style>

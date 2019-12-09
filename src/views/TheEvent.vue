@@ -1,7 +1,7 @@
 <template>
   <section class="p-event p-default p-default-inner">
     <div class="container" v-if="activeEvent">
-      <event-status :idEvent="responseData.id" :idStatus="activeEvent.status" :idRelation="activeEvent.id" @newStatus="refreshStatus" v-if="myEvent"/>
+      <event-status :idEvent="responseData.id" :idStatus="newStatus" :idRelation="activeEvent.id" @newStatus="refreshStatus" v-if="myEvent"/>
       <h1 class="g-caption g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
@@ -295,6 +295,19 @@ export default {
         return da.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
       } else {
         return '00'
+      }
+    },
+    newStatus() {
+      if (this.activeEvent.status === 3) {
+        let currentMoment = this.$moment()
+        let itemStamp = this.activeEvent * 1000
+        if (currentMoment - itemStamp > 0) {
+          return this.activeEvent.status
+        } else {
+          return 4
+        }
+      } else {
+        return this.activeEvent.status
       }
     }
   },
