@@ -21,9 +21,10 @@
             <div class="form-modal__item" v-for="(item, index) in fields" :key="item.id">
               <label class="form-modal__label" :for="`form_buy-id-${item.id}`">{{item.name}}</label>
 
-              <v-select v-if="item.id === '6'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
-              <v-select v-else-if="item.id === '5'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStatus}]" :searchable="false" placeholder="Статус" :options="status"></v-select>
+              <input v-mask="maskConfig" v-if="item.id === '3'" class="form-modal__input" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()"/>
               <flat-pickr v-else-if="item.id === '4'" :config="configDate" :class="'form-modal__input'" v-model="fieldsData['field_' + item.id]"></flat-pickr>
+              <v-select v-else-if="item.id === '5'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStatus}]" :searchable="false" placeholder="Статус" :options="status"></v-select>
+              <v-select v-else-if="item.id === '6'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
               <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <input v-else class="form-modal__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
@@ -35,50 +36,6 @@
                 <template v-if="!$v.fieldsData['field_' + item.id].required">Поле не может быть пустым</template>
               </div>
             </div>
-
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" for="form_buy-name">Имя</label>-->
-            <!--              <input class="form-modal__input" id="form_buy-name" :class="{error: $v.form.name.$error}" type="text"  v-model="form.name" @blur="$v.form.name.$touch()">-->
-            <!--              <div class="input-valid-error" v-if="$v.form.name.$error">-->
-            <!--                <template v-if="!$v.form.name.required">Поле не может быть пустым</template>-->
-            <!--                <template v-else-if="!$v.form.name.minLength">Имя не должно быть меньше 3-х символов</template>-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" for="form_buy-email">Email</label>-->
-            <!--              <input class="form-modal__input" id="form_buy-email" :class="{error: $v.form.email.$error}" v-model="form.email" @blur="$v.form.email.$touch()">-->
-            <!--              <div class="input-valid-error" v-if="$v.form.email.$error">-->
-            <!--                <template v-if="!$v.form.email.required">Поле не может быть пустым</template>-->
-            <!--                <template v-if="!$v.form.email.email">Не корректный email</template>-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" >Статус</label>-->
-            <!--              <v-select v-model="form.status" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStatus}]" v-on:search:blur="validateSelect('selectedStatus')" :searchable="false" placeholder="Статус" :options="status"></v-select>-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" for="form_buy-phone">Телефон</label>-->
-            <!--              <input class="form-modal__input" id="form_buy-phone" :class="{error: $v.form.phone.$error}" v-model="form.phone" @blur="$v.form.phone.$touch()">-->
-            <!--              <div class="input-valid-error" v-if="$v.form.phone.$error">-->
-            <!--                <template v-if="!$v.form.phone.required">Поле не может быть пустым</template>-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label">Дата регистрации в компании</label>-->
-            <!--              <flat-pickr v-model="reg_d" :config="configDate" :class="'form-modal__input'"></flat-pickr>-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" for="form_buy-name">Квалификация</label>-->
-            <!--              <v-select v-model="form.qualification" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" v-on:search:blur="validateSelect('selectedQualification')" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" for="form_buy-seminar_с">Какой по счету семинар</label>-->
-            <!--              <input v-mask="'########'" id="form_buy-seminar_с" class="form-modal__input" type="text" v-model="form.seminar_с">-->
-            <!--            </div>-->
-            <!--            <div class="form-modal__item">-->
-            <!--              <label class="form-modal__label" for="form_buy-invited_c">Сколько человек пригласил</label>-->
-            <!--              <input v-mask="'########'" id="form_buy-invited_c" class="form-modal__input" type="text" v-model="form.invited_c">-->
-            <!--            </div>-->
             <div class="form-modal__item form-modal__item--col-12">
               <p class="form-modal__text">
                 <span class="form-modal__text--desc">Способ оплаты:</span>
@@ -90,7 +47,6 @@
               </p>
             </div>
           </div>
-          <button type="button" class="test-btn" @click="$v.$reset()">reset</button>
           <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
             <span>Купить билет</span>
             <span>{{eventData.price}} {{eventData.currency}}</span>
@@ -105,7 +61,7 @@
 import API from '../../api/index'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
-import { email, required, minLength, alphaNum, numeric } from 'vuelidate/lib/validators'
+import { email, required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'ModalTicketPurchase',
@@ -115,6 +71,15 @@ export default {
       fields: [],
       fieldsData: {},
       newFieldsData: {},
+      maskConfig: {
+        mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        tokens: {
+          X: {
+            pattern: /[0-9+]/
+          }
+        },
+        masked: ''
+      },
       configDate: {
         enableTime: false,
         time_24hr: true,
@@ -168,15 +133,11 @@ export default {
       fieldsData['field_' + item.id].required = required
       if (item.id === '2') {
         fieldsData['field_2'].email = email
-      } else if (item.id === '3') {
-        fieldsData['field_3'].numeric = numeric
       }
     })
-    return {fieldsData: fieldsData}
+    return { fieldsData: fieldsData }
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     onSubmit() {
       this.$v.$touch()
@@ -184,14 +145,7 @@ export default {
         API.response.error('Заполните все поля')
         return
       }
-      // for (let i = 0; i < this.fields.length; i++) {
-      //   let a = 'field_' + this.fields[i].id
-      //   if (this.fieldsData[a] === undefined || this.fieldsData[a] === '') {
-      //     API.response.error('Заполните все поля')
-      //     return false
-      //   }
-      // }
-      if(this.fieldsData['field_4'] !== undefined) {
+      if (this.fieldsData['field_4'] !== undefined) {
         this.parseDate()
       }
       API.biling.invoice(this.fieldsData).then(response => {

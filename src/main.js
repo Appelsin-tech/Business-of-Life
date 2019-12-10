@@ -11,7 +11,6 @@ import Datetime from 'vue-datetime'
 import VCalendar from 'v-calendar'
 Vue.use(VCalendar)
 
-
 const moment = require('moment')
 moment.locale('ru')
 Vue.use(require('vue-moment'), {

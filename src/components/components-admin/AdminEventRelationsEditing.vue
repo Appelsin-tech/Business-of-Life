@@ -63,7 +63,7 @@
           <div class="event-wrapper--inner">
             <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">
               <div class="status past" v-tooltip.left="'Прошедшее событие'">
-                <img svg-inline class="status__icon status__icon--past" src="../../assets/img/icon/clock.svg" alt="">
+                <img svg-inline class="status__icon status__icon--past" src="../../assets/img/icon/time.svg" alt="">
               </div>
               <div class="event__info-wrapper">
                 <div class="event__info">

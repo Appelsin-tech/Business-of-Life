@@ -217,7 +217,11 @@ export default {
     },
     activeCity () {
       this.responseData.relations.forEach((item) => {
-        this.city.push({ name: item.city, val: item.url })
+        let currentMoment = this.$moment()
+        let itemStamp = item.stamp * 1000
+        if (currentMoment - itemStamp < 0) {
+          this.city.push({ name: item.city, val: item.url })
+        }
       })
     },
     newActiveEvent (value) {

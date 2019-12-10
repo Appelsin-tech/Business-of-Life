@@ -61,7 +61,6 @@
           <div class="edit-grid__item item item--col-8">
             <label class="item__label" for="form-title">Контактная информация</label>
             <ckeditor :editor="editor" v-model="form.contacts" :config="editorConfig" @blur="$v.form.contacts.$touch()"></ckeditor>
-<!--            <input class="item__input" type="text" id="form-contact" v-model="form.contact" :class="{error: $v.form.contacts.$error}" @blur="$v.form.contacts.$touch()">-->
             <div class="input-valid-error" v-if="$v.form.contacts.$error">
               <template v-if="!$v.form.contacts.required">Поле не может быть пустым</template>
             </div>

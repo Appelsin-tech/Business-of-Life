@@ -16,7 +16,7 @@
         </template>
         <template v-else-if="status[idStatus].class === 'past'">
           <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon" src="../assets/img/icon/clock.svg" alt="">
+            <img svg-inline class="status-icon" src="../assets/img/icon/time.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
