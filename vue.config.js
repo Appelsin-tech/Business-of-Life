@@ -19,6 +19,10 @@ module.exports = {
           {
             from: 'favicon.png',
             to: '[name].[ext]'
+          },
+          {
+            from: 'logo.jpg',
+            to: '[name].[ext]'
           }
         ]]
       })
