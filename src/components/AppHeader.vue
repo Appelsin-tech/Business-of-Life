@@ -2,8 +2,8 @@
   <header class="s-header" :class="{active : showMenu, 'border-class': borderClass}">
     <div class="container">
       <div class="wrapper-relative">
-        <a href="#" @click.prevent="goRouter('main')">
-          <img class="logo" src="../assets/img/logo.png" alt="Business of Life">
+        <a class="logo-link" href="#" @click.prevent="goRouter('main')">
+          <img svg-inline class="logo" src="../assets/img/logo.svg" alt="Business of Life">
         </a>
         <div class="icon-wrapper icon-wrapper--desktop" >
           <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
@@ -256,6 +256,8 @@ export default {
       display: flex;
       flex-direction: column;
       .logo {
+        width: 100%;
+        max-width: 144px;
         .lg-block({ max-width: 110px; });
       }
       .wrapper-relative {

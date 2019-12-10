@@ -39,7 +39,7 @@ export default {
       widthNoty: 400
     }
   },
-  created () {
+  mounted () {
     this.$store.dispatch('user/login')
     if (window.innerWidth < 500) {
       this.widthNoty = 300

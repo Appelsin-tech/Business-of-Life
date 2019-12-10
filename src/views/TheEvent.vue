@@ -56,6 +56,10 @@
             <p class="item__info">{{activeEvent.address}}</p>
           </div>
           <div class="org-info__item item">
+            <p class="item__name">Целевая аудитория:</p>
+            <p class="item__info">{{responseData.audience}}</p>
+          </div>
+          <div class="org-info__item item">
             <p class="item__name">Контактная информация:</p>
             <div class="text-wrapper editor" v-html="activeEvent.contacts"></div>
 <!--            <a href="mailto: info@businessof.life" class="item__info item__info&#45;&#45;link">info@businessof.life</a>-->
@@ -297,14 +301,14 @@ export default {
         return '00'
       }
     },
-    newStatus() {
+    newStatus () {
       if (this.activeEvent.status === 3) {
         let currentMoment = this.$moment()
-        let itemStamp = this.activeEvent * 1000
+        let itemStamp = this.activeEvent.stamp * 1000
         if (currentMoment - itemStamp > 0) {
-          return this.activeEvent.status
-        } else {
           return 4
+        } else {
+          return 3
         }
       } else {
         return this.activeEvent.status
