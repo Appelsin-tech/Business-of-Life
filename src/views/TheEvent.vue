@@ -66,7 +66,7 @@
           </div>
         </div>
       </section>
-      <section class="tickets" ref="section-tickets">
+      <section class="tickets" ref="section-tickets" v-if="activeEvent.tickets.length">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeEvent"/>
@@ -148,7 +148,7 @@
 <!--      <button class="swiper-button swiper-button&#45;&#45;next"><span></span></button>-->
 <!--      </div>-->
 <!--      </section>-->
-      <router-link class="payments" to="/payment_policy">Оплата и возврат</router-link>
+      <router-link class="payments" to="/payment_policy" v-if="activeEvent.tickets.length">Оплата и возврат</router-link>
     </div>
   </section>
 </template>
@@ -589,6 +589,8 @@ export default {
     .tickets {
       .tickets-wrapper {
         .row-flex();
+        .ss-block({
+          justify-content: center;});
         .tickets-item {
           .col();
           .size(4);

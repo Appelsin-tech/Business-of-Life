@@ -17,8 +17,6 @@
                   </v-calendar>
                 </div>
               </transition>
-
-
             </div>
             <div class="wrapper-btn wrapper-btn--calendar">
               <button class="swiper-button swiper-button--prev"><span></span></button>
@@ -37,7 +35,6 @@
                 <p class="week">{{item.weekday}}</p>
               </div>
               <calendar-child :arr="item.events" :class="[i === activeScrollSlide ? 'activeSlideColor' : '']"/>
-              <!--<div class="test-btn"  @click="relationSwiper.update()">qwdqwd</div>-->
             </div>
           </swiper-slide>
         </swiper>
@@ -50,8 +47,8 @@
 <script>
 import 'v-calendar/lib/v-calendar.min.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { mapGetters, mapState } from 'vuex'
 import calendarChild from '../components/calendarChild'
+import API from '../api/index'
 
 export default {
   name: 'TheCalendar',
@@ -62,9 +59,10 @@ export default {
   },
   data() {
     return {
+      publicEvents: [],
       indexInnerEvent: 0,
       showRelation: false,
-      activeScrollSlide: false,
+      activeScrollSlide: 0,
       arr: [1, 2, 3],
       showCalendarMini: false,
       swiperOptionCalendar: {
@@ -105,18 +103,31 @@ export default {
     calendarSwiper() {
       return this.$refs.calendarSwiper.swiper
     },
-    ...mapState('events', [
-      'publicEvents'
-      // ...
-    ]),
-    ...mapGetters('events', [
-      'filterEvents'
-      // ...
-    ]),
+    filterEvents() {
+      let finishArr = []
+      for (let i = 0; i < 31; i++) {
+        finishArr.push({
+          date: this.$moment().startOf('day').add(i, 'days'),
+          day: this.$moment().startOf('day').add(i, 'days').date(),
+          weekday: this.$moment().startOf('day').add(i, 'days').format('dddd'),
+          events: []
+        })
+
+        this.publicEvents.forEach(item => {
+          let parseSec = item.stamp * 1000
+          // console.log(currentDate.add('day', i).diff(this.$moment(parseSec), 'days'))
+          if (this.$moment(parseSec).isBetween(this.$moment().startOf('day').add(i, 'days'), this.$moment().startOf('day').add(i + 1, 'days'))) {
+            finishArr[i].stamp = parseSec
+            finishArr[i].events.push(item)
+          }
+        })
+      }
+      return finishArr
+    },
     calendarMini() {
       let optionsArr = []
       let options1 = {
-        key: 'today',
+        key: 'qweqwe',
         color: 'red',
         contentClass: 'wwwwwwww',
         highlight: {
@@ -147,8 +158,8 @@ export default {
         },
         dates: [new Date()]
       }
-      optionsArr[0] = options1
-      optionsArr[1] = options2
+      optionsArr.push(options1)
+      optionsArr.push(options2)
       return optionsArr
     }
   },
@@ -169,14 +180,13 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.publicEvents.length === 0) {
-      let currentDate = new Date()
-      let currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000
-      let lastDate = currentDateTime + 2678400
+      let currentDate = this.$moment().startOf('day').unix()
+      let lastDate = this.$moment().startOf('day').add(30, 'days').unix()
 
-      this.$store.dispatch('events/eventsCalendar', { from: currentDateTime, to: lastDate }).then(() => {
-        // console.dir(this.publicEvents)
+      API.relations.find({ from: currentDate, to: lastDate }).then(response => {
+        this.publicEvents = response
       })
     }
   }

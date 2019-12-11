@@ -35,8 +35,9 @@
       </div>
     </div>
     <div class="btn-wrapper">
-      <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-        <span>Сохранить</span>
+      <button  type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
+        <span v-if="idEvent">Сохранить</span>
+        <span v-else>Создать</span>
       </button>
       <button class="g-btn g-btn--no-icon g-btn--white g-btn--border" type="button" @click="deleteEvent(idEvent)" v-if="btnDelete">
         <span>Удалить</span>

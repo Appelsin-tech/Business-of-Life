@@ -92,9 +92,9 @@
               </div>
             </div>
           </div>
+          <panel-info v-if="!myPastEvents.length" text="У вас еще нет прошедших событий"></panel-info>
         </div>
-        <strong class="event-null" v-else-if="showRelations === 0">Событий не найдено</strong>
-        <strong class="event-null" v-else>Чтобы создать событие - заполните информацию о мероприятии</strong>
+        <panel-info v-if="showRelations === 2" text="Чтобы создать событие - заполните информацию о мероприятии"></panel-info>
         <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
       </div>
     </div>
@@ -106,10 +106,15 @@ import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapState } from 'vuex'
 import EventEditingForm from './EventEditingForm'
+import PanelInfo from '../ui/PanelInfo'
 
 export default {
   name: 'AdminEventRelationEditing',
-  components: { BreadCrumbs, EventEditingForm },
+  components: {
+    BreadCrumbs,
+    EventEditingForm,
+    PanelInfo
+  },
   props: ['id'],
   data() {
     return {

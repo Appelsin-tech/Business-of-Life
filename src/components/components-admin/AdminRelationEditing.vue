@@ -14,6 +14,7 @@
             <input class="item__input" type="text" id="form-title" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
             <div class="input-valid-error" v-if="$v.form.title.$error">
               <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.title.minLength">Минимальное количество символов - 5</template>
             </div>
           </div>
           <!--<div class="edit-grid__item item item&#45;&#45;col-4 photo">-->
@@ -35,6 +36,7 @@
             <input class="item__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
             <div class="input-valid-error" v-if="$v.form.country.$error">
               <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.country.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
           <div class="edit-grid__item item item--col-4">
@@ -42,6 +44,7 @@
             <input class="item__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
             <div class="input-valid-error" v-if="$v.form.city.$error">
               <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.city.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
           <div class="edit-grid__item item item--col-4">
@@ -49,6 +52,7 @@
             <input class="item__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
             <div class="input-valid-error" v-if="$v.form.address.$error">
               <template v-if="!$v.form.address.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.address.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
           <div class="edit-grid__item item item--col-4">
@@ -56,6 +60,7 @@
             <flat-pickr v-model="form.date" :config="configDate" :class="['item__input', {error: $v.form.date.$error}]" @blur="$v.form.date.$touch()"></flat-pickr>
             <div class="input-valid-error" v-if="$v.form.date.$error">
               <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
           <div class="edit-grid__item item item--col-8">
@@ -65,8 +70,8 @@
               <template v-if="!$v.form.contacts.required">Поле не может быть пустым</template>
             </div>
             <p class="instruction-link">
-              <span>* чтобы добавить телефон создайте ссылку с префиксом tel: (tel:+79999999999) без пробелов и других символов, затем отредактируйте ссылку</span>
-              <span>* чтобы добавить почту создайте ссылку с префиксом mailto: (mailto:test@test.com)  без пробелов и других символов, затем отредактируйте ссылку</span>
+              <span>* чтобы добавить телефон, создайте ссылку с префиксом tel: (tel:+79999999999) без пробелов и других символов, затем отредактируйте ссылку</span>
+              <span>* чтобы добавить почту, создайте ссылку с префиксом mailto: (mailto:test@test.com)  без пробелов и других символов, затем отредактируйте ссылку</span>
             </p>
           </div>
         </div>
@@ -116,6 +121,7 @@ import { mapState } from 'vuex'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+import 'flatpickr/dist/flatpickr.css'
 
 export default {
   name: 'AdminRelationEditing',
@@ -174,20 +180,24 @@ export default {
   validations: {
     form: {
       title: {
-        required
+        required,
+        minLength: minLength(5)
       },
       date: {
         required,
         minLength: minLength(10)
       },
       country: {
-        required
+        required,
+        minLength: minLength(3)
       },
       city: {
-        required
+        required,
+        minLength: minLength(3)
       },
       address: {
-        required
+        required,
+        minLength: minLength(3)
       },
       contacts: {
         required
@@ -211,6 +221,7 @@ export default {
           this.disabledForm = true
           API.response.success('Событие создано')
           this.$router.push({path: `/admin/editing/${this.id}/${response.id}`})
+          this.form.id = response.id
         }).catch(error => {
           console.log(error)
         })

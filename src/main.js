@@ -7,17 +7,18 @@ import Vuelidate from 'vuelidate'
 import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
 import store from './store/index'
-import Datetime from 'vue-datetime'
+
 import VCalendar from 'v-calendar'
 Vue.use(VCalendar)
 
 const moment = require('moment')
-moment.locale('ru')
+require('moment/locale/ru')
+// moment.locale('ru')
+
 Vue.use(require('vue-moment'), {
   moment
 })
 
-Vue.config.productionTip = false
 Vue.use(VueModal, {dialog: true, dynamic: true, injectModalsContainer: true})
 Vue.use(VueTheMask)
 Vue.use(Vuelidate)
@@ -25,9 +26,6 @@ Vue.component('v-select', vSelect)
 Vue.use(VTooltip, {
   defaultPlacement: 'left',
   delay: { show: 0, hide: 0 }
-})
-Vue.use(Datetime, {
-  valueZone: 'ru-RU'
 })
 
 vSelect.props.components.default = () => ({
@@ -38,7 +36,7 @@ vSelect.props.components.default = () => ({
     render: createElement => createElement('span', '')
   }
 })
-
+Vue.config.productionTip = false
 new Vue({
   router,
   store,

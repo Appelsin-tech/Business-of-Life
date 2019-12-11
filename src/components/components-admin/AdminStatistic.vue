@@ -7,7 +7,7 @@
         <admin-statistic-chart-sales :defaultResponse="responseData"/>
         <admin-statistic-chart-location :defaultResponse="responseData"/>
       </div>
-      <div class='no-event' v-else>У вас еще нет мероприятий с продажами</div>
+      <panel-info v-else text="У вас еще нет мероприятий с продажами"></panel-info>
       <router-link :to='`/admin/me`' class='back-btn'>Назад</router-link>
     </div>
   </section>
@@ -16,13 +16,19 @@
 <script>
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import AdminStatisticChartSales from '../AdminStatisticChartSales'
 import AdminStatisticChartLocation from '../AdminStatisticChartLocation'
+import PanelInfo from '../ui/PanelInfo'
 
 export default {
   name: 'AdminStatistic',
-  components: { BreadCrumbs, AdminStatisticChartSales, AdminStatisticChartLocation },
+  components: {
+    BreadCrumbs,
+    AdminStatisticChartSales,
+    AdminStatisticChartLocation,
+    PanelInfo
+  },
   data() {
     return {
       responseData: [],
@@ -38,7 +44,7 @@ export default {
   },
   methods: {
     async getInterval(fromTime) {
-      if(this.logged) {
+      if (this.logged) {
         await API.statistics.orders({
           from: fromTime / 1000,
           to: this.$moment().valueOf() / 1000
@@ -116,23 +122,17 @@ export default {
     position: relative;
     width: 100%;
     height: 40vh;
-    .xs-block({ height: 30vh })
+    .xs-block({
+      height: 30vh
+    })
   }
   .chart-container-pie {
     position: relative;
     width: 100%;
     height: 40vh;
-    .sm-block({ height: 30vh })
-  }
-  .no-event {
-    margin-bottom: auto;
-    padding: 20px 20px 20px 30px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 2rem;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    .sm-block({ padding: 15px; font-size: 1.6rem; border-radius: 5px; })
+    .sm-block({
+      height: 30vh
+    })
   }
   .back-btn {
     align-self: flex-start;

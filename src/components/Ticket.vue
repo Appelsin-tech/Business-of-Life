@@ -65,6 +65,7 @@ export default {
     padding: 40px 30px;
     margin-bottom: 25px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
     .sm-block({ padding: 30px 20px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); });
     .title {
       margin-bottom: 30px;
