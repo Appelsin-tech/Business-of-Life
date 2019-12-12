@@ -151,18 +151,23 @@ export default {
   },
   methods: {
     scrollToSlide(e) {
-      let a
-      this.filterEvents.forEach((item, index) => {
-        if (item.stamp !== undefined) {
-          if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
-            a = index
+      let indexSlide
+      if (this.$moment(e.dateTime).isSame(this.$moment(), 'day')) {
+        indexSlide = 0
+      } else {
+        this.filterRelations.forEach((item, index) => {
+          if (item.stamp !== undefined) {
+            if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
+              indexSlide = index
+            }
           }
-        }
-      })
-      if (a !== undefined) {
-        this.activeScrollSlide = a
+        })
+      }
+
+      if (indexSlide !== undefined) {
+        this.activeScrollSlide = indexSlide
         this.showCalendarMini = false
-        this.calendarSwiper.slideTo(a)
+        this.calendarSwiper.slideTo(indexSlide)
       }
     }
   },
