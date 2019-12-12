@@ -8,12 +8,12 @@
           <div class="wrapper-date-icon">
             <p class="date">Ближайшие 30 дней</p>
             <div class="calendar-small" :class="{active: showCalendarMini}">
-              <div class="svg-wrapper"    @click="showCalendarMini = !showCalendarMini">
+              <div class="svg-wrapper" @click="showCalendarMini = !showCalendarMini">
                 <img svg-inline class="svg-square" src="../assets/img/icon/calendar-square.svg" alt="">
               </div>
               <transition name="fade">
                 <div class="calendar-wrapper" v-if="showCalendarMini">
-                  <v-calendar @dayclick="scrollToSlide" :attributes='calendarMini' :is-expanded="true" :nav-visibility="'hidden'" :class="'calendarMini'" >
+                  <v-calendar @dayclick="scrollToSlide" :attributes='calendarMini' :is-expanded="true" :nav-visibility="'hidden'" :class="'calendarMini'">
                   </v-calendar>
                 </div>
               </transition>
@@ -25,10 +25,10 @@
           </div>
         </div>
       </div>
-      <div class="row-slider" v-if="filterEvents.length > 0">
+      <div class="row-slider" v-if="filterRelations.length > 0">
 
         <swiper :options="swiperOptionCalendar" ref="calendarSwiper">
-          <swiper-slide v-for="(item, i) in filterEvents" :key="i">
+          <swiper-slide v-for="(item, i) in filterRelations" :key="i">
             <div class="item-swiper" :class="[i === activeScrollSlide ? 'activeSlideColor' : '']">
               <div class="day-week">
                 <p class="day">{{item.day}}</p>
@@ -48,7 +48,7 @@
 import 'v-calendar/lib/v-calendar.min.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import calendarChild from '../components/calendarChild'
-import API from '../api/index'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'TheCalendar',
@@ -59,7 +59,6 @@ export default {
   },
   data() {
     return {
-      publicEvents: [],
       indexInnerEvent: 0,
       showRelation: false,
       activeScrollSlide: 0,
@@ -100,29 +99,16 @@ export default {
     }
   },
   computed: {
+    ...mapState('calendar', [
+      'publicRelations'
+      // ...
+    ]),
+    ...mapGetters('calendar', [
+      'filterRelations'
+      // ...
+    ]),
     calendarSwiper() {
       return this.$refs.calendarSwiper.swiper
-    },
-    filterEvents() {
-      let finishArr = []
-      for (let i = 0; i < 31; i++) {
-        finishArr.push({
-          date: this.$moment().startOf('day').add(i, 'days'),
-          day: this.$moment().startOf('day').add(i, 'days').date(),
-          weekday: this.$moment().startOf('day').add(i, 'days').format('dddd'),
-          events: []
-        })
-
-        this.publicEvents.forEach(item => {
-          let parseSec = item.stamp * 1000
-          // console.log(currentDate.add('day', i).diff(this.$moment(parseSec), 'days'))
-          if (this.$moment(parseSec).isBetween(this.$moment().startOf('day').add(i, 'days'), this.$moment().startOf('day').add(i + 1, 'days'))) {
-            finishArr[i].stamp = parseSec
-            finishArr[i].events.push(item)
-          }
-        })
-      }
-      return finishArr
     },
     calendarMini() {
       let optionsArr = []
@@ -140,7 +126,7 @@ export default {
           color: '#fff',
           cursor: 'pointer'
         },
-        dates: this.publicEvents.map(item => item.stamp * 1000)
+        dates: this.publicRelations.map(item => item.stamp * 1000)
       }
       let options2 = {
         key: 'today',
@@ -180,13 +166,12 @@ export default {
       }
     }
   },
-  mounted () {
-    if (this.publicEvents.length === 0) {
+  mounted() {
+    if (this.publicRelations.length === 0) {
       let currentDate = this.$moment().startOf('day').unix()
       let lastDate = this.$moment().startOf('day').add(30, 'days').unix()
-
-      API.relations.find({ from: currentDate, to: lastDate }).then(response => {
-        this.publicEvents = response
+      this.$store.dispatch('calendar/getRelations', { from: currentDate, to: lastDate }).then(() => {
+        // console.dir(this.publicEvents)
       })
     }
   }
@@ -283,13 +268,19 @@ export default {
               left: -160px;
               padding: 20px 25px;
               background-color: #fff;
-              box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+              box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
               box-sizing: border-box;
               transition: 0.3s;
               pointer-events: none;
               z-index: 99;
-              .lg-block({ top: 50px; left: -100px;});
-              .sm-block({padding: 10px; top: 47px;});
+              .lg-block({
+                top: 50px;
+                left: -100px;
+              });
+              .sm-block({
+                padding: 10px;
+                top: 47px;
+              });
               .to(630px, {
                 left: -241px;
               });

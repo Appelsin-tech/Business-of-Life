@@ -1,7 +1,6 @@
 import API from '../../api/index'
 
 const state = () => ({
-  logged: false,
   profile: null,
   myParentEvents: []
 })
@@ -56,11 +55,9 @@ const actions = {
 
 const mutations = {
   SET_IDENTITY(state, identity) {
-    state.logged = true
     state.profile = identity
   },
   LOGOUT(state) {
-    state.logged = false
     state.profile = null
   },
   SET_MY_PARENT_EVENT(state, events) {

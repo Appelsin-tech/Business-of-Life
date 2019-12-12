@@ -3,7 +3,7 @@
     <bread-crumbs v-if="logged"/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Информация о билете</h1>
-      <ticket-search v-if="!profile.logged"/>
+      <ticket-search v-if="logged"/>
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>

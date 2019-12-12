@@ -13,7 +13,6 @@ Vue.use(VCalendar)
 
 const moment = require('moment')
 require('moment/locale/ru')
-// moment.locale('ru')
 
 Vue.use(require('vue-moment'), {
   moment
