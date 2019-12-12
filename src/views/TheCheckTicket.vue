@@ -41,7 +41,7 @@
             </div>
             <div class="btn-wrapper">
               <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" v-if="superV">
-                <span>Использовать билет</span>
+                <span>Закрыть билет</span>
               </a>
               <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white g-btn--border" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
                 <span>Продлить билет</span>
@@ -203,7 +203,7 @@ export default {
           margin-bottom: 15px;
         }
         &__number {
-          font-size: 4rem;
+          font-size: 3.8rem;
           font-weight: 800;
           .md-block({ font-size: 3rem;});
         }
