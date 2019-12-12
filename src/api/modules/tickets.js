@@ -22,6 +22,13 @@ export default {
       reject(error)
     })
   }),
+  pack: (data) => new Promise((resolve, reject) => {
+    HTTP.post('tickets/pack', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
   receive: (data) => new Promise((resolve, reject) => {
     HTTP.post('tickets/receive', data).then(response => {
       resolve(response)

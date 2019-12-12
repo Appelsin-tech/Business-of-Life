@@ -35,12 +35,18 @@
               <p class="info-status__text-strong strong-icon">
                 <span class="strong-icon__text" v-if="status[ticket.status] === 'used'">Использован</span>
                 <span class="strong-icon__text" v-else-if="status[ticket.status] === 'blocked'">Блокирован</span>
+                <span class="strong-icon__text" v-else-if="status[ticket.status] === 'extended'">Продлен</span>
                 <span class="strong-icon__text" v-else>Активен</span>
               </p>
             </div>
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" v-if="superV">
-              <span>Использовать билет</span>
-            </a>
+            <div class="btn-wrapper">
+              <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" v-if="superV">
+                <span>Использовать билет</span>
+              </a>
+              <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white g-btn--border" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
+                <span>Продлить билет</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +76,8 @@ export default {
       status: {
         0: 'blocked',
         1: 'active',
-        2: 'used'
+        2: 'extended',
+        3: 'used'
       }
     }
   },
@@ -93,8 +100,8 @@ export default {
     }
   },
   methods: {
-    activateTicket () {
-      API.tickets.use({ hash: this.$route.params.id }).then(response => {
+    activateTicket (extend) {
+      API.tickets.use({ hash: this.$route.params.id, extend: extend }).then(response => {
         this.checkTicked()
       }).catch(error => {
         console.log(error)
@@ -112,7 +119,7 @@ export default {
     btnSupervisor () {
       if (this.profile.supervisor !== undefined) {
         this.profile.supervisor.forEach(item => {
-          if (item.id === this.ticket.event_relation_id) {
+          if (item.relation_id === this.ticket.event_relation_id) {
             this.superV = true
           }
         })
@@ -135,7 +142,6 @@ export default {
         this.checkTicked()
       } else {
         this.pageTickets = false
-        console.log(from)
       }
     }
   }
@@ -202,12 +208,19 @@ export default {
           .md-block({ font-size: 3rem;});
         }
       }
-      .g-btn {
-        height: 72px;
-        padding-top: 0;
-        padding-bottom: 0;
-        box-sizing: border-box;
-        .md-block({ height: 60px;});
+      .btn-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .g-btn {
+          min-width: 210px;
+          height: 72px;
+          padding-top: 0;
+          padding-bottom: 0;
+          box-sizing: border-box;
+          margin-bottom: 20px;
+          .md-block({ height: 60px;});
+        }
       }
       .info-status {
         display: flex;
@@ -224,6 +237,7 @@ export default {
           .xs-block({ padding-left: 30px; padding-bottom: 40px;});
           &.blocked,
           &.active,
+          &.extended,
           &.used {
             color: #fff;
             border: none;
@@ -231,6 +245,7 @@ export default {
           &.blocked {
             background: rgba(226, 58, 58, 0.75);
           }
+          &.extended,
           &.active{
             background: rgba(93, 220, 105, 0.65);
           }

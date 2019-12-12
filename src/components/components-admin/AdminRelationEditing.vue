@@ -100,6 +100,7 @@
           </div>
         </div>
       </div>
+      <button @click="newTicket" class="test-btn">RUCHNIOI VIPUSK </button>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${event}`" :class="{disabled: event === 'new'}">
           <span>Предпросмотр</span>
@@ -215,6 +216,11 @@ export default {
     }
   },
   methods: {
+    newTicket() {
+      API.tickets.issue({ id: 39}).then((response) => {
+        console.log(response)
+      })
+    },
     onSubmit() {
       if (this.event === 'new') {
         API.relations.create(this.form).then(response => {
