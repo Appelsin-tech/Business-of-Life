@@ -67,6 +67,14 @@
                   <input class="checkbox-input" :value="8" type="checkbox" id="invited_c" v-model="form.fields">
                   <label class="checkbox-label" for="invited_c">Сколько человек пригласил</label>
                 </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="9" type="checkbox" id="structure" v-model="form.fields">
+                  <label class="checkbox-label" for="structure">В чьей структуре Вы состоите</label>
+                </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="10" type="checkbox" id="sponsor" v-model="form.fields">
+                  <label class="checkbox-label" for="sponsor">Ваш спонсор</label>
+                </div>
               </div>
               <button type="button" class="editing-label disabled">Редактировать поля</button>
             </div>

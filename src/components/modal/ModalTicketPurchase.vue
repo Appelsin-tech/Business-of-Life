@@ -27,6 +27,7 @@
               <v-select v-else-if="item.id === '6'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
               <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <v-select v-else-if="item.id === '9'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStructure}]" :searchable="false" placeholder="Структура" :options="structure"></v-select>
               <input v-else class="form-modal__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <div class="input-valid-error" v-if="$v.fieldsData.field_2.$error && item.id === '2'">
                 <template v-if="!$v.fieldsData.field_2.required">Поле не может быть пустым</template>
@@ -95,12 +96,14 @@ export default {
       errorSelect: {
         selectedStatus: false,
         selectedQualification: false,
-        selectedPayment: false
+        selectedPayment: false,
+        selectedStructure: false
       },
       disabledBtn: false,
       name: '',
       status: ['Key person', 'Top Key person', 'Gold person', 'Diamond person', 'Blue Sapphire', 'Korloff club'],
       qualification: ['★', '★★', '★★★', '★★★★', '★★★★★', '★★★★★★', '★★★★★★★★', '★★★★★★★★★'],
+      structure: ['Ирина Семёнова', 'Татьяна Покотило', 'Кожантаева Гульнара', 'Жанат Токабаева', 'Леонид Пак', 'Роза Жаманкулова', 'Акмолдаева Сабиля'],
       payment: [
         {
           qualVal: 'card',
