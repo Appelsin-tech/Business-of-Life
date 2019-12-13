@@ -16,6 +16,7 @@
         <img svg-inline class="control-link__icon" src="../assets/img/icon/basket.svg" alt="">
       </button>
     </div>
+<!--    <button @click="newTicket" class="test-btn">RUCHNIOI VIPUSK </button>-->
   </div>
 </template>
 
@@ -25,6 +26,11 @@ export default {
   name: 'Ticket',
   props: ['btn', 'ticket', 'event'],
   methods: {
+    // newTicket() {
+    //   API.tickets.issue({ id: this.ticket.id}).then((response) => {
+    //     console.log(response)
+    //   })
+    // },
     deleteTicket() {
       API.tickets.delete({id: this.ticket.id}).then(response => {
         API.response.success('Билет удален')

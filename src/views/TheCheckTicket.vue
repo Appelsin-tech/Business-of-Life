@@ -40,7 +40,7 @@
               </p>
             </div>
             <div class="btn-wrapper">
-              <a href="#" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" v-if="superV">
+              <a href="#" v-if="superV" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" >
                 <span>Закрыть билет</span>
               </a>
               <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white g-btn--border" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
@@ -119,7 +119,7 @@ export default {
     btnSupervisor () {
       if (this.profile.supervisor !== undefined) {
         this.profile.supervisor.forEach(item => {
-          if (item.relation_id === this.ticket.event_relation_id) {
+          if (item.id === this.ticket.event.relation_id) {
             this.superV = true
           }
         })
@@ -197,7 +197,7 @@ export default {
       .info-number {
         display: flex;
         flex-direction: column;
-        margin-bottom: auto;
+        margin-bottom: 97px;
         .sm-block({ margin-bottom: 40px;});
         &__small-text {
           margin-bottom: 15px;
@@ -220,6 +220,9 @@ export default {
           box-sizing: border-box;
           margin-bottom: 20px;
           .md-block({ height: 60px;});
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
       .info-status {
