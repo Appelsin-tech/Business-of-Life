@@ -9,7 +9,12 @@ import VTooltip from 'v-tooltip'
 import store from './store/index'
 
 import VCalendar from 'v-calendar'
+import Deselect from './components/Dselect'
 Vue.use(VCalendar)
+
+const SocialSharing = require('vue-social-sharing')
+
+Vue.use(SocialSharing);
 
 const moment = require('moment')
 require('moment/locale/ru')
@@ -27,10 +32,9 @@ Vue.use(VTooltip, {
   delay: { show: 0, hide: 0 }
 })
 
+
 vSelect.props.components.default = () => ({
-  Deselect: {
-    render: createElement => createElement('span', '')
-  },
+  Deselect,
   OpenIndicator: {
     render: createElement => createElement('span', '')
   }

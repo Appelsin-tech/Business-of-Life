@@ -1,6 +1,6 @@
 <template>
   <section class="p-event-editing p-default p-default-inner">
-    <bread-crumbs/>
+    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner g-caption-inner--admin">
         <template v-if="event === 'new'">Создание события</template>
@@ -129,6 +129,20 @@ export default {
   components: { BreadCrumbs, flatPickr, Ticket,  ckeditor: CKEditor.component },
   data() {
     return {
+      breadCrumbs: [
+        {
+          path: '/admin/me',
+          title: 'Личный кабинет'
+        },
+        {
+          path: '/admin/event-control',
+          title: 'Управление мероприятиями'
+        },
+        {
+          title: 'Редактирование мероприятия',
+          path: '/admin/event-editing'
+        }
+      ],
       editor: ClassicEditor,
       editorConfig: {
         language: 'ru',

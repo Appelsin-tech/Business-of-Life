@@ -1,5 +1,5 @@
 <template>
-  <header class="s-header" :class="{active : showMenu, 'border-class': borderClass}">
+  <header class="s-header" :class="{active : showMenu, 'border-class': !borderClass}">
     <div class="container">
       <div class="wrapper-relative">
         <a class="logo-link" href="#" @click.prevent="goRouter('main')">
@@ -131,7 +131,7 @@ export default {
   },
   computed: {
     borderClass () {
-      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page' || this.$route.name === 'payment_policy'
+      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar'
     },
     ...mapState('user', [
       'profile'

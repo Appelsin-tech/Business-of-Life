@@ -31,9 +31,6 @@
       <!--<li>-->
       <!--<router-link to="/auth" class="dots" active-class="active"  v-tooltip.right="'Авторизация'"/>-->
       <!--</li>-->
-      <li>
-        <router-link to="/calendar" class="dots" active-class="active"  v-tooltip.right="'Календарь событий'"/>
-      </li>
       <!--<li>-->
       <!--<router-link to="/event/3" class="dots" active-class="active" v-tooltip.right="'Событие'"/>-->
       <!--</li>-->
@@ -56,6 +53,18 @@ export default {
         {
           path: '/description',
           tooltip: 'Описание проекта'
+        },
+        {
+          path: '/calendar',
+          tooltip: 'Календарь событий'
+        },
+        {
+          path: '/news',
+          tooltip: 'Новости'
+        },
+        {
+          path: '/news/123',
+          tooltip: 'Страница новости'
         },
       ]
     }

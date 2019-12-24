@@ -6,10 +6,10 @@
           <router-link class="breadcrumbs__link" to="/">Главная</router-link>
           <span class="breadcrumbs__arrow">></span>
         </li>
-        <li v-for="(item, index) in $route.meta.breadCrumbs.parent">
+        <li v-for="(item, index) in arrCrumbs">
           <router-link class="breadcrumbs__link" :to="routePath(item)">
             {{item.title}}
-            <span class="breadcrumbs__arrow" v-if="index !== $route.meta.breadCrumbs.parent.length - 1">></span>
+            <span class="breadcrumbs__arrow">></span>
           </router-link>
         </li>
       </ul>
@@ -20,6 +20,7 @@
 <script>
 export default {
   name: 'BreadCrumbs',
+  props: ['arrCrumbs'],
   methods: {
     routePath(d) {
       if(d.path === '/admin/event-editing') {

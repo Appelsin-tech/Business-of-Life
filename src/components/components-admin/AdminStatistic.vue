@@ -1,13 +1,13 @@
 <template>
   <section class='p-statistic p-default p-default-inner'>
-    <bread-crumbs/>
+    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
       <h1 class='g-caption g-caption-inner'>Статистика </h1>
       <div class='wrapper' v-if="responseData.length > 0">
         <admin-statistic-chart-sales :defaultResponse="responseData"/>
         <admin-statistic-chart-location :defaultResponse="responseData"/>
       </div>
-      <panel-info v-else text="У вас еще нет мероприятий с продажами"></panel-info>
+      <panel-info v-else>У вас еще нет мероприятий с продажами</panel-info>
       <router-link :to='`/admin/me`' class='back-btn'>Назад</router-link>
     </div>
   </section>
@@ -31,6 +31,12 @@ export default {
   },
   data() {
     return {
+      breadCrumbs: [
+        {
+          path: '/admin/me',
+          title: 'Личный кабинет'
+        }
+      ],
       responseData: [],
     }
   },

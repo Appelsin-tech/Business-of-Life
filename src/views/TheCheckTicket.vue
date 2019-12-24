@@ -1,6 +1,6 @@
 <template>
   <section class="p-description p-default p-default-inner">
-    <bread-crumbs v-if="logged"/>
+    <bread-crumbs v-if="logged" :arrCrumbs="[]"/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Информация о билете</h1>
       <ticket-search v-if="logged"/>

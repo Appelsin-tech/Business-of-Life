@@ -1,6 +1,6 @@
 <template>
   <section class="p-control-event p-default p-default-inner">
-    <bread-crumbs/>
+    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner">Управление мероприятиями</h1>
       <div class="btn-wrapper">
@@ -85,6 +85,12 @@ export default {
   data() {
     return {
       resposneEvent: [],
+      breadCrumbs: [
+        {
+          path: 'me',
+          title: 'Личный кабинет'
+        }
+      ]
     }
   },
   methods: {

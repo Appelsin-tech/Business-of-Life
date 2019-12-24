@@ -1,6 +1,6 @@
 <template>
   <section class="p-me p-default p-default-inner">
-    <bread-crumbs/>
+    <bread-crumbs :arrCrumbs="[]"/>
     <div class="container">
       <h1 class="g-caption g-caption-inner">Личный кабинет</h1>
       <div class="menu">
@@ -15,6 +15,10 @@
         <router-link to="/admin/statistic" class="menu__item item">
           <div class="item__img  item__img--statistic"></div>
           <p class="item__title">Статистика продаж</p>
+        </router-link>
+        <router-link to="/admin/role" class="menu__item item">
+          <div class="item__img  item__img--role"></div>
+          <p class="item__title">Роли и управление доступом</p>
         </router-link>
       </div>
     </div>
@@ -32,7 +36,7 @@ export default {
     ...mapState('user', [
       'profile'
     ])
-  },
+  }
 }
 </script>
 

@@ -44,15 +44,15 @@
 import API from '../api/index'
 
 export default {
-  name: 'EventStatus',
-  props: ['idEvent', 'idStatus', 'idRelation'],
+  name: 'NewsStatus',
+  props: ['idNews', 'idStatus'],
   data() {
     return {
       statusRelation: 0,
       status: {
         0: {
           class: 'created',
-          tooltip: 'Событие не опубликовано'
+          tooltip: 'Новость не опубликована'
         },
         1: {
           class: 'waiting',
@@ -68,26 +68,14 @@ export default {
         },
         4: {
           class: 'past',
-          tooltip: 'Прошедшее событие'
+          tooltip: 'Прошедшая новость'
         }
       }
     }
   },
   methods: {
     newStatus() {
-      if(this.idStatus === 3 || this.idStatus === 4) {
-        API.relations.unpublish({id: this.idRelation}).then((response) => {
-          this.statusRelation = response.status
-          this.$emit('newStatus')
-          API.response.success('Событие снято с публикации')
-        })
-      } else {
-        API.relations.publish({id: this.idRelation}).then((response) => {
-          this.statusRelation = response.status
-          this.$emit('newStatus')
-          API.response.success('Событие опубликовано')
-        })
-      }
+
     },
   },
   mounted() {

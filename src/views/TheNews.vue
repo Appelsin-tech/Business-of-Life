@@ -1,341 +1,220 @@
 <template>
-  <section class="p-news p-default">
-    <div class="container page">
-      <div class="row-caption">
-        <div class="content">
-          <span class="desc-light">Новости академии</span>
-          <h1 class="g-caption">Новости</h1>
-          <p class="desc desc--bold">Последние события нашего портала</p>
-        </div>
+  <section class="p-news p-default p-default-inner">
+    <bread-crumbs :arrCrumbs="[]"/>
+    <div class="container">
+      <h1 class="g-caption g-caption-inner">Новости</h1>
+      <div class="news-wrapper">
+        <article class="news" v-for="(news, index) in  newsData" :key="index">
+          <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
+          <div class="content">
+            <a href="#" class="title-link">
+              <h1 class="title">{{news.title}}</h1>
+            </a>
+            <div class="data">
+              <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
+              <span>{{news.data}}</span>
+            </div>
+            <p class="desc">{{news.desc}}</p>
+            <div class="hash-wrapper">
+              <strong class="hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
+            </div>
+          </div>
+        </article>
       </div>
-      <div class="row-slider">
-        <div class="slider-wrapper">
-          <button class="swiper-button swiper-button--prev"><span></span></button>
-          <swiper :options="swiperOption" ref="mainSwiper">
-            <swiper-slide>
-              <div class="item-swiper">
-                <div class="text-wrapper">
-                  <p class="date">01.02.2033</p>
-                  <h3 class="caption-steps">Роза Жаманкулова.
-                    интервью lenta.ru</h3>
-                  <p class="description">У нас работают только профессиональные тренеры с многолетним опытом в своей сфере</p>
-                  <div class="wrapper-btn">
-                    <a class="circle-btn" href="#">
-                      <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="item-swiper ">
-                <div class="text-wrapper">
-                  <p class="date">01.02.2033</p>
-                  <h3 class="caption-steps">Изменилось расписание на октябрь</h3>
-                  <p class="description">У нас работают только профессиональные тренеры с многолетним опытом в своей сфере</p>
-                  <div class="wrapper-btn">
-                    <a class="circle-btn" href="#">
-                      <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="item-swiper">
-                <div class="text-wrapper">
-                  <p class="date">01.02.2033</p>
-                  <h3 class="caption-steps">Новый семинар 11 октября</h3>
-                  <p class="description">У нас работают только профессиональные тренеры с многолетним опытом в своей сфере</p>
-                  <div class="wrapper-btn">
-                    <a class="circle-btn" href="#">
-                      <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </swiper-slide>
-          </swiper>
-          <button class="swiper-button swiper-button--next"><span></span></button>
-        </div>
+      <div class="more">
+        Показать больше
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import BreadCrumbs from '../components/BreadCrumbs'
 
 export default {
   name: 'TheNews',
   components: {
-    swiper,
-    swiperSlide
+    BreadCrumbs
   },
-  data () {
+  data() {
     return {
-      swiperOption: {
-        slidesPerView: 3,
-        speed: 300,
-        slideClass: 'slide-news',
-        spaceBetween: 20,
-        navigation: {
-          nextEl: '.swiper-button--next',
-          prevEl: '.swiper-button--prev',
-          disabledClass: 'swiper-button-disabled'
+      newsData: [
+        {
+          title: 'Business of Life открывает раздел новостей',
+          img: 'https://api.businessof.life/event.jpg',
+          data: '15.12.2019 10:00',
+          desc: 'На старт семинарах вы получите четкие рекомендации, услышите удивительные истории о том, как действуют профи. Вы лично сможете познакомиться и пообщаться с состоявшимися сетевиками, избежать ошибок и отказаться от ненужных экспериментов.',
+          hashtag: ['#новостьдня', '#nayuta', '#разработка']
         },
-        breakpoints: {
-          // when window width is <= 320px
-          990: {
-            slidesPerView: 2
-          },
-          540: {
-            slidesPerView: 1
-          }
-        }
-      }
+        {
+          title: 'Business of Life открывает раздел новостей',
+          img: 'https://api.businessof.life/event.jpg',
+          data: '15.12.2019 10:00',
+          desc: 'На старт семинарах вы получите четкие рекомендации, услышите удивительные истории о том, как действуют профи. Вы лично сможете познакомиться и пообщаться с состоявшимися сетевиками, избежать ошибок и отказаться от ненужных экспериментов.',
+          hashtag: ['#новостьдня', '#nayuta', '#разработка']
+        },
+        {
+          title: 'Business of Life открывает раздел новостей',
+          img: 'https://api.businessof.life/event.jpg',
+          data: '15.12.2019 10:00',
+          desc: 'На старт семинарах вы получите четкие рекомендации, услышите удивительные истории о том, как действуют профи. Вы лично сможете познакомиться и пообщаться с состоявшимися сетевиками, избежать ошибок и отказаться от ненужных экспериментов.',
+          hashtag: ['#новостьдня', '#nayuta', '#разработка']
+        },
+      ]
     }
   },
-  computed: {
-    swiper () {
-      return this.$refs.mySwiperServices.swiper
-    }
-  },
-  methods: {
-    getImgUrl(src) {
-      const image = require(`../assets/img/news-${src}.jpg`)
-      console.dir(image)
-      return image
-    }
-  }
+  computed: {},
+  methods: {}
 }
 </script>
 
 <style scoped lang="less">
-  @import '~swiper/dist/css/swiper.css';
   @import "../assets/less/_importants";
 
   .p-news {
-    background: url("../assets/img/bg-coach.jpg") no-repeat center / cover;
-    .row-caption {
-      position: relative;
-      padding-top: 90px;
-      padding-left: 90px;
-      margin-bottom: 80px;
-      .decor-cube(300px, 300px);
-      .lg-block({ padding-top: 60px; padding-left: 60px; margin-bottom: 100px; .decor-cube(260px, 260px);});
-      .sm-block({ margin-bottom: 110px; .decor-cube(220px, 220px);});
-      .xs-block({ padding-left:0; padding-top: 0; margin-bottom: 25px; .decor-cube(@display: none;);});
-      .content {
+    .news-wrapper {
+      margin-bottom: 30px;
+      .sm-block({
+        margin-bottom: 20px;
+      });
+      .news {
         display: flex;
-        flex-direction: column;
-        .g-caption {
-          margin-bottom: 20px;
+        padding: 40px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        &:last-child {
+          margin-bottom: 0;
         }
-        .desc-light {
-          font-size: 1.4rem;
-          color: #666666;
+        .sm-block({
+          padding: 25px;
           margin-bottom: 10px;
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        });
+        .xs-block({
+          padding: 18px;
+        });
+        .img {
+          flex-shrink: 0;
+          margin-right: 50px;
+          height: 260px;
+          width: 360px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-color: #f3f3f3;
+          .lg-block({
+            width: 280px;
+            height: 200px;
+            margin-right: 30px;
+          });
+          .sm-block({
+            display: none;
+          })
         }
-        .desc {
-          &--bold {
-            max-width: 570px;
-            font-weight: 800;
-            font-size: 1.8rem;
-            line-height: 2.5rem;
-            .sm-block({ font-weight: 600; line-height: 2.2rem; font-size: 1.6rem;})
-          }
-        }
-      }
-    }
-    .row-slider {
-      display: flex;
-      justify-content: flex-end;
-      width: 100%;
-      .slider-wrapper {
-        position: relative;
-        max-width: 1300px;
-        width: 100%;
-        padding: 0 100px;
-        box-sizing: border-box;
-        .lg-block({ padding: 0 70px;});
-        .sm-block({ padding: 0 40px;});
-        .xs-block({ margin-bottom: 30px;});
-        .item-swiper {
-          position: relative;
+        .content {
           display: flex;
           flex-direction: column;
-          justify-content: flex-end;
-          height: 380px;
-          flex-grow: 1;
-          padding: 30px;
-          box-sizing: border-box;
-          transition: 0.3s;
-          background-position: center bottom;
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-color: #57412d;
-          .lg-block({ height: 320px;});
-          .sm-block({ height: 280px;});
-          .xs-block({ padding: 20px;});
-          &::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            opacity: 0;
-            transition: 0.3s;
-            background: @colorMainRed;
-            z-index: 1;
-          }
-          &:hover {
-            &::before {
-              opacity: 0.8;
-            }
-            .text-wrapper {
-              .description {
-                height: 60px;
-                opacity: 1;
-              }
-              .caption-steps {
-                text-decoration: underline;
-                background-image: linear-gradient(to left, #fff, #fff);
-              }
-              .wrapper-btn {
-                overflow: hidden;
-                height: 95px;
-                .lg-block({ height: 60px;});
-                .circle-btn {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
-              }
-            }
-          }
-          .text-wrapper {
-            position: relative;
-            z-index: 5;
-            .date {
-              margin-bottom: 8px;
-              font-size: 1.2rem;
-              color: #fff;
-              transition: 0.3s;
-            }
-            .caption-steps {
-              padding-bottom: 15px;
-              margin-bottom: 10px;
-              font-weight: 800;
-              font-size: 2.2rem;
-              color: #fff;
-              text-transform: uppercase;
-              transition: 0.3s;
-              z-index: 10;
-              background-image: linear-gradient(to left, @colorMainRed, @colorMainRed);
-              background-position: left bottom;
-              background-size: 30px 2px;
-              background-repeat: no-repeat;
-              .lg-block({ margin-bottom: 15px; font-size: 2rem;});
-            }
-            .description {
-              font-size: 1.2rem;
-              color: #fff;
-              height: 0;
-              opacity: 0;
-              transition: 0.3s;
-            }
-            .wrapper-btn {
-              display: flex;
-              align-items: flex-end;
-              height: 0;
-              flex-shrink: 0;
-              overflow: hidden;
-              transition: 0.3s;
-              .sm-block({ display: none;});
-              .circle-btn {
-                position: relative;
-                display: inline-flex;
-                width: 65px;
-                height: 65px;
-                justify-content: center;
-                align-items: center;
-                border: 1px solid #fff;
-                border-radius: 50%;
-                transition: 0.3s;
-                z-index: 5;
-                opacity: 0;
-                transform: translateY(65px);
-                box-sizing: border-box;
-                .lg-block({ width: 50px; height: 50px;});
-                svg {
-                  width: 20px;
-                  height: 15px;
-                  transition: 0.3s;
-                  .lg-block({ width: 20px; height: 20px; });
-                  path {
-                    stroke: #fff;
-                  }
-                }
-              }
-            }
-          }
-        }
-        .swiper-button {
-          position: absolute;
-          width: 22px;
-          height: 22px;
-          top: calc(~"50% - 11px");
-          cursor: pointer;
-          &.swiper-button-disabled {
-            opacity: 0.5;
-          }
-          &--prev {
-            left: 20px;
-            .sm-block({ left: 4px;});
-            span {
-              border-bottom: 4px solid @colorBlue;
-              border-left: 4px solid @colorBlue;
-            }
-          }
-          &--next {
-            right: 20px;
-            .sm-block({ right: 4px;});
-            span {
-              border-top: 4px solid @colorBlue;
-              border-right: 4px solid @colorBlue;
-            }
-          }
-          span {
+          .title-link {
             display: block;
-            width: 100%;
-            height: 100%;
-            transform: rotate(45deg);
-            box-sizing: border-box;
+            margin-bottom: 30px;
+            color: #000;
+            .lg-block({
+              margin-bottom: 20px;
+            });
+            .xs-block({
+              margin-bottom: 10px;
+            });
+            .title {
+              font-size: 2.4rem;
+              font-weight: 800;
+              text-transform: uppercase;
+              text-decoration: underline;
+              .lg-block({
+                font-size: 2rem;
+              });
+              .xs-block({
+                font-size: 1.8rem;
+              });
+              &:hover {
+                text-decoration: none;
+              }
+            }
+          }
+          .data {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            .lg-block({
+              margin-bottom: 20px;
+            });
+            .xs-block({
+              margin-bottom: 10px;
+            });
+            .svg-icon {
+              margin-right: 10px;
+              width: 20px;
+              height: 20px;
+              flex-shrink: 0;
+              .sm-block({
+                width: 15px;
+                height: 15px;
+                margin-top: 0;
+              });
+              path {
+                fill: @colorMainRed;
+              }
+            }
+          }
+          .desc {
+            margin-bottom: auto;
+            font-size: 1.6rem;
+            line-height: 2.5rem;
+          }
+          .hash-wrapper {
+            margin-top: 15px;
+            .xs-block({
+              margin-top: 10px;
+            });
+            .hashtag {
+              display: inline-block;
+              margin-right: 10px;
+              font-weight: 800;
+              font-size: 1.8rem;
+              color: @colorBlue;
+              text-decoration: underline;
+              cursor: pointer;
+              .xs-block({
+                font-size: 1.6rem;
+                margin-right: 7px;
+              });
+              &:hover {
+                text-decoration: none;
+              }
+            }
           }
         }
       }
     }
-    .main-swiper-pagination {
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .swiper-container {
-      .slide-news {
-        display: flex;
-        flex-shrink: 0;
-        .to(540px, { justify-content: center;})
+    .more {
+      margin-bottom: auto;
+      padding: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 2rem;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
       }
-    }
-    .swiper-pagination {
-      display: none;
-      bottom: -20px;
-      left: 20px;
-      right: 20px;
-      height: 3px;
-      .to(540px, { display: block;});
+      .sm-block({
+        padding: 15px;
+        font-size: 1.6rem;
+        border-radius: 5px;
+      })
     }
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <footer class="s-footer" :class="{'border-class': borderClass}">
+  <footer class="s-footer" :class="{'border-class': !borderClass}">
     <div class="container">
       <div class="copyright-wrapper">
         <p class="copyright">TОО "Business of Life"</p>
@@ -37,7 +37,7 @@ export default {
   name: 'AppFooter',
   computed: {
     borderClass () {
-      return this.$route.matched.some(item => item.path === '/admin') || this.$route.name === 'my-ticket' || this.$route.name === 'event' || this.$route.name === 'tickets' || this.$route.name === 'tickets-page' || this.$route.name === 'payment_policy'
+      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar'
     }
   }
 }

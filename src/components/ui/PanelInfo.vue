@@ -1,13 +1,12 @@
 <template>
   <div class="panel">
-    {{text}}
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
   name: 'PanelInfo',
-  props: ['text']
 }
 </script>
 

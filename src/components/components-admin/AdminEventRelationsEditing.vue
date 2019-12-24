@@ -1,6 +1,6 @@
 <template>
   <section class="p-event-all-editing p-default p-default-inner">
-    <bread-crumbs/>
+    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption g-caption-inner g-caption-inner--admin">Мероприятие</h1>
       <div class="event-editing">
@@ -94,7 +94,7 @@
           </div>
           <panel-info v-if="!myPastEvents.length" text="У вас еще нет прошедших событий"></panel-info>
         </div>
-        <panel-info v-if="showRelations === 2" text="Чтобы создать событие - заполните информацию о мероприятии"></panel-info>
+        <panel-info v-if="showRelations === 2">Чтобы создать событие - заполните информацию о мероприятии</panel-info>
         <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
       </div>
     </div>
@@ -118,6 +118,16 @@ export default {
   props: ['id'],
   data() {
     return {
+      breadCrumbs: [
+        {
+          path: '/admin/me',
+          title: 'Личный кабинет'
+        },
+        {
+          path: '/admin/event-control',
+          title: 'Управление мероприятиями'
+        },
+      ],
       myEvent: false,
       myFutureEvents: [],
       myPastEvents: [],
