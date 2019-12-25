@@ -26,6 +26,14 @@ const router = new Router({
       component: () => import('./views/TheDescription')
     },
     {
+      path: '/pricing',
+      name: 'pricing',
+      meta: {
+        navDots: true
+      },
+      component: () => import('./views/ThePricing')
+    },
+    {
       path: '/learning-stages',
       name: 'learning-stages',
       component: () => import('./views/TheLearningStages')

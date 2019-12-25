@@ -1,5 +1,5 @@
 <template>
-  <header class="s-header" :class="{active : showMenu, 'border-class': !borderClass}">
+  <header class="s-header" :class="[$route.name === 'pricing' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}]">
     <div class="container">
       <div class="wrapper-relative">
         <a class="logo-link" href="#" @click.prevent="goRouter('main')">
@@ -26,7 +26,7 @@
             <!--<span>Информация</span>-->
           <!--</a>-->
         </div>
-        <button class="burger" @click="showMenu = !showMenu">
+        <button class="burger" @click="showMenuMethod">
           <span></span>
           <span></span>
           <span></span>
@@ -40,45 +40,12 @@
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('description')">О нас</a>
           </li>
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('learning-stages')">Этапы обучения</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('our-coach')">Наши тренеры</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('news')">Новости</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('photo-gallery')">Фотогалерея</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('auth')">Авторизация</a>-->
-          <!--</li>-->
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
           </li>
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('admin')" v-if="logged">Личный кабинет</a>
           </li>
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('event/=event')">Событие</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('event-all-editing')">Редактирование всех событий</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('event-editing')">Редактирование события</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('event-control')">Управление мероприятиями</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('control-ticket')">Управление билетом</a>-->
-          <!--</li>-->
-          <!--<li class="item">-->
-            <!--<a href="#" class="link" @click.prevent="goRouter('statistic')">Статистика</a>-->
-          <!--</li>-->
         </ul>
         <div class="icon-wrapper icon-wrapper--mobile">
           <div href="#" class="icon-red icon-red--desktop user user-mobile" @click="activeClass" v-if="logged">
@@ -127,11 +94,14 @@ export default {
     },
     activeClass () {
       this.showLogout = !this.showLogout
+    },
+    showMenuMethod() {
+      this.showMenu = !this.showMenu
     }
   },
   computed: {
     borderClass () {
-      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar'
+      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar' || this.$route.name === 'pricing'
     },
     ...mapState('user', [
       'profile'
@@ -180,6 +150,46 @@ export default {
     &.border-class {
       padding-bottom: 30px;
       border-bottom: 1px solid @colorBorder;
+    }
+    &.white {
+      .container {
+        .logo {
+          * {
+            fill: #fff;
+          }
+        }
+        .icon-wrapper {
+          .icon-red--desktop {
+            &:hover {
+              span {
+                color: #fff;
+                border-bottom-color: #fff;
+              }
+            }
+            span {
+              color: #fff;
+            }
+            svg {
+              * {
+                fill: #fff;
+              }
+            }
+            &.user {
+              &::after {
+                border-top-color: #fff;
+              }
+              .exit {
+                color: #fff;
+              }
+            }
+          }
+        }
+        .burger {
+          span {
+            background: #fff;
+          }
+        }
+      }
     }
     &.active {
       position: fixed;
@@ -258,6 +268,7 @@ export default {
       .logo {
         width: 100%;
         max-width: 144px;
+        outline: none;
         .lg-block({ max-width: 110px; });
       }
       .wrapper-relative {

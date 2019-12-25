@@ -92,7 +92,9 @@
               </div>
             </div>
           </div>
-          <panel-info v-if="!myPastEvents.length" text="У вас еще нет прошедших событий"></panel-info>
+          <panel-info v-if="!myPastEvents.length">
+            У вас еще нет прошедших событий
+          </panel-info>
         </div>
         <panel-info v-if="showRelations === 2">Чтобы создать событие - заполните информацию о мероприятии</panel-info>
         <router-link to="/admin/event-control" class="back-btn">Назад</router-link>

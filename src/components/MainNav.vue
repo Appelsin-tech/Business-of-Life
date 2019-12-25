@@ -66,6 +66,10 @@ export default {
           path: '/news/123',
           tooltip: 'Страница новости'
         },
+        {
+          path: '/pricing',
+          tooltip: 'Подписки'
+        },
       ]
     }
   },

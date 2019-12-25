@@ -304,6 +304,109 @@ input {
     }
   }
 }
+.v-select__pricing {
+  position: relative;
+  height: 68px;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  .lg-block({ height: 60px; });
+  .xs-block({ height: 40px; });
+  &.vs--open {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    .vs__actions {
+      .vs__open-indicator {
+        transform: rotate(180deg);
+      }
+    }
+    .vs__dropdown-toggle {
+      .vs__selected-options {
+        .vs__search {
+          border-bottom-right-radius: 0px;
+          border-bottom-left-radius: 0px;
+        }
+      }
+    }
+  }
+  .vs__dropdown-toggle {
+    height: 100%;
+    position: relative;
+    z-index: 1000;
+    .vs__selected-options {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+      .lg-block({ padding-left: 18px; });
+      .xs-block({ padding-left: 10px; });
+      .vs__selected {
+        z-index: 4;
+        color: #fff;
+      }
+      .vs__search {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        padding-left: 25px;
+        background: #121e5d;
+        border: none;
+        box-sizing: border-box;
+        z-index: 3;
+        cursor: pointer;
+        color: #fff;
+        border-radius: 5px;
+        .lg-block({ padding-left: 18px; });
+        .xs-block({ padding-left: 10px; });
+        &::placeholder {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .vs__actions {
+    .vs__open-indicator {
+      display: inline-block;
+      position: absolute;
+      right: 20px;
+      top: 35px;
+      border-top: 10px solid #fff;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      cursor: pointer;
+      z-index: 4;
+      transition: all 0.2s;
+      .lg-block({ top: 28px; });
+      .xs-block({ top: 18px; });
+    }
+    .vs__clear {
+      display: none;
+    }
+  }
+  .vs__dropdown-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #121e5d;
+    z-index: 999;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.4);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    overflow: hidden;
+    .vs__dropdown-option {
+      color: #fff;
+      padding-left: 25px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .lg-block({ padding-left: 18px; });
+      .xs-block({ padding-left: 10px; });
+    }
+  }
+}
 .v-select__event {
   position: relative;
   padding-right: 30px;

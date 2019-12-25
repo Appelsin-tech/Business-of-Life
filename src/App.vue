@@ -35,7 +35,7 @@ export default {
   },
   data () {
     return {
-      showMenu: true,
+      showMenu: false,
       widthNoty: 400
     }
   },
@@ -48,7 +48,7 @@ export default {
   methods: {
     beforeEnter () {
       this.$root.$emit('scrollBeforeEnter')
-    }
+    },
   },
   computed: {
     ...mapGetters('user', [

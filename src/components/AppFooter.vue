@@ -1,5 +1,5 @@
 <template>
-  <footer class="s-footer" :class="{'border-class': !borderClass}">
+  <footer class="s-footer" :class="[$route.name === 'pricing' ? 'white' : '', {'border-class': !borderClass}]" >
     <div class="container">
       <div class="copyright-wrapper">
         <p class="copyright">TОО "Business of Life"</p>
@@ -37,8 +37,8 @@ export default {
   name: 'AppFooter',
   computed: {
     borderClass () {
-      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar'
-    }
+      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar' || this.$route.name === 'pricing'
+    },
   }
 }
 </script>
@@ -56,6 +56,26 @@ export default {
     &.border-class {
       padding-top: 40px;
       border-top: 1px solid @colorBorder;
+    }
+    &.white {
+      .container {
+        .copyright-wrapper {
+          .copyright {
+            color: #fff;
+            &--link {
+              color: #fff;
+              border-bottom: 1px solid #fff;
+              &:hover {
+                border-bottom-color: transparent;
+              }
+            }
+            &--tel {
+              color: #fff;
+            }
+          }
+        }
+      }
+
     }
     .container {
       display: flex;

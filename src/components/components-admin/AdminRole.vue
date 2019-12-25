@@ -16,7 +16,7 @@
             </a>
           </div>
         </div>
-        <form class="col col--access">
+        <form class="col col--access" @submit.prevent="onSubmit">
           <div class="item-wrapper">
             <p class="g-caption g-caption-section">Роль</p>
             <div class="item">
@@ -29,16 +29,24 @@
             </div>
             <div class="item">
               <label class="item__label" for="form-role-name">Назначить</label>
-              <div class="item__input taggable">
-                <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.select" class="v-select__role">
+              <div class="item__input taggable"  :class="{error: $v.form.select.$error}">
+                <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.select" class="v-select__role" >
                   <span slot="no-options">
                     Введите имя
                   </span>
+                  <template #search="{attributes, events}">
+                    <input
+                      class="vs__search"
+                      v-bind="attributes"
+                      v-on="events"
+                      :required="false"
+                      @blur="$v.form.select.$touch()"
+                    />
+                  </template>
                 </v-select>
               </div>
-              <div class="input-valid-error" v-if="$v.form.name.$error">
-                <template v-if="!$v.form.name.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.name.maxLength">Превышено количество допустимых символов</template>
+              <div class="input-valid-error" v-if="$v.form.select.$error">
+                <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
               </div>
             </div>
           </div>
@@ -90,7 +98,7 @@
               </div>
             </div>
           </div>
-          <button class="g-btn g-btn--no-icon">
+          <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
             <span>Сохранить</span>
           </button>
         </form>
@@ -102,6 +110,7 @@
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { maxLength, required } from 'vuelidate/lib/validators'
+import API from '../../api/index'
 
 export default {
   name: 'AdminRole',
@@ -116,13 +125,16 @@ export default {
           title: 'Личный кабинет'
         }
       ],
+      errorSelect: {
+        selectedStatus: false,
+      },
       form: {
         title: '',
         name: '',
         access: [],
         event: [],
         news: [],
-        select: ''
+        select: []
       },
     }
   },
@@ -132,12 +144,20 @@ export default {
         required,
         maxLength: maxLength(100)
       },
-      name: {
+      select: {
         required
-      },
+      }
     }
   },
-  methods: {},
+  methods: {
+    onSubmit() {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        API.response.error('Заполните все поля')
+        return
+      }
+    }
+  },
   mounted() {
     // this.$refs.select.open = true
   }
