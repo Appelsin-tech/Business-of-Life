@@ -20,6 +20,10 @@
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Роли и управление доступом</p>
         </router-link>
+        <router-link to="/admin/profile" class="menu__item item">
+          <div class="item__img  item__img--role"></div>
+          <p class="item__title">Профиль</p>
+        </router-link>
       </div>
     </div>
   </section>

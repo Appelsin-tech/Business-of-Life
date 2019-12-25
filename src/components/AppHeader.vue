@@ -101,7 +101,25 @@ export default {
   },
   computed: {
     borderClass () {
-      return this.$route.name === 'main' || this.$route.name === 'description' || this.$route.name === 'calendar' || this.$route.name === 'pricing'
+      let rout = false
+      switch (this.$route.name) {
+        case 'main':
+          rout = true
+          break
+        case 'description':
+          rout = true
+          break
+        case 'calendar':
+          rout = true
+          break
+        case 'pricing':
+          rout = true
+          break
+        case 'auth':
+          rout = true
+          break
+      }
+      return rout
     },
     ...mapState('user', [
       'profile'

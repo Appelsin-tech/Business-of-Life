@@ -126,7 +126,7 @@ import 'flatpickr/dist/flatpickr.css'
 export default {
   name: 'AdminRelationEditing',
   props: ['id', 'event'],
-  components: { BreadCrumbs, flatPickr, Ticket,  ckeditor: CKEditor.component },
+  components: { BreadCrumbs, flatPickr, Ticket, ckeditor: CKEditor.component },
   data() {
     return {
       breadCrumbs: [
@@ -234,7 +234,7 @@ export default {
         API.relations.create(this.form).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
-          this.$router.push({path: `/admin/editing/${this.id}/${response.id}`})
+          this.$router.push({ path: `/admin/editing/${this.id}/${response.id}` })
           this.form.id = response.id
         }).catch(error => {
           console.log(error)
@@ -318,15 +318,29 @@ export default {
       display: flex;
       justify-content: flex-start;
       padding-left: 50px;
-      .sm-block({ margin-left: 0; margin-bottom: 40px; padding-left: 0; });
-      .ss-block({ flex-direction: column; align-items: center; });
+      .sm-block({
+        margin-left: 0;
+        margin-bottom: 40px;
+        padding-left: 0;
+      });
+      .ss-block({
+        flex-direction: column;
+        align-items: center;
+      });
       .g-btn {
         min-width: 250px;
-        .sm-block({ min-width: 220px; });
-        .ss-block({ min-width: 200px; });
+        .sm-block({
+          min-width: 220px;
+        });
+        .ss-block({
+          min-width: 200px;
+        });
         &:first-child {
           margin-right: 20px;
-          .ss-block({ margin-right: 0; margin-bottom: 20px; });
+          .ss-block({
+            margin-right: 0;
+            margin-bottom: 20px;
+          });
         }
         &.disabled {
           opacity: 0.7;
@@ -343,10 +357,20 @@ export default {
     grid-row-gap: 30px;
     margin-bottom: 50px;
     padding-left: 50px;
-    .lg-block({ grid-column-gap: 50px;});
-    .md-block({ grid-template-columns: 1fr 1fr; });
-    .sm-block({ grid-column-gap: 30px; padding-left: 0; });
-    .ss-block({ grid-template-columns: 1fr; grid-row-gap: 20px; });
+    .lg-block({
+      grid-column-gap: 50px;
+    });
+    .md-block({
+      grid-template-columns: 1fr 1fr;
+    });
+    .sm-block({
+      grid-column-gap: 30px;
+      padding-left: 0;
+    });
+    .ss-block({
+      grid-template-columns: 1fr;
+      grid-row-gap: 20px;
+    });
     .photo {
       display: flex;
       flex-direction: column;
@@ -356,9 +380,16 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       transition: 0.3s;
-      .lg-block({ height: 320px; });
-      .md-block({ height: 300px; });
-      .xs-block({ height: 200px; margin-bottom: 0; });
+      .lg-block({
+        height: 320px;
+      });
+      .md-block({
+        height: 300px;
+      });
+      .xs-block({
+        height: 200px;
+        margin-bottom: 0;
+      });
       &:hover {
         .photo-link--change {
           opacity: 1;
@@ -434,18 +465,27 @@ export default {
     .item {
       &--col-8 {
         grid-column: ~"1 / 3";
-        .ss-block({ grid-column: ~"1 / 2"; });
+        .ss-block({
+          grid-column: ~"1 / 2";
+        });
         &.textarea {
           grid-row: ~"2 / 4";
-          .md-block({ grid-row: ~"3 / 4"; });
+          .md-block({
+            grid-row: ~"3 / 4";
+          });
         }
       }
       &--col-4 {
         &.photo {
           grid-column: ~"3 / 4";
           grid-row: ~"1 / 4";
-          .md-block({ grid-row: ~"1 / 2"; grid-column: ~"1 / 3"; });
-          .ss-block({ grid-column: ~"1 / 2"; });
+          .md-block({
+            grid-row: ~"1 / 2";
+            grid-column: ~"1 / 3";
+          });
+          .ss-block({
+            grid-column: ~"1 / 2";
+          });
         }
       }
       &.textarea {
@@ -459,8 +499,14 @@ export default {
           resize: none;
           outline: none;
           min-height: 68px;
-          .lg-block({ min-height: 60px; });
-          .xs-block({ min-height: 40px; padding-top: 12px; padding-bottom: 12px; });
+          .lg-block({
+            min-height: 60px;
+          });
+          .xs-block({
+            min-height: 40px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+          });
         }
       }
       &__label {
@@ -468,7 +514,9 @@ export default {
         margin-bottom: 15px;
         font-weight: 800;
         font-size: 1.8rem;
-        .ss-block({ margin-bottom: 10px; });
+        .ss-block({
+          margin-bottom: 10px;
+        });
       }
       &__input {
         padding-left: 25px;
@@ -478,8 +526,14 @@ export default {
         background: #f3f3f3;
         border: 1px solid #fff;
         box-sizing: border-box;
-        .lg-block({ padding-left: 18px; height: 60px; });
-        .xs-block({ padding-left: 10px; height: 40px; });
+        .lg-block({
+          padding-left: 18px;
+          height: 60px;
+        });
+        .xs-block({
+          padding-left: 10px;
+          height: 40px;
+        });
         &.error {
           border: 1px solid @colorMainRed;
         }
@@ -500,7 +554,9 @@ export default {
     &-wrapper {
       .row-flex();
       padding-left: 50px;
-      .sm-block({ padding-left: 0; });
+      .sm-block({
+        padding-left: 0;
+      });
     }
     .ticket-create {
       .col();
@@ -515,10 +571,15 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
       min-height: 400px;
-      .sm-block({ padding: 30px 20px; box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);});
-      .xs-block({ min-height: 200px;});
+      .sm-block({
+        padding: 30px 20px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+      });
+      .xs-block({
+        min-height: 200px;
+      });
       &.disabled {
         .create-link {
           pointer-events: none;
@@ -556,7 +617,9 @@ export default {
     align-items: flex-start;
     .preview {
       margin-top: 80px;
-      .sm-block({ margin-top: 50px;});
+      .sm-block({
+        margin-top: 50px;
+      });
       &.disabled {
         opacity: 0.7;
         pointer-events: none;

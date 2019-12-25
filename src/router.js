@@ -145,6 +145,11 @@ const router = new Router({
           path: 'role',
           name: 'role',
           component: () => import('./components/components-admin/AdminRole')
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('./components/components-admin/AdminProfile')
         }
       ]
     },

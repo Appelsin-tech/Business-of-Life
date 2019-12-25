@@ -185,7 +185,7 @@ export default {
         .btn-wrapper {
           width: 100%;
           .lg-block({max-width: 300px; margin: 0 auto;});
-          .sm-block({max-width: 250px;})
+          .sm-block({max-width: 210px;})
         }
         .btn-role {
           display: inline-flex;
@@ -199,14 +199,17 @@ export default {
           margin-bottom: 20px;
           box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
           cursor: pointer;
+          border: 3px solid transparent;
           .lg-block({
             padding: 30px 20px;
           });
           .sm-block({
-            padding: 25px 15px;
+            padding: 20px 15px;
+            border-width: 2px;
           });
           &.active {
             border: 3px solid @colorMainRed;
+            .sm-block({border-width: 2px;});
           }
 
         }
@@ -215,7 +218,7 @@ export default {
         }
       }
       &--access {
-        .size(7.8);
+        .size(8.8);
         .size-lg(12);
         display: flex;
         flex-direction: column;
