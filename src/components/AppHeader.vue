@@ -118,6 +118,12 @@ export default {
         case 'auth':
           rout = true
           break
+        case 'registration':
+          rout = true
+          break
+        case 'registration-referal':
+          rout = true
+          break
       }
       return rout
     },

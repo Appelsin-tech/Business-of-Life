@@ -12,33 +12,41 @@
         <form @submit.prevent="onSubmit" class="form">
           <div class="item-wrapper">
             <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Логин</label>
-              <input type="text" class="g-item-form__input" v-model="form.user" :class="{error: $v.form.user.$error}" @blur="$v.form.user.$touch()">
-              <div class="input-valid-error" v-if="$v.form.user.$error">
-                <template v-if="!$v.form.user.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.user.minLength">Значение не должно быть менее 3-х символов</template>
+              <label class="g-item-form__label" for="form-role-name">Ваше имя</label>
+              <input type="text" class="g-item-form__input" v-model="form.name" :class="{error: $v.form.name.$error}" @blur="$v.form.name.$touch()">
+              <div class="input-valid-error" v-if="$v.form.name.$error">
+                <template v-if="!$v.form.name.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.name.minLength">Значение не должно быть менее 3-х символов</template>
               </div>
             </div>
             <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Пароль</label>
-              <input type="password" class="g-item-form__input" v-model="form.password" :class="{error: $v.form.password.$error}" @blur="$v.form.password.$touch()">
-              <div class="input-valid-error" v-if="$v.form.password.$error">
-                <template v-if="!$v.form.password.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.password.minLength">Значение должно быть не менее 5 символов</template>
+              <label class="g-item-form__label" for="form-role-name">Почта</label>
+              <input type="text" class="g-item-form__input" v-model="form.email" :class="{error: $v.form.email.$error}" @blur="$v.form.email.$touch()">
+              <div class="input-valid-error" v-if="$v.form.email.$error">
+                <template v-if="!$v.form.email.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.email.email">Некорректный Email</template>
+              </div>
+            </div>
+            <div class="g-item-form">
+              <label class="g-item-form__label" for="form-role-name">Имя пригласителя</label>
+              <input type="text" class="g-item-form__input" v-model="form.sponsor" :class="{error: $v.form.sponsor.$error, readonly: $route.params.sponsor}" @blur="$v.form.sponsor.$touch()" :readonly="$route.params.sponsor">
+              <div class="input-valid-error" v-if="$v.form.sponsor.$error">
+                <template v-if="!$v.form.sponsor.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.sponsor.minLength">Значение должно быть не менее 3-х символов</template>
               </div>
             </div>
           </div>
-          <button class="g-btn"  :disabled="$v.$invalid">
+          <button class="g-btn"  :disabled="$v.$invalid || btnSubmit">
             <span>
-              Войти
+              Регистрация
               <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
             </span>
           </button>
 
         </form>
         <p class="auth-info">
-          <span>Еще нет акаунта?</span>
-          <router-link to="/registration" class="link">Регистрация</router-link>
+          <span>Уже есть акаунт?</span>
+          <router-link to="/auth" class="link">Войти</router-link>
         </p>
       </div>
 
@@ -47,70 +55,71 @@
 </template>
 
 <script>
-import { minLength, required } from 'vuelidate/lib/validators'
+import { minLength, required, email } from 'vuelidate/lib/validators'
 import API from '../api/index'
 
 export default {
-  name: 'TheAuth',
+  name: 'TheRegistration',
   data() {
     return {
       errorResponse: {
-        user_wrong: 'Пользователь не найден',
-        recovery: 'Требуется восстановление доступа',
-        password: 'Не верный пароль',
-        banned: 'Пользователь забанен'
+        email_chars: 'Указан некорректный email',
+        email_used: 'Email уже зарегистрирован в системе',
+        name_empty: 'Не указано имя',
+        lang_format: 'Некорректный язык',
+        sponsor_wrong: 'Спонсор не найден'
       },
       pageAuth: false,
       form: {
-        user: '',
-        password: ''
-      }
+        name: '',
+        language: 'ru',
+        email: '',
+        sponsor: ''
+      },
+      btnSubmit: false
     }
   },
   validations: {
     form: {
-      user: {
+      name: {
         required,
         minLength: minLength(3)
       },
-      password: {
+      language: {
+        required
+      },
+      email: {
         required,
-        minLength: minLength(5)
+        email
+      },
+      sponsor: {
+        required,
+        minLength: minLength(3)
       }
     }
   },
   computed: {
+
   },
   methods: {
     onSubmit() {
-      API.access.auth(this.form).then(response => {
-        this.$store.dispatch('user/login').then(response => {
-          this.$router.push({path :'/admin/me'})
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        API.access.request(this.form).then(response => {
+          this.btnSubmit = true
+          console.log(response)
+          API.response.success('Вам отправлено письмо на почту')
+        }).catch(error => {
+          API.response.error(this.errorResponse[error.response.data.reason])
         })
-      }).catch(error => {
-        API.response.error(this.errorResponse[error.response.data.reason])
-      })
+      }
     },
   },
   mounted() {
-    if (this.$route.name === 'auth') {
-      this.pageAuth = true
-    } else {
-      this.pageAuth = false
+    if (this.$route.params.sponsor) {
+      this.form.sponsor = this.$route.params.sponsor
     }
   },
-  watch: {
-    '$route' (to, from) {
-      if (this.$route.name === 'auth') {
-        this.pageAuth = true
-      } else {
-        this.pageAuth = false
-      }
-    }
-  },
-  beforeRouteUpdate (to, from, next) {
-    next()
-  }
 }
 </script>
 
@@ -155,16 +164,17 @@ export default {
       .md-block({ padding-left: 0;});
       .form {
         display: flex;
+        flex-direction: column;
         .md-block({flex-direction: column; align-items: center;});
         .item-wrapper {
           .row-flex();
           align-items: flex-start;
-          flex-grow: 1;
-          .md-block({ flex-direction: column; align-items: center; align-self: stretch});
+          .md-block({ flex-direction: column; align-items: center; align-self: stretch;});
         }
         .g-item-form {
           .col();
           .size(6);
+          .size-md(6);
           .size-sm(11);
           .size-xs(12);
           box-sizing: border-box;
@@ -185,6 +195,13 @@ export default {
                 border-color: @colorMainRed;
               }
             }
+            &.readonly {
+              &:hover,
+              &:focus {
+                background: #f3f3f3;
+                border-color: #f3f3f3;
+              }
+            }
           }
         }
         .g-btn {
@@ -192,9 +209,8 @@ export default {
           padding-top: 0;
           padding-bottom: 0;
           margin-bottom: 30px;
-          margin-left: 20px;
-          margin-top: 37px;
-          .md-block({max-width: 250px;  height: 60px; margin-top: 0;});
+          align-self: flex-start;
+          .md-block({max-width: 250px;  height: 60px; align-self: center;});
         }
       }
     }

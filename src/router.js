@@ -73,6 +73,27 @@ const router = new Router({
       component: () => import('./views/TheAuth')
     },
     {
+      path: '/registration',
+      name: 'registration',
+      meta: {
+        navDots: true
+      },
+      component: () => import('./views/TheRegistration')
+    },
+    {
+      path: '/registration/:sponsor',
+      name: 'registration-referal',
+      meta: {
+        navDots: true
+      },
+      component: () => import('./views/TheRegistration')
+    },
+    {
+      path: '/reg-completion/:key',
+      name: 'reg-completion',
+      component: () => import('./views/TheRegCompletion')
+    },
+    {
       path: '/calendar',
       name: 'calendar',
       meta: {

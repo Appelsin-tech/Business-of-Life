@@ -15,6 +15,20 @@ export default {
       reject(error)
     })
   }),
+  request: (data) => new Promise((resolve, reject) => {
+    HTTP.post('access/request', data).then(response => {
+      resolve(response.data)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
+  register: (data) => new Promise((resolve, reject) => {
+    HTTP.post('access/register', data).then(response => {
+      resolve(response.data)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
   unknown: () => new Promise((resolve, reject) => {
     HTTP.get('unknown').then(response => {
       resolve(response.data)
