@@ -87,7 +87,8 @@ export default {
   .p-auth {
     background: url("../assets/img/bg-auth.jpg") no-repeat center / cover;
     min-height: 1150px;
-
+    .md-block({min-height: 1170px;});
+    .xs-block({min-height: 100vh;});
     .row-caption {
       position: relative;
       padding-top: 90px;
