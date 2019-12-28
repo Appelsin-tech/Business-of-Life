@@ -10,6 +10,9 @@ import store from './store/index'
 
 import VCalendar from 'v-calendar'
 import Deselect from './components/Dselect'
+
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
 Vue.use(VCalendar)
 
 const SocialSharing = require('vue-social-sharing')

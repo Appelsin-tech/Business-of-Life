@@ -123,9 +123,8 @@ export default {
   @import "../../assets/less/_importants";
   .p-control-event {
     .btn-wrapper {
-      margin-left: 50px;
       margin-bottom: 60px;
-      .sm-block({ margin-left: 0; margin-bottom: 40px;});
+      .sm-block({ margin-bottom: 40px;});
     }
     .event {
       .row-flex();
@@ -230,8 +229,8 @@ export default {
       &__img {
         position: relative;
         margin-bottom: 40px;
-        height: 350px;
-        width: 350px;
+        height: 335px;
+        width: 335px;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

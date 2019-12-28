@@ -24,6 +24,10 @@
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Профиль</p>
         </router-link>
+        <router-link to="/pricing" class="menu__item item">
+          <div class="item__img  item__img--role"></div>
+          <p class="item__title">База знаний</p>
+        </router-link>
       </div>
     </div>
   </section>
@@ -124,8 +128,8 @@ export default {
         &__img {
           position: relative;
           margin-bottom: 40px;
-          height: 350px;
-          width: 350px;
+          height: 335px;
+          width: 335px;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;

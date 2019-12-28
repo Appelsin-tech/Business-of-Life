@@ -41,6 +41,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('user/login')
+    this.$store.dispatch('user/setCookieSponsor')
     if (window.innerWidth < 500) {
       this.widthNoty = 300
     }

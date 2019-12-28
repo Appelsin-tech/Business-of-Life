@@ -235,10 +235,8 @@ export default {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 60px;
-    padding-left: 50px;
     .sm-block({
       margin-bottom: 40px;
-      padding-left: 0;
     });
     .ss-block({
       flex-direction: column;
@@ -266,10 +264,6 @@ export default {
       flex-direction: column;
       &--inner {
         margin-bottom: 30px;
-        padding-left: 50px;
-        .sm-block({
-          padding-left: 0;
-        });
       }
       .event {
         display: flex;

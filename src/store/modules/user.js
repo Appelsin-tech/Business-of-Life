@@ -1,7 +1,13 @@
 import API from '../../api/index'
 
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
+
+Vue.use(VueCookies)
+
 const state = () => ({
   profile: null,
+  sponsor: null,
   myParentEvents: []
 })
 
@@ -33,14 +39,14 @@ const actions = {
       console.log(error)
     })
   },
-  logout({commit}) {
+  logout({ commit }) {
     API.access.logout().then(response => {
       commit('LOGOUT')
     }).catch(error => {
       console.log(error)
     })
   },
-  getMyParentEvents({commit}) {
+  getMyParentEvents({ commit }) {
     return new Promise((resolve, reject) => {
       API.events.my().then(response => {
         commit('SET_MY_PARENT_EVENT', response.data)
@@ -50,7 +56,12 @@ const actions = {
         reject(error)
       })
     })
-  }
+  },
+  setCookieSponsor({ commit }) {
+    if (VueCookies.get('sponsor')) {
+      commit('SET_COOKIE', VueCookies.get('sponsor'))
+    }
+  },
 }
 
 const mutations = {
@@ -62,6 +73,9 @@ const mutations = {
   },
   SET_MY_PARENT_EVENT(state, events) {
     state.myParentEvents = events
+  },
+  SET_COOKIE(state, sponsor) {
+    state.sponsor = sponsor
   }
 }
 

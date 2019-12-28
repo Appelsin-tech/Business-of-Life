@@ -153,9 +153,9 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    padding-top: 30px;
+    padding-top: 20px;
     z-index: 991;
-    .lg-block({ padding-top: 20px; });
+    .lg-block({ padding-top: 15px; });
     &::after {
       content: '';
       display: block;
@@ -172,8 +172,9 @@ export default {
       z-index: 1;
     }
     &.border-class {
-      padding-bottom: 30px;
+      padding-bottom: 20px;
       border-bottom: 1px solid @colorBorder;
+      .lg-block({ padding-bottom: 15px; });
     }
     &.white {
       .container {
@@ -291,9 +292,9 @@ export default {
       flex-direction: column;
       .logo {
         width: 100%;
-        max-width: 144px;
+        max-width: 135px;
         outline: none;
-        .lg-block({ max-width: 110px; });
+        .lg-block({ max-width: 105px; });
       }
       .wrapper-relative {
         position: relative;
@@ -327,7 +328,7 @@ export default {
               margin-bottom: 0;
             }
             .link {
-              font-size: 3rem;
+              font-size: 2.8rem;
               font-weight: bold;
               color: @colorBlue;
               text-transform: uppercase;
@@ -342,7 +343,7 @@ export default {
         align-items: center;
         &--desktop {
           display: flex;
-          margin-right: 80px;
+          margin-right: 75px;
           margin-left: auto;
           .lg-block({ margin-right: 50px; });
           .sm-block({ display: none; });
@@ -379,10 +380,10 @@ export default {
             }
           }
           svg {
-            margin-right: 20px;
-            width: 35px;
-            height: 35px;
-            .lg-block({ width: 30px; height: 30px; });
+            margin-right: 17px;
+            width: 30px;
+            height: 30px;
+            .lg-block({ width: 25px; height: 25px; });
             path {
               fill: @colorMainRed;
             }
@@ -504,7 +505,7 @@ export default {
             position: absolute;
             pointer-events: none;
             opacity: 0;
-            bottom: -40px;
+            bottom: -37px;
             right: 0;
             color: #000;
             padding-top: 20px;
@@ -519,12 +520,12 @@ export default {
           position: absolute;
           content: '';
           right: 0;
-          top: 15px;
+          top: 12px;
           border-top: 8px solid  @colorBlue;
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           transition: 0.3s;
-          .lg-block({ top: 12px;})
+          .lg-block({ top: 10px;})
         }
 
       }

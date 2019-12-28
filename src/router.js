@@ -28,6 +28,7 @@ const router = new Router({
     {
       path: '/pricing',
       name: 'pricing',
+      beforeEnter: requireAuth,
       meta: {
         navDots: true
       },
@@ -78,7 +79,7 @@ const router = new Router({
       meta: {
         navDots: true
       },
-      component: () => import('./views/TheRegistration')
+      component: () => import('./views/TheAuth')
     },
     {
       path: '/registration/:sponsor',
@@ -86,7 +87,7 @@ const router = new Router({
       meta: {
         navDots: true
       },
-      component: () => import('./views/TheRegistration')
+      component: () => import('./views/TheAuth')
     },
     {
       path: '/reg-completion/:key',

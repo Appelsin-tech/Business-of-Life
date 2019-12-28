@@ -1,5 +1,5 @@
 <template>
-  <section class="p-auth p-default p-default-inner">
+  <section class="p-registration p-default p-default-inner">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -125,8 +125,10 @@ export default {
 
 <style scoped lang="less">
   @import "../assets/less/_importants";
-  .p-auth {
+  .p-registration {
     background: url("../assets/img/bg-auth.jpg") no-repeat center / cover;
+    padding-bottom: 320px;
+    .lg-block({ padding-bottom: 230px;});
     .row-caption {
       position: relative;
       padding-top: 90px;
@@ -174,16 +176,13 @@ export default {
         .g-item-form {
           .col();
           .size(6);
-          .size-md(6);
           .size-sm(11);
           .size-xs(12);
           box-sizing: border-box;
           .md-block({margin-bottom: 30px; });
           .xs-block({ margin-bottom: 20px; });
           &__input {
-            height: 78px;
             transition: 0.3s;
-            .md-block({ padding-left: 18px; height: 65px;});
             &:hover,
             &:focus {
               background: #fff;
@@ -205,12 +204,13 @@ export default {
           }
         }
         .g-btn {
-          height: 78px;
+          height: 68px;
           padding-top: 0;
           padding-bottom: 0;
           margin-bottom: 30px;
           align-self: flex-start;
-          .md-block({max-width: 250px;  height: 60px; align-self: center;});
+          .lg-block({height: 60px;});
+          .md-block({max-width: 250px;  align-self: center;});
         }
       }
     }

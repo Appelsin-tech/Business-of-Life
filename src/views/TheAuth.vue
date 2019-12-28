@@ -1,5 +1,5 @@
 <template>
-  <section class="p-auth p-default p-default-inner">
+  <section class="p-auth p-default p-default-inner" :class="$route.name">
     <div class="container page">
       <div class="row-caption">
         <div class="content">
@@ -9,36 +9,14 @@
         </div>
       </div>
       <div class="row-form">
-        <form @submit.prevent="onSubmit" class="form">
-          <div class="item-wrapper">
-            <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Логин</label>
-              <input type="text" class="g-item-form__input" v-model="form.user" :class="{error: $v.form.user.$error}" @blur="$v.form.user.$touch()">
-              <div class="input-valid-error" v-if="$v.form.user.$error">
-                <template v-if="!$v.form.user.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.user.minLength">Значение не должно быть менее 3-х символов</template>
-              </div>
-            </div>
-            <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Пароль</label>
-              <input type="password" class="g-item-form__input" v-model="form.password" :class="{error: $v.form.password.$error}" @blur="$v.form.password.$touch()">
-              <div class="input-valid-error" v-if="$v.form.password.$error">
-                <template v-if="!$v.form.password.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.password.minLength">Значение должно быть не менее 5 символов</template>
-              </div>
-            </div>
-          </div>
-          <button class="g-btn"  :disabled="$v.$invalid">
-            <span>
-              Войти
-              <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
-            </span>
-          </button>
-
-        </form>
+        <auth-reg-form/>
         <p class="auth-info">
-          <span>Еще нет акаунта?</span>
-          <router-link to="/registration" class="link">Регистрация</router-link>
+          <span v-if="pageAuth">Еще нет акаунта?</span>
+          <span v-else>Уже есть акаунт?</span>
+          <router-link :to="routePath" class="link">
+            <template v-if="!pageAuth">Войти</template>
+            <template v-else>Регистрация</template>
+          </router-link>
         </p>
       </div>
 
@@ -49,22 +27,14 @@
 <script>
 import { minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
+import AuthRegForm from '../components/AuthRegForm'
 
 export default {
   name: 'TheAuth',
+  components: {AuthRegForm},
   data() {
     return {
-      errorResponse: {
-        user_wrong: 'Пользователь не найден',
-        recovery: 'Требуется восстановление доступа',
-        password: 'Не верный пароль',
-        banned: 'Пользователь забанен'
-      },
       pageAuth: false,
-      form: {
-        user: '',
-        password: ''
-      }
     }
   },
   validations: {
@@ -80,17 +50,15 @@ export default {
     }
   },
   computed: {
+    routePath() {
+      if(this.pageAuth) {
+        return '/registration'
+      } else {
+        return '/auth'
+      }
+    }
   },
   methods: {
-    onSubmit() {
-      API.access.auth(this.form).then(response => {
-        this.$store.dispatch('user/login').then(response => {
-          this.$router.push({path :'/admin/me'})
-        })
-      }).catch(error => {
-        API.response.error(this.errorResponse[error.response.data.reason])
-      })
-    },
   },
   mounted() {
     if (this.$route.name === 'auth') {
@@ -118,6 +86,8 @@ export default {
   @import "../assets/less/_importants";
   .p-auth {
     background: url("../assets/img/bg-auth.jpg") no-repeat center / cover;
+    min-height: 1150px;
+
     .row-caption {
       position: relative;
       padding-top: 90px;
@@ -146,55 +116,6 @@ export default {
             line-height: 2.5rem;
             .sm-block({ font-weight: 600; line-height: 2.2rem; font-size: 1.6rem; })
           }
-        }
-      }
-    }
-    .row-form {
-      padding-left: 90px;
-      .lg-block({ padding-left: 60px;});
-      .md-block({ padding-left: 0;});
-      .form {
-        display: flex;
-        .md-block({flex-direction: column; align-items: center;});
-        .item-wrapper {
-          .row-flex();
-          align-items: flex-start;
-          flex-grow: 1;
-          .md-block({ flex-direction: column; align-items: center; align-self: stretch});
-        }
-        .g-item-form {
-          .col();
-          .size(6);
-          .size-sm(11);
-          .size-xs(12);
-          box-sizing: border-box;
-          .md-block({margin-bottom: 30px; });
-          .xs-block({ margin-bottom: 20px; });
-          &__input {
-            height: 78px;
-            transition: 0.3s;
-            .md-block({ padding-left: 18px; height: 65px;});
-            &:hover,
-            &:focus {
-              background: #fff;
-              border-color: #000;
-            }
-            &.error {
-              &:hover,
-              &:focus {
-                border-color: @colorMainRed;
-              }
-            }
-          }
-        }
-        .g-btn {
-          height: 78px;
-          padding-top: 0;
-          padding-bottom: 0;
-          margin-bottom: 30px;
-          margin-left: 20px;
-          margin-top: 37px;
-          .md-block({max-width: 250px;  height: 60px; margin-top: 0;});
         }
       }
     }
