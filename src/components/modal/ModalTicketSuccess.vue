@@ -42,12 +42,12 @@ export default {
       ticketArr: [
         {hash: 'T-', title: 'Стандарт', event: {title: 'Test', date: '28.10.2019 12:38', relation_id: 4}}
       ],
-      email: 'test@gmail.com'
+      email: ''
     }
   },
   methods: {
     beforeOpen (event) {
-      this.ticketArr = event.params.ticket
+      this.ticketArr[0] = event.params.ticket
       this.email = event.params.email
     }
   }

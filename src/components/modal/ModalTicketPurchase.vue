@@ -28,7 +28,9 @@
               <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <v-select v-else-if="item.id === '9'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStructure}]" :searchable="false" placeholder="Структура" :options="structure"></v-select>
+
               <input v-else class="form-modal__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+
               <div class="input-valid-error" v-if="$v.fieldsData.field_2.$error && item.id === '2'">
                 <template v-if="!$v.fieldsData.field_2.required">Поле не может быть пустым</template>
                 <template v-if="!$v.fieldsData.field_2.email">Не корректный email</template>
@@ -67,7 +69,7 @@ import { email, required } from 'vuelidate/lib/validators'
 export default {
   name: 'ModalTicketPurchase',
   components: { flatPickr },
-  data() {
+  data () {
     return {
       fields: [],
       fieldsData: {},
@@ -174,7 +176,7 @@ export default {
       (options) => {
         API.tickets.receive({ invoice: options.invoiceId }).then(response => {
           this.$modal.hide('modal-ticket-purchase')
-          this.$modal.show('modal-ticket-success', { ticket: response.data, email: this.form.email })
+          this.$modal.show('modal-ticket-success', { ticket: response.data, email: this.fieldsData['field_2'] })
         }).catch(error => {
           API.response.error(error)
         })
