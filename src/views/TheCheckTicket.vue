@@ -203,7 +203,7 @@ export default {
           margin-bottom: 15px;
         }
         &__number {
-          font-size: 3.8rem;
+          font-size: 3.5rem;
           font-weight: 800;
           .md-block({ font-size: 3rem;});
         }
