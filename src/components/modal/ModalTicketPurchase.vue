@@ -175,8 +175,9 @@ export default {
       },
       (options) => {
         API.tickets.receive({ invoice: options.invoiceId }).then(response => {
+          let email = this.fieldsData.field_2
           this.$modal.hide('modal-ticket-purchase')
-          this.$modal.show('modal-ticket-success', { ticket: response.data[0], email: this.fieldsData['field_2'] })
+          this.$modal.show('modal-ticket-success', { ticket: response.data[0], email: email })
         }).catch(error => {
           API.response.error(error)
         })
