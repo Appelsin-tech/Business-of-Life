@@ -162,7 +162,7 @@ export default {
         this.btnLoading = true
         if (this.pageName === 'registration') {
           API.access.request(this.form_reg).then(response => {
-            console.log(`reg-completion/${response}`)
+            // console.log(`reg-completion/${response}`)
             this.btnLoading = false
             API.response.success('Вам отправлено письмо на почту')
           }).catch(error => {
@@ -180,7 +180,7 @@ export default {
           })
         } else {
           API.access.forgot(this.form_forgot).then(response => {
-            console.log(`recovery/${response}`)
+            // console.log(`recovery/${response}`)
             this.btnLoading = false
             API.response.success('Вам отправлено письмо на почту')
           }).catch(error => {
