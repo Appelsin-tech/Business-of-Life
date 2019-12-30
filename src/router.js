@@ -56,6 +56,7 @@ const router = new Router({
     {
       path: '/news',
       name: 'news',
+      beforeEnter: requireAuth,
       meta: {
         navDots: true
       },
@@ -64,6 +65,7 @@ const router = new Router({
     {
       path: '/news/:id',
       name: 'news-full',
+      beforeEnter: requireAuth,
       meta: {
         navDots: true
       },
@@ -85,17 +87,11 @@ const router = new Router({
     {
       path: '/forgot',
       name: 'forgot',
-      meta: {
-        navDots: true
-      },
       component: () => import('./views/TheAuth')
     },
     {
       path: '/registration',
       name: 'registration',
-      meta: {
-        navDots: true
-      },
       component: () => import('./views/TheAuth')
     },
     {

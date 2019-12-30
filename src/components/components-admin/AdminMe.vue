@@ -16,15 +16,15 @@
           <div class="item__img  item__img--statistic"></div>
           <p class="item__title">Статистика продаж</p>
         </router-link>
-        <router-link to="/admin/role" class="menu__item item">
+        <router-link to="/admin/role" class="menu__item item" v-if="profile.login === 'generaladmin' && profile.login === 'pelkin'">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Роли и управление доступом</p>
         </router-link>
-        <router-link to="/admin/profile" class="menu__item item">
+        <router-link to="/admin/profile" class="menu__item item" v-if="profile.login === 'generaladmin' && profile.login === 'pelkin'">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Профиль</p>
         </router-link>
-        <router-link to="/pricing" class="menu__item item">
+        <router-link to="/pricing" class="menu__item item" v-if="profile.login === 'generaladmin' && profile.login === 'pelkin'">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">База знаний</p>
         </router-link>

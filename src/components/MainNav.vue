@@ -58,18 +58,6 @@ export default {
           path: '/calendar',
           tooltip: 'Календарь событий'
         },
-        {
-          path: '/news',
-          tooltip: 'Новости'
-        },
-        {
-          path: '/news/123',
-          tooltip: 'Страница новости'
-        },
-        {
-          path: '/pricing',
-          tooltip: 'Подписки'
-        },
       ]
     }
   },
