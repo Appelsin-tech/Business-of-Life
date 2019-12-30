@@ -126,7 +126,7 @@ export default {
               margin-bottom: 10px;
             });
             .title {
-              font-size: 2.4rem;
+              font-size: 2.2rem;
               font-weight: 800;
               text-transform: uppercase;
               text-decoration: underline;
@@ -176,22 +176,6 @@ export default {
             .xs-block({
               margin-top: 10px;
             });
-            .hashtag {
-              display: inline-block;
-              margin-right: 10px;
-              font-weight: 800;
-              font-size: 1.8rem;
-              color: @colorBlue;
-              text-decoration: underline;
-              cursor: pointer;
-              .xs-block({
-                font-size: 1.6rem;
-                margin-right: 7px;
-              });
-              &:hover {
-                text-decoration: none;
-              }
-            }
           }
         }
       }

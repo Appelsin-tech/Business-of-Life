@@ -148,7 +148,7 @@ export default {
       margin-bottom: 40px;
       &:last-of-type {
         margin-bottom: 60px;
-        padding-bottom: 40px;
+        padding-bottom: 30px;
         border-bottom: 1px solid @colorBorder;
         .sm-block({margin-bottom: 40px;
           padding-bottom: 30px;});

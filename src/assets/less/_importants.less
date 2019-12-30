@@ -73,12 +73,12 @@ input {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 25px 30px;
+  padding: 22px 27px;
   background: @colorMainRed;
   border: 3px solid @colorMainRed;
   box-sizing: border-box;
   transition: 0.3s;
-  min-width: 300px;
+  min-width: 280px;
   cursor: pointer;
   .lg-block({ padding: 22px 22px; min-width: 250px; });
   .sm-block({ padding: 18px 18px; border-width: 2px; min-width: 200px; });
@@ -107,7 +107,7 @@ input {
     display: inline-flex;
     flex-grow: 1;
     align-items: center;
-    padding-right: 85px;
+    padding-right: 75px;
     font-size: 1.3rem;
     color: #fff;
     font-weight: 900;
@@ -147,7 +147,7 @@ input {
     }
   }
   &--border {
-    padding: 27px 30px;
+    padding: 24px 27px;
     .lg-block({ padding: 24px 22px; });
     .sm-block({ padding: 19px 18px; border-width: 1px; min-width: 200px; });
     &:hover,
@@ -838,7 +838,7 @@ input {
   &.textarea {
     display: flex;
     flex-direction: column;
-    .g-item-form__input--textarea {
+    textarea {
       flex-grow: 1;
       padding-top: 25px;
       padding-bottom: 20px;
@@ -865,10 +865,20 @@ input {
     background: #f3f3f3;
     border: 1px solid #f3f3f3;
     box-sizing: border-box;
+    transition: 0.3s;
     .lg-block({ padding-left: 18px; height: 60px; });
     .xs-block({ padding-left: 10px; height: 40px; });
+    &:hover,
+    &:focus {
+      background: #fff;
+      border-color: #000;
+    }
     &.error {
       border: 1px solid @colorMainRed;
+      &:hover,
+      &:focus {
+        border-color: @colorMainRed;
+      }
     }
   }
 }
@@ -957,6 +967,23 @@ input {
       text-decoration: underline;
       transition: 0.3s;
     }
+  }
+}
+
+.hashtag {
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: @colorBlue;
+  text-decoration: underline;
+  cursor: pointer;
+  .xs-block({
+    font-size: 1.6rem;
+    margin-right: 7px;
+  });
+  &:hover {
+    text-decoration: none;
   }
 }
 

@@ -57,7 +57,7 @@ export default {
       box-sizing: border-box;
       z-index: 2;
       transform: translateY(-6%);
-      .decor-cube(370px, 370px);
+      .decor-cube(364px, 364px);
       .lg-block({ padding-left: 70px; padding-top: 60px; .decor-cube(320px, 320px); max-width: 600px;});
       .xs-block({ padding-left:0; padding-top: 0; .decor-cube(@display: none;);});
       @media screen and (max-height: 520px) {

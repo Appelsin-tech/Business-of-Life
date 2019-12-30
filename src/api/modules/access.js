@@ -29,6 +29,20 @@ export default {
       reject(error)
     })
   }),
+  forgot: (data) => new Promise((resolve, reject) => {
+    HTTP.post('access/forgot', data).then(response => {
+      resolve(response.data)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
+  recover: (data) => new Promise((resolve, reject) => {
+    HTTP.post('access/recover', data).then(response => {
+      resolve(response.data)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
   unknown: () => new Promise((resolve, reject) => {
     HTTP.get('unknown').then(response => {
       resolve(response.data)

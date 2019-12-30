@@ -9,9 +9,9 @@
       <form class="edit-form" @submit.prevent="onSubmit">
         <h2 class="g-caption g-caption-section">Общая информация</h2>
         <div class="edit-grid">
-          <div class="edit-grid__item item item--col-8">
-            <label class="item__label" for="form-title">Название</label>
-            <input class="item__input" type="text" id="form-title" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
+          <div class="g-item-form  g-item-form--col-12">
+            <label class="g-item-form__label">Название</label>
+            <input class="g-item-form__input" type="text" id="form-title" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
             <div class="input-valid-error" v-if="$v.form.title.$error">
               <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.title.minLength">Минимальное количество символов - 5</template>
@@ -31,40 +31,40 @@
           <!--<template v-else-if="false">Название не должно быть меньше 10 символов</template>-->
           <!--</div>-->
           <!--</div>-->
-          <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__country">Страна</label>
-            <input class="item__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
+          <div class="g-item-form">
+            <label class="g-item-form__label">Страна</label>
+            <input class="g-item-form__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
             <div class="input-valid-error" v-if="$v.form.country.$error">
               <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.country.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__city">Город</label>
-            <input class="item__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
+          <div class="g-item-form">
+            <label class="g-item-form__label">Город</label>
+            <input class="g-item-form__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
             <div class="input-valid-error" v-if="$v.form.city.$error">
               <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.city.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__address">Адрес</label>
-            <input class="item__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
+          <div class="g-item-form">
+            <label class="g-item-form__label">Адрес</label>
+            <input class="g-item-form__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
             <div class="input-valid-error" v-if="$v.form.address.$error">
               <template v-if="!$v.form.address.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.address.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="edit-grid__item item item--col-4">
-            <label class="item__label" for="form__date">Дата и время</label>
+          <div class="g-item-form">
+            <label class="g-item-form__label">Дата и время</label>
             <flat-pickr v-model="form.date" :config="configDate" :class="['item__input', {error: $v.form.date.$error}]" @blur="$v.form.date.$touch()"></flat-pickr>
             <div class="input-valid-error" v-if="$v.form.date.$error">
               <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="edit-grid__item item item--col-8">
-            <label class="item__label" for="form-title">Контактная информация</label>
+          <div class="g-item-form g-item-form--col-12 textarea">
+            <label class="g-item-form__label">Контактная информация</label>
             <ckeditor :editor="editor" v-model="form.contacts" :config="editorConfig" @blur="$v.form.contacts.$touch()"></ckeditor>
             <div class="input-valid-error" v-if="$v.form.contacts.$error">
               <template v-if="!$v.form.contacts.required">Поле не может быть пустым</template>
@@ -317,11 +317,9 @@ export default {
     .btn-wrapper {
       display: flex;
       justify-content: flex-start;
-      padding-left: 50px;
       .sm-block({
         margin-left: 0;
         margin-bottom: 40px;
-        padding-left: 0;
       });
       .ss-block({
         flex-direction: column;
@@ -354,22 +352,16 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: max-content;
     grid-column-gap: 100px;
-    grid-row-gap: 30px;
     margin-bottom: 50px;
-    padding-left: 50px;
     .lg-block({
       grid-column-gap: 50px;
     });
     .md-block({
       grid-template-columns: 1fr 1fr;
     });
-    .sm-block({
-      grid-column-gap: 30px;
-      padding-left: 0;
-    });
     .ss-block({
+      margin-bottom: 30px;
       grid-template-columns: 1fr;
-      grid-row-gap: 20px;
     });
     .photo {
       display: flex;
@@ -462,101 +454,33 @@ export default {
         transition: 0.3s;
       }
     }
-    .item {
-      &--col-8 {
-        grid-column: ~"1 / 3";
-        .ss-block({
-          grid-column: ~"1 / 2";
-        });
-        &.textarea {
-          grid-row: ~"2 / 4";
-          .md-block({
-            grid-row: ~"3 / 4";
-          });
-        }
-      }
-      &--col-4 {
-        &.photo {
-          grid-column: ~"3 / 4";
-          grid-row: ~"1 / 4";
-          .md-block({
-            grid-row: ~"1 / 2";
-            grid-column: ~"1 / 3";
-          });
-          .ss-block({
-            grid-column: ~"1 / 2";
-          });
-        }
-      }
-      &.textarea {
-        display: flex;
-        flex-direction: column;
-        .item__input--textarea {
-          flex-grow: 1;
-          padding-top: 25px;
-          padding-bottom: 20px;
-          height: auto;
-          resize: none;
-          outline: none;
-          min-height: 68px;
-          .lg-block({
-            min-height: 60px;
-          });
-          .xs-block({
-            min-height: 40px;
-            padding-top: 12px;
-            padding-bottom: 12px;
-          });
-        }
-      }
-      &__label {
-        display: inline-block;
-        margin-bottom: 15px;
-        font-weight: 800;
-        font-size: 1.8rem;
-        .ss-block({
-          margin-bottom: 10px;
-        });
-      }
-      &__input {
-        padding-left: 25px;
-        padding-right: 15px;
-        width: 100%;
-        height: 68px;
-        background: #f3f3f3;
-        border: 1px solid #fff;
-        box-sizing: border-box;
-        .lg-block({
-          padding-left: 18px;
-          height: 60px;
-        });
-        .xs-block({
-          padding-left: 10px;
-          height: 40px;
-        });
-        &.error {
-          border: 1px solid @colorMainRed;
-        }
-      }
-      .instruction-link {
-        display: flex;
-        flex-direction: column;
-        margin-top: 15px;
-        font-size: 1.4rem;
-        span:first-child {
-          margin-bottom: 8px;
-        }
+    .g-item-form--col-12 {
+      grid-column: ~"1 / 3";
+      .ss-block({
+        grid-column: ~"1 / 2";
+      });
+    }
+    .instruction-link {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+      font-size: 1.4rem;
+      span:first-child {
+        margin-bottom: 8px;
       }
     }
   }
 
   .tickets {
+    padding-bottom: 35px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid @colorBorder;
+    .sm-block({
+      margin-bottom: 40px;
+      padding-bottom: 15px;
+    });
     &-wrapper {
       .row-flex();
-      padding-left: 50px;
-      .sm-block({
-        padding-left: 0;
-      });
     }
     .ticket-create {
       .col();
@@ -616,10 +540,6 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     .preview {
-      margin-top: 80px;
-      .sm-block({
-        margin-top: 50px;
-      });
       &.disabled {
         opacity: 0.7;
         pointer-events: none;

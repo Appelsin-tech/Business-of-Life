@@ -10,14 +10,20 @@
       </div>
       <div class="row-form">
         <auth-reg-form/>
-        <p class="auth-info">
-          <span v-if="pageAuth">Еще нет акаунта?</span>
-          <span v-else>Уже есть акаунт?</span>
-          <router-link :to="routePath" class="link">
-            <template v-if="!pageAuth">Войти</template>
-            <template v-else>Регистрация</template>
-          </router-link>
-        </p>
+        <div class="auth-info-wrapper">
+          <p class="auth-info">
+            <span v-if="pageAuth">Еще нет акаунта?</span>
+            <span v-else>Уже есть акаунт?</span>
+            <router-link :to="routePath" class="link">
+              <template v-if="!pageAuth">Войти</template>
+              <template v-else>Регистрация</template>
+            </router-link>
+          </p>
+          <p class="auth-info" v-if="pageAuth">
+            <span>Забыли пароль?</span>
+            <router-link to="/forgot" class="link">Восстановление доступа</router-link>
+          </p>
+        </div>
       </div>
 
     </div>
@@ -120,20 +126,26 @@ export default {
         }
       }
     }
-    .auth-info {
-      font-size: 1.8rem;
-      text-align: left;
-      .md-block({text-align: center});
-      span {
-        margin-right: 16px;
-      }
-      .link {
-        text-transform: uppercase;
-        color: @colorMainRed;
-        border-bottom: 1px solid @colorMainRed;
-        transition: 0.3s;
-        &:hover {
-          border-bottom-color: transparent;
+    .auth-info-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 280px;
+      grid-column-gap: 20px;
+      .md-block({grid-template-columns: 1fr; grid-row-gap: 20px;});
+      .auth-info {
+        font-size: 1.8rem;
+        text-align: left;
+        .md-block({text-align: center});
+        span {
+          margin-right: 16px;
+        }
+        .link {
+          text-transform: uppercase;
+          color: @colorMainRed;
+          border-bottom: 1px solid @colorMainRed;
+          transition: 0.3s;
+          &:hover {
+            border-bottom-color: transparent;
+          }
         }
       }
     }

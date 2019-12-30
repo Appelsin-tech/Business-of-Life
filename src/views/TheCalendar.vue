@@ -47,15 +47,15 @@
 <script>
 import 'v-calendar/lib/v-calendar.min.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import calendarChild from '../components/calendarChild'
+import CalendarChild from '../components/CalendarChild'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'TheCalendar',
   components: {
+    CalendarChild,
     swiper,
     swiperSlide,
-    calendarChild
   },
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
       arr: [1, 2, 3],
       showCalendarMini: false,
       swiperOptionCalendar: {
-        slidesPerView: 7,
+        slidesPerView: 6,
         speed: 300,
         threshold: 8,
         slideClass: 'slide-calendar',
@@ -76,10 +76,7 @@ export default {
         },
         breakpoints: {
           // when window width is <= 320px
-          1530: {
-            slidesPerView: 6
-          },
-          1350: {
+          1380: {
             slidesPerView: 5
           },
           1170: {
@@ -193,7 +190,7 @@ export default {
       padding-top: 90px;
       padding-left: 90px;
       margin-bottom: 60px;
-      .decor-cube(300px, 300px);
+      .decor-cube(288px, 288px);
       .lg-block({
         padding-top: 60px;
         padding-left: 60px;
@@ -386,7 +383,7 @@ export default {
       .item-swiper {
         display: flex;
         flex-direction: column;
-        height: 470px;
+        height: 450px;
         background: #fff;
         border-right: 1px solid #e7e7e7;
         .sm-block({

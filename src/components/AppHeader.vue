@@ -124,6 +124,9 @@ export default {
         case 'registration-referal':
           rout = true
           break
+        case 'forgot':
+          rout = true
+          break
       }
       return rout
     },

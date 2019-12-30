@@ -2,57 +2,62 @@
   <section class="p-auth p-default p-default-inner">
     <bread-crumbs :arrCrumbs="[]"/>
     <div class="container page">
-      <h1 class='g-caption g-caption-inner'>Регистрация</h1>
-      <p class="g-caption g-caption-section">Заполните поля чтобы завершить регистрацию</p>
+      <h1 class='g-caption g-caption-inner'>
+        <template v-if="pageName === 'reg-completion'">Регистрация</template>
+        <template v-else>Восстановление доступа</template>
+      </h1>
+      <p class="g-caption g-caption-section">
+        <template v-if="pageName === 'reg-completion'">Заполните поля чтобы завершить регистрацию</template>
+        <template v-else>Заполните поля чтобы восстановить доступ</template>
+      </p>
       <div class="row-form">
-        <form @submit.prevent="onSubmit" class="form">
-          <div class="item-wrapper">
+        <form @submit.prevent="onSubmit" class="form" :class="pageName">
+          <div class="item-wrapper" v-if="pageName === 'reg-completion'">
             <div class="g-item-form">
               <label class="g-item-form__label" for="form-role-name">Логин</label>
-              <input type="text" class="g-item-form__input" v-model="form.login" :class="{error: $v.form.login.$error}" @blur="$v.form.login.$touch()">
-              <div class="input-valid-error" v-if="$v.form.login.$error">
-                <template v-if="!$v.form.login.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.login.minLength">Значение не должно быть менее 3-х символов</template>
-                <template v-if="!$v.form.login.checkSpace">Логин содержит недопустимые символы</template>
+              <input type="text" class="g-item-form__input" v-model="form_reg.login" :class="{error: $v.form_reg.login.$error}" @blur="$v.form_reg.login.$touch()">
+              <div class="input-valid-error" v-if="$v.form_reg.login.$error">
+                <template v-if="!$v.form_reg.login.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_reg.login.minLength">Значение не должно быть менее 3 символов</template>
               </div>
             </div>
-            <!--            <div class="g-item-form">-->
-            <!--              <label class="g-item-form__label" for="form-role-name">Имя</label>-->
-            <!--              <input type="text" class="g-item-form__input" v-model="form.login" :class="{error: $v.form.login.$error}" @blur="$v.form.login.$touch()">-->
-            <!--              <div class="input-valid-error" v-if="$v.form.login.$error">-->
-            <!--                <template v-if="!$v.form.login.required">Поле не может быть пустым</template>-->
-            <!--                <template v-if="!$v.form.login.minLength">Значение должно быть не менее 3-х символов</template>-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--            <div class="g-item-form">-->
-            <!--              <label class="g-item-form__label" for="form-role-name">Фамилия</label>-->
-            <!--              <input type="text" class="g-item-form__input" v-model="form.email" :class="{error: $v.form.email.$error}" @blur="$v.form.email.$touch()">-->
-            <!--              <div class="input-valid-error" v-if="$v.form.email.$error">-->
-            <!--                <template v-if="!$v.form.email.required">Поле не может быть пустым</template>-->
-            <!--                <template v-if="!$v.form.email.email">Некорректный Email</template>-->
-            <!--              </div>-->
-            <!--            </div>-->
             <div class="g-item-form">
               <label class="g-item-form__label" for="form-role-name">Пароль</label>
-              <input type="password" class="g-item-form__input" v-model="form.password" :class="{error: $v.form.password.$error}" @blur="$v.form.password.$touch()">
-              <div class="input-valid-error" v-if="$v.form.password.$error">
-                <template v-if="!$v.form.password.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.password.minLength">Значение должно быть не менее 3-х символов</template>
+              <input type="password" class="g-item-form__input" v-model="form_reg.password" :class="{error: $v.form_reg.password.$error}" @blur="$v.form_reg.password.$touch()">
+              <div class="input-valid-error" v-if="$v.form_reg.password.$error">
+                <template v-if="!$v.form_reg.password.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_reg.password.minLength">Значение должно быть не менее 5 символов</template>
               </div>
             </div>
             <div class="g-item-form">
               <label class="g-item-form__label" for="form-role-name">Подвердите пароль</label>
-              <input type="password" class="g-item-form__input" v-model="form.password_rep" :class="{error: $v.form.password_rep.$error}" @blur="$v.form.password_rep.$touch()">
-              <div class="input-valid-error" v-if="$v.form.password_rep.$error">
-                <template v-if="!$v.form.password_rep.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.password_rep.sameAs">Пароли не совпадают</template>
+              <input type="password" class="g-item-form__input" v-model="form_reg.password_rep" :class="{error: $v.form_reg.password_rep.$error}" @blur="$v.form_reg.password_rep.$touch()">
+              <div class="input-valid-error" v-if="$v.form_reg.password_rep.$error">
+                <template v-if="!$v.form_reg.password_rep.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_reg.password_rep.sameAs">Пароли не совпадают</template>
               </div>
             </div>
           </div>
-          <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid  || btnSubmit">
-            <span>
-              Отправить
-            </span>
+          <div class="item-wrapper" v-else>
+            <div class="g-item-form">
+              <label class="g-item-form__label">Пароль</label>
+              <input type="password" class="g-item-form__input" v-model="form_recovery.password" :class="{error: $v.form_recovery.password.$error}" @blur="$v.form_recovery.password.$touch()">
+              <div class="input-valid-error" v-if="$v.form_recovery.password.$error">
+                <template v-if="!$v.form_recovery.password.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_recovery.password.minLength">Значение должно быть не менее 3-х символов</template>
+              </div>
+            </div>
+            <div class="g-item-form">
+              <label class="g-item-form__label">Повторите пароль</label>
+              <input type="password" class="g-item-form__input" v-model="form_recovery.password_rep" :class="{error: $v.form_recovery.password_rep.$error}" @blur="$v.form_recovery.password_rep.$touch()">
+              <div class="input-valid-error" v-if="$v.form_recovery.password_rep.$error">
+                <template v-if="!$v.form_recovery.password_rep.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_recovery.password_rep.sameAs">Пароли не совпадают</template>
+              </div>
+            </div>
+          </div>
+          <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid  || btnLoading">
+            <span>Отправить</span>
           </button>
         </form>
       </div>
@@ -64,7 +69,7 @@
 import BreadCrumbs from '../components/BreadCrumbs'
 import { minLength, required, sameAs } from 'vuelidate/lib/validators'
 import API from '../api/index'
-
+const checkSpace = (value) => /^\S+$/.test(value)
 export default {
   name: 'TheRegCompletion',
   components: {
@@ -73,66 +78,112 @@ export default {
   data() {
     return {
       errorResponse: {
-        login_length: 'Указан логин длиной менее 3-х символов',
+        login_length: 'Указан логин длиной менее 5 символов',
         login_chars: 'Логин содержит недопустимые символы',
         email_used: 'Email уже зарегистрирован в системе',
         login_used: 'Логин уже зарегистрирован в системе'
       },
       pageAuth: false,
-      form: {
+      form_reg: {
         login: '',
         key: '',
         password: '',
         password_rep: ''
       },
-      btnSubmit: false
+      form_recovery: {
+        key: '',
+        password: '',
+        password_rep: ''
+      },
+      btnLoading: false
     }
   },
-  validations: {
-    form: {
-      login: {
-        required,
-        minLength: minLength(3),
-        checkSpace (login) {
-          return /^\S+$/.test(login)
+  validations() {
+    if (this.pageName === 'reg-completion') {
+      return {
+        form_reg: {
+          login: {
+            required,
+            minLength: minLength(3),
+          },
+          key: {
+            required
+          },
+          password: {
+            required,
+            minLength: minLength(5)
+          },
+          password_rep: {
+            required,
+            sameAs: sameAs('password')
+          }
         }
-      },
-      key: {
-        required
-      },
-      password: {
-        required,
-        minLength: minLength(3)
-      },
-      password_rep: {
-        required,
-        sameAs: sameAs('password')
+      }
+    } else {
+      return {
+        form_recovery: {
+          key: {
+            required
+          },
+          password: {
+            required,
+            minLength: minLength(5)
+          },
+          password_rep: {
+            required,
+            sameAs: sameAs('password')
+          }
+        }
       }
     }
+
   },
-  computed: {},
+  computed: {
+    pageName() {
+      return this.$route.name
+    }
+  },
   methods: {
     onSubmit() {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        API.access.register({
-          login: this.form.login,
-          key: this.form.key,
-          password: this.form.password
-        }).then(response => {
-          this.btnSubmit = true
-          this.$router.push('/auth')
-          API.response.success('Вы успешно зарегистрировались')
-        }).catch(error => {
-          API.response.error(this.errorResponse[error.response.data.reason])
-        })
+        this.btnLoading = true
+        if (this.pageName === 'reg-completion') {
+          API.access.register({
+            login: this.form_reg.login,
+            key: this.form_reg.key,
+            password: this.form_reg.password
+          }).then(response => {
+            this.btnLoading = true
+            this.$router.push('/auth')
+            API.response.success('Вы успешно зарегистрировались')
+          }).catch(error => {
+            this.btnLoading = false
+            API.response.error(this.errorResponse[error.response.data.reason])
+          })
+        } else {
+          API.access.recover({
+            key: this.form_recovery.key,
+            password: this.form_recovery.password
+          }).then(response => {
+            this.btnLoading = true
+            this.$router.push('/auth')
+            API.response.success('Пароль успешно изменен')
+          }).catch(error => {
+            this.btnLoading = false
+            API.response.error(this.errorResponse[error.response.data.reason])
+          })
+        }
       }
-
     },
   },
   mounted() {
     if (this.$route.params.key) {
-      this.form.key = this.$route.params.key
+      if (this.$route.name === 'reg-completion') {
+        this.form_reg.key = this.$route.params.key
+      } else {
+        this.form_recovery.key = this.$route.params.key
+      }
     }
   },
 }
@@ -149,6 +200,15 @@ export default {
           flex-direction: column;
           align-items: center;
         });
+        &.reg-completion {
+          .item-wrapper {
+            .g-item-form {
+              &:nth-child(2) {
+                grid-column: ~"1 / 2";
+              }
+            }
+          }
+        }
         .item-wrapper {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -169,11 +229,6 @@ export default {
           .xs-block({
             margin-bottom: 20px;
           });
-          &:first-child {
-          }
-          &:nth-child(2) {
-            grid-column: ~"1 / 2";
-          }
         }
         .g-btn {
           margin-bottom: 30px;

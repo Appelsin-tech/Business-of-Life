@@ -125,23 +125,6 @@ export default {
         text-transform: uppercase;
         .xs-block({font-size: 2rem; margin-right: 12px;});
       }
-      .hashtag {
-        display: inline-block;
-        margin-right: 10px;
-        font-weight: 800;
-        font-size: 1.8rem;
-        line-height: 2.5rem;
-        color: @colorBlue;
-        text-decoration: underline;
-        cursor: pointer;
-        .xs-block({
-          font-size: 1.6rem;
-          margin-right: 5px;
-        });
-        &:hover {
-          text-decoration: none;
-        }
-      }
     }
   }
 </style>

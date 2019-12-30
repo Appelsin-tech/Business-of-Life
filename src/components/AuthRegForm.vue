@@ -1,54 +1,70 @@
 <template>
   <form @submit.prevent="onSubmit" class="form" :class="pageName">
-    <div class="item-wrapper">
-
-      <div class="g-item-form" v-if="pageName === 'registration' || pageName === 'registration-referal'">
-        <label class="g-item-form__label" for="form-role-name">Ваше имя</label>
+    <div class="item-wrapper" v-if="pageName === 'registration' || pageName === 'registration-referal'">
+      <div class="g-item-form" >
+        <label class="g-item-form__label">Ваше имя</label>
         <input type="text" class="g-item-form__input" v-model="form_reg.name" :class="{error: $v.form_reg.name.$error}" @blur="$v.form_reg.name.$touch()">
         <div class="input-valid-error" v-if="$v.form_reg.name.$error">
           <template v-if="!$v.form_reg.name.required">Поле не может быть пустым</template>
           <template v-if="!$v.form_reg.name.minLength">Значение не должно быть менее 3-х символов</template>
         </div>
       </div>
-      <div class="g-item-form" v-if="pageName === 'registration' || pageName === 'registration-referal'">
-        <label class="g-item-form__label" for="form-role-name">Почта</label>
+      <div class="g-item-form">
+        <label class="g-item-form__label">Почта</label>
         <input type="text" class="g-item-form__input" v-model="form_reg.email" :class="{error: $v.form_reg.email.$error}" @blur="$v.form_reg.email.$touch()">
         <div class="input-valid-error" v-if="$v.form_reg.email.$error">
           <template v-if="!$v.form_reg.email.required">Поле не может быть пустым</template>
           <template v-if="!$v.form_reg.email.email">Некорректный Email</template>
         </div>
       </div>
-      <div class="g-item-form" v-if="pageName === 'registration' || pageName === 'registration-referal'">
-        <label class="g-item-form__label" for="form-role-name">Имя пригласителя</label>
+      <div class="g-item-form">
+        <label class="g-item-form__label">Имя пригласителя</label>
         <input type="text" class="g-item-form__input" v-model="form_reg.sponsor" :class="{error: $v.form_reg.sponsor.$error}" @blur="$v.form_reg.sponsor.$touch()">
         <div class="input-valid-error" v-if="$v.form_reg.sponsor.$error">
           <template v-if="!$v.form_reg.sponsor.required">Поле не может быть пустым</template>
           <template v-if="!$v.form_reg.sponsor.minLength">Значение должно быть не менее 3-х символов</template>
         </div>
       </div>
-      <div class="g-item-form" v-if="pageName === 'auth'">
-        <label class="g-item-form__label" for="form-role-name">Логин</label>
+      <button class="g-btn" :disabled="$v.$invalid || btnLoading">
+        <span>Регистрация<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
+      </button>
+    </div>
+    <div class="item-wrapper" v-else-if="pageName === 'auth'">
+      <div class="g-item-form" >
+        <label class="g-item-form__label" >Логин</label>
         <input type="text" class="g-item-form__input" v-model="form_auth.user" :class="{error: $v.form_auth.user.$error}" @blur="$v.form_auth.user.$touch()">
         <div class="input-valid-error" v-if="$v.form_auth.user.$error">
           <template v-if="!$v.form_auth.user.required">Поле не может быть пустым</template>
           <template v-if="!$v.form_auth.user.minLength">Значение не должно быть менее 3-х символов</template>
         </div>
       </div>
-      <div class="g-item-form" v-if="pageName === 'auth'">
-        <label class="g-item-form__label" for="form-role-name">Пароль</label>
+      <div class="g-item-form">
+        <label class="g-item-form__label">Пароль</label>
         <input type="password" class="g-item-form__input" v-model="form_auth.password" :class="{error: $v.form_auth.password.$error}" @blur="$v.form_auth.password.$touch()">
         <div class="input-valid-error" v-if="$v.form_auth.password.$error">
           <template v-if="!$v.form_auth.password.required">Поле не может быть пустым</template>
           <template v-if="!$v.form_auth.password.minLength">Значение должно быть не менее 5 символов</template>
         </div>
       </div>
+      <button class="g-btn" :disabled="$v.$invalid || btnLoading">
+        <span>Войти
+          <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+        </span>
+      </button>
     </div>
-    <button class="g-btn" :disabled="$v.$invalid">
-      <span>
-        <template v-if="pageName === 'auth'">Войти</template>
-        <template v-else>Регистрация</template>
-        <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
-    </button>
+    <div class="item-wrapper" v-else-if="pageName === 'forgot'">
+      <div class="g-item-form">
+        <label class="g-item-form__label">Email</label>
+        <input type="text" class="g-item-form__input" v-model="form_forgot.email" :class="{error: $v.form_forgot.email.$error}" @blur="$v.form_forgot.email.$touch()">
+        <div class="input-valid-error" v-if="$v.form_forgot.email.$error">
+          <template v-if="!$v.form_forgot.email.required">Поле не может быть пустым</template>
+          <template v-if="!$v.form_forgot.email.email">Некорректный Email</template>
+        </div>
+      </div>
+      <button class="g-btn" :disabled="$v.$invalid || btnLoading">
+        <span>Отправить<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
+      </button>
+    </div>
 
   </form>
 </template>
@@ -61,11 +77,13 @@ export default {
   name: 'AuthRegForm',
   data() {
     return {
+      btnLoading: false,
       errorResponse: {
         user_wrong: 'Пользователь не найден',
         recovery: 'Требуется восстановление доступа',
         password: 'Не верный пароль',
-        banned: 'Пользователь забанен'
+        banned: 'Пользователь забанен',
+        email_wrong: 'Email не найден'
       },
       pageAuth: false,
       form_auth: {
@@ -77,6 +95,9 @@ export default {
         language: 'ru',
         email: '',
         sponsor: ''
+      },
+      form_forgot: {
+        email: ''
       }
     }
   },
@@ -114,6 +135,15 @@ export default {
           }
         }
       }
+    } else if (this.pageName === 'forgot') {
+      return {
+        form_forgot: {
+          email: {
+            required,
+            email
+          },
+        }
+      }
     }
   },
   computed: {
@@ -125,21 +155,33 @@ export default {
     onSubmit() {
       this.$v.$touch()
       if (!this.$v.$invalid) {
+        this.btnLoading = true
         if (this.pageName === 'registration' || this.pageName === 'registration-referal') {
           API.access.request(this.form_reg).then(response => {
-            this.btnSubmit = true
-            console.log(response)
+            console.log(`reg-completion/${response}`)
+            this.btnLoading = false
             API.response.success('Вам отправлено письмо на почту')
           }).catch(error => {
+            this.btnLoading = false
             API.response.error(this.errorResponse[error.response.data.reason])
           })
-        } else {
+        } else if (this.pageName === 'auth') {
+          this.btnLoading = false
           API.access.auth(this.form_auth).then(response => {
             this.$store.dispatch('user/login').then(response => {
               this.$router.push({ path: '/admin/me' })
             })
           }).catch(error => {
             API.response.error(this.errorResponse[error.response.data.reason])
+          })
+        } else {
+          API.access.forgot(this.form_forgot).then(response => {
+            console.log(`recovery/${response}`)
+            this.btnLoading = false
+            API.response.success('Вам отправлено письмо на почту')
+          }).catch(error => {
+            this.btnLoading = false
+            API.response.error('Email не найден')
           })
         }
       }
@@ -160,37 +202,64 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .form {
-    display: flex;
     .md-block({
       flex-direction: column;
       align-items: center;
     });
     &.auth {
+      .item-wrapper {
+        grid-template-columns: 1fr 1fr 280px;
+        .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
+      }
       .g-btn {
-        margin-left: 20px;
+        .lg-block({
+          margin-top: 35px;
+        });
+        .md-block({justify-self: center; margin-top: 0;});
       }
     }
+    &.registration-referal,
     &.registration {
-      flex-direction: column;
+      .item-wrapper {
+        grid-template-columns: 1fr 1fr;
+        .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
+      }
       .g-btn {
         margin-top: 0;
+        grid-row: ~"3 / 4";
+        justify-self: flex-start;
+        .md-block({grid-row: auto; justify-self: center;});
+      }
+    }
+    &.forgot {
+      .item-wrapper {
+        grid-template-columns: 1fr 280px;
+        .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
+      }
+      .g-btn {
+        .lg-block({
+          margin-top: 35px;
+        });
+        .md-block({justify-self: center; margin-top: 0;});
       }
     }
     .item-wrapper {
-      .row-flex();
+      display: grid;
+      grid-column-gap: 20px;
+      /*.row-flex();
       align-items: flex-start;
       flex-grow: 1;
       .md-block({
         flex-direction: column;
         align-items: center;
         align-self: stretch
-      });
+      });*/
     }
     .g-item-form {
-      .col();
+      /*.col();
       .size(6);
       .size-sm(11);
-      .size-xs(12);
+      .size-xs(12);*/
       box-sizing: border-box;
       .md-block({
         margin-bottom: 30px;

@@ -1,24 +1,26 @@
 <template>
   <form class="edit-form" @submit.prevent="onSubmit">
     <div class="edit-grid">
-      <div class="g-item-form item--col-12">
-        <label class="g-item-form__label" for="form-title">Название</label>
-        <input class="g-item-form__input" id="form-title" :class="{error: $v.form.title.$error}" type="text" placeholder="Тренинг Искусство продаж " v-model="form.title" @blur="$v.form.title.$touch()">
+      <div class="g-item-form textarea item--col-12">
+        <label class="g-item-form__label">Название</label>
+        <textarea-resize>
+          <textarea class="g-item-form__input" rows="1" :class="{error: $v.form.title.$error}" type="text" placeholder="Тренинг Искусство продаж " v-model="form.title" @blur="$v.form.title.$touch()"></textarea>
+        </textarea-resize>
         <div class="input-valid-error" v-if="$v.form.title.$error">
           <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
           <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
       <div class="g-item-form item--col-12">
-        <label class="g-item-form__label" for="form-snippet">Краткое описание</label>
-        <input class="g-item-form__input" id="form-snippet" :class="{error: $v.form.snippet.$error}" type="text" placeholder="Краткое описание " v-model="form.snippet" @blur="$v.form.snippet.$touch()">
+        <label class="g-item-form__label">Краткое описание</label>
+        <input class="g-item-form__input" :class="{error: $v.form.snippet.$error}" type="text" placeholder="Краткое описание " v-model="form.snippet" @blur="$v.form.snippet.$touch()">
         <div class="input-valid-error" v-if="$v.form.snippet.$error">
           <template v-if="!$v.form.snippet.required">Поле не может быть пустым</template>
           <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
       <div class="textarea  g-item-form item--col-12">
-        <label class="g-item-form__label" for="form-description">Полное описание</label>
+        <label class="g-item-form__label">Полное описание</label>
         <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
         <div class="input-valid-error" v-if="$v.form.description.$error">
           <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
@@ -26,8 +28,8 @@
         </div>
       </div>
       <div class="g-item-form item--col-12">
-        <label class="g-item-form__label" for="form-audience">Описание целевой аудитории</label>
-        <input class="g-item-form__input" id="form-audience" :class="{error: $v.form.audience.$error}" type="text" placeholder="Тренинг Искусство продаж" v-model="form.audience" @blur="$v.form.audience.$touch()">
+        <label class="g-item-form__label">Описание целевой аудитории</label>
+        <input class="g-item-form__input" :class="{error: $v.form.audience.$error}" type="text" placeholder="Тренинг Искусство продаж" v-model="form.audience" @blur="$v.form.audience.$touch()">
         <div class="input-valid-error" v-if="$v.form.audience.$error">
           <template v-if="!$v.form.audience.required">Поле не может быть пустым</template>
           <template v-if="!$v.form.audience.maxLength">Превышено количество допустимых символов</template>
@@ -53,11 +55,12 @@ import API from '../../api/index'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+import textareaResize from '../textareaResize'
 
 export default {
   name: 'EventEditingForm',
   props: ['idEvent', 'event', 'btnDelete'],
-  components: { ckeditor: CKEditor.component },
+  components: { ckeditor: CKEditor.component, textareaResize },
   data() {
     return {
       editor: ClassicEditor,

@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'calendarChild',
+  name: 'CalendarChild',
   props: ['arr'],
   data() {
     return {

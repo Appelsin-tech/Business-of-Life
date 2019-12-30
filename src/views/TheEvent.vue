@@ -411,9 +411,9 @@ export default {
       .sm-block({ margin-bottom: 80px; });
       &__img {
         flex-shrink: 1;
-        max-width: 550px;
+        max-width: 470px;
         width: 100%;
-        height: 550px;
+        height: 470px;
         min-height: 200px;
         margin-right: 10%;
         background-repeat: no-repeat;
@@ -425,7 +425,7 @@ export default {
       &__text {
         display: flex;
         flex-direction: column;
-        padding-top: 4%;
+        padding-top: 3.5%;
         max-width: min-content;
         min-width: 50%;
         .md-block({ padding-top: 0; max-width: 80%; });
@@ -466,7 +466,7 @@ export default {
       }
     }
     .description {
-      margin-bottom: 120px;
+      margin-bottom: 100px;
       .sm-block({ margin-bottom: 80px; });
       .text-wrapper {
         margin-bottom: 50px;
@@ -547,6 +547,9 @@ export default {
       }
     }
     .org-info {
+      margin-bottom: 15px;
+      .sm-block({margin-bottom: 30px;});
+      .xs-block({margin-bottom: 45px;});
       .p-event__caption-second {
         margin-bottom: 90px;
         .lg-block({ margin-bottom: 75px; });
@@ -565,7 +568,7 @@ export default {
         .size-xs(12);
       }
       .item {
-        margin-bottom: 100px;
+        margin-bottom: 85px;
         .sm-block({ margin-bottom: 50px; });
         .xs-block({ margin-bottom: 35px; });
         &__name {

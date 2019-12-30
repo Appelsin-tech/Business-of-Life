@@ -30,6 +30,7 @@ const router = new Router({
       name: 'pricing',
       beforeEnter: requireAuth,
       meta: {
+        auth: true,
         navDots: true
       },
       component: () => import('./views/ThePricing')
@@ -74,6 +75,14 @@ const router = new Router({
       component: () => import('./views/TheAuth')
     },
     {
+      path: '/forgot',
+      name: 'forgot',
+      meta: {
+        navDots: true
+      },
+      component: () => import('./views/TheAuth')
+    },
+    {
       path: '/registration',
       name: 'registration',
       meta: {
@@ -92,6 +101,11 @@ const router = new Router({
     {
       path: '/reg-completion/:key',
       name: 'reg-completion',
+      component: () => import('./views/TheRegCompletion')
+    },
+    {
+      path: '/recovery/:key',
+      name: 'recovery',
       component: () => import('./views/TheRegCompletion')
     },
     {
@@ -129,6 +143,9 @@ const router = new Router({
       name: 'admin',
       redirect: '/admin/me',
       beforeEnter: requireAuth,
+      meta: {
+        auth: true
+      },
       component: () => import('./views/TheAdmin'),
       children: [
         {
