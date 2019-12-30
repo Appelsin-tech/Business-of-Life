@@ -18,6 +18,14 @@ const router = new Router({
       component: () => import('./views/TheHero')
     },
     {
+      path: '/r/:sponsor',
+      name: 'main-r',
+      meta: {
+        navDots: true
+      },
+      component: () => import('./views/TheHero')
+    },
+    {
       path: '/description',
       name: 'description',
       meta: {
@@ -85,14 +93,6 @@ const router = new Router({
     {
       path: '/registration',
       name: 'registration',
-      meta: {
-        navDots: true
-      },
-      component: () => import('./views/TheAuth')
-    },
-    {
-      path: '/registration/:sponsor',
-      name: 'registration-referal',
       meta: {
         navDots: true
       },

@@ -130,7 +130,9 @@ export default {
       display: grid;
       grid-template-columns: 1fr 1fr 280px;
       grid-column-gap: 20px;
-      .md-block({grid-template-columns: 1fr; grid-row-gap: 20px;});
+      padding-left: 90px;
+      .lg-block({padding-left: 60px;});
+      .md-block({grid-template-columns: 1fr; grid-row-gap: 20px; padding-left: 0;});
       .auth-info {
         font-size: 1.8rem;
         text-align: left;

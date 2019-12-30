@@ -42,6 +42,9 @@ export default {
         case 'main':
           rout = true
           break
+        case 'main-r':
+          rout = true
+          break
         case 'description':
           rout = true
           break

@@ -22,6 +22,10 @@
 <script>
 export default {
   name: 'TheHero',
+  mounted() {
+    this.$cookies.set('sponsor', this.$route.params.sponsor)
+    this.$store.dispatch('user/setCookieSponsor')
+  }
 }
 </script>
 
@@ -44,7 +48,7 @@ export default {
       &.test-production {
         margin-bottom: 13vh;
         .wrapper-content {
-          .sm-block({.decor-cube(250px, 250px);});
+          .sm-block({.decor-cube(237px, 237px);});
           .xs-block({.decor-cube(@display: none;);})
         }
       }
@@ -58,7 +62,7 @@ export default {
       z-index: 2;
       transform: translateY(-6%);
       .decor-cube(364px, 364px);
-      .lg-block({ padding-left: 70px; padding-top: 60px; .decor-cube(320px, 320px); max-width: 600px;});
+      .lg-block({ padding-left: 82px; padding-top: 82px; .decor-cube(320px, 320px); max-width: 670px;});
       .xs-block({ padding-left:0; padding-top: 0; .decor-cube(@display: none;);});
       @media screen and (max-height: 520px) {
         transform: translateY(0);

@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit" class="form" :class="pageName">
-    <div class="item-wrapper" v-if="pageName === 'registration' || pageName === 'registration-referal'">
+    <div class="item-wrapper" v-if="pageName === 'registration'">
       <div class="g-item-form" >
         <label class="g-item-form__label">Ваше имя</label>
         <input type="text" class="g-item-form__input" v-model="form_reg.name" :class="{error: $v.form_reg.name.$error}" @blur="$v.form_reg.name.$touch()">
@@ -72,6 +72,7 @@
 <script>
 import { email, minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
+import {mapState} from 'vuex'
 
 export default {
   name: 'AuthRegForm',
@@ -102,7 +103,7 @@ export default {
     }
   },
   validations() {
-    if (this.pageName === 'registration' || this.pageName === 'registration-referal') {
+    if (this.pageName === 'registration') {
       return {
         form_reg: {
           name: {
@@ -149,14 +150,17 @@ export default {
   computed: {
     pageName() {
       return this.$route.name
-    }
+    },
+    ...mapState('user', [
+      'sponsor'
+    ]),
   },
   methods: {
     onSubmit() {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.btnLoading = true
-        if (this.pageName === 'registration' || this.pageName === 'registration-referal') {
+        if (this.pageName === 'registration') {
           API.access.request(this.form_reg).then(response => {
             console.log(`reg-completion/${response}`)
             this.btnLoading = false
@@ -188,13 +192,7 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.params.sponsor) {
-      this.form_reg.sponsor = this.$route.params.sponsor
-      if (!this.$cookies.get('sponsor')) {
-        this.$cookies.set('sponsor', this.$route.params.sponsor)
-        this.$store.dispatch('user/setCookieSponsor')
-      }
-    }
+    this.form_reg.sponsor = this.sponsor
   }
 }
 </script>
@@ -202,10 +200,9 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .form {
-    .md-block({
-      flex-direction: column;
-      align-items: center;
-    });
+   padding-left: 90px;
+    .lg-block({padding-left: 60px;});
+    .md-block({padding-left: 0;});
     &.auth {
       .item-wrapper {
         grid-template-columns: 1fr 1fr 280px;
@@ -218,7 +215,6 @@ export default {
         .md-block({justify-self: center; margin-top: 0;});
       }
     }
-    &.registration-referal,
     &.registration {
       .item-wrapper {
         grid-template-columns: 1fr 1fr;
