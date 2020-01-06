@@ -4,22 +4,22 @@
       <p class="g-caption g-caption-section">Пароль</p>
       <div class="grid-wrapper grid-wrapper--main">
         <div class="g-item-form ">
-          <label class="g-item-form__label" for="form-role-name">Старый пароль</label>
-          <input class="g-item-form__input" id="form-role-name" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
+          <label class="g-item-form__label">Старый пароль</label>
+          <input class="g-item-form__input" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
           <div class="input-valid-error" v-if="$v.form.select.$error">
             <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
           </div>
         </div>
         <div class="g-item-form row-2">
-          <label class="g-item-form__label" for="form-role-name">Новый пароль</label>
-          <input class="g-item-form__input" id="form-role-name" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
+          <label class="g-item-form__label">Новый пароль</label>
+          <input class="g-item-form__input" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
           <div class="input-valid-error" v-if="$v.form.select.$error">
             <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
           </div>
         </div>
         <div class="g-item-form row-2">
-          <label class="g-item-form__label" for="form-role-name">Повторите пароль</label>
-          <input class="g-item-form__input" id="form-role-name" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
+          <label class="g-item-form__label">Повторите пароль</label>
+          <input class="g-item-form__input" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
           <div class="input-valid-error" v-if="$v.form.select.$error">
             <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
           </div>

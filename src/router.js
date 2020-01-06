@@ -152,33 +152,39 @@ const router = new Router({
         {
           path: 'event-create',
           name: 'event-create',
+          beforeEnter: checkRole,
           component: () => import('./components/components-admin/AdminEventRelationsEditing'),
         },
         {
           path: 'event-control',
           name: 'event-control',
+          beforeEnter: checkRole,
           component: () => import('./components/components-admin/AdminEventControl')
         },
         {
           path: 'event-editing/:id',
           name: 'event-editing',
           props: true,
+          beforeEnter: checkRole,
           component: () => import('./components/components-admin/AdminEventRelationsEditing'),
         },
         {
           path: 'editing/:id/:event',
           name: 'editing',
           props: true,
+          beforeEnter: checkRole,
           component: () => import('./components/components-admin/AdminRelationEditing'),
         },
         {
           path: 'statistic',
           name: 'statistic',
+          beforeEnter: checkRole,
           component: () => import('./components/components-admin/AdminStatistic')
         },
         {
           path: 'role',
           name: 'role',
+          beforeEnter: checkRole,
           component: () => import('./components/components-admin/AdminRole')
         },
         {
@@ -204,6 +210,13 @@ async function requireAuth (to, from, next) {
 
   if (!store.getters['user/logged']) {
     next('auth')
+  } else {
+    next()
+  }
+}
+function checkRole (to, from, next) {
+  if (store.state.user.profile.status < 2) {
+    next('/admin/me')
   } else {
     next()
   }

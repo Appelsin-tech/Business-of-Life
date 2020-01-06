@@ -1,15 +1,15 @@
 import { HTTP } from '../http'
 
 export default {
-  me: () => new Promise((resolve, reject) => {
-    HTTP.get('users/me').then(response => {
+  items: (type) => new Promise((resolve, reject) => {
+    HTTP.get(`store/items?type=${type}`).then(response => {
       resolve(response.data)
     }).catch(error => {
       reject(error)
     })
   }),
-  edit: (data) => new Promise((resolve, reject) => {
-    HTTP.post('users/edit', data).then(response => {
+  buy: (data) => new Promise((resolve, reject) => {
+    HTTP.post('store/buy', data).then(response => {
       resolve(response.data)
     }).catch(error => {
       reject(error)

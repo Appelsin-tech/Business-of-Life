@@ -3,55 +3,42 @@
     <div class="item-wrapper">
       <p class="g-caption g-caption-section">Основные</p>
       <div class="grid-wrapper grid-wrapper--main">
-        <div class="g-item-form photo">
-          <span class="g-item-form__label">Фото</span>
-          <div class="photo__wrapper">
-            <input type="file" class="visually-hidden" id="form__file">
-            <label class="photo__link photo__link--add" for="form__file">
-              <img svg-inline class="photo__icon" src="../assets/img/icon/camera.svg" alt="">
-              <span class="photo__text">Загрузить фото</span>
-            </label>
-          </div>
-          <div class="input-valid-error" v-if="false">
-            <template v-if="false">Поле не может быть пустым</template>
-            <template v-else-if="false">Название не должно быть меньше 10 символов</template>
-          </div>
+<!--        <div class="g-item-form photo">-->
+<!--          <span class="g-item-form__label">Фото</span>-->
+<!--          <div class="photo__wrapper">-->
+<!--            <input type="file" class="visually-hidden" id="form__file">-->
+<!--            <label class="photo__link photo__link&#45;&#45;add" for="form__file">-->
+<!--              <img svg-inline class="photo__icon" src="../assets/img/icon/camera.svg" alt="">-->
+<!--              <span class="photo__text">Загрузить фото</span>-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="g-item-form">-->
+<!--          <label class="g-item-form__label" for="form-role-title">Логин</label>-->
+<!--          <input class="g-item-form__input" id="form-role-title" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">-->
+<!--          <div class="input-valid-error" v-if="$v.form.title.$error">-->
+<!--            <template v-if="!$v.form.title.required">Поле не может быть пустым</template>-->
+<!--            <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="g-item-form">
+          <label class="g-item-form__label">Имя</label>
+          <input class="g-item-form__input" type="text" v-model="form.fname">
         </div>
         <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-title">Логин</label>
-          <input class="g-item-form__input" id="form-role-title" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.title.$error">
-            <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
-            <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
-          </div>
+          <label class="g-item-form__label">Фамилия</label>
+          <input class="g-item-form__input"  type="text"  v-model="form.lname">
         </div>
-        <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-name">Имя</label>
-          <input class="g-item-form__input" id="form-role-name" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
-        </div>
-        <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-name">Фамилия</label>
-          <input class="g-item-form__input" id="form-role-nameeee" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
-        </div>
+<!--        <div class="g-item-form col-12">-->
+<!--          <label class="g-item-form__label" for="form-role-name">Email</label>-->
+<!--          <input class="g-item-form__input" id="form-role-namee" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">-->
+<!--          <div class="input-valid-error" v-if="$v.form.select.$error">-->
+<!--            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="g-item-form col-12">
-          <label class="g-item-form__label" for="form-role-name">Email</label>
-          <input class="g-item-form__input" id="form-role-namee" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
-        </div>
-        <div class="g-item-form col-12">
-          <label class="g-item-form__label" for="form-role-name">Телефон</label>
-          <input class="g-item-form__input" id="form-role-nameee" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
+          <label class="g-item-form__label">Телефон</label>
+          <input class="g-item-form__input" v-mask="maskConfig" type="text" v-model="form.phone">
         </div>
       </div>
 
@@ -60,43 +47,28 @@
       <p class="g-caption g-caption-section">Адрес</p>
       <div class="grid-wrapper grid-wrapper--address">
         <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-name">Страна</label>
-          <input class="g-item-form__input" id="" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
+          <label class="g-item-form__label">Страна</label>
+          <input class="g-item-form__input" type="text"  v-model="form.country">
         </div>
         <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-name">Город</label>
-          <input class="g-item-form__input" id="" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
+          <label class="g-item-form__label">Город</label>
+          <input class="g-item-form__input" type="text" v-model="form.city">
         </div>
         <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-name">Область / регион</label>
-          <input class="g-item-form__input" id="" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
+          <label class="g-item-form__label" >Область / регион</label>
+          <input class="g-item-form__input"  type="text"  v-model="form.region">
         </div>
         <div class="g-item-form">
-          <label class="g-item-form__label" for="form-role-name">Почтовый индекс</label>
-          <input class="g-item-form__input" id="" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
+          <label class="g-item-form__label">Почтовый индекс</label>
+          <input class="g-item-form__input" v-mask="'###########################'" type="text"  v-model="form.postcode">
         </div>
         <div class="g-item-form col-12">
-          <label class="g-item-form__label" for="form-role-name">Адрес</label>
-          <input class="g-item-form__input" id="" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
-          </div>
+          <label class="g-item-form__label">Адрес</label>
+          <input class="g-item-form__input" type="text"  v-model="form.address">
         </div>
       </div>
     </div>
-    <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
+    <button class="g-btn g-btn--no-icon">
       <span>Сохранить</span>
     </button>
   </form>
@@ -105,37 +77,62 @@
 <script>
 import { maxLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
+import {mapState} from 'vuex'
 
 export default {
   name: 'AdminProfileMain',
   data() {
     return {
       form: {
-        title: '',
-        select: ''
-      }
+        fname: '',
+        lname: '',
+        phone: '',
+        country: '',
+        city: '',
+        region: '',
+        postcode: '',
+        address: ''
+      },
+      maskConfig: {
+        mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        tokens: {
+          X: {
+            pattern: /[0-9+]/
+          }
+        },
+        masked: ''
+      },
     }
   },
   validations: {
-    form: {
-      title: {
-        required,
-        maxLength: maxLength(100)
-      },
-      select: {
-        required
-      }
-    }
+
+  },
+  computed: {
+    ...mapState('user', [
+      'profile'
+    ])
   },
   methods: {
     onSubmit() {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        API.response.error('Заполните все поля')
-        return
-      }
+      API.users.edit(this.form).then(response => {
+        API.response.success('Данные изменены')
+        this.$store.dispatch('user/login')
+      }).catch(e => {
+        API.response.error(e)
+      })
+
     }
   },
+  mounted() {
+    this.form.fname = this.profile.contacts.fname
+    this.form.lname = this.profile.contacts.lname
+    this.form.phone = this.profile.contacts.phone
+    this.form.country = this.profile.contacts.country
+    this.form.city = this.profile.contacts.city
+    this.form.region = this.profile.contacts.region
+    this.form.postcode = this.profile.contacts.postcode
+    this.form.address = this.profile.contacts.address
+  }
 }
 </script>
 

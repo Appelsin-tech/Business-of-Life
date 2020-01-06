@@ -172,6 +172,7 @@ export default {
         API.tickets.edit(this.form).then(response => {
           API.response.success('Билет отредактирован')
           this.$root.$emit('ticket-edit')
+          this.$modal.hide('modal-ticket-create')
         })
       }
     },

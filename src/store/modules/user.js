@@ -22,7 +22,6 @@ const actions = {
         API.access.auth(form).then(response => {
           resolve()
         }).catch(error => {
-          console.log(error)
           reject(error)
         })
       } else {
@@ -36,7 +35,6 @@ const actions = {
       commit('SET_IDENTITY', response)
     }).catch(error => {
       commit('LOGOUT')
-      console.log(error)
     })
   },
   logout({ commit }) {
@@ -52,7 +50,6 @@ const actions = {
         commit('SET_MY_PARENT_EVENT', response.data)
         resolve()
       }).catch(error => {
-        console.log(error)
         reject(error)
       })
     })

@@ -5,6 +5,7 @@ import tickets from './modules/tickets'
 import relations from './modules/relations'
 import biling from './modules/biling'
 import statistics from './modules/statistics'
+import store from './modules/store'
 import response from './response'
 
 export default {
@@ -15,5 +16,6 @@ export default {
   relations,
   biling,
   response,
-  statistics
+  statistics,
+  store
 }

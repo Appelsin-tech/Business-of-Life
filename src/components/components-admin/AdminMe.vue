@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="g-caption g-caption-inner">Личный кабинет</h1>
       <div class="menu">
-        <router-link to="/admin/event-control" class="menu__item item">
+        <router-link to="/admin/event-control" class="menu__item item" v-if="profile.status > 1">
           <div class="item__img item__img--event"></div>
           <p class="item__title">Управление мероприятиями</p>
         </router-link>
@@ -12,19 +12,19 @@
           <div class="item__img  item__img--tickets"></div>
           <p class="item__title">Проверить билет</p>
         </router-link>
-        <router-link to="/admin/statistic" class="menu__item item">
+        <router-link to="/admin/statistic" class="menu__item item" v-if="profile.status > 1">
           <div class="item__img  item__img--statistic"></div>
           <p class="item__title">Статистика продаж</p>
         </router-link>
-        <router-link to="/admin/role" class="menu__item item" v-if="profile.login === 'GeneralAdmin' || profile.login === 'pelkin'">
+        <router-link to="/admin/role" class="menu__item item" v-if="profile.status > 1">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Роли и управление доступом</p>
         </router-link>
-        <router-link to="/admin/profile" class="menu__item item" v-if="profile.login === 'GeneralAdmin' || profile.login === 'pelkin'">
+        <router-link to="/admin/profile" class="menu__item item">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Профиль</p>
         </router-link>
-        <router-link to="/pricing" class="menu__item item" v-if="profile.login === 'GeneralAdmin' || profile.login === 'pelkin'">
+        <router-link to="/pricing" class="menu__item item">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">База знаний</p>
         </router-link>

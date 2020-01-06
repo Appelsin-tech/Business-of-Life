@@ -14,7 +14,7 @@
         <form @submit.prevent="onSubmit" class="form" :class="pageName">
           <div class="item-wrapper" v-if="pageName === 'reg-completion'">
             <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Логин</label>
+              <label class="g-item-form__label">Логин</label>
               <input type="text" class="g-item-form__input" v-model="form_reg.login" :class="{error: $v.form_reg.login.$error}" @blur="$v.form_reg.login.$touch()">
               <div class="input-valid-error" v-if="$v.form_reg.login.$error">
                 <template v-if="!$v.form_reg.login.required">Поле не может быть пустым</template>
@@ -22,7 +22,23 @@
               </div>
             </div>
             <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Пароль</label>
+              <label class="g-item-form__label">Имя</label>
+              <input type="text" class="g-item-form__input" v-model="form_reg.fname" :class="{error: $v.form_reg.fname.$error}" @blur="$v.form_reg.fname.$touch()">
+              <div class="input-valid-error" v-if="$v.form_reg.fname.$error">
+                <template v-if="!$v.form_reg.fname.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_reg.fname.minLength">Значение не должно быть менее 3 символов</template>
+              </div>
+            </div>
+            <div class="g-item-form">
+              <label class="g-item-form__label">Фамилия</label>
+              <input type="text" class="g-item-form__input" v-model="form_reg.lname" :class="{error: $v.form_reg.lname.$error}" @blur="$v.form_reg.lname.$touch()">
+              <div class="input-valid-error" v-if="$v.form_reg.lname.$error">
+                <template v-if="!$v.form_reg.lname.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form_reg.lname.minLength">Значение не должно быть менее 3 символов</template>
+              </div>
+            </div>
+            <div class="g-item-form">
+              <label class="g-item-form__label">Пароль</label>
               <input type="password" class="g-item-form__input" v-model="form_reg.password" :class="{error: $v.form_reg.password.$error}" @blur="$v.form_reg.password.$touch()">
               <div class="input-valid-error" v-if="$v.form_reg.password.$error">
                 <template v-if="!$v.form_reg.password.required">Поле не может быть пустым</template>
@@ -30,7 +46,7 @@
               </div>
             </div>
             <div class="g-item-form">
-              <label class="g-item-form__label" for="form-role-name">Подвердите пароль</label>
+              <label class="g-item-form__label">Подвердите пароль</label>
               <input type="password" class="g-item-form__input" v-model="form_reg.password_rep" :class="{error: $v.form_reg.password_rep.$error}" @blur="$v.form_reg.password_rep.$touch()">
               <div class="input-valid-error" v-if="$v.form_reg.password_rep.$error">
                 <template v-if="!$v.form_reg.password_rep.required">Поле не может быть пустым</template>
@@ -87,6 +103,8 @@ export default {
       form_reg: {
         login: '',
         key: '',
+        fname: '',
+        lname: '',
         password: '',
         password_rep: ''
       },
@@ -104,7 +122,15 @@ export default {
         form_reg: {
           login: {
             required,
-            minLength: minLength(3),
+            minLength: minLength(3)
+          },
+          fname: {
+            required,
+            minLength: minLength(3)
+          },
+          lname: {
+            required,
+            minLength: minLength(3)
           },
           key: {
             required
@@ -152,7 +178,9 @@ export default {
           API.access.register({
             login: this.form_reg.login,
             key: this.form_reg.key,
-            password: this.form_reg.password
+            password: this.form_reg.password,
+            fname: this.form_reg.fname,
+            lname: this.form_reg.lname
           }).then(response => {
             this.btnLoading = true
             this.$router.push('/auth')

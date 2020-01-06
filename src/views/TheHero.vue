@@ -5,7 +5,7 @@
         <div class="content">
           <h1 class="visually-hidden">Business of Life</h1>
           <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
-          <strong class="desc-strong g-caption">Эксклюзивная база знаний</strong>
+          <strong class="desc-strong g-caption">Эксклюзивная <br> база знаний</strong>
           <p class="desc-connect" v-if="false">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
           <router-link to="/description" class="g-btn">
             <span>
@@ -59,7 +59,6 @@ export default {
       position: relative;
       padding-left: 100px;
       padding-top: 80px;
-      max-width: 800px;
       box-sizing: border-box;
       z-index: 2;
       transform: translateY(-6%);
@@ -83,6 +82,7 @@ export default {
           display: block;
           margin-bottom: 35px;
           .lg-block({ margin-bottom: 20px; max-width: 180px;});
+          .xs-block({max-width: 130px;})
         }
         .desc-connect {
           margin-bottom: 50px;

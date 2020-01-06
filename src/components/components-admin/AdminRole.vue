@@ -191,7 +191,7 @@ export default {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 40px 30px;
+          padding: 35px 25px;
           font-size: 1.3rem;
           font-weight: 900;
           text-transform: uppercase;
