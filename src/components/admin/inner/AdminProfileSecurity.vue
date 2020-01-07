@@ -34,7 +34,7 @@
 
 <script>
 import { maxLength, required } from 'vuelidate/lib/validators'
-import API from '../api/index'
+import API from '../../../api'
 
 export default {
   name: 'AdminProfileSettings',
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import '../assets/less/_importants';
+  @import '../../../assets/less/_importants';
   .form {
     .item-wrapper {
       display: flex;

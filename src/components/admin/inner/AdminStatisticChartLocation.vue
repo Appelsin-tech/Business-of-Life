@@ -1,8 +1,9 @@
 <template>
   <div class='chart'>
     <div class='chart__wrapper-text'>
-      <h2 class='chart__title'>Статистика продаж</h2>
-      <div class='chart__wrapper-filters'>
+      <h2 class='chart__title'>География</h2>
+      <div class='chart__wrapper-filters chart__wrapper-filters--btn'>
+        <button-filters :button="dataLocation" v-on:location="setLocation"/>
         <tabs class='tabs' :dataTabs='dataTabs' v-on:interval='setIntervalGraph'/>
       </div>
     </div>
@@ -12,19 +13,21 @@
 
 <script>
 import { Chart } from 'highcharts-vue'
-import API from '../api/index'
-import Tabs from './Tabs'
+import API from '../../../api'
+import ButtonFilters from './ButtonFilters'
+import Tabs from '../../Tabs'
 export default {
-  name: 'AdminStatisticChartSales',
+  name: 'AdminStatisticChartLocation',
   props: ['defaultResponse'],
-  components: {Tabs, highcharts: Chart},
-  data() {
+  components: { ButtonFilters, Tabs, highcharts: Chart },
+  data () {
     return {
       currentTab: 'm',
-      categoryArr: [],
-      ticketsArr: [],
-      responseData: this.defaultResponse,
+      currentLocation: 'country',
+      locationArr: [],
+      activePie: 'Страна',
       updateArgs: [true, true, true],
+      responseData: this.defaultResponse,
       dataTabs: [
         {
           name: 'За месяц',
@@ -41,13 +44,25 @@ export default {
           id: 'all'
         }
       ],
+      dataLocation: [
+        {
+          name: 'Страна',
+          id: 'country'
+        },
+        {
+          name: 'Город',
+          id: 'city'
+        }
+      ],
       testStatistic: [
         {
           id: '2222',
           currency: 'KZT',
           amount: 1000,
+          city: 'Moscow',
+          country: 'Russia',
           date: '24.10.2019 11:52',
-          stamp: 1514754000, // 2018-01-01 разница > ГОД
+          stamp: 1453323600, // 2018-01-01 разница > ГОД
           relation: 'Тестовое событие',
           ticket: 'Премиум билет'
         },
@@ -55,8 +70,10 @@ export default {
           id: '225706779',
           currency: 'KZT',
           amount: 1000,
+          city: 'Moscow',
+          country: 'Russia',
           date: '24.10.2019 11:52',
-          stamp: 1514754000, // 2018-01-01 разница > ГОД
+          stamp: 1453323600, // 2018-01-01 разница > ГОД
           relation: 'Тестовое событие',
           ticket: 'Премиум билет'
         },
@@ -64,8 +81,10 @@ export default {
           id: '226089131',
           currency: 'KZT',
           amount: 5000,
+          city: 'Ivanovo',
+          country: 'Russia',
           date: '25.10.2019 07:18',
-          stamp: 1559336400, // 2019-06-01 разница > Месяц
+          stamp: 1453323600, // 2019-06-01 разница > Месяц
           relation: 'Starting seminar - Донецк',
           ticket: 'СТАНДАРТ'
         },
@@ -73,8 +92,10 @@ export default {
           id: '227792040',
           currency: 'KZT',
           amount: 100,
+          city: 'Rostov',
+          country: 'Russia',
           date: '28.10.2019 12:38',
-          stamp: 1571605200, // 2019-10-21 разница > День
+          stamp: 1453323600, // 2019-10-21 разница > День
           relation: 'Тестовое событие',
           ticket: 'стандарт'
         },
@@ -82,8 +103,10 @@ export default {
           id: '227793845',
           currency: 'KZT',
           amount: 100,
+          city: 'Нурсултан',
+          country: 'Казахстан',
           date: '28.10.2019 12:43',
-          stamp: 1571605200, // 2019-10-21 разница > День
+          stamp: 1453323600, // 2019-10-21 разница > День
           relation: 'Тестовое событие',
           ticket: 'стандарт'
         },
@@ -91,55 +114,84 @@ export default {
           id: '1111',
           currency: 'KZT',
           amount: 100,
+          city: 'Нурсултан',
+          country: 'Казахстан',
           date: '28.10.2019 12:43',
           stamp: 1453323600, // 2016-01-21 разница > День
           relation: 'Тестовое событие',
           ticket: 'стандарт'
         }
-      ],
+      ]
     }
   },
   computed: {
-    category() {
-      return this.categoryArr
-    },
-    tickets() {
+    tickets () {
       return [{
+        colorByPoint: true,
         name: 'Билеты',
-        data: this.ticketsArr // sample data
+        data: this.filterLocation // sample data
       }]
     },
-    chartOptions() {
+    chartOptions () {
       return {
         title: false,
         chart: {
-          type: 'column'
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
         },
         plotOptions: {
-          series: {
-            animation: false
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: false
+            },
+            showInLegend: true
           }
         },
-        xAxis: {
-          type: 'datetime',
-          categories: this.category.map(i => i.string)
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: 'Количество'
-          }
-        },
-        // series: this.filterTickets
         series: this.tickets
       }
     },
+    filterLocation () {
+      let newArr = []
+      let filterArr
+      if (this.currentLocation === 'country') {
+        filterArr = this.locationArr.map(item => {
+          return { name: item.name.country, y: 1 }
+        })
+      } else {
+        filterArr = this.locationArr.map(item => {
+          return { name: item.name.city, y: 1 }
+        })
+      }
+      filterArr.forEach((item) => {
+        if (newArr.length === 0) {
+          newArr.push(item)
+        } else {
+          if (newArr.find(c => c.name === item.name)) {
+            newArr.forEach(t => {
+              if (t.name === item.name) {
+                t.y += 1
+              }
+            })
+          } else {
+            newArr.push(item)
+          }
+        }
+      })
+      return newArr
+    }
   },
   methods: {
-    setIntervalGraph(e) {
+    setIntervalGraph (e) {
       this.currentTab = e.id
     },
-    sortingInterval(tab) {
+    setLocation (e) {
+      this.currentLocation = e.id
+    },
+    sortingInterval (tab) {
       let format
       let iterator
       let calendarDate
@@ -157,72 +209,25 @@ export default {
             break
         }
         this.getInterval(this.$moment().subtract(iterator, calendarDate).valueOf())
-        this.categoryArr = []
-        this.ticketsArr = []
-        for (let i = 0; i < iterator; i++) {
-          this.ticketsArr[i] = 0
-          this.categoryArr.unshift({
-            time: this.$moment().subtract(i, calendarDate),
-            string: this.$moment().subtract(i, calendarDate).format(format)
+        this.locationArr = []
+        this.responseData.forEach(item => {
+          this.locationArr.push({
+            name: item,
+            y: 1
           })
-          this.responseData.forEach(item => {
-            if (this.$moment(item.stamp * 1000).isBetween(this.$moment().subtract(i + 1, calendarDate), this.$moment().subtract(i, calendarDate), calendarDate, '(]')) {
-              this.ticketsArr[i] += 1
-            }
-          })
-        }
-        this.ticketsArr.reverse()
+        })
       } else {
         this.getInterval(this.$moment('2019-01-01').valueOf())
-        this.categoryArr = []
-        this.ticketsArr = []
-        let minVal = this.responseData.map(item => {
-          return item.stamp * 1000
+        this.locationArr = []
+        this.responseData.forEach(item => {
+          this.locationArr.push({
+            name: item,
+            y: 1
+          })
         })
-        let minStamp = Math.min(...minVal)
-
-        let dif = this.differenceAll(minStamp)
-        for (let i = 0; i < dif.iterator; i++) {
-          this.ticketsArr[i] = 0
-          this.categoryArr.unshift({
-            time: this.$moment().subtract(i, dif.calendarDate),
-            string: this.$moment().subtract(i, dif.calendarDate).format(dif.format)
-          })
-          this.responseData.forEach(item => {
-            if (this.$moment(item.stamp * 1000).isBetween(this.$moment().subtract(i + 1, dif.calendarDate), this.$moment().subtract(i, dif.calendarDate), dif.calendarDate, '(]')) {
-              this.ticketsArr[i] += 1
-            }
-          })
-        }
-        this.ticketsArr.reverse()
       }
-
     },
-    differenceAll(from) {
-      let currentMoment = this.$moment()
-      let dif
-      if (currentMoment.diff(from, 'year') > 0) {
-        dif = {
-          format: 'YYYY',
-          iterator: currentMoment.diff(from, 'year') + 1,
-          calendarDate: 'year'
-        }
-      } else if (currentMoment.diff(from, 'month') > 0) {
-        dif = {
-          format: 'MMM, Y',
-          iterator: 12,
-          calendarDate: 'month'
-        }
-      } else {
-        dif = {
-          format: 'D, MMM',
-          iterator: 31,
-          calendarDate: 'days'
-        }
-      }
-      return dif
-    },
-    async getInterval(fromTime) {
+    async getInterval (fromTime) {
       await API.statistics.orders({
         from: fromTime / 1000,
         to: this.$moment().valueOf() / 1000
@@ -232,11 +237,11 @@ export default {
     }
   },
   watch: {
-    currentTab(newVal) {
+    currentTab (newVal) {
       this.sortingInterval(newVal)
     }
   },
-  mounted() {
+  mounted () {
     if (this.defaultResponse.length > 0) {
       this.sortingInterval('m')
     }
@@ -245,7 +250,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import '../assets/less/_importants';
+  @import '../../../assets/less/_importants';
   .chart {
     margin-bottom: 100px;
     .xs-block({ margin-bottom: 70px; });
@@ -273,9 +278,5 @@ export default {
       font-size: 1.4rem;
       .md-block({ margin-bottom: 18px; });
     }
-  }
-  .tabs {
-    margin-left: auto;
-    .md-block({ margin: 0 auto;})
   }
 </style>

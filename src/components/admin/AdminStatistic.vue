@@ -17,8 +17,8 @@
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapGetters, mapState } from 'vuex'
-import AdminStatisticChartSales from '../AdminStatisticChartSales'
-import AdminStatisticChartLocation from '../AdminStatisticChartLocation'
+import AdminStatisticChartSales from './inner/AdminStatisticChartSales'
+import AdminStatisticChartLocation from './inner/AdminStatisticChartLocation'
 import PanelInfo from '../ui/PanelInfo'
 
 export default {

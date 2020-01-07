@@ -107,7 +107,7 @@
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapState } from 'vuex'
-import EventEditingForm from './EventEditingForm'
+import EventEditingForm from './inner/EventEditingForm'
 import PanelInfo from '../ui/PanelInfo'
 
 export default {

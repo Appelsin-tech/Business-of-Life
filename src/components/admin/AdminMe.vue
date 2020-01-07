@@ -28,6 +28,10 @@
           <div class="item__img  item__img--role"></div>
           <p class="item__title">База знаний</p>
         </router-link>
+        <router-link to="/admin/wallet" class="menu__item item">
+          <div class="item__img  item__img--role"></div>
+          <p class="item__title">Кошелек</p>
+        </router-link>
       </div>
     </div>
   </section>

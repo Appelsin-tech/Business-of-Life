@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "../../../assets/less/_importants";
   .filters {
     display: flex;
     align-items: center;

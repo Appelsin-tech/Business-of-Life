@@ -8,7 +8,7 @@
 <!--          <div class="photo__wrapper">-->
 <!--            <input type="file" class="visually-hidden" id="form__file">-->
 <!--            <label class="photo__link photo__link&#45;&#45;add" for="form__file">-->
-<!--              <img svg-inline class="photo__icon" src="../assets/img/icon/camera.svg" alt="">-->
+<!--              <img svg-inline class="photo__icon" src="@/assets/img/icon/camera.svg" alt="">-->
 <!--              <span class="photo__text">Загрузить фото</span>-->
 <!--            </label>-->
 <!--          </div>-->
@@ -76,7 +76,7 @@
 
 <script>
 import { maxLength, required } from 'vuelidate/lib/validators'
-import API from '../api/index'
+import API from '../../../api'
 import {mapState} from 'vuex'
 
 export default {
@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import '../assets/less/_importants';
+  @import '../../../assets/less/_importants';
   .form {
     .item-wrapper {
       display: flex;

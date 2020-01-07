@@ -157,50 +157,55 @@ const router = new Router({
         {
           path: 'me',
           name: 'me',
-          component: () => import('./components/components-admin/AdminMe'),
+          component: () => import('./components/admin/AdminMe'),
         },
         {
           path: 'event-create',
           name: 'event-create',
           beforeEnter: checkRole,
-          component: () => import('./components/components-admin/AdminEventRelationsEditing'),
+          component: () => import('./components/admin/AdminEventRelationsEditing'),
         },
         {
           path: 'event-control',
           name: 'event-control',
           beforeEnter: checkRole,
-          component: () => import('./components/components-admin/AdminEventControl')
+          component: () => import('./components/admin/AdminEventControl')
         },
         {
           path: 'event-editing/:id',
           name: 'event-editing',
           props: true,
           beforeEnter: checkRole,
-          component: () => import('./components/components-admin/AdminEventRelationsEditing'),
+          component: () => import('./components/admin/AdminEventRelationsEditing'),
         },
         {
           path: 'editing/:id/:event',
           name: 'editing',
           props: true,
           beforeEnter: checkRole,
-          component: () => import('./components/components-admin/AdminRelationEditing'),
+          component: () => import('./components/admin/AdminRelationEditing'),
         },
         {
           path: 'statistic',
           name: 'statistic',
           beforeEnter: checkRole,
-          component: () => import('./components/components-admin/AdminStatistic')
+          component: () => import('./components/admin/AdminStatistic')
         },
         {
           path: 'role',
           name: 'role',
           beforeEnter: checkRole,
-          component: () => import('./components/components-admin/AdminRole')
+          component: () => import('./components/admin/AdminRole')
         },
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('./components/components-admin/AdminProfile')
+          component: () => import('./components/admin/AdminProfile')
+        },
+        {
+          path: 'wallet',
+          name: 'wallet',
+          component: () => import('./components/admin/AdminWallet')
         }
       ]
     },
