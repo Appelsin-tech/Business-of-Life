@@ -24,7 +24,7 @@
           <div class="item__img  item__img--role"></div>
           <p class="item__title">Профиль</p>
         </router-link>
-        <router-link to="/pricing" class="menu__item item">
+        <router-link to="/knowledge" class="menu__item item">
           <div class="item__img  item__img--role"></div>
           <p class="item__title">База знаний</p>
         </router-link>

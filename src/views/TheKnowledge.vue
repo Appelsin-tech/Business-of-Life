@@ -32,7 +32,7 @@
 import API from '../api/index'
 
 export default {
-  name: 'ThePricing',
+  name: 'TheKnowledge',
   data() {
     return {
       bonus: {},
@@ -76,7 +76,6 @@ export default {
     }
   }
 }
-// не понятно откуда брать страну и город при покупке
 </script>
 
 <style scoped lang="less">

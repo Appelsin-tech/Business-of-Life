@@ -25,7 +25,11 @@
       </div>
       <div class="col-img">
         <div class="img">
-          <img src="../assets/img/foto-president.png" alt="Гульнара Саудова">
+          <picture>
+            <source srcset="../assets/img/foto-president-mobile.png" media="(max-width: 425px)">
+            <img src="../assets/img/foto-president.png" alt="Гульнара Саудова">
+          </picture>
+
         </div>
         <p class="wrapper-president">
           <span class="post">Президент академии</span>

@@ -34,14 +34,24 @@ const router = new Router({
       component: () => import('./views/TheDescription')
     },
     {
-      path: '/pricing',
-      name: 'pricing',
+      path: '/knowledge',
+      name: 'knowledge',
       beforeEnter: requireAuth,
       meta: {
         auth: true,
         navDots: true
       },
-      component: () => import('./views/ThePricing')
+      component: () => import('./views/TheKnowledge')
+    },
+    {
+      path: '/knowledge-access',
+      name: 'knowledge-access',
+      beforeEnter: requireAuth,
+      meta: {
+        auth: true,
+        navDots: true
+      },
+      component: () => import('./views/TheKnowledgeAccess')
     },
     {
       path: '/learning-stages',

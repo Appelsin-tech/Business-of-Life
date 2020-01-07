@@ -44,7 +44,8 @@ export default {
       z-index: 1;
       background: url("../assets/img/bg-hero.jpg") no-repeat center / cover;
       .lg-block({ background-position: center top;});
-      .sm-block({opacity: 0.3})
+      .sm-block({opacity: 0.3});
+      .xs-block({background: url("../assets/img/bg-hero-mobile.jpg") no-repeat center / cover;})
     }
     .container {
       &.test-production {

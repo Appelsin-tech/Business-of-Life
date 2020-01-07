@@ -1,5 +1,5 @@
 <template>
-  <header class="s-header" :class="[$route.name === 'pricing' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}]">
+  <header class="s-header" :class="[$route.name === 'knowledge' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}]">
     <div class="container">
       <div class="wrapper-relative">
         <a class="logo-link" href="#" @click.prevent="goRouter('main')">
@@ -115,7 +115,7 @@ export default {
         case 'calendar':
           rout = true
           break
-        case 'pricing':
+        case 'knowledge':
           rout = true
           break
         case 'auth':
