@@ -6,7 +6,7 @@
     </div>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container">
-      <h1 class="g-caption g-caption-inner">Бизнес-акселератор и краудфандинговая платформа Crowdsale Network проводит
+      <h1 class="g-caption-inner">Бизнес-акселератор и краудфандинговая платформа Crowdsale Network проводит
         акцию на бирже coins.bit</h1>
       <div class="data">
         <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
@@ -70,7 +70,7 @@ export default {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-color: #f3f3f3;
+      background-color: @colorBgGray;
       .lg-block({
         height: 200px;
       });
@@ -102,7 +102,7 @@ export default {
           margin-top: 0;
         });
         path {
-          fill: @colorMainRed;
+          fill: @colorMain;
         }
       }
     }

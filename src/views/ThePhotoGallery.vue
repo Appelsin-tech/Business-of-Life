@@ -88,9 +88,6 @@ export default {
       .content {
         display: flex;
         flex-direction: column;
-        .g-caption {
-          margin-bottom: 20px;
-        }
         .desc-light {
           font-size: 1.4rem;
           color: #666666;
@@ -156,7 +153,7 @@ export default {
               margin-bottom: 15px;
               font-weight: 800;
               font-size: 2.2rem;
-              color: @colorBlue;
+              color: @colorMainSecondary;
               text-transform: uppercase;
               transition: 0.3s;
               z-index: 10;
@@ -189,7 +186,7 @@ export default {
                 height: 25px;
                 margin-right: 15px;
                 path {
-                  fill: @colorMainRed;
+                  fill: @colorMain;
                 }
               }
             }
@@ -207,16 +204,16 @@ export default {
             left: 20px;
             .sm-block({ left: 4px;});
             span {
-              border-bottom: 4px solid @colorBlue;
-              border-left: 4px solid @colorBlue;
+              border-bottom: 4px solid @colorMainSecondary;
+              border-left: 4px solid @colorMainSecondary;
             }
           }
           &--next {
             right: 20px;
             .sm-block({ right: 4px;});
             span {
-              border-top: 4px solid @colorBlue;
-              border-right: 4px solid @colorBlue;
+              border-top: 4px solid @colorMainSecondary;
+              border-right: 4px solid @colorMainSecondary;
             }
           }
           span {

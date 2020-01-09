@@ -336,7 +336,7 @@ export default {
             .link {
               font-size: 2.8rem;
               font-weight: bold;
-              color: @colorBlue;
+              color: @colorMainSecondary;
               text-transform: uppercase;
               transition: 0.3s;
               .lg-block({ font-size: 2.4rem; });
@@ -381,8 +381,8 @@ export default {
           position: relative;
           &:hover {
             span {
-              color: #666666;
-              border-bottom-color: #666666;
+              color: @colorSecondFonts;
+              border-bottom-color: @colorSecondFonts;
             }
           }
           svg {
@@ -391,7 +391,7 @@ export default {
             height: 30px;
             .lg-block({ width: 25px; height: 25px; });
             path {
-              fill: @colorMainRed;
+              fill: @colorMain;
             }
           }
           span {
@@ -417,7 +417,7 @@ export default {
           width: 100%;
           opacity: 1;
           left: 0;
-          background-color: @colorBlue;
+          background-color: @colorMainSecondary;
           transform: rotate(0deg);
           transform-origin: left center;
           transition: .25s ease-in-out;
@@ -450,8 +450,8 @@ export default {
       position: relative;
       &:hover {
         span {
-          color: #666666;
-          border-bottom-color: #666666;
+          color: @colorSecondFonts;
+          border-bottom-color: @colorSecondFonts;
         }
       }
       svg {
@@ -460,7 +460,7 @@ export default {
         height: 35px;
         .lg-block({ width: 30px; height: 30px; });
         path {
-          fill: @colorMainRed;
+          fill: @colorMain;
         }
       }
       span {
@@ -527,7 +527,7 @@ export default {
           content: '';
           right: 0;
           top: 12px;
-          border-top: 8px solid  @colorBlue;
+          border-top: 8px solid  @colorMainSecondary;
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           transition: 0.3s;

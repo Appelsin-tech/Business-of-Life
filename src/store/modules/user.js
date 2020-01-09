@@ -12,7 +12,8 @@ const state = () => ({
 })
 
 const getters = {
-  logged: state => !!state.profile
+  logged: state => !!state.profile,
+  access: state => state.profile.access
 }
 
 const actions = {

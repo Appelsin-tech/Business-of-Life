@@ -41,7 +41,7 @@
         <span v-if="idEvent">Сохранить</span>
         <span v-else>Создать</span>
       </button>
-      <button class="g-btn g-btn--no-icon g-btn--white g-btn--border" type="button" @click="deleteEvent(idEvent)" v-if="btnDelete">
+      <button class="g-btn g-btn--no-icon g-btn--white" type="button" @click="deleteEvent(idEvent)" v-if="btnDelete">
         <span>Удалить</span>
       </button>
     </div>

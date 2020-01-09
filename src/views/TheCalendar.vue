@@ -210,9 +210,6 @@ export default {
       .content {
         display: flex;
         flex-direction: column;
-        .g-caption {
-          margin-bottom: 20px;
-        }
         .desc-light {
           font-size: 1.4rem;
           color: #666666;
@@ -238,7 +235,7 @@ export default {
               .svg-wrapper {
                 .svg-square {
                   path {
-                    fill: @colorMainRed;
+                    fill: @colorMain;
                   }
                 }
               }
@@ -260,7 +257,7 @@ export default {
                 });
                 path {
                   transition: 0.3s;
-                  fill: @colorBlue;
+                  fill: @colorMainSecondary;
                 }
               }
             }
@@ -333,8 +330,8 @@ export default {
             margin-right: 15px;
           }
           span {
-            border-bottom: 3px solid @colorBlue;
-            border-left: 3px solid @colorBlue;
+            border-bottom: 3px solid @colorMainSecondary;
+            border-left: 3px solid @colorMainSecondary;
           }
         }
       }
@@ -355,8 +352,8 @@ export default {
             margin-right: 15px;
           }
           span {
-            border-bottom: 3px solid @colorMainRed;
-            border-left: 3px solid @colorMainRed;
+            border-bottom: 3px solid @colorMain;
+            border-left: 3px solid @colorMain;
           }
         }
         .swiper-pagination-relation {
@@ -393,7 +390,7 @@ export default {
           height: 350px;
         });
         &.activeSlideColor {
-          background: @colorMainRed;
+          background: @colorMain;
           .day-week {
             .day {
               color: #fff;
@@ -431,7 +428,7 @@ export default {
           .day {
             font-size: 3rem;
             font-weight: 800;
-            color: @colorBlue;
+            color: @colorMainSecondary;
             .sm-block({
               font-size: 2.4rem;
             });

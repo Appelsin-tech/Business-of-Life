@@ -1,13 +1,12 @@
 <template>
   <div class="wallet-wrapper">
-    <p class="g-caption g-caption-section">Кошельки</p>
     <div class="wallet">
       <div class="icon-wallet">BL</div>
       <div class="info-wrapper">
         <div class="info">
           <p class="title">Business of Life Монеты </p>
-          <p class="price">200 <span class="currency">usdb</span></p>
-          <p class="price-secondary">(1000 KZT)</p>
+          <p class="price">{{balance.bol}} <span class="currency">BoL</span></p>
+          <p class="price-secondary">({{balance.bol}} USD)</p>
         </div>
         <div class="control">
           <button class="control-link control-link--refractor" v-tooltip.bottom="'Пополнить'" @click="">
@@ -23,8 +22,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'AdminWalletMain'
+  name: 'AdminWalletMain',
+  computed: {
+    ...mapState('wallet', [
+      'balance'
+    ])
+  },
+  mounted() {
+    this.$store.dispatch('wallet/balance')
+  }
 }
 </script>
 
@@ -56,11 +64,11 @@ export default {
         height: 45px;
         border-width: 1px;
         border-style: solid;
-        border-color: @colorBlue;
+        border-color: @colorMainSecondary;
         border-radius: 50%;
         flex-shrink: 0;
         box-sizing: border-box;
-        color: @colorBlue;
+        color: @colorMainSecondary;
         .md-block({
           width: 40px;
           height: 40px;
@@ -113,7 +121,7 @@ export default {
           margin-bottom: 5px;
           font-size: 5rem;
           font-weight: 800;
-          color: @colorBlue;
+          color: @colorMainSecondary;
           .xs-block({ font-size: 3.5rem; });
           .currency {
             margin-left: 10px;

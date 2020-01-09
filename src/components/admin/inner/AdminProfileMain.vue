@@ -1,7 +1,7 @@
 <template>
   <form class="form" @submit.prevent="onSubmit">
     <div class="item-wrapper">
-      <p class="g-caption g-caption-section">Основные</p>
+      <p class="g-caption-section">Основные</p>
       <div class="grid-wrapper grid-wrapper--main">
 <!--        <div class="g-item-form photo">-->
 <!--          <span class="g-item-form__label">Фото</span>-->
@@ -44,7 +44,7 @@
 
     </div>
     <div class="item-wrapper">
-      <p class="g-caption g-caption-section">Адрес</p>
+      <p class="g-caption-section">Адрес</p>
       <div class="grid-wrapper grid-wrapper--address">
         <div class="g-item-form">
           <label class="g-item-form__label">Страна</label>

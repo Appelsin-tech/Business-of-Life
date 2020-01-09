@@ -134,7 +134,7 @@ export default {
           width: 100%;
           height: 100%;
           path {
-            fill: @colorBlue;
+            fill: @colorMainSecondary;
           }
         }
       }
@@ -168,7 +168,7 @@ export default {
           }
           &.active {
             &::after {
-              background: @colorMainRed;
+              background: @colorMain;
             }
           }
         }

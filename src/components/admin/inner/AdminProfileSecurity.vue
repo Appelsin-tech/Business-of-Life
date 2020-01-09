@@ -1,27 +1,28 @@
 <template>
   <form class="form" @submit.prevent="onSubmit">
     <div class="item-wrapper">
-      <p class="g-caption g-caption-section">Пароль</p>
+      <p class="g-caption-section">Пароль</p>
       <div class="grid-wrapper grid-wrapper--main">
         <div class="g-item-form ">
           <label class="g-item-form__label">Старый пароль</label>
-          <input class="g-item-form__input" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
+          <input class="g-item-form__input" :class="{error: $v.form.password_old.$error}" type="text" v-model="form.password_old" @blur="$v.form.password_old.$touch()">
+          <div class="input-valid-error" v-if="$v.form.password_old.$error">
+            <template v-if="!$v.form.password_old.required">Поле не может быть пустым</template>
           </div>
         </div>
         <div class="g-item-form row-2">
           <label class="g-item-form__label">Новый пароль</label>
-          <input class="g-item-form__input" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
+          <input class="g-item-form__input" :class="{error: $v.form.password_new.$error}" type="text" v-model="form.password_new" @blur="$v.form.password_new.$touch()">
+          <div class="input-valid-error" v-if="$v.form.password_new.$error">
+            <template v-if="!$v.form.password_new.required">Поле не может быть пустым</template>
           </div>
         </div>
         <div class="g-item-form row-2">
           <label class="g-item-form__label">Повторите пароль</label>
-          <input class="g-item-form__input" :class="{error: $v.form.title.$error}" type="text" @blur="$v.form.title.$touch()">
-          <div class="input-valid-error" v-if="$v.form.select.$error">
-            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
+          <input class="g-item-form__input" :class="{error: $v.form.password_repeat.$error}" type="text" v-model="form.password_repeat" @blur="$v.form.password_repeat.$touch()">
+          <div class="input-valid-error" v-if="$v.form.password_repeat.$error">
+            <template v-if="!$v.form.password_repeat.required">Поле не может быть пустым</template>
+            <template v-if="!$v.form.password_repeat.sameAs">Пароли не совпадают</template>
           </div>
         </div>
       </div>
@@ -33,36 +34,49 @@
 </template>
 
 <script>
-import { maxLength, required } from 'vuelidate/lib/validators'
-import API from '../../../api'
+import { sameAs, required } from 'vuelidate/lib/validators'
+import API from '../../../api/index'
 
 export default {
   name: 'AdminProfileSettings',
   data() {
     return {
       form: {
-        title: '',
-        select: ''
+        password_old: '',
+        password_new: '',
+        password_repeat: ''
+      },
+      errorResponse: {
+        password: 'Не верный пароль'
       }
     }
   },
   validations: {
     form: {
-      title: {
-        required,
-        maxLength: maxLength(100)
-      },
-      select: {
+      password_old: {
         required
+      },
+      password_new: {
+        required
+      },
+      password_repeat: {
+        required,
+        sameAs: sameAs('password_new')
       }
     }
   },
   methods: {
     onSubmit() {
       this.$v.$touch()
-      if (this.$v.$invalid) {
-        API.response.error('Заполните все поля')
-        return
+      if (!this.$v.$invalid) {
+        API.users.password({
+          password_old: this.form.password_old,
+          password_new: this.form.password_new
+        }).then(response => {
+          API.response.success('Пароль изменен')
+        }).catch(e => {
+          API.response.error(this.errorResponse[e.response.data.reason])
+        })
       }
     }
   },

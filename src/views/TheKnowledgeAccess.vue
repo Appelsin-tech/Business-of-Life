@@ -2,18 +2,16 @@
   <section class="p-auth p-default p-default-inner">
     <bread-crumbs :arrCrumbs="[]"/>
     <div class="container page">
-      <h1 class='g-caption g-caption-inner'>База знаний</h1>
+      <h1 class='g-caption-inner'>База знаний</h1>
       <div class="info">
-        <div class="message" :class="status[currentStatus].classIcon">
-          <div class="status_icon" >
-            <img svg-inline class="icon first" src="../assets/img/icon/time-my.svg" alt="" v-if="currentStatus === 0">
-            <img svg-inline class="icon open" src="../assets/img/icon/check.svg" alt="" v-else-if="currentStatus === 1">
-            <img svg-inline class="icon close" src="../assets/img/icon/close.svg" alt="" v-else-if="currentStatus === 2 || currentStatus === 3">
-            <img svg-inline class="icon first" src="../assets/img/icon/time-my.svg" alt="" v-else-if="currentStatus === 4">
+        <div class="message" :class="status[currentStatus.status].classIcon">
+          <div class="status_icon">
+            <img svg-inline class="icon first" src="../assets/img/icon/time-my.svg" alt="" v-if="currentStatus.status === 0 || currentStatus.status === 2">
+            <img svg-inline class="icon open" src="../assets/img/icon/check.svg" alt="" v-else-if="currentStatus.status === 1">
           </div>
-          <strong class="text">{{status[currentStatus].message}}</strong>
+          <p class="text">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
         </div>
-        <button class="g-btn g-btn--no-icon" v-if="currentStatus === 2 || currentStatus === 3">
+        <button class="g-btn g-btn--no-icon" v-if="currentStatus.status === 2 || currentStatus.status === 3">
           <span>Продлить доступ</span>
         </button>
       </div>
@@ -24,6 +22,7 @@
 
 <script>
 import BreadCrumbs from '../components/BreadCrumbs'
+
 export default {
   name: 'TheKnowledgeAccess',
   components: {
@@ -31,7 +30,6 @@ export default {
   },
   data() {
     return {
-      currentStatus: 1,
       status: [
         {
           classIcon: 'first',
@@ -42,19 +40,23 @@ export default {
           message: 'Доступ активен'
         },
         {
-          classIcon: 'end',
-          message: 'Доступ закончился'
-        },
-        {
-          classIcon: 'close',
-          message: 'Доступ закрыт'
-        },
-        {
           classIcon: 'extension',
-          message: 'Обработка на продление'
+          message: 'Обработка заявки'
         }
       ],
     }
+  },
+  computed: {
+    currentStatus() {
+      // return {
+      //   status: 0,
+      //   exp: 1579649971812
+      // }
+      return this.$store.getters['user/access'].knowledge
+    },
+    activeDate() {
+      return this.$moment().to(this.currentStatus.exp, true)
+    },
   },
 }
 </script>
@@ -69,8 +71,12 @@ export default {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     margin-bottom: 50px;
-    .ss-block({flex-direction: column;
-      align-items: flex-start; margin-bottom: 25px; padding: 15px 20px;});
+    .ss-block({
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      padding: 15px 20px;
+    });
     .message {
       display: flex;
       align-items: center;
@@ -100,7 +106,9 @@ export default {
       }
       &.end,
       &.close {
-        .ss-block({margin-bottom: 20px;});
+        .ss-block({
+          margin-bottom: 20px;
+        });
         .status_icon {
           border-color: @colorError;
           .icon {

@@ -69,9 +69,6 @@ export default {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          .g-caption {
-            margin-bottom: 30px;
-          }
           .desc-light {
             margin-bottom: 10px;
             font-size: 1.4rem;
@@ -125,7 +122,7 @@ export default {
           .name {
             font-size: 3.2rem;
             font-weight: 800;
-            color: @colorBlue;
+            color: @colorMainSecondary;
             text-transform: uppercase;
             .sm-block({ font-size: 2.4rem; })
           }

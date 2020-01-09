@@ -10,13 +10,13 @@
         </template>
         <template v-else-if="status[idStatus].class === 'waiting'">
           <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon" src="../assets/img/icon/watch.svg" alt="">
+            <img svg-inline class="status-icon" src="../assets/img/icon/time-my.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
         <template v-else-if="status[idStatus].class === 'past'">
           <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon" src="../assets/img/icon/time.svg" alt="">
+            <img svg-inline class="status-icon" src="../assets/img/icon/time-my.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
@@ -31,7 +31,7 @@
         <button class="g-btn g-btn--no-icon" @click="$router.push({path: `/admin/editing/${idEvent}/${idRelation}`})">
           <span>Редактировать</span>
         </button>
-        <button class="g-btn g-btn--no-icon g-btn--white g-btn--border"  @click="newStatus">
+        <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
           <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>
           <span v-else>Опубликовать</span>
         </button>
@@ -138,33 +138,35 @@ export default {
               fill: #000;
             }
           }
-          &.past {
-            border: none;
-            .status-icon {
-              width: 100%;
-              height: 100%;
-              * {
-                fill: @colorWait;
-              }
-            }
-          }
           &.created {
-            border-color: @colorMainRed;
+            border-color: @colorMain;
             .status-icon {
               width: 18px;
               height: 18px;
               .md-block({ width: 15px; height: 15px;});
               .ss-block({ width: 12px; height: 12px;});
               path {
-                fill: @colorMainRed;
+                fill: @colorMain;
               }
             }
           }
+          &.past,
           &.waiting {
             border-color: @colorWait;
-            .status-icon {
-              path {
+            .status__icon {
+              width: 30px;
+              height: 30px;
+              .md-block({
+                width: 25px;
+                height: 25px;
+              });
+              .ss-block({
+                width: 20px;
+                height: 20px;
+              });
+              * {
                 fill: @colorWait;
+                stroke: @colorWait;
               }
             }
           }

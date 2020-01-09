@@ -2,7 +2,7 @@
   <section class="p-description p-default p-default-inner">
     <bread-crumbs v-if="logged" :arrCrumbs="[]"/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner">Информация о билете</h1>
+      <h1 class="g-caption-inner">Информация о билете</h1>
       <ticket-search v-if="logged"/>
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
@@ -43,7 +43,7 @@
               <a href="#" v-if="superV" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" >
                 <span>Закрыть билет</span>
               </a>
-              <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white g-btn--border" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
+              <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
                 <span>Продлить билет</span>
               </a>
             </div>

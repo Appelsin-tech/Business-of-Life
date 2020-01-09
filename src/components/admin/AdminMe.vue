@@ -2,35 +2,35 @@
   <section class="p-me p-default p-default-inner">
     <bread-crumbs :arrCrumbs="[]"/>
     <div class="container">
-      <h1 class="g-caption g-caption-inner">Личный кабинет</h1>
+      <h1 class="g-caption-inner">Личный кабинет</h1>
       <div class="menu">
         <router-link to="/admin/event-control" class="menu__item item" v-if="profile.status > 1">
           <div class="item__img item__img--event"></div>
-          <p class="item__title">Управление мероприятиями</p>
+          <p class="g-caption-element">Управление мероприятиями</p>
         </router-link>
         <router-link to="/tickets" class="menu__item item">
           <div class="item__img  item__img--tickets"></div>
-          <p class="item__title">Проверить билет</p>
+          <p class="g-caption-element">Проверить билет</p>
         </router-link>
         <router-link to="/admin/statistic" class="menu__item item" v-if="profile.status > 1">
           <div class="item__img  item__img--statistic"></div>
-          <p class="item__title">Статистика продаж</p>
+          <p class="g-caption-element">Статистика продаж</p>
         </router-link>
         <router-link to="/admin/role" class="menu__item item" v-if="profile.status > 1">
           <div class="item__img  item__img--role"></div>
-          <p class="item__title">Роли и управление доступом</p>
+          <p class="g-caption-element">Роли и управление доступом</p>
         </router-link>
         <router-link to="/admin/profile" class="menu__item item">
           <div class="item__img  item__img--role"></div>
-          <p class="item__title">Профиль</p>
+          <p class="g-caption-element">Профиль</p>
         </router-link>
         <router-link to="/knowledge" class="menu__item item">
           <div class="item__img  item__img--role"></div>
-          <p class="item__title">База знаний</p>
+          <p class="g-caption-element">База знаний</p>
         </router-link>
         <router-link to="/admin/wallet" class="menu__item item">
           <div class="item__img  item__img--role"></div>
-          <p class="item__title">Кошелек</p>
+          <p class="g-caption-element">Кошелек</p>
         </router-link>
       </div>
     </div>
@@ -125,7 +125,7 @@ export default {
           align-items: center;
         });
         &:hover {
-          .item__title {
+          .g-caption-element {
             text-decoration: none;
           }
         }
@@ -137,7 +137,7 @@ export default {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          background-color: #f3f3f3;
+          background-color: @colorBgGray;
           .to(1430px, {
             width: auto;
           });
@@ -172,16 +172,6 @@ export default {
             align-items: center;
             justify-content: center;
           }
-        }
-        &__title {
-          font-weight: 800;
-          font-size: 2rem;
-          text-transform: uppercase;
-          text-decoration: underline;
-          color: #000;
-          .md-block({
-            font-size: 1.6rem;
-          });
         }
       }
     }

@@ -53,14 +53,6 @@
       </button>
     </div>
     <div class="item-wrapper" v-else-if="pageName === 'forgot'">
-<!--      <div class="g-item-form">-->
-<!--        <label class="g-item-form__label">Имя</label>-->
-<!--        <input type="text" class="g-item-form__input" v-model="form_forgot.name" :class="{error: $v.form_forgot.name.$error}" @blur="$v.form_forgot.email.$touch()">-->
-<!--        <div class="input-valid-error" v-if="$v.form_forgot.name.$error">-->
-<!--          <template v-if="!$v.form_forgot.name.required">Поле не может быть пустым</template>-->
-<!--          <template v-if="!$v.form_auth.name.minLength">Значение должно быть не менее 3 символов</template>-->
-<!--        </div>-->
-<!--      </div>-->
       <div class="g-item-form">
         <label class="g-item-form__label">Email</label>
         <input type="text" class="g-item-form__input" v-model="form_forgot.email" :class="{error: $v.form_forgot.email.$error}" @blur="$v.form_forgot.email.$touch()">
@@ -170,7 +162,6 @@ export default {
         this.btnLoading = true
         if (this.pageName === 'registration') {
           API.access.request(this.form_reg).then(response => {
-            console.log(`reg-completion/${response}`)
             this.btnLoading = false
             API.response.success('Вам отправлено письмо на почту')
           }).catch(error => {
@@ -188,7 +179,6 @@ export default {
           })
         } else {
           API.access.forgot(this.form_forgot).then(response => {
-            console.log(`recovery/${response}`)
             this.btnLoading = false
             API.response.success('Вам отправлено письмо на почту')
           }).catch(error => {
@@ -281,7 +271,7 @@ export default {
         &.error {
           &:hover,
           &:focus {
-            border-color: @colorMainRed;
+            border-color: @colorMain;
           }
         }
       }

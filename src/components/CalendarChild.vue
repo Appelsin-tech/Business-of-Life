@@ -127,7 +127,7 @@ export default {
             margin-top: 0;
           });
           path {
-            fill: @colorMainRed;
+            fill: @colorMain;
           }
         }
       }
@@ -154,12 +154,12 @@ export default {
     }
     .link-more {
       margin-top: auto;
-      color: @colorBlue;
+      color: @colorMainSecondary;
       transition: 0.3s;
-      border-bottom: 1px dashed @colorBlue;
+      border-bottom: 1px dashed @colorMainSecondary;
       &:visited,
       &:active {
-        color: @colorBlue;
+        color: @colorMainSecondary;
       }
       &:hover {
         border-bottom-color: transparent;
@@ -230,8 +230,8 @@ export default {
           margin-right: 15px;
         }
         span {
-          border-bottom: 3px solid @colorMainRed;
-          border-left: 3px solid @colorMainRed;
+          border-bottom: 3px solid @colorMain;
+          border-left: 3px solid @colorMain;
         }
       }
       .swiper-pagination-relation {

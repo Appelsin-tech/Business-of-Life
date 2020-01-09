@@ -14,5 +14,12 @@ export default {
     }).catch(error => {
       reject(error)
     })
+  }),
+  password: (data) => new Promise((resolve, reject) => {
+    HTTP.post('users/password', data).then(response => {
+      resolve(response.data)
+    }).catch(error => {
+      reject(error)
+    })
   })
 }

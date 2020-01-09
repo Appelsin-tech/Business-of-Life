@@ -126,15 +126,15 @@ export default {
           margin-bottom: 10px;
         }
         &--link {
-          color: @colorBlue;
-          border-bottom: 1px solid @colorBlue;
+          color: @colorMainSecondary;
+          border-bottom: 1px solid @colorMainSecondary;
           transition: 0.3s;
           &:hover {
             border-bottom-color: transparent;
           }
         }
         &--tel {
-          color: @colorBlue;
+          color: @colorMainSecondary;
         }
       }
       .list-social {

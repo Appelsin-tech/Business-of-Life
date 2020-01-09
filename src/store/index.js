@@ -2,22 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
 import calendar from './modules/calendar'
+import wallet from './modules/wallet'
 
 Vue.use(Vuex)
 
-// const moment = require('moment')
-// require('moment/locale/ru')
-//
-// Vue.use(require('vue-moment'), {
-//   moment
-// })
 
 const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   modules: {
     user,
-    calendar
+    calendar,
+    wallet
   },
   strict: debug,
   plugins: []

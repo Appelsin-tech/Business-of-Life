@@ -74,8 +74,8 @@ input {
   display: inline-flex;
   align-items: center;
   padding: 22px 27px;
-  background: @colorMainRed;
-  border: 3px solid @colorMainRed;
+  background: @colorMain;
+  border: 3px solid @colorMain;
   box-sizing: border-box;
   transition: 0.3s;
   min-width: 280px;
@@ -128,6 +128,8 @@ input {
     }
   }
   &--icon-left {
+    min-width: 250px;
+    .sm-block({ min-width: 180px; });
     .svg-icon {
       left: 0;
       right: auto;
@@ -140,26 +142,24 @@ input {
     }
   }
   &--white {
+    padding: 24px 27px;
     background: transparent;
     border: 1px solid @colorBorder;
-    span {
-      color: #000;
-    }
-  }
-  &--border {
-    padding: 24px 27px;
     .lg-block({ padding: 24px 22px; });
     .sm-block({ padding: 19px 18px; border-width: 1px; min-width: 200px; });
     &:hover,
     &:focus {
-      border-color: @colorMainRed;
+      border-color: @colorMain;
+    }
+    span {
+      color: #000;
     }
   }
   &--no-icon {
     min-width: 180px;
     justify-content: center;
     .xs-block({ flex-basis: auto; });
-    .sm-block({ min-width: 180px; });
+    .sm-block({ min-width: 150px; });
     span {
       padding: 0;
       flex-grow: 0;
@@ -171,18 +171,24 @@ input {
   font-size: 5.1rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: @colorBlue;
+  color: @colorMainSecondary;
+  margin-bottom: 20px;
   .lg-block({ font-size: 5rem; });
   .sm-block({ font-size: 4rem; });
   .xs-block({ font-size: 2.4rem; });
   &-inner {
+    display: block;
     margin-bottom: 33px;
     font-size: 3.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: @colorMainSecondary;
     .lg-block({ font-size: 3.5rem; margin-bottom: 40px; });
     .sm-block({ font-size: 3rem; margin-bottom: 30px; });
     .xs-block({ font-size: 2.4rem; margin-bottom: 25px; });
   }
   &-section {
+    display: block;
     margin-bottom: 33px;
     font-size: 2.7rem;
     font-weight: 800;
@@ -191,11 +197,18 @@ input {
     .lg-block({ margin-bottom: 30px;});
     .sm-block({ font-size: 2.4rem; });
     .xs-block({ font-size: 2rem; margin-bottom: 25px;});
-    &--inner {
-      margin-bottom: 40px;
-      font-size: 2.4rem;
-      .lg-block({ font-size: 2rem; margin-bottom: 30px;});
-      .xs-block({ font-size: 1.6rem; margin-bottom: 18px;});
+  }
+  &-element {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #000;
+    text-transform: uppercase;
+    text-decoration: underline;
+    .lg-block({ font-size: 1.8rem; });
+    .xs-block({ font-size: 1.6rem; });
+    &:hover {
+      text-decoration: none;
     }
   }
 }
@@ -205,7 +218,7 @@ input {
   right: 0;
   height: 3px;
   transform-origin: left top;
-  background: @colorBlue;
+  background: @colorMainSecondary;
 }
 .p-event {
   .swiper-pagination {
@@ -218,7 +231,7 @@ input {
         margin-right: 0;
       }
       &-active {
-        background: @colorBlue;
+        background: @colorMainSecondary;
       }
     }
   }
@@ -227,13 +240,13 @@ input {
 .v-select__modal {
   position: relative;
   height: 68px;
-  background: #f3f3f3;
+  background: @colorBgGray;
   cursor: pointer;
   border: 1px solid #fff;
   .lg-block({ height: 60px; });
   .xs-block({ height: 40px; });
   &.error {
-    border: 1px solid @colorMainRed;
+    border: 1px solid @colorMain;
   }
   &.vs--open {
     .vs__actions {
@@ -262,7 +275,7 @@ input {
         bottom: 0;
         width: 100%;
         padding-left: 25px;
-        background: #f3f3f3;
+        background: @colorBgGray;
         border: none;
         box-sizing: border-box;
         z-index: 3;
@@ -278,7 +291,7 @@ input {
       position: absolute;
       right: 20px;
       top: 35px;
-      border-top: 10px solid @colorMainRed;
+      border-top: 10px solid @colorMain;
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
       cursor: pointer;
@@ -295,7 +308,7 @@ input {
     position: absolute;
     left: 0;
     right: 0;
-    background: #f3f3f3;
+    background: @colorBgGray;
     z-index: 9;
     .vs__dropdown-option {
       padding-left: 25px;
@@ -427,8 +440,8 @@ input {
       .vs__selected {
         font-size: 2.4rem;
         font-weight: 800;
-        color: @colorMainRed;
-        border-bottom: 1px dashed @colorMainRed;
+        color: @colorMain;
+        border-bottom: 1px dashed @colorMain;
         z-index: 4;
         .xs-block({ font-size: 1.8rem; });
       }
@@ -452,7 +465,7 @@ input {
       position: absolute;
       right: 0px;
       top: 11px;
-      border-top: 7px solid @colorMainRed;
+      border-top: 7px solid @colorMain;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
       cursor: pointer;
@@ -474,7 +487,7 @@ input {
       padding: 7px 10px;
       font-size: 2rem;
       font-weight: 800;
-      color: @colorBlue;
+      color: @colorMainSecondary;
       .xs-block({ font-size: 1.6rem; });
     }
   }
@@ -489,7 +502,7 @@ input {
   .lg-block({min-height: 58px;});
   .xs-block({min-height: 40px; padding: 0px 10px;});
   .vs__search {
-    background: #f3f3f3;
+    background: @colorBgGray;
     box-sizing: border-box;
     border: none;
     padding: 10px 0 10px 10px;
@@ -532,9 +545,9 @@ input {
     min-width: 100%;
     z-index: 9;
     background: #fff;
-    border-bottom: 1px solid #f3f3f3;
-    border-left: 1px solid #f3f3f3;
-    border-right: 1px solid #f3f3f3;
+    border-bottom: 1px solid @colorBgGray;
+    border-left: 1px solid @colorBgGray;
+    border-right: 1px solid @colorBgGray;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     box-sizing: border-box;
@@ -665,7 +678,7 @@ input {
 
 .input-valid-error {
   margin-top: 10px;
-  color: @colorMainRed;
+  color: @colorMain;
   .sm-block({ margin-top: 6px; font-size: 1.2rem; });
 }
 
@@ -711,9 +724,9 @@ input {
     font-style: italic;
   }
   a {
-    color: @colorBlue;
+    color: @colorMainSecondary;
     transition: 0.3s;
-    border-bottom: 1px solid @colorBlue;
+    border-bottom: 1px solid @colorMainSecondary;
     font-weight: 600;
     &:hover {
       border-bottom-color: transparent;
@@ -777,7 +790,7 @@ input {
     font-family: @fontMontserrat;
     font-size: 2.4rem !important;
     font-weight: 800 !important;
-    color: @colorBlue;
+    color: @colorMainSecondary;
     text-transform: uppercase;
     .lg-block({
       font-size: 2rem !important;})
@@ -821,13 +834,13 @@ input {
     padding-right: 15px;
     width: 100%;
     height: 68px;
-    background: #f3f3f3;
+    background: @colorBgGray;
     border: 1px solid #fff;
     box-sizing: border-box;
     .lg-block({ padding-left: 18px; height: 60px; });
     .xs-block({ padding-left: 10px; height: 40px; });
     &.error {
-      border: 1px solid @colorMainRed;
+      border: 1px solid @colorMain;
     }
   }
 }
@@ -862,8 +875,8 @@ input {
     padding-right: 15px;
     width: 100%;
     height: 68px;
-    background: #f3f3f3;
-    border: 1px solid #f3f3f3;
+    background: @colorBgGray;
+    border: 1px solid @colorBgGray;
     box-sizing: border-box;
     transition: 0.3s;
     .lg-block({ padding-left: 18px; height: 60px; });
@@ -874,10 +887,10 @@ input {
       border-color: #000;
     }
     &.error {
-      border: 1px solid @colorMainRed;
+      border: 1px solid @colorMain;
       &:hover,
       &:focus {
-        border-color: @colorMainRed;
+        border-color: @colorMain;
       }
     }
   }
@@ -931,7 +944,7 @@ input {
     transition: 0.3s;
     &--add {
       z-index: 1;
-      background-color: #f3f3f3;
+      background-color: @colorBgGray;
       .img-link__icon {
         path {
           fill: #d7d7d7;
@@ -975,7 +988,7 @@ input {
   margin-right: 10px;
   font-weight: 800;
   font-size: 1.8rem;
-  color: @colorBlue;
+  color: @colorMainSecondary;
   text-decoration: underline;
   cursor: pointer;
   .xs-block({

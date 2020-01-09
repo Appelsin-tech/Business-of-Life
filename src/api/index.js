@@ -6,6 +6,7 @@ import relations from './modules/relations'
 import biling from './modules/biling'
 import statistics from './modules/statistics'
 import store from './modules/store'
+import wallet from './modules/wallet'
 import response from './response'
 
 export default {
@@ -17,5 +18,6 @@ export default {
   biling,
   response,
   statistics,
-  store
+  store,
+  wallet
 }

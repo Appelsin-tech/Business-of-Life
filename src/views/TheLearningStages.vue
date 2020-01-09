@@ -20,7 +20,7 @@
                 <p class="desc-steps">Скрытый текст</p>
               </div>
               <a class="circle-btn" href="#">
-                <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
               </a>
             </div>
           </swiper-slide>
@@ -32,7 +32,7 @@
                 <p class="desc-steps">Скрытый текст</p>
               </div>
               <a class="circle-btn" href="#">
-                <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
               </a>
             </div>
           </swiper-slide>
@@ -45,7 +45,7 @@
                   50-70 человек</p>
               </div>
               <a class="circle-btn" href="#">
-                <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
               </a>
             </div>
           </swiper-slide>
@@ -115,9 +115,6 @@ export default {
       .content {
         display: flex;
         flex-direction: column;
-        .g-caption {
-          margin-bottom: 20px;
-        }
         .desc-light {
           font-size: 1.4rem;
           color: #666666;
@@ -205,7 +202,7 @@ export default {
             margin-bottom: 20px;
             font-weight: 800;
             font-size: 2.2rem;
-            color: @colorBlue;
+            color: @colorMainSecondary;
             text-transform: uppercase;
             transition: 0.3s;
             .lg-block({ margin-bottom: 15px; font-size: 2rem;});
@@ -229,7 +226,7 @@ export default {
           height: 65px;
           justify-content: center;
           align-items: center;
-          border: 1px solid @colorMainRed;
+          border: 1px solid @colorMain;
           border-radius: 50%;
           transition: 0.3s;
           z-index: 5;
@@ -241,7 +238,7 @@ export default {
             transition: 0.3s;
             .lg-block({ width: 20px; height: 20px; });
             path {
-              stroke: @colorMainRed;
+              stroke: @colorMain;
             }
           }
         }

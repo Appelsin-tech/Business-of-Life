@@ -1,7 +1,7 @@
 <template>
   <section class="p-faq p-default p-default-inner">
     <div class="container">
-      <h1 class="g-caption g-caption-inner">Оплата и возврат</h1>
+      <h1 class="g-caption-inner">Оплата и возврат</h1>
       <div class="faq-item">
         <h2 class="g-caption-section">Платежи. Оплата банковской картой онлайн</h2>
         <div class="editor">

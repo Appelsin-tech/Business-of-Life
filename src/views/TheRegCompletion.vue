@@ -2,11 +2,11 @@
   <section class="p-auth p-default p-default-inner">
     <bread-crumbs :arrCrumbs="[]"/>
     <div class="container page">
-      <h1 class='g-caption g-caption-inner'>
+      <h1 class='g-caption-inner'>
         <template v-if="pageName === 'reg-completion'">Регистрация</template>
         <template v-else>Восстановление доступа</template>
       </h1>
-      <p class="g-caption g-caption-section">
+      <p class="g-caption-section">
         <template v-if="pageName === 'reg-completion'">Заполните поля чтобы завершить регистрацию</template>
         <template v-else>Заполните поля чтобы восстановить доступ</template>
       </p>

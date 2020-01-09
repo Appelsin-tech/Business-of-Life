@@ -2,12 +2,12 @@
   <section class="p-event-editing p-default p-default-inner">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner g-caption-inner--admin">
+      <h1 class="g-caption-inner">
         <template v-if="event === 'new'">Создание события</template>
         <template v-else>Редактирование события</template>
       </h1>
       <form class="edit-form" @submit.prevent="onSubmit">
-        <h2 class="g-caption g-caption-section">Общая информация</h2>
+        <h2 class="g-caption-section">Общая информация</h2>
         <div class="edit-grid">
           <div class="g-item-form  g-item-form--col-12">
             <label class="g-item-form__label">Название</label>
@@ -82,14 +82,14 @@
           <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid">
             <span>Сохранить</span>
           </button>
-          <button type="button" class="g-btn g-btn--no-icon g-btn--white g-btn--border" v-if="event !== 'new' && ticketsList.length !== 0" @click="newStatus">
+          <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="event !== 'new' && ticketsList.length !== 0" @click="newStatus">
             <span v-if="statusRelation === 3 ">Снять с публикации</span>
             <span v-else>Опубликовать</span>
           </button>
         </div>
       </form>
       <div class="tickets">
-        <h2 class="g-caption g-caption-section">Билеты</h2>
+        <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <ticket v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item"/>
           <div class="ticket-create" :class="{disabled: event === 'new'}">
@@ -525,7 +525,7 @@ export default {
           height: 35px;
           margin-bottom: 35px;
           path {
-            fill: @colorMainRed;
+            fill: @colorMain;
           }
         }
         span {

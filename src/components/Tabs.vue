@@ -62,7 +62,7 @@ export default {
       }
       &.active {
         &::after {
-          background: @colorMainRed;
+          background: @colorMain;
         }
       }
     }

@@ -2,7 +2,7 @@
   <section class="p-event p-default p-default-inner">
     <div class="container" v-if="activeEvent">
       <event-status :idEvent="responseData.id" :idStatus="newStatus" :idRelation="activeEvent.id" @newStatus="refreshStatus" v-if="myEvent"/>
-      <h1 class="g-caption g-caption-inner">{{responseData.title}}</h1>
+      <h1 class="g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
         <v-select @input="newActiveEvent" :value="activeEvent.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
@@ -344,13 +344,13 @@ export default {
         margin-bottom: 10px;
         font-size: 2.4rem;
         font-weight: 800;
-        color: @colorBlue;
+        color: @colorMainSecondary;
         .xs-block({ font-size: 1.8rem; })
       }
       &__city {
         font-size: 2.4rem;
         font-weight: 800;
-        color: @colorMainRed;
+        color: @colorMain;
         .xs-block({ font-size: 1.8rem; })
       }
     }
@@ -395,7 +395,7 @@ export default {
         margin-bottom: 20px;
         font-size: 5rem;
         font-weight: 800;
-        color: @colorBlue;
+        color: @colorMainSecondary;
         .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
         .currency {
           margin-left: 10px;
@@ -505,7 +505,7 @@ export default {
           width: 3px;
           height: 3px;
           border-radius: 50%;
-          background: @colorMainRed;
+          background: @colorMain;
         }
       }
     }
@@ -539,7 +539,7 @@ export default {
           margin-bottom: 15px;
           font-size: 2rem;
           font-weight: 800;
-          color: @colorBlue;
+          color: @colorMainSecondary;
         }
         &__post {
 
@@ -579,9 +579,9 @@ export default {
         }
         &__info {
           &--link {
-            color: @colorBlue;
+            color: @colorMainSecondary;
             transition: 0.3s;
-            border-bottom: 1px solid @colorBlue;
+            border-bottom: 1px solid @colorMainSecondary;
             &:hover {
               border-bottom-color: transparent;
             }
@@ -617,7 +617,7 @@ export default {
             margin-bottom: 20px;
             font-size: 5rem;
             font-weight: 800;
-            color: @colorBlue;
+            color: @colorMainSecondary;
             .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
             .currency {
               margin-left: 10px;
@@ -651,15 +651,15 @@ export default {
         &--prev {
           left: 2px;
           span {
-            border-bottom: 4px solid @colorBlue;
-            border-left: 4px solid @colorBlue;
+            border-bottom: 4px solid @colorMainSecondary;
+            border-left: 4px solid @colorMainSecondary;
           }
         }
         &--next {
           right: 2px;
           span {
-            border-top: 4px solid @colorBlue;
-            border-right: 4px solid @colorBlue;
+            border-top: 4px solid @colorMainSecondary;
+            border-right: 4px solid @colorMainSecondary;
           }
         }
         span {
@@ -707,7 +707,7 @@ export default {
             flex-shrink: 0;
             .sm-block({ width: 15px; height: 15px; margin-top: 0; });
             path {
-              fill: @colorMainRed;
+              fill: @colorMain;
             }
           }
         }
@@ -718,8 +718,8 @@ export default {
       margin-top: 50px;
       font-size: 2.4rem;
       font-weight: 800;
-      color: @colorBlue;
-      border-bottom: 1px solid @colorBlue;
+      color: @colorMainSecondary;
+      border-bottom: 1px solid @colorMainSecondary;
       transition: 0.3s;
       .sm-block({ font-size: 2rem; });
       &:hover {

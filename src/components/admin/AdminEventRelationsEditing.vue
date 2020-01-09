@@ -2,16 +2,16 @@
   <section class="p-event-all-editing p-default p-default-inner">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner g-caption-inner--admin">Мероприятие</h1>
+      <h1 class="g-caption-inner">Мероприятие</h1>
       <div class="event-editing">
-        <h2 class="g-caption g-caption-section">
+        <h2 class="g-caption-section">
           <template v-if="id">Редактирование мероприятия</template>
           <template v-else>Создание мероприятия</template>
         </h2>
         <event-editing-form :idEvent="id" :event="myEvent" :btnDelete="showButtonDelete"/>
       </div>
       <div class="relations-list">
-        <h2 class="g-caption g-caption-section">Редактирование событий</h2>
+        <h2 class="g-caption-section">Редактирование событий</h2>
         <div class="btn-wrapper" v-if="id">
           <a href="#" class="g-btn g-btn--icon-left" @click.prevent="$router.push({path: `/admin/editing/${id}/${'new'}`})">
             <span>
@@ -28,13 +28,12 @@
                   <img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt="">
                 </template>
                 <template v-else-if="status[relation.status].class === 'waiting'">
-                  <img svg-inline class="status__icon" src="../../assets/img/icon/watch.svg" alt=""></template>
-                <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt="">
-                </template>
+                  <img svg-inline class="status__icon" src="../../assets/img/icon/time-my.svg" alt=""></template>
+                <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt=""></template>
               </div>
               <div class="event__info-wrapper">
                 <div class="event__info">
-                  <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>
+                  <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>
                   <p class="event__info-item location">
                     <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
                     <span class="text">{{relation.country}} {{relation.city}}</span>
@@ -59,15 +58,15 @@
               </div>
             </div>
           </div>
-          <h3 class="g-caption g-caption-section g-caption-section--inner">Прошедшие события</h3>
+          <h3 class="g-caption-section">Прошедшие события</h3>
           <div class="event-wrapper--inner">
             <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">
               <div class="status past" v-tooltip.left="'Прошедшее событие'">
-                <img svg-inline class="status__icon status__icon--past" src="../../assets/img/icon/time.svg" alt="">
+                <img svg-inline class="status__icon status__icon--past" src="../../assets/img/icon/time-my.svg" alt="">
               </div>
               <div class="event__info-wrapper">
                 <div class="event__info">
-                  <a :href="`/event/${relation.id}`" class="event__title" target="_blank">{{relation.title}} </a>
+                  <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>
                   <p class="event__info-item location">
                     <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">
                     <span class="text">{{relation.country}} {{relation.city}}</span>
@@ -279,6 +278,12 @@ export default {
         .xs-block({
           padding: 20px;
         });
+        .g-caption-element {
+          margin-bottom: 25px;
+          .md-block({
+            margin-bottom: 15px;
+          });
+        }
         .status {
           display: flex;
           justify-content: center;
@@ -321,7 +326,7 @@ export default {
             }
           }
           &.created {
-            border-color: @colorMainRed;
+            border-color: @colorMain;
             .status__icon {
               width: 18px;
               height: 18px;
@@ -334,25 +339,27 @@ export default {
                 height: 12px;
               });
               path {
-                fill: @colorMainRed;
+                fill: @colorMain;
               }
             }
           }
-          &.past {
-            border: none;
-            .status__icon {
-              width: 100%;
-              height: 100%;
-              * {
-                fill: @colorWait;
-              }
-            }
-          }
+          &.past,
           &.waiting {
             border-color: @colorWait;
             .status__icon {
-              path {
+              width: 30px;
+              height: 30px;
+              .md-block({
+                width: 25px;
+                height: 25px;
+              });
+              .ss-block({
+                width: 20px;
+                height: 20px;
+              });
+              * {
                 fill: @colorWait;
+                stroke: @colorWait;
               }
             }
           }
@@ -386,22 +393,7 @@ export default {
             padding-right: 0;
           });
         }
-        &__title {
-          display: block;
-          margin-bottom: 25px;
-          font-weight: 800;
-          font-size: 2rem;
-          text-transform: uppercase;
-          text-decoration: underline;
-          color: #000;
-          .md-block({
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-          });
-          &:hover {
-            text-decoration: none;
-          }
-        }
+
         &__info-item {
           display: flex;
           align-items: center;

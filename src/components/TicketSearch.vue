@@ -78,7 +78,7 @@ export default {
         padding-left: 50px;
         width: 100%;
         height: 100%;
-        background: #f3f3f3;
+        background: @colorBgGray;
         box-sizing: border-box;
         border: 1px solid transparent;
         transition: 0.3s;

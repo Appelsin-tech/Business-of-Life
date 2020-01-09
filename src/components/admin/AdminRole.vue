@@ -2,7 +2,7 @@
   <section class='p-statistic p-default p-default-inner'>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
-      <h1 class='g-caption g-caption-inner'>Роли и управление доступом</h1>
+      <h1 class='g-caption-inner'>Роли и управление доступом</h1>
       <div class="wrapper-col">
         <div class="col col--role">
           <div class="btn-wrapper">
@@ -18,7 +18,7 @@
         </div>
         <form class="col col--access" @submit.prevent="onSubmit">
           <div class="item-wrapper">
-            <p class="g-caption g-caption-section">Роль</p>
+            <p class="g-caption-section">Роль</p>
             <div class="item">
               <label class="item__label" for="form-role-title">Название роли</label>
               <input class="item__input" id="form-role-title" :class="{error: $v.form.title.$error}" type="text" v-model="form.title" @blur="$v.form.title.$touch()">
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="item-wrapper">
-            <p class="g-caption g-caption-section">Доступы</p>
+            <p class="g-caption-section">Доступы</p>
             <div class="checkbox">
               <span class="item__label">Общие</span>
               <div class="item">
@@ -208,7 +208,7 @@ export default {
             border-width: 2px;
           });
           &.active {
-            border: 3px solid @colorMainRed;
+            border: 3px solid @colorMain;
             .sm-block({border-width: 2px;});
           }
 
@@ -254,7 +254,7 @@ export default {
             padding-right: 15px;
             width: 100%;
             height: 68px;
-            background: #f3f3f3;
+            background: @colorBgGray;
             border: 1px solid #fff;
             box-sizing: border-box;
             .lg-block({
@@ -270,7 +270,7 @@ export default {
               height: auto;
             }
             &.error {
-              border: 1px solid @colorMainRed;
+              border: 1px solid @colorMain;
             }
           }
         }
@@ -312,7 +312,7 @@ export default {
                 top: -3px;
                 width: 26px;
                 height: 26px;
-                background: #f3f3f3;
+                background: @colorBgGray;
                 .sm-block({
                   top: -5px;
                 });

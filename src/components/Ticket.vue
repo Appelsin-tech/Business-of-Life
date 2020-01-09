@@ -95,7 +95,7 @@ export default {
       margin-bottom: 5px;
       font-size: 5rem;
       font-weight: 800;
-      color: @colorBlue;
+      color: @colorMainSecondary;
       .xs-block({ font-size: 3.5rem; });
       .currency {
         margin-left: 10px;

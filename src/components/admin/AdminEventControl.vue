@@ -2,7 +2,7 @@
   <section class="p-control-event p-default p-default-inner">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
-      <h1 class="g-caption g-caption-inner">Управление мероприятиями</h1>
+      <h1 class="g-caption-inner">Управление мероприятиями</h1>
       <div class="btn-wrapper">
         <router-link to="/admin/event-create" class="g-btn g-btn--icon-left">
           <span>
@@ -23,7 +23,7 @@
               <!--<span class="img-link__text">Сменить фото</span>-->
             <!--</a>-->
           </div>
-          <p class="event__title">{{event.title}}</p>
+          <p class="g-caption-element">{{event.title}}</p>
           <div class="event__ticket-sold">
             <!--<div class="event__ticket-sold-wrapper">-->
               <!--<span class="event__ticket-sold-text">Продано билетов:</span>-->
@@ -145,7 +145,7 @@ export default {
         border-radius: 6px;
         .sm-block({padding: 20px 20px 30px; margin-bottom: 15px;});
         &:hover {
-          .event__title {
+          .g-caption-element {
             text-decoration: none;
           }
         }
@@ -267,7 +267,7 @@ export default {
           transition: 0.3s;
           &--add {
             z-index: 1;
-            background-color: #f3f3f3;
+            background-color: @colorBgGray;
             .img-link__icon {
               path {
                 fill: #d7d7d7;

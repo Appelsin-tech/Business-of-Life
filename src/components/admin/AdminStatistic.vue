@@ -2,7 +2,7 @@
   <section class='p-statistic p-default p-default-inner'>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
-      <h1 class='g-caption g-caption-inner'>Статистика </h1>
+      <h1 class='g-caption-inner'>Статистика </h1>
       <div class='wrapper' v-if="responseData.length > 0">
         <admin-statistic-chart-sales :defaultResponse="responseData"/>
         <admin-statistic-chart-location :defaultResponse="responseData"/>

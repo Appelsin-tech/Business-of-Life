@@ -1,35 +1,60 @@
 <template>
-  <div class="transaction-wrapper">
-    <div class="transaction-item">
-      <p class="g-caption g-caption-section">1 января 2020 года</p>
-      <div class="transaction" v-for="item in 5">
-        <div class="icon-transaction">
-          <img class="icon" svg-inline src="@/assets/img/icon/right-arrow.svg" alt="">
-        </div>
-        <div class="info-wrapper">
-          <div class="info">
-            <p class="name">Пополнение кошелька</p>
-            <p class="number">hjqwhdjqjw234kmdklj12332d</p>
+  <section>
+    <div class="transaction-wrapper" v-if="filterTransaction.length > 0">
+      <div class="transaction-item" v-for="item in filterTransaction" :key="item.date">
+        <p class="g-caption-section">{{item.date |  moment("D MMMM YYYY")}}</p>
+        <div class="transaction" v-for="(trans, index) in item.trans" :key="index">
+          <div class="icon-transaction">
+            <img class="icon" svg-inline src="@/assets/img/icon/right-arrow.svg" alt="">
           </div>
-          <div class="sum">
-            <p class="price">200 <span class="currency">usdb</span></p>
+          <div class="info-wrapper">
+            <div class="info">
+              <p class="name" v-show="trans.type === 'o'">Покупка</p>
+              <p class="number">{{trans.info.card_num}}</p>
+            </div>
+            <div class="sum">
+              <p class="price">{{trans.amount}} <span class="currency">{{trans.currency}}</span></p>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
-  </div>
+    <div class="preloader" v-if="transaction.length === 0">
+      <panel-info>У вас еще нет транзакций</panel-info>
+    </div>
+  </section>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+import PanelInfo from '../../ui/PanelInfo'
 export default {
-  name: 'AdminWalletTransaction'
+  name: 'AdminWalletTransaction',
+  data() {
+    return {
+      transactionNull: false
+    }
+  },
+  components: {
+    PanelInfo
+  },
+  computed: {
+    ...mapState('wallet', [
+      'transaction'
+    ]),
+    ...mapGetters('wallet', [
+      'filterTransaction'
+    ])
+  },
+  mounted() {
+    this.$store.dispatch('wallet/history')
+  }
 }
 </script>
 
 <style scoped lang="less">
   @import '../../../assets/less/_importants';
-
   .transaction {
     display: flex;
     align-items: center;
@@ -46,6 +71,9 @@ export default {
     .xs-block({
       padding: 20px;
     });
+    &-item {
+      margin-bottom: 45px;
+    }
     .icon-transaction {
       display: flex;
       justify-content: center;
@@ -103,7 +131,9 @@ export default {
         .name {
           margin-bottom: 10px;
           font-weight: 600;
-          font-size: 2rem;
+          font-size: 2.2rem;
+          .sm-block({
+            font-size: 1.8rem;});
           .ss-block({margin-bottom: 5px;});
         }
         .number {
@@ -116,7 +146,7 @@ export default {
         flex-shrink: 0;
         font-size: 5rem;
         font-weight: 800;
-        color: @colorBlue;
+        color: @colorMainSecondary;
         .xs-block({ font-size: 3.5rem; });
         .currency {
           margin-left: 10px;
@@ -127,5 +157,12 @@ export default {
       }
     }
 
+  }
+  .preloader {
+
+    .icon-preload {
+      width: 50px;
+      height: 50px;
+    }
   }
 </style>

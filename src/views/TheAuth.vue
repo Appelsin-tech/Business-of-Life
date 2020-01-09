@@ -112,7 +112,7 @@ export default {
         }
         .desc-light {
           font-size: 1.4rem;
-          color: #666666;
+          color: @colorSecondFonts;
           margin-bottom: 10px;
         }
         .desc {
@@ -142,8 +142,8 @@ export default {
         }
         .link {
           text-transform: uppercase;
-          color: @colorMainRed;
-          border-bottom: 1px solid @colorMainRed;
+          color: @colorMain;
+          border-bottom: 1px solid @colorMain;
           transition: 0.3s;
           &:hover {
             border-bottom-color: transparent;

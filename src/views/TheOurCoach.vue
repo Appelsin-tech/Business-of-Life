@@ -19,7 +19,7 @@
                 <h3 class="caption-steps">Александр <br> Бахтияров</h3>
                 <div class="wrapper-btn">
                   <a class="circle-btn" href="#">
-                    <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                    <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
                   </a>
                 </div>
               </div>
@@ -29,7 +29,7 @@
                 <h3 class="caption-steps">Ерлан <br> Думанулы</h3>
                 <div class="wrapper-btn">
                   <a class="circle-btn" href="#">
-                    <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                    <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
                   </a>
                 </div>
               </div>
@@ -39,7 +39,7 @@
                 <h3 class="caption-steps">Темиржан</h3>
                 <div class="wrapper-btn">
                   <a class="circle-btn" href="#">
-                    <img svg-inline src="../assets/img/icon/arrow-slider-items.svg" alt="">
+                    <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
                   </a>
                 </div>
               </div>
@@ -114,9 +114,6 @@ export default {
       .content {
         display: flex;
         flex-direction: column;
-        .g-caption {
-          margin-bottom: 20px;
-        }
         .desc-light {
           font-size: 1.4rem;
           color: #666666;
@@ -172,7 +169,7 @@ export default {
             top: 0;
             opacity: 0;
             transition: 0.3s;
-            background: @colorMainRed;
+            background: @colorMain;
             z-index: 1;
           }
           &:hover {
@@ -257,16 +254,16 @@ export default {
         left: 20px;
         .sm-block({ left: 4px;});
         span {
-          border-bottom: 4px solid @colorBlue;
-          border-left: 4px solid @colorBlue;
+          border-bottom: 4px solid @colorMainSecondary;
+          border-left: 4px solid @colorMainSecondary;
         }
       }
       &--next {
         right: 20px;
         .sm-block({ right: 4px;});
         span {
-          border-top: 4px solid @colorBlue;
-          border-right: 4px solid @colorBlue;
+          border-top: 4px solid @colorMainSecondary;
+          border-right: 4px solid @colorMainSecondary;
         }
       }
       span {

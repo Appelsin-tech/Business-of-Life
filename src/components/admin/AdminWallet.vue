@@ -2,7 +2,7 @@
   <section class='p-wallet p-default p-default-inner'>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
-      <h1 class='g-caption g-caption-inner'>Кошелек</h1>
+      <h1 class='g-caption-inner'>Кошелек</h1>
       <div class="wrapper-col">
         <div class="col col--btn">
           <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>

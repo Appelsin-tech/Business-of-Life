@@ -31,6 +31,7 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 300px;
     .lg-block({flex-direction: row;});
     .sm-block({flex-direction: column;});
     .btn {
@@ -63,10 +64,9 @@ export default {
         margin-bottom: 0;
       }
       &.active {
-        border: 3px solid @colorMainRed;
+        border: 3px solid @colorMain;
         .sm-block({border-width: 2px;});
       }
-
     }
   }
 </style>

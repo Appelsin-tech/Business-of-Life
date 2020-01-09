@@ -2,13 +2,13 @@
   <section class="p-news p-default p-default-inner">
     <bread-crumbs :arrCrumbs="[]"/>
     <div class="container">
-      <h1 class="g-caption g-caption-inner">Новости</h1>
+      <h1 class="g-caption-inner">Новости</h1>
       <div class="news-wrapper">
         <article class="news" v-for="(news, index) in  newsData" :key="index">
           <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
           <div class="content">
             <a href="#" class="title-link">
-              <h1 class="title">{{news.title}}</h1>
+              <h1 class="g-caption-element">{{news.title}}</h1>
             </a>
             <div class="data">
               <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
@@ -102,7 +102,7 @@ export default {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          background-color: #f3f3f3;
+          background-color: @colorBgGray;
           .lg-block({
             width: 280px;
             height: 200px;
@@ -162,7 +162,7 @@ export default {
                 margin-top: 0;
               });
               path {
-                fill: @colorMainRed;
+                fill: @colorMain;
               }
             }
           }

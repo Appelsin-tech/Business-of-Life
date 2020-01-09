@@ -142,7 +142,7 @@ export default {
           height: 25px;
           margin-right: 10px;
           path {
-            fill: @colorMainRed;
+            fill: @colorMain;
           }
         }
         &__text {

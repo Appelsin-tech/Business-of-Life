@@ -51,7 +51,6 @@ export default {
         item_id: item.id
       }).then(response => {
         this.WidgetPayment(item.price_kzt, response.id)
-        console.log(response)
       })
     },
     WidgetPayment(price, id) {
@@ -114,7 +113,6 @@ export default {
           .decor-cube(@display: none;);
         });
         .g-caption {
-          margin-bottom: 30px;
           color: #fff;
         }
         .desc-light {
@@ -200,7 +198,7 @@ export default {
               margin-bottom: 5px;
               font-size: 5rem;
               font-weight: 800;
-              color: @colorBlue;
+              color: @colorMainSecondary;
               .xs-block({
                 font-size: 3.5rem;
               });
