@@ -4,7 +4,7 @@
       <div class="icon-wallet">BL</div>
       <div class="info-wrapper">
         <div class="info">
-          <p class="title">Business of Life Монеты </p>
+          <p class="g-caption-element g-caption-element--static">Business of Life Монеты </p>
           <p class="price">{{balance.bol}} <span class="currency">BoL</span></p>
           <p class="price-secondary">({{balance.bol}} USD)</p>
         </div>

@@ -132,18 +132,26 @@ export default {
       .lg-block({ justify-content: center;});
       &__item {
         .col();
-        .size(4);
-        .size-lg(5);
-        .size-md(6);
+        .size(3);
+        .size-xl(4);
         .size-sm(10);
         .size-xs(12);
-        margin-bottom: 35px;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
-        padding: 50px;
+        padding: 40px;
         box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
         border-radius: 6px;
-        .sm-block({padding: 20px 20px 30px; margin-bottom: 15px;});
+        .lg-block({padding: 26px; margin-bottom: 20px;});
+        .sm-block({
+          margin-bottom: 20px;
+          padding: 20px;
+          flex-direction: row;
+          align-items: center;
+        });
+        .xs-block({
+          margin-bottom: 15px;
+          padding: 15px;});
         &:hover {
           .g-caption-element {
             text-decoration: none;
@@ -229,16 +237,32 @@ export default {
       &__img {
         position: relative;
         margin-bottom: 40px;
-        height: 335px;
-        width: 335px;
+        height: 240px;
+        width: 240px;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         transition: 0.3s;
         background-color: @colorBorder;
         .to(1430px, { width: auto;});
-        .md-block({ height: 300px;});
-        .xs-block({ height: 250px; margin-bottom: 20px;});
+        .lg-block({
+          height: 220px;
+          margin-bottom: 30px;
+        });
+        .md-block({
+          height: 210px;
+        });
+        .sm-block({
+          width: 70px;
+          height: 70px;
+          margin-bottom: 0;
+          margin-right: 20px;
+          flex-shrink: 0
+        });
+        .xs-block({
+          width: 40px;
+          height: 40px;
+        });
         &:hover {
           .img-link--change {
             opacity: 1;

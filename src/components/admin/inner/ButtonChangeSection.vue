@@ -32,8 +32,8 @@ export default {
     align-items: center;
     width: 100%;
     max-width: 300px;
-    .lg-block({flex-direction: row;});
-    .sm-block({flex-direction: column;});
+    .lg-block({flex-direction: row; max-width: 100%; flex-wrap: wrap;});
+    .sm-block({flex-direction: column; align-items: center;});
     .btn {
       display: inline-flex;
       align-items: center;
@@ -50,7 +50,6 @@ export default {
       .lg-block({
         min-width: 250px;
         margin-right: 20px;
-        margin-bottom: 0;
         padding: 30px 20px;
       });
       .sm-block({
@@ -60,9 +59,6 @@ export default {
         min-width: 210px;
         border-width: 2px;
       });
-      &:last-child {
-        margin-bottom: 0;
-      }
       &.active {
         border: 3px solid @colorMain;
         .sm-block({border-width: 2px;});

@@ -7,7 +7,7 @@
         <p class="desc-bold">Приобретите пакет, чтобы получить доступ к базе знаний Business of Life</p>
       </div>
       <div class="package-wrapper">
-        <div class="package" v-for="(item, index) in bonusOptions">
+        <div class="package" :class="item.title" v-for="(item, index) in bonusFilter" :key="item.price_kzt">
           <div class="info">
             <h3 class="title">{{item.info.title}}</h3>
             <p class="duration-desc">доступ к базе знаний</p>
@@ -30,6 +30,7 @@
 
 <script>
 import API from '../api/index'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TheKnowledge',
@@ -38,6 +39,22 @@ export default {
       bonus: {},
       bonusOptions: [],
       arrMonth: ['месяц', 'месяца', 'месяцев']
+    }
+  },
+  computed: {
+    ...mapState('user', [
+      'profile'
+    ]),
+    bonusFilter() {
+      if(this.profile) {
+        if (this.profile.status >= 2) {
+          return this.bonusOptions
+        } else {
+          let newArr = this.bonusOptions
+          let removed = newArr.splice(0, 1)
+          return newArr
+        }
+      }
     }
   },
   async mounted() {
@@ -152,6 +169,9 @@ export default {
             width: 250px;
             margin-bottom: 30px;
           });
+          &.test{
+            display: none;
+          }
           .info {
             display: flex;
             flex-direction: column;

@@ -32,6 +32,10 @@
           <div class="item__img  item__img--wallet"></div>
           <p class="g-caption-element">Кошелек</p>
         </router-link>
+        <router-link to="/admin/partners-program" class="menu__item item">
+          <div class="item__img  item__img--partners-program"></div>
+          <p class="g-caption-element">Партнерская программа</p>
+        </router-link>
       </div>
     </div>
   </section>
@@ -101,17 +105,17 @@ export default {
     .menu {
       .row-flex();
       margin-bottom: 80px;
-      justify-content: space-between;
-      .lg-block({
-        justify-content: space-around;
+      justify-content: flex-start;
+      .sm-block({
+        justify-content: center;
       });
       .item {
         .col();
-        .size(3.5);
-        .size-lg(4);
+        .size(3);
+        .size-xl(4);
         .size-sm(10);
         .size-xs(12);
-        margin-bottom: 35px;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         padding: 40px;
@@ -136,8 +140,8 @@ export default {
         &__img {
           position: relative;
           margin-bottom: 40px;
-          height: 295px;
-          width: 295px;
+          height: 240px;
+          width: 240px;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -146,7 +150,7 @@ export default {
             width: auto;
           });
           .lg-block({
-            height: 270px;
+            height: 220px;
             margin-bottom: 30px;
           });
           .md-block({

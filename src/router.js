@@ -206,7 +206,12 @@ const router = new Router({
           path: 'wallet',
           name: 'wallet',
           component: () => import('./components/admin/AdminWallet')
-        }
+        },
+        {
+          path: 'partners-program',
+          name: 'partners-program',
+          component: () => import('./components/admin/AdminPartnersProgram')
+        },
       ]
     },
     {

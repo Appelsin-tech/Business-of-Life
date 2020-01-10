@@ -24,7 +24,7 @@ export default {
   name: 'TheHero',
   mounted() {
     if(this.$route.name === 'main-r' && this.$route.params.sponsor) {
-      this.$cookies.set('sponsor', this.$route.params.sponsor)
+      this.$cookies.set('sponsor', 'asd', 'Sat, 01 Jan 2050 00:00:00 GMT')
     }
     this.$store.dispatch('user/setCookieSponsor')
   }
