@@ -46,7 +46,7 @@ const router = new Router({
     {
       path: '/knowledge-access',
       name: 'knowledge-access',
-      beforeEnter: requireAuth,
+      beforeEnter: requireAuthKnowledge,
       meta: {
         auth: true,
         navDots: true
@@ -229,6 +229,20 @@ async function requireAuth (to, from, next) {
     next()
   }
 }
+async function requireAuthKnowledge (to, from, next) {
+  await store.dispatch('user/login')
+
+  if (!store.getters['user/logged']) {
+    next('auth')
+  } else {
+    if (store.getters['user/access'].knowledge.status === 2 || store.getters['user/access'].knowledge.status === 3) {
+      next('/knowledge')
+    } else {
+      next()
+    }
+  }
+}
+
 function checkRole (to, from, next) {
   if (store.state.user.profile.status < 2) {
     next('/admin/me')

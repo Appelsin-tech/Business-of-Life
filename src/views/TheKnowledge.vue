@@ -68,6 +68,7 @@ export default {
       (options) => {
         API.response.success('Вам открыт доступ')
         this.$store.dispatch('user/login')
+        this.$router.push('/knowledge-access')
       },
       function (reason, options) {
 

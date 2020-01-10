@@ -8,14 +8,14 @@
           <p class="price">{{balance.bol}} <span class="currency">BoL</span></p>
           <p class="price-secondary">({{balance.bol}} USD)</p>
         </div>
-        <div class="control">
-          <button class="control-link control-link--refractor" v-tooltip.bottom="'Пополнить'" @click="">
-            <img svg-inline class="control-link__icon" src="../../../assets/img/icon/download.svg" alt="">
-          </button>
-          <button class="control-link control-link--bring-out" v-tooltip.bottom="'Вывести'" @click="">
-            <img svg-inline class="control-link__icon" src="../../../assets/img/icon/download.svg" alt="">
-          </button>
-        </div>
+<!--        <div class="control">-->
+<!--          <button class="control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Пополнить'" @click="">-->
+<!--            <img svg-inline class="control-link__icon" src="../../../assets/img/icon/download.svg" alt="">-->
+<!--          </button>-->
+<!--          <button class="control-link control-link&#45;&#45;bring-out" v-tooltip.bottom="'Вывести'" @click="">-->
+<!--            <img svg-inline class="control-link__icon" src="../../../assets/img/icon/download.svg" alt="">-->
+<!--          </button>-->
+<!--        </div>-->
       </div>
     </div>
   </div>

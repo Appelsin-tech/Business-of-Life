@@ -11,9 +11,9 @@
           </div>
           <p class="text">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
         </div>
-        <button class="g-btn g-btn--no-icon" v-if="currentStatus.status === 2 || currentStatus.status === 3">
+        <router-link to="/knowledge" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
           <span>Продлить доступ</span>
-        </button>
+        </router-link>
       </div>
       <p>В ближайшее время Ваша заявка будет обработана и вам на почту будет отправлено письмо с доступом</p>
     </div>
