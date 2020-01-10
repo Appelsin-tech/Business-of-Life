@@ -886,6 +886,9 @@ input {
       background: #fff;
       border-color: #000;
     }
+    &:disabled {
+      pointer-events: none;
+    }
     &.error {
       border: 1px solid @colorMain;
       &:hover,

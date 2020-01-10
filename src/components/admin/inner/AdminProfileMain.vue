@@ -13,14 +13,14 @@
 <!--            </label>-->
 <!--          </div>-->
 <!--        </div>-->
-<!--        <div class="g-item-form">-->
-<!--          <label class="g-item-form__label" for="form-role-title">Логин</label>-->
-<!--          <input class="g-item-form__input" id="form-role-title" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">-->
-<!--          <div class="input-valid-error" v-if="$v.form.title.$error">-->
-<!--            <template v-if="!$v.form.title.required">Поле не может быть пустым</template>-->
-<!--            <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="g-item-form">
+          <label class="g-item-form__label" for="form-role-title">Логин</label>
+          <input class="g-item-form__input" id="form-role-title"  type="text" disabled v-model="login">
+        </div>
+        <div class="g-item-form">
+          <label class="g-item-form__label">Email</label>
+          <input class="g-item-form__input"  type="text" disabled v-model="email">
+        </div>
         <div class="g-item-form">
           <label class="g-item-form__label">Имя</label>
           <input class="g-item-form__input" type="text" v-model="form.fname">
@@ -29,13 +29,7 @@
           <label class="g-item-form__label">Фамилия</label>
           <input class="g-item-form__input"  type="text"  v-model="form.lname">
         </div>
-<!--        <div class="g-item-form col-12">-->
-<!--          <label class="g-item-form__label" for="form-role-name">Email</label>-->
-<!--          <input class="g-item-form__input" id="form-role-namee" :class="{error: $v.form.title.$error}" type="text"  @blur="$v.form.title.$touch()">-->
-<!--          <div class="input-valid-error" v-if="$v.form.select.$error">-->
-<!--            <template v-if="!$v.form.select.required">Поле не может быть пустым</template>-->
-<!--          </div>-->
-<!--        </div>-->
+
         <div class="g-item-form col-12">
           <label class="g-item-form__label">Телефон</label>
           <input class="g-item-form__input" v-mask="maskConfig" type="text" v-model="form.phone">
@@ -93,6 +87,8 @@ export default {
         postcode: '',
         address: ''
       },
+      login: '',
+      email: '',
       maskConfig: {
         mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         tokens: {
@@ -132,6 +128,8 @@ export default {
     this.form.region = this.profile.contacts.region
     this.form.postcode = this.profile.contacts.postcode
     this.form.address = this.profile.contacts.address
+    this.login = this.profile.login
+    this.email = this.profile.email
   }
 }
 </script>
@@ -165,7 +163,7 @@ export default {
         grid-column-gap: 0;
       });
       &--main {
-        grid-template-columns: 375px 1fr;
+        grid-template-columns: 1fr 1fr;
         .md-block({
           grid-template-columns: 1fr;
         });

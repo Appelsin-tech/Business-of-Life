@@ -21,15 +21,15 @@
           <p class="g-caption-element">Роли и управление доступом</p>
         </router-link>
         <router-link to="/admin/profile" class="menu__item item">
-          <div class="item__img  item__img--role"></div>
+          <div class="item__img  item__img--profile"></div>
           <p class="g-caption-element">Профиль</p>
         </router-link>
         <router-link to="/knowledge" class="menu__item item">
-          <div class="item__img  item__img--role"></div>
+          <div class="item__img  item__img--knowledge"></div>
           <p class="g-caption-element">База знаний</p>
         </router-link>
         <router-link to="/admin/wallet" class="menu__item item">
-          <div class="item__img  item__img--role"></div>
+          <div class="item__img  item__img--wallet"></div>
           <p class="g-caption-element">Кошелек</p>
         </router-link>
       </div>
@@ -101,29 +101,33 @@ export default {
     .menu {
       .row-flex();
       margin-bottom: 80px;
+      justify-content: space-between;
       .lg-block({
-        justify-content: center;
+        justify-content: space-around;
       });
       .item {
         .col();
-        .size(4);
-        .size-lg(5);
-        .size-md(6);
+        .size(3.5);
+        .size-lg(4);
         .size-sm(10);
         .size-xs(12);
         margin-bottom: 35px;
         display: flex;
         flex-direction: column;
-        padding: 50px;
+        padding: 40px;
         border-radius: 6px;
         transition: 0.3s;
         box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
+        .lg-block({padding: 26px; margin-bottom: 20px;});
         .sm-block({
           margin-bottom: 20px;
           padding: 20px;
           flex-direction: row;
           align-items: center;
         });
+        .xs-block({
+          margin-bottom: 15px;
+        padding: 15px;});
         &:hover {
           .g-caption-element {
             text-decoration: none;
@@ -132,8 +136,8 @@ export default {
         &__img {
           position: relative;
           margin-bottom: 40px;
-          height: 335px;
-          width: 335px;
+          height: 295px;
+          width: 295px;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -141,8 +145,12 @@ export default {
           .to(1430px, {
             width: auto;
           });
+          .lg-block({
+            height: 270px;
+            margin-bottom: 30px;
+          });
           .md-block({
-            height: 300px;
+            height: 210px;
           });
           .sm-block({
             width: 70px;
@@ -151,15 +159,31 @@ export default {
             margin-right: 20px;
             flex-shrink: 0
           });
+          .xs-block({
+            width: 40px;
+            height: 40px;
+          });
           /*.xs-block({ height: 250px; margin-bottom: 20px; });*/
           &--event {
-            background-image: url('../../assets/img/admin-menu-events.jpg');
+            background-image: url('../../assets/img/admin/admin-menu-events.jpg');
           }
           &--tickets {
-            background-image: url('../../assets/img/admin-menu-tickets.jpg');
+            background-image: url('../../assets/img/admin/admin-menu-tickets.jpg');
           }
           &--statistic {
-            background-image: url('../../assets/img/admin-menu-statistic.jpg');
+            background-image: url('../../assets/img/admin/admin-menu-statistic.jpg');
+          }
+          &--role {
+            background-image: url('../../assets/img/admin/admin-menu-role.jpg');
+          }
+          &--knowledge {
+            background-image: url('../../assets/img/admin/admin-menu-knowledge.jpg');
+          }
+          &--profile {
+            background-image: url('../../assets/img/admin/admin-menu-profile.jpg');
+          }
+          &--wallet {
+            background-image: url('../../assets/img/admin/admin-menu-wallet.jpg');
           }
           .img-link {
             position: absolute;

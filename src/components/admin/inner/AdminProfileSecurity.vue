@@ -5,21 +5,22 @@
       <div class="grid-wrapper grid-wrapper--main">
         <div class="g-item-form ">
           <label class="g-item-form__label">Старый пароль</label>
-          <input class="g-item-form__input" :class="{error: $v.form.password_old.$error}" type="text" v-model="form.password_old" @blur="$v.form.password_old.$touch()">
+          <input class="g-item-form__input" :class="{error: $v.form.password_old.$error}" type="password" v-model="form.password_old" @blur="$v.form.password_old.$touch()">
           <div class="input-valid-error" v-if="$v.form.password_old.$error">
             <template v-if="!$v.form.password_old.required">Поле не может быть пустым</template>
           </div>
         </div>
         <div class="g-item-form row-2">
           <label class="g-item-form__label">Новый пароль</label>
-          <input class="g-item-form__input" :class="{error: $v.form.password_new.$error}" type="text" v-model="form.password_new" @blur="$v.form.password_new.$touch()">
+          <input class="g-item-form__input" :class="{error: $v.form.password_new.$error}" type="password" v-model="form.password_new" @blur="$v.form.password_new.$touch()">
           <div class="input-valid-error" v-if="$v.form.password_new.$error">
             <template v-if="!$v.form.password_new.required">Поле не может быть пустым</template>
+            <template v-if="!$v.form.password_new.minLength">Значение должно быть не менее 6 символов</template>
           </div>
         </div>
         <div class="g-item-form row-2">
           <label class="g-item-form__label">Повторите пароль</label>
-          <input class="g-item-form__input" :class="{error: $v.form.password_repeat.$error}" type="text" v-model="form.password_repeat" @blur="$v.form.password_repeat.$touch()">
+          <input class="g-item-form__input" :class="{error: $v.form.password_repeat.$error}" type="password" v-model="form.password_repeat" @blur="$v.form.password_repeat.$touch()">
           <div class="input-valid-error" v-if="$v.form.password_repeat.$error">
             <template v-if="!$v.form.password_repeat.required">Поле не может быть пустым</template>
             <template v-if="!$v.form.password_repeat.sameAs">Пароли не совпадают</template>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import { sameAs, required } from 'vuelidate/lib/validators'
+import { sameAs, required, minLength } from 'vuelidate/lib/validators'
 import API from '../../../api/index'
 
 export default {
@@ -57,7 +58,8 @@ export default {
         required
       },
       password_new: {
-        required
+        required,
+        minLength: minLength(6)
       },
       password_repeat: {
         required,

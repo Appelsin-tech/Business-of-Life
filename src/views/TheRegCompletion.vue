@@ -42,7 +42,7 @@
               <input type="password" class="g-item-form__input" v-model="form_reg.password" :class="{error: $v.form_reg.password.$error}" @blur="$v.form_reg.password.$touch()">
               <div class="input-valid-error" v-if="$v.form_reg.password.$error">
                 <template v-if="!$v.form_reg.password.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form_reg.password.minLength">Значение должно быть не менее 5 символов</template>
+                <template v-if="!$v.form_reg.password.minLength">Значение должно быть не менее 6 символов</template>
               </div>
             </div>
             <div class="g-item-form">
@@ -60,7 +60,7 @@
               <input type="password" class="g-item-form__input" v-model="form_recovery.password" :class="{error: $v.form_recovery.password.$error}" @blur="$v.form_recovery.password.$touch()">
               <div class="input-valid-error" v-if="$v.form_recovery.password.$error">
                 <template v-if="!$v.form_recovery.password.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form_recovery.password.minLength">Значение должно быть не менее 3-х символов</template>
+                <template v-if="!$v.form_recovery.password.minLength">Значение должно быть не менее 6 символов</template>
               </div>
             </div>
             <div class="g-item-form">
@@ -137,7 +137,7 @@ export default {
           },
           password: {
             required,
-            minLength: minLength(5)
+            minLength: minLength(6)
           },
           password_rep: {
             required,
@@ -153,7 +153,7 @@ export default {
           },
           password: {
             required,
-            minLength: minLength(5)
+            minLength: minLength(6)
           },
           password_rep: {
             required,

@@ -43,7 +43,7 @@
         <input type="password" class="g-item-form__input" v-model="form_auth.password" :class="{error: $v.form_auth.password.$error}" @blur="$v.form_auth.password.$touch()">
         <div class="input-valid-error" v-if="$v.form_auth.password.$error">
           <template v-if="!$v.form_auth.password.required">Поле не может быть пустым</template>
-          <template v-if="!$v.form_auth.password.minLength">Значение должно быть не менее 5 символов</template>
+          <template v-if="!$v.form_auth.password.minLength">Значение должно быть не менее 6 символов</template>
         </div>
       </div>
       <button class="g-btn" :disabled="$v.$invalid || btnLoading">
@@ -84,7 +84,8 @@ export default {
         recovery: 'Требуется восстановление доступа',
         password: 'Не верный пароль',
         banned: 'Пользователь забанен',
-        email_wrong: 'Email не найден'
+        email_wrong: 'Email не найден',
+        email_used: 'Email уже зарегистрирован в системе'
       },
       pageAuth: false,
       form_auth: {
@@ -132,7 +133,7 @@ export default {
           },
           password: {
             required,
-            minLength: minLength(5)
+            minLength: minLength(6)
           }
         }
       }
