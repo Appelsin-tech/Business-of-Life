@@ -13,7 +13,14 @@ const state = () => ({
 
 const getters = {
   logged: state => !!state.profile,
-  access: state => state.profile.access
+  access: state => state.profile.access,
+  status (state) {
+    if (state.profile !== null) {
+      return state.profile.status
+    } else {
+      return 0
+    }
+  }
 }
 
 const actions = {

@@ -30,7 +30,7 @@
 
 <script>
 import API from '../api/index'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TheKnowledge',
@@ -42,18 +42,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', [
-      'profile'
+    ...mapGetters('user', [
+      'status'
     ]),
     bonusFilter() {
-      if(this.profile) {
-        if (this.profile.status >= 2) {
-          return this.bonusOptions
-        } else {
-          let newArr = this.bonusOptions
-          let removed = newArr.splice(0, 1)
-          return newArr
-        }
+      if (this.status >= 2) {
+        return this.bonusOptions
+      } else {
+        let newArr = this.bonusOptions
+        let removed = newArr.splice(0, 1)
+        return newArr
       }
     }
   },

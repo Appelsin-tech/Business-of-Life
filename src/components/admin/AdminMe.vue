@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
       <div class="menu">
-        <router-link to="/admin/event-control" class="menu__item item" v-if="profile.status > 1">
+        <router-link to="/admin/event-control" class="menu__item item" v-if="status > 1">
           <div class="item__img item__img--event"></div>
           <p class="g-caption-element">Управление мероприятиями</p>
         </router-link>
@@ -12,11 +12,11 @@
           <div class="item__img  item__img--tickets"></div>
           <p class="g-caption-element">Проверить билет</p>
         </router-link>
-        <router-link to="/admin/statistic" class="menu__item item" v-if="profile.status > 1">
+        <router-link to="/admin/statistic" class="menu__item item" v-if="status > 1">
           <div class="item__img  item__img--statistic"></div>
           <p class="g-caption-element">Статистика продаж</p>
         </router-link>
-        <router-link to="/admin/role" class="menu__item item" v-if="profile.status > 1">
+        <router-link to="/admin/role" class="menu__item item" v-if="status > 1">
           <div class="item__img  item__img--role"></div>
           <p class="g-caption-element">Роли и управление доступом</p>
         </router-link>
@@ -43,14 +43,14 @@
 
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'AdminUsersMe',
   components: { BreadCrumbs },
   computed: {
-    ...mapState('user', [
-      'profile'
+    ...mapGetters('user', [
+      'status'
     ])
   }
 }
