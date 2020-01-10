@@ -33,7 +33,7 @@
           <p class="g-caption-element">Кошелек</p>
         </router-link>
         <router-link to="/admin/partners-program" class="menu__item item">
-          <div class="item__img  item__img--partners-program"></div>
+          <div class="item__img  item__img--partners"></div>
           <p class="g-caption-element">Партнерская программа</p>
         </router-link>
       </div>
@@ -188,6 +188,9 @@ export default {
           }
           &--wallet {
             background-image: url('../../assets/img/admin/admin-menu-wallet.jpg');
+          }
+          &--partners {
+            background-image: url('../../assets/img/admin/admin-menu-partners.jpg');
           }
           .img-link {
             position: absolute;
