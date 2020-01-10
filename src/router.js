@@ -249,7 +249,7 @@ async function requireAuthKnowledge (to, from, next) {
 }
 
 function checkRole (to, from, next) {
-  if (store.state.user.profile.status < 2) {
+  if (store.getters['user/status'] < 2) {
     next('/admin/me')
   } else {
     next()
