@@ -1,46 +1,96 @@
 <template>
   <div>
-    <div class="ref-link">
-      <div class="link-wrapper">
-        <a href="#" class="g-caption-section">Первая линия</a>
-        <span class="arrow">></span>
-      </div>
-      <div class="link-wrapper">
-        <a href="#" class="g-caption-section">Pelkinn</a>
-        <span class="arrow">></span>
-      </div>
-    </div>
-    <div class="ref-user">
-      <div class="icon-user">
-        <img svg-inline class="svg-icon" src="../../../assets/img/icon/avatar.svg" alt="">
-      </div>
-      <div class="info-wrapper">
-        <div class="info">
-          <p class="g-caption-element g-caption-element--static">Mike 007 </p>
-          <p class="info-item">
-            <img svg-inline class="svg-icon" src="../../../assets/img/icon/location.svg" alt="">
-            <span class="text">Михаил Алиакберов</span>
-          </p>
-          <p class="info-item">
-            <img svg-inline class="svg-icon" src="../../../assets/img/icon/earth-globe.svg" alt="">
-            <span class="text">Mike@gmail.com</span>
-          </p>
-          <p class="info-item">
-            <img svg-inline class="svg-icon" src="../../../assets/img/icon/avatar.svg" alt="">
-            <span class="text">5</span>
-          </p>
+    <div class="content" v-if="team.length > 0">
+      <div class="ref-link">
+        <div class="link-wrapper">
+          <span @click="teamClick('')" class="g-caption-section">Первая линия</span>
+          <span class="arrow">></span>
         </div>
-        <button class="message" v-tooltip.bottom="'Отправить сообщение'" @click="">
-          <img svg-inline class="svg-icon" src="../../../assets/img/icon/mail.svg" alt="">
-        </button>
+        <div class="link-wrapper" v-for="user in fullTeam" >
+          <span class="g-caption-section"  @click="teamClick(user)">{{user}}</span>
+          <span class="arrow">></span>
+        </div>
+      </div>
+      <div class="ref-user" v-for="user in team" :key="user.login">
+        <div class="g-icon-circle g-icon-circle--blue g-icon-circle--mr">
+          <img svg-inline class="svg-icon" src="../../../assets/img/icon/avatar.svg" alt="">
+        </div>
+        <div class="info-wrapper">
+          <div class="info" >
+            <p class="g-caption-element" @click="userClick(user)" :class="[user.invited === 0 ? 'disabled' : '']">{{user.login}}</p>
+            <p class="info-item">
+              <img svg-inline class="svg-icon" src="../../../assets/img/icon/location.svg" alt="">
+              <span class="text">{{user.fname}}</span>
+            </p>
+            <p class="info-item">
+              <img svg-inline class="svg-icon" src="../../../assets/img/icon/earth-globe.svg" alt="">
+              <span class="text">{{user.email}}</span>
+            </p>
+            <p class="info-item">
+              <img svg-inline class="svg-icon" src="../../../assets/img/icon/avatar.svg" alt="">
+              <span class="text">{{user.invited}}</span>
+            </p>
+          </div>
+          <div class="g-control-icon">
+            <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Отправить сообщение'" @click="">
+              <img svg-inline class="svg-icon" src="../../../assets/img/icon/mail.svg" alt="">
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
+    <panel-info v-else>У вас еще нет приглашенных пользователей</panel-info>
   </div>
 </template>
 
 <script>
+import API from '../../../api/index'
+import PanelInfo from '../../ui/PanelInfo'
+
 export default {
-  name: 'AdminPartnersProgramStructure'
+  name: 'AdminPartnersProgramStructure',
+  components: {
+    PanelInfo
+  },
+  data() {
+    return {
+      team: [],
+      fullTeam: []
+    }
+  },
+  computed: {
+  },
+  methods: {
+    userClick (user) {
+      if (user.invited > 0) {
+        API.users.tree(user.login).then(response => {
+          this.fullTeam.push(user.login)
+          this.team = response
+        })
+      }
+    },
+    teamClick(user) {
+      API.users.tree(user).then(response => {
+        if (user === '') {
+          this.fullTeam = []
+        } else {
+          let index = this.fullTeam.indexOf(user)
+          if (index < 0) {
+            this.fullTeam.push(user)
+          } else {
+            this.fullTeam.splice(index + 1)
+          }
+        }
+        this.team = response
+      })
+    }
+  },
+  mounted() {
+    API.users.tree('').then(response => {
+      this.team = response
+    })
+  }
 }
 </script>
 
@@ -84,61 +134,14 @@ export default {
   }
   .ref-user {
     display: flex;
-    padding: 35px 55px;
+    padding: 30px;
     margin-bottom: 15px;
-    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-    .md-block({
-      padding: 40px 50px;
-    });
+    border-radius: 5px;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
     .sm-block({
-      padding: 30px 30px 30px 20px;
-    });
-    .xs-block({
       padding: 20px;
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
     });
-    .icon-user {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 60px;
-      width: 45px;
-      height: 45px;
-      border-width: 1px;
-      border-style: solid;
-      border-color: @colorMainSecondary;
-      border-radius: 50%;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      color: @colorMainSecondary;
-      .md-block({
-        width: 40px;
-        height: 40px;
-        margin-right: 45px;
-      });
-      .sm-block({
-        margin-right: 30px;
-      });
-      .ss-block({
-        width: 30px;
-        height: 30px;
-        margin-right: 15px;
-      });
-      .svg-icon {
-        width: 22px;
-        height: 22px;
-        path {
-          fill: @colorMainSecondary;
-        }
-        .md-block({
-          width: 20px;
-          height: 20px;
-        });
-        .ss-block({
-          width: 15px;
-          height: 15px;
-        });
-      }
-    }
     .info-wrapper {
       display: flex;
       align-items: center;
@@ -160,6 +163,10 @@ export default {
         });
         .g-caption-element {
           margin-bottom: 20px;
+          &.disabled {
+            pointer-events: none;
+            text-decoration: none;
+          }
         }
         &-item {
           margin-bottom: 10px;
@@ -179,49 +186,6 @@ export default {
           }
         }
       }
-    }
-  }
-  .message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 60px;
-    width: 45px;
-    height: 45px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: @colorSecondFonts;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    color: @colorSecondFonts;
-    .md-block({
-      width: 40px;
-      height: 40px;
-      margin-right: 45px;
-    });
-    .sm-block({
-      margin-right: 30px;
-    });
-    .ss-block({
-      width: 30px;
-      height: 30px;
-      margin-right: 15px;
-    });
-    .svg-icon {
-      width: 22px;
-      height: 22px;
-      path {
-        fill: @colorSecondFonts;
-      }
-      .md-block({
-        width: 20px;
-        height: 20px;
-      });
-      .ss-block({
-        width: 15px;
-        height: 15px;
-      });
     }
   }
 </style>

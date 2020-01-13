@@ -3,26 +3,26 @@
     <div class="status-wrapper">
       <div class="status-content" >
         <template v-if="status[idStatus].class === 'created'">
-          <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon status-icon--created" src="../assets/img/icon/close.svg" alt="">
+          <div class="g-icon-circle" :class="status[idStatus].class">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
         <template v-else-if="status[idStatus].class === 'waiting'">
-          <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon" src="../assets/img/icon/time-my.svg" alt="">
+          <div class="g-icon-circle" :class="status[idStatus].class">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
         <template v-else-if="status[idStatus].class === 'past'">
-          <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon" src="../assets/img/icon/time-my.svg" alt="">
+          <div class="g-icon-circle" :class="status[idStatus].class">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
         <template v-else>
-          <div class="status-icon-wrapper" :class="status[idStatus].class">
-            <img svg-inline class="status-icon" src="../assets/img/icon/check.svg" alt="">
+          <div class="g-icon-circle" :class="status[idStatus].class">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
           </div>
           <span class="text">{{status[idStatus].tooltip}}</span>
         </template>
@@ -113,79 +113,11 @@ export default {
         display: flex;
         align-items: center;
         .sm-block({ margin-bottom: 20px;});
-        .status-icon-wrapper {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-right: 30px;
-          width: 45px;
-          height: 45px;
-          border-width: 1px;
-          border-style: solid;
-          border-color: #000;
-          border-radius: 50%;
-          flex-shrink: 0;
-          box-sizing: border-box;
-          .md-block({ width: 40px; height: 40px; margin-right: 25px;});
-          .sm-block({ margin-right: 30px;});
-          .ss-block({ width: 30px; height: 30px; margin-right: 15px;});
-          .status-icon {
-            width: 22px;
-            height: 22px;
-            .md-block({ width: 20px; height: 20px;});
-            .ss-block({ width: 15px; height: 15px;});
-            path {
-              fill: #000;
-            }
-          }
-          &.created {
-            border-color: @colorMain;
-            .status-icon {
-              width: 18px;
-              height: 18px;
-              .md-block({ width: 15px; height: 15px;});
-              .ss-block({ width: 12px; height: 12px;});
-              path {
-                fill: @colorMain;
-              }
-            }
-          }
-          &.past,
-          &.waiting {
-            border-color: @colorWait;
-            .status__icon {
-              width: 30px;
-              height: 30px;
-              .md-block({
-                width: 25px;
-                height: 25px;
-              });
-              .ss-block({
-                width: 20px;
-                height: 20px;
-              });
-              * {
-                fill: @colorWait;
-                stroke: @colorWait;
-              }
-            }
-          }
-          &.public {
-            border-color: @colorSuccess;
-            .status-icon {
-              path {
-                fill: @colorSuccess;
-              }
-            }
-          }
-
-        }
         .text {
           color: #000;
           text-transform: uppercase;
           font-weight: 600;
         }
-
       }
       .btn-wrapper {
         display: flex;

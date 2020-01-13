@@ -5,7 +5,7 @@
       <h1 class='g-caption-inner'>Партнерская программа</h1>
       <div class="wrapper-col">
         <div class="col col--btn">
-          <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
+          <button-change-section :BtnArr="buttonMy" v-on:clickBtnChangeSection="changeSection"/>
         </div>
         <div class="col col--content">
           <keep-alive>
@@ -26,6 +26,7 @@ import AdminPartnersProgramStatistic from './inner/AdminPartnersProgramStatistic
 import AdminPartnersProgramReferal from './inner/AdminPartnersProgramReferal'
 import AdminPartnersProgramConditions from './inner/AdminPartnersProgramConditions'
 import ButtonChangeSection from './inner/ButtonChangeSection'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'AdminPartnersProgram',
@@ -50,8 +51,54 @@ export default {
           component: 'AdminPartnersProgramReferal',
           text: 'Реферальные сайты'
         },
+        {
+          component: 'AdminPartnersProgramStructure',
+          text: 'Структура'
+        },
+        {
+          component: 'AdminPartnersProgramConditions',
+          text: 'Статистика'
+        },
+        {
+          component: 'AdminPartnersProgramConditions',
+          text: 'Условия'
+        },
       ],
       currentTab: 'AdminPartnersProgramReferal'
+    }
+  },
+  computed: {
+    ...mapGetters('user', [
+      'status'
+    ]),
+    buttonMy() {
+      if(this.status > 1) {
+        return [
+          {
+            component: 'AdminPartnersProgramReferal',
+            text: 'Реферальные сайты'
+          },
+          {
+            component: 'AdminPartnersProgramStructure',
+            text: 'Структура'
+          },
+          {
+            component: 'AdminPartnersProgramConditions',
+            text: 'Статистика'
+          },
+          {
+            component: 'AdminPartnersProgramConditions',
+            text: 'Условия'
+          },
+        ]
+      } else {
+        return [
+          {
+            component: 'AdminPartnersProgramReferal',
+            text: 'Реферальные сайты'
+          },
+        ]
+      }
     }
   },
   methods: {
@@ -59,6 +106,9 @@ export default {
       this.currentTab = e
     }
   },
+  mounted() {
+
+  }
 }
 </script>
 

@@ -7,22 +7,7 @@
         <p class="desc-bold">Приобретите пакет, чтобы получить доступ к базе знаний Business of Life</p>
       </div>
       <div class="package-wrapper">
-        <div class="package" :class="item.title" v-for="(item, index) in bonusFilter" :key="item.price_kzt">
-          <div class="info">
-            <h3 class="title">{{item.info.title}}</h3>
-            <p class="duration-desc">доступ к базе знаний</p>
-            <strong class="duration">{{item.info.term}} {{arrMonth[(item.info.term % 100 > 4 && item.info.term % 100 <
-              20) ? 2: [2, 0, 1, 1, 1, 2][(item.info.term % 10 < 5) ? item.info.term % 10:5]]}}</strong>
-            <p class="price">{{item.price}} <span class="currency">usd</span></p>
-            <p class="price-secondary">({{item.price_kzt}} KZT)</p>
-            <a href="#" class="g-btn g-btn--no-icon"
-               @click.prevent="buyItems(item)">
-              <span>Получить доступ</span>
-            </a>
-          </div>
-          <!--          <v-select ref="select" v-model="bonus['bonus_' + index]" :multiple="false" :class="['v-select__pricing']" placeholder="партнерский бонус" :searchable="false" :options="bonusOptions"></v-select>-->
-
-        </div>
+       <knowledge-package v-for="(item, index) in bonusFilter" :key="item.price_kzt" :item="item"></knowledge-package>
       </div>
     </div>
   </section>
@@ -31,14 +16,18 @@
 <script>
 import API from '../api/index'
 import { mapGetters } from 'vuex'
+import KnowledgePackage from '../components/KnowledgePackage'
 
 export default {
   name: 'TheKnowledge',
+  components: {
+    KnowledgePackage
+  },
   data() {
     return {
       bonus: {},
       bonusOptions: [],
-      arrMonth: ['месяц', 'месяца', 'месяцев']
+
     }
   },
   computed: {
@@ -61,34 +50,7 @@ export default {
     })
   },
   methods: {
-    buyItems(item) {
-      API.store.buy({
-        item_id: item.id
-      }).then(response => {
-        this.WidgetPayment(item.price_kzt, response.id)
-      })
-    },
-    WidgetPayment(price, id) {
-      const widget = new cp.CloudPayments()
-      widget.charge({
-        publicId: 'pk_e13f4353f48d3a9904042ccb2bffc',
-        description: 'Покупка доступа к Базе Знаний',
-        amount: price,
-        currency: 'KZT',
-        invoiceId: id,
-        skin: 'mini',
-        data: {
-        }
-      },
-      (options) => {
-        API.response.success('Вам открыт доступ')
-        this.$store.dispatch('user/login')
-        this.$router.push('/knowledge-access')
-      },
-      function (reason, options) {
 
-      })
-    }
   }
 }
 </script>
@@ -156,89 +118,7 @@ export default {
         .xxl-block({
           padding-left: 0px;
         });
-        .package {
-          .col();
-          .size(3);
-          margin-bottom: 20px;
-          .xl-block({
-            width: 300px;
-          });
-          .sm-block({
-            width: 250px;
-            margin-bottom: 30px;
-          });
-          &.test{
-            display: none;
-          }
-          .info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
-            margin-bottom: 15px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.4);
-            .xs-block({
-              padding: 20px;
-              margin-bottom: 10px;
-            });
-            .title {
-              margin-bottom: 50px;
-              font-size: 3rem;
-              font-weight: 800;
-              color: #000;
-              text-transform: uppercase;
-              .lg-block({
-                font-size: 2.4rem;
-              });
-              .sm-block({
-                font-size: 2rem;
-                margin-bottom: 20px;
-              });
-            }
-            .duration-desc {
-              margin-bottom: 8px;
-            }
-            .duration {
-              margin-bottom: 50px;
-              font-size: 1.8rem;
-              font-weight: 800;
-              color: #000;
-              text-transform: uppercase;
-              .sm-block({
-                margin-bottom: 20px;
-              });
-            }
-            .price {
-              display: flex;
-              align-items: baseline;
-              flex-shrink: 0;
-              margin-bottom: 5px;
-              font-size: 5rem;
-              font-weight: 800;
-              color: @colorMainSecondary;
-              .xs-block({
-                font-size: 3.5rem;
-              });
-              .currency {
-                margin-left: 10px;
-                font-size: 2rem;
-                color: #000;
-                .xs-block({
-                  font-size: 1.6rem;
-                })
-              }
-            }
-            .price-secondary {
-              margin-bottom: 50px;
-              font-weight: 400;
-              .sm-block({
-                margin-bottom: 30px;
-              });
-            }
-          }
-        }
+
       }
     }
   }

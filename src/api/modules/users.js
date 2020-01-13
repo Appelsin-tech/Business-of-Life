@@ -21,5 +21,12 @@ export default {
     }).catch(error => {
       reject(error)
     })
-  })
+  }),
+  tree: (login) => new Promise((resolve, reject) => {
+    HTTP.get('users/tree', { params: { login: login } }).then(response => {
+      resolve(response.data)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
 }

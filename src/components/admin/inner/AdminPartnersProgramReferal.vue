@@ -5,8 +5,8 @@
       <div class="content">
         <h1 class="g-caption-element g-caption-element--static">Bussiness of Life</h1>
         <p class="desc">Основной реферальный сайт платформы для регистрации ваших партнеров. Отправляйте этот сайт всем потенциальным пользователям.</p>
-        <input type="text" id="copy-input" class="visually-hidden" :value="`https://bussinessof.life/r/${profile.login}`">
-        <a :href="`https://bussinessof.life/r/${profile.login}`" ref="linkToCopy" class="ref-link">{{`https://bussinessof.life/r/${profile.login}`}}</a>
+        <input type="text" id="copy-input" class="visually-hidden" :value="`https://bussinessof.life/r/${profileLogin}`">
+        <a :href="`https://bussinessof.life/r/${profileLogin}`" ref="linkToCopy" class="ref-link">{{`https://bussinessof.life/r/${profileLogin}`}}</a>
         <button class="g-btn g-btn--no-icon g-btn--white" @click="copyLink">
           <span>Копировать ссылку</span>
         </button>
@@ -22,7 +22,14 @@ export default {
   computed: {
     ...mapState('user', [
       'profile'
-    ])
+    ]),
+    profileLogin () {
+      if (this.profile === null) {
+        return ''
+      } else {
+        return this.profile.login
+      }
+    }
   },
   methods: {
     copyLink() {

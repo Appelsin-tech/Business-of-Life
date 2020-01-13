@@ -1,19 +1,21 @@
 <template>
   <div class="ticket">
-    <h3 class="title">{{ticket.title}}</h3>
+    <h3 class="g-caption-element g-caption-element--static">{{ticket.title}}</h3>
     <div class="description editor" v-html="ticket.desc"></div>
-    <p class="price">{{ticket.price}} <span class="currency">{{ticket.currency}}</span></p>
-    <p class="price-secondary">({{ticket.price_kzt}} KZT)</p>
+    <div class="g-price">
+      <p class="g-price-main">{{ticket.price}} <span class="currency">{{ticket.currency}}</span></p>
+      <p class="g-price-secondary">({{ticket.price_kzt}} KZT)</p>
+    </div>
     <a href="#" class="g-btn g-btn--no-icon" v-if="btn"
        @click.prevent="openModalPurchase">
       <span>Купить билет</span>
     </a>
     <div class="control" v-else>
-      <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: ticket})">
-        <img svg-inline class="control-link__icon" src="../assets/img/icon/pencil.svg" alt="">
+      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: ticket})">
+        <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
       </button>
-      <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteTicket">
-        <img svg-inline class="control-link__icon" src="../assets/img/icon/basket.svg" alt="">
+      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteTicket">
+        <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
       </button>
     </div>
 <!--    <button @click="newTicket" class="test-btn">RUCHNIOI VIPUSK </button>-->
@@ -68,44 +70,22 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 30px;
+    padding: 30px;
     margin-bottom: 25px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    .sm-block({ padding: 30px 20px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); });
-    .title {
+    border-radius: 5px;
+    .sm-block({ padding: 20px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); });
+    .g-caption-element {
       margin-bottom: 30px;
-      font-size: 3rem;
-      font-weight: 800;
-      color: #000;
-      .lg-block({ font-size: 2.4rem; });
-      .sm-block({ font-size: 2rem; margin-bottom: 20px; });
-      .xs-block({ font-size: 1.6rem; margin-bottom: 10px; });
+      text-align: center;
+      .sm-block({ margin-bottom: 20px; });
     }
     .description {
       flex-grow: 1;
       margin-bottom: 40px;
       .sm-block({ margin-bottom: 25px; });
       .xs-block({ margin-bottom: 15px; });
-    }
-    .price {
-      display: flex;
-      align-items: baseline;
-      flex-shrink: 0;
-      margin-bottom: 5px;
-      font-size: 5rem;
-      font-weight: 800;
-      color: @colorMainSecondary;
-      .xs-block({ font-size: 3.5rem; });
-      .currency {
-        margin-left: 10px;
-        font-size: 2rem;
-        color: #000;
-        .xs-block({ font-size: 1.6rem; })
-      }
-      &-secondary {
-        font-weight: 400;
-      }
     }
     .control {
       display: flex;
@@ -114,53 +94,6 @@ export default {
       flex-wrap: wrap;
       max-width: 160px;
       margin-left: auto;
-      margin-top: 30px;
-      .control-link {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-        border: 1px solid #d6d6d6;
-        transition: 0.3s;
-        cursor: pointer;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        .md-block({ width: 40px; height: 40px; });
-        &--refractor {
-          &:hover {
-            border-color: @colorSuccess;
-            .control-link__icon {
-              path {
-                fill: @colorSuccess;
-              }
-            }
-          }
-        }
-        &--delete {
-          &:hover {
-            border-color: @colorError;
-            .control-link__icon {
-              path {
-                fill: @colorError;
-              }
-            }
-          }
-        }
-        &__icon {
-          width: 25px;
-          height: 25px;
-          .md-block({ width: 18px; height: 18px; });
-          path {
-            transition: 0.3s;
-            fill: #d6d6d6;
-          }
-        }
-      }
-    }
-    .g-btn {
       margin-top: 30px;
     }
   }

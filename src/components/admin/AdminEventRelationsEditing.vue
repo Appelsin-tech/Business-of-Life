@@ -23,13 +23,15 @@
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
             <div class="event" v-for="(relation, i) in myFutureEvents" :key="relation.id">
-              <div class="status" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
+              <div class="g-icon-circle" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
                 <template v-if="status[relation.status].class === 'created'">
-                  <img svg-inline class="status__icon status__icon--created" src="../../assets/img/icon/close.svg" alt="">
+                  <img svg-inline class="svg-icon" src="../../assets/img/icon/close.svg" alt="">
                 </template>
                 <template v-else-if="status[relation.status].class === 'waiting'">
-                  <img svg-inline class="status__icon" src="../../assets/img/icon/time-my.svg" alt=""></template>
-                <template v-else><img svg-inline class="status__icon" src="../../assets/img/icon/check.svg" alt=""></template>
+                  <img svg-inline class="svg-icon" src="../../assets/img/icon/time-my.svg" alt=""></template>
+                <template v-else>
+                  <img svg-inline class="svg-icon" src="../../assets/img/icon/check.svg" alt="">
+                </template>
               </div>
               <div class="event__info-wrapper">
                 <div class="event__info">
@@ -47,12 +49,12 @@
                     <span class="text">https://businessof.life/event/{{relation.id}}</span>
                   </p>
                 </div>
-                <div class="control">
-                  <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
-                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+                <div class="g-control-icon">
+                  <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
+                    <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">
                   </button>
-                  <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
-                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+                  <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
+                    <img svg-inline class="svg-icon" src="../../assets/img/icon/basket.svg" alt="">
                   </button>
                 </div>
               </div>
@@ -61,8 +63,8 @@
           <h3 class="g-caption-section">Прошедшие события</h3>
           <div class="event-wrapper--inner">
             <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">
-              <div class="status past" v-tooltip.left="'Прошедшее событие'">
-                <img svg-inline class="status__icon status__icon--past" src="../../assets/img/icon/time-my.svg" alt="">
+              <div class="g-icon-circle waiting" v-tooltip.left="'Прошедшее событие'">
+                <img svg-inline class="svg-icon" src="../../assets/img/icon/time-my.svg" alt="">
               </div>
               <div class="event__info-wrapper">
                 <div class="event__info">
@@ -80,12 +82,12 @@
                     <span class="text">https://businessof.life/event/{{relation.id}}</span>
                   </p>
                 </div>
-                <div class="control">
-                  <button class="control__link control-link control-link--refractor" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
-                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">
+                <div class="g-control-icon">
+                  <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">
+                    <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">
                   </button>
-                  <button class="control__link control-link control-link--delete" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
-                    <img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">
+                  <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
+                    <img svg-inline class="svg-icon" src="../../assets/img/icon/basket.svg" alt="">
                   </button>
                 </div>
               </div>
@@ -284,94 +286,6 @@ export default {
             margin-bottom: 15px;
           });
         }
-        .status {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-right: 60px;
-          width: 45px;
-          height: 45px;
-          border-width: 1px;
-          border-style: solid;
-          border-color: #000;
-          border-radius: 50%;
-          flex-shrink: 0;
-          box-sizing: border-box;
-          .md-block({
-            width: 40px;
-            height: 40px;
-            margin-right: 45px;
-          });
-          .sm-block({
-            margin-right: 30px;
-          });
-          .ss-block({
-            width: 30px;
-            height: 30px;
-            margin-right: 15px;
-          });
-          &__icon {
-            width: 22px;
-            height: 22px;
-            .md-block({
-              width: 20px;
-              height: 20px;
-            });
-            .ss-block({
-              width: 15px;
-              height: 15px;
-            });
-            path {
-              fill: #000;
-            }
-          }
-          &.created {
-            border-color: @colorMain;
-            .status__icon {
-              width: 18px;
-              height: 18px;
-              .md-block({
-                width: 15px;
-                height: 15px;
-              });
-              .ss-block({
-                width: 12px;
-                height: 12px;
-              });
-              path {
-                fill: @colorMain;
-              }
-            }
-          }
-          &.past,
-          &.waiting {
-            border-color: @colorWait;
-            .status__icon {
-              width: 30px;
-              height: 30px;
-              .md-block({
-                width: 25px;
-                height: 25px;
-              });
-              .ss-block({
-                width: 20px;
-                height: 20px;
-              });
-              * {
-                fill: @colorWait;
-                stroke: @colorWait;
-              }
-            }
-          }
-          &.public {
-            border-color: @colorSuccess;
-            .status__icon {
-              path {
-                fill: @colorSuccess;
-              }
-            }
-          }
-        }
         &__info-wrapper {
           display: flex;
           align-items: center;
@@ -414,84 +328,6 @@ export default {
           }
           .text {
             color: @colorSecondFonts;
-          }
-        }
-      }
-    }
-    .tooltip {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 5px 10px;
-      background: #fff;
-      border-radius: 3px;
-      &__text {
-        &::after {
-          content: " ";
-          position: absolute;
-          bottom: 100%; /* At the top of the tooltip */
-          left: 50%;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: transparent transparent black transparent;
-        }
-      }
-    }
-    .control {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      max-width: 160px;
-      .control-link {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-        border: 1px solid #d6d6d6;
-        transition: 0.3s;
-        cursor: pointer;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        .md-block({
-          width: 40px;
-          height: 40px;
-        });
-        &--refractor {
-          &:hover {
-            border-color: @colorSuccess;
-            .control-link__icon {
-              path {
-                fill: @colorSuccess;
-              }
-            }
-          }
-        }
-        &--delete {
-          &:hover {
-            border-color: @colorError;
-            .control-link__icon {
-              path {
-                fill: @colorError;
-              }
-            }
-          }
-        }
-        &__icon {
-          width: 25px;
-          height: 25px;
-          .md-block({
-            width: 18px;
-            height: 18px;
-          });
-          path {
-            transition: 0.3s;
-            fill: #d6d6d6;
           }
         }
       }

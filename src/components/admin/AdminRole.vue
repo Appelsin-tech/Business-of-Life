@@ -8,7 +8,7 @@
           <div class="btn-wrapper">
             <button class="btn-role" :class="'active'">Администратор</button>
             <button class="btn-role">Модератор</button>
-            <a href="#" class="g-btn">
+            <a href="#" class="g-btn g-btn--icon-left">
             <span>
               <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
               Добавить роль

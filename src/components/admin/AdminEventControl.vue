@@ -24,17 +24,17 @@
             <!--</a>-->
           </div>
           <p class="g-caption-element">{{event.title}}</p>
-          <div class="event__ticket-sold">
-            <!--<div class="event__ticket-sold-wrapper">-->
-              <!--<span class="event__ticket-sold-text">Продано билетов:</span>-->
-              <!--<span class="event__ticket-sold-number">{{event.ticket}}</span>-->
-            <!--</div>-->
-            <!--<div class="control">-->
-              <!--<button class="control__link control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
-                <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">-->
-              <!--</button>-->
-            <!--</div>-->
-          </div>
+<!--          <div class="event__ticket-sold">-->
+<!--            <div class="event__ticket-sold-wrapper">-->
+<!--              <span class="event__ticket-sold-text">Продано билетов:</span>-->
+<!--              <span class="event__ticket-sold-number">{{event.ticket}}</span>-->
+<!--            </div>-->
+<!--            <div class="control">-->
+<!--              <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
+<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
         </router-link>
       </div>
       <!--<h2 class="g-caption-section">Прошедшие мероприятия</h2>-->
@@ -52,14 +52,14 @@
           <!--</div>-->
           <!--<a href="#" class="event__title">{{event.name}}</a>-->
           <!--<div class="event__ticket-sold">-->
-            <!--<div class="control">-->
-              <!--<button class="control__link control-link control-link&#45;&#45;refractor" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
-                <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/pencil.svg" alt="">-->
-              <!--</button>-->
-              <!--<button class="control__link control-link control-link&#45;&#45;delete" v-tooltip.bottom="'Удалить'">-->
-                <!--<img svg-inline class="control-link__icon" src="../../assets/img/icon/basket.svg" alt="">-->
-              <!--</button>-->
-            <!--</div>-->
+<!--            <div class="control">-->
+<!--              <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
+<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">-->
+<!--              </button>-->
+<!--              <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-red" v-tooltip.bottom="'Удалить'">-->
+<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/basket.svg" alt="">-->
+<!--              </button>-->
+<!--            </div>-->
           <!--</div>-->
         <!--</div>-->
       <!--</div>-->
@@ -210,27 +210,6 @@ export default {
               transition: 0.3s;
               fill: #d6d6d6;
             }
-          }
-        }
-      }
-      .tooltip {
-        position: absolute;
-        bottom: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 5px 10px;
-        background: #fff;
-        border-radius: 3px;
-        &__text {
-          &::after {
-            content: " ";
-            position: absolute;
-            bottom: 100%;  /* At the top of the tooltip */
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent black transparent;
           }
         }
       }
