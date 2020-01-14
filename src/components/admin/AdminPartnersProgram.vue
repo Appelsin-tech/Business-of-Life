@@ -84,10 +84,6 @@ export default {
           },
           {
             component: 'AdminPartnersProgramConditions',
-            text: 'Статистика'
-          },
-          {
-            component: 'AdminPartnersProgramConditions',
             text: 'Условия'
           },
         ]

@@ -81,14 +81,9 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px;
       background: #fff;
       border-radius: 5px;
-      box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-      .sm-block({
-        padding: 20px;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
-      });
+      .default-panel-style();
       .g-caption-element {
         margin-bottom: 30px;
         .sm-block({ margin-bottom: 20px; });

@@ -79,20 +79,13 @@ export default {
       });
       .news {
         display: flex;
-        padding: 40px;
         margin-bottom: 20px;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
         &:last-child {
           margin-bottom: 0;
         }
+        .default-panel-style();
         .sm-block({
-          padding: 25px;
           margin-bottom: 10px;
-          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-        });
-        .xs-block({
-          padding: 18px;
         });
         .img {
           flex-shrink: 0;

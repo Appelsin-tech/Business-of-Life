@@ -3,15 +3,10 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Управление мероприятиями</h1>
-      <div class="btn-wrapper">
-        <router-link to="/admin/event-create" class="g-btn g-btn--icon-left">
-          <span>
-            <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
-            Добавить мероприятие
-          </span>
-        </router-link>
-      </div>
       <div class="event" v-if="myParentEvents">
+        <div class="event-create">
+          <button-add @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+        </div>
         <router-link class="event__item" v-for="(event, index) in myParentEvents" :key="index" :to="`/admin/event-editing/${event.id}`">
           <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
             <!--<a href="#" class="img-link img-link&#45;&#45;add">-->
@@ -36,9 +31,6 @@
 <!--            </div>-->
 <!--          </div>-->
         </router-link>
-        <div class="event-create">
-          <button-add @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
-        </div>
       </div>
       <!--<h2 class="g-caption-section">Прошедшие мероприятия</h2>-->
       <!--<div class="event" >-->
@@ -126,10 +118,6 @@ export default {
 <style scoped lang="less">
   @import "../../assets/less/_importants";
   .p-control-event {
-    .btn-wrapper {
-      margin-bottom: 60px;
-      .sm-block({ margin-bottom: 40px;});
-    }
     .event-create {
       .col();
       .size(3);

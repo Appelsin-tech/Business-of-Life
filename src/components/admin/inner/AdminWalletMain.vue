@@ -45,18 +45,8 @@ export default {
     flex-direction: column;
     .wallet {
       display: flex;
-      padding: 45px 55px;
       margin-bottom: 15px;
-      box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-      .md-block({
-        padding: 40px 50px;
-      });
-      .sm-block({
-        padding: 30px 30px 30px 20px;
-      });
-      .xs-block({
-        padding: 20px;
-      });
+      .default-panel-style();
       .info-wrapper {
         display: flex;
         align-items: center;

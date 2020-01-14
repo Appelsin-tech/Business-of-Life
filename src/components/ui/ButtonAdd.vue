@@ -21,7 +21,6 @@ export default {
 <style scoped lang="less">
   @import "../../assets/less/_importants";
   .button-create {
-    padding: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,11 +28,8 @@ export default {
     border-radius: 5px;
     height: 100%;
     box-sizing: border-box;
-    .sm-block({
-      padding:  20px 20px 20px 30px;
-      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
-    });
-    .xs-block({justify-content: flex-start; padding: 20px;});
+    .default-panel-style();
+    .xs-block({justify-content: flex-start;});
     &:hover {
       .text {
         .g-caption-element {
@@ -47,9 +43,6 @@ export default {
     }
     &.row {
       justify-content: flex-start;
-      padding: 30px 30px 30px 50px;
-      height: 120px;
-      .sm-block({padding: 20px 20px 20px 30px; height: 70px;});
       .xs-block({
         padding: 20px;
       });

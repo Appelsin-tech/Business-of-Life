@@ -70,12 +70,12 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px;
     margin-bottom: 20px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
     background-color: #fff;
     border-radius: 5px;
-    .sm-block({ padding: 20px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); margin-bottom: 15px;});
+    .default-panel-style();
+    .sm-block({ margin-bottom: 15px;});
     .g-caption-element {
       margin-bottom: 30px;
       text-align: center;

@@ -91,10 +91,10 @@
       <div class="tickets">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <ticket v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item"/>
           <div class="ticket-create">
             <button-add :class="[event === 'new' ? 'disabled' : '']" @click.prevent.native="$modal.show('modal-ticket-create', {new: true, relation_id: event})"/>
           </div>
+          <ticket v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item"/>
         </div>
       </div>
       <div class="stock">
@@ -107,43 +107,7 @@
         </div>
       </div>
       <div class="access">
-        <h2 class="g-caption-section">Доступы</h2>
-        <div class="g-item-form">
-          <label class="g-item-form__label">Контроль билетов</label>
-          <div class="access-item__input taggable">
-            <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.control_ticket" class="v-select__relation">
-                  <span slot="no-options">
-                    Введите имя
-                  </span>
-              <template #search="{attributes, events}">
-                <input
-                  class="vs__search"
-                  v-bind="attributes"
-                  v-on="events"
-                  :required="false"
-                />
-              </template>
-            </v-select>
-          </div>
-        </div>
-        <div class="g-item-form">
-          <label class="g-item-form__label">Редактирование события</label>
-          <div class="access-item__input taggable">
-            <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.relation_edit" class="v-select__relation">
-                  <span slot="no-options">
-                    Введите имя
-                  </span>
-              <template #search="{attributes, events}">
-                <input
-                  class="vs__search"
-                  v-bind="attributes"
-                  v-on="events"
-                  :required="false"
-                />
-              </template>
-            </v-select>
-          </div>
-        </div>
+        <admin-relation-editing-access/>
       </div>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${event}`" :class="{disabled: event === 'new'}">
@@ -160,6 +124,7 @@ import BreadCrumbs from '../BreadCrumbs.vue'
 import ButtonAdd from '../ui/ButtonAdd'
 import Ticket from '../Ticket'
 import StockAdmin from './StockAdmin'
+import AdminRelationEditingAccess from './AdminRelationEditingAccess'
 import API from '../../api/index'
 import { mapState } from 'vuex'
 
@@ -174,7 +139,15 @@ import 'flatpickr/dist/flatpickr.css'
 export default {
   name: 'AdminRelationEditing',
   props: ['id', 'event'],
-  components: { BreadCrumbs, flatPickr, Ticket, ckeditor: CKEditor.component, ButtonAdd, StockAdmin },
+  components: {
+    BreadCrumbs,
+    flatPickr,
+    Ticket,
+    ckeditor: CKEditor.component,
+    ButtonAdd,
+    StockAdmin,
+    AdminRelationEditingAccess
+  },
   data() {
     return {
       breadCrumbs: [
@@ -564,7 +537,7 @@ export default {
         margin-bottom: 15px;
       });
       .ss-block({
-        min-height: 70px;
+        min-height: auto;
       });
     }
   }
@@ -600,28 +573,11 @@ export default {
       }
     }
   }
-  .access-item__input {
-    padding-left: 25px;
-    padding-right: 15px;
-    width: 100%;
-    height: 68px;
-    background: @colorBgGray;
-    border: 1px solid #fff;
-    box-sizing: border-box;
-    .lg-block({
-      padding-left: 18px;
-      height: 60px;
+  .access {
+    margin-bottom: 35px;
+    .ss-block({
+      margin-bottom: 20px;
     });
-    .xs-block({
-      padding-left: 10px;
-      height: 40px;
-    });
-    &.taggable {
-      padding: 0;
-      height: auto;
-    }
-    &.error {
-      border: 1px solid @colorMain;
-    }
   }
+
 </style>

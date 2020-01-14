@@ -126,7 +126,7 @@ export default {
         }
       ],
       errorSelect: {
-        selectedStatus: false,
+        selectedStatus: false
       },
       form: {
         title: '',

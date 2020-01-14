@@ -36,14 +36,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 30px 30px 30px 50px;
     margin-bottom: 20px;
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
+    .default-panel-style();
     .sm-block({
       margin-bottom: 15px;
-      padding: 20px 20px 20px 30px;
-      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
     });
     .ss-block({
       flex-direction: column;
