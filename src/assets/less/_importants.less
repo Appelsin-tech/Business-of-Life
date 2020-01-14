@@ -37,7 +37,9 @@ button {
   background: none;
   outline: none;
 }
-
+svg {
+  outline: none;
+}
 input {
   outline: none;
 }
@@ -606,6 +608,7 @@ input {
     }
   }
 }
+.v-select__relation,
 .v-select__role {
   position: relative;
   padding: 5px 15px;
@@ -620,7 +623,15 @@ input {
     min-height: 40px;
     padding: 0px 10px;
   });
+  .vs__dropdown-toggle {
+    flex-grow: 10;
+    .vs__selected-options {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
   .vs__search {
+    flex-grow: 1;
     background: @colorBgGray;
     box-sizing: border-box;
     border: none;
@@ -1187,12 +1198,31 @@ input {
       margin: 0;
     }
   }
+  &--ticket {
+    align-self: flex-end;
+    justify-content: space-between;
+    .sm-block({flex-direction: row;});
+    .g-icon-circle {
+      .sm-block({
+        margin-right: 10px;
+        margin-bottom: 0;});
+      .ss-block({
+        margin-right: 10px;
+        margin-bottom: 0;});
+      &:last-child {
+        .sm-block({
+          margin-bottom: 0;});
+        .ss-block({
+          margin-bottom: 0;});
+      }
+    }
+  }
 }
 .g-icon-circle {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 60px;
+  margin-right: 50px;
   width: 45px;
   height: 45px;
   border-width: 1px;

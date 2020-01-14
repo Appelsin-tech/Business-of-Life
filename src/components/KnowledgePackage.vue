@@ -72,7 +72,7 @@ export default {
     });
     .sm-block({
       width: 250px;
-      margin-bottom: 30px;
+      margin-bottom: 15px;
     });
     &.test{
       display: none;
@@ -82,13 +82,11 @@ export default {
       flex-direction: column;
       align-items: center;
       padding: 30px;
-      margin-bottom: 15px;
       background: #fff;
       border-radius: 5px;
       box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
       .sm-block({
         padding: 20px;
-        margin-bottom: 10px;
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
       });
       .g-caption-element {

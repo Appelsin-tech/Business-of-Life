@@ -12,16 +12,11 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
-        <div class="btn-wrapper" v-if="id">
-          <a href="#" class="g-btn g-btn--icon-left" @click.prevent="$router.push({path: `/admin/editing/${id}/${'new'}`})">
-            <span>
-              <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">
-              Добавить событие
-            </span>
-          </a>
-        </div>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
+            <div class="event-create">
+              <button-add v-if="id" :class="'row'" @click.prevent.native="$router.push({path: `/admin/editing/${id}/new`})"/>
+            </div>
             <div class="event" v-for="(relation, i) in myFutureEvents" :key="relation.id">
               <div class="g-icon-circle" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
                 <template v-if="status[relation.status].class === 'created'">
@@ -110,13 +105,15 @@ import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapState } from 'vuex'
 import EventEditingForm from './inner/EventEditingForm'
 import PanelInfo from '../ui/PanelInfo'
+import ButtonAdd from '../ui/ButtonAdd'
 
 export default {
   name: 'AdminEventRelationEditing',
   components: {
     BreadCrumbs,
     EventEditingForm,
-    PanelInfo
+    PanelInfo,
+    ButtonAdd
   },
   props: ['id'],
   data() {
@@ -266,16 +263,21 @@ export default {
       &--inner {
         margin-bottom: 30px;
       }
+      .event-create {
+        margin-bottom: 20px;
+        .sm-block({
+          margin-bottom: 15px;});
+      }
       .event {
         display: flex;
-        padding: 45px 55px;
-        margin-bottom: 15px;
-        box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-        .md-block({
-          padding: 40px 50px;
-        });
+        padding: 30px 30px 30px 50px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
         .sm-block({
-          padding: 30px 30px 30px 20px;
+          margin-bottom: 15px;
+          padding: 20px 20px 20px 30px;
+          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
         });
         .xs-block({
           padding: 20px;
@@ -311,9 +313,9 @@ export default {
         &__info-item {
           display: flex;
           align-items: center;
-          margin-bottom: 20px;
+          margin-bottom: 15px;
           .md-block({
-            margin-bottom: 10px;
+            margin-bottom: 7px;
           });
           &:last-of-type {
             margin-bottom: 0;

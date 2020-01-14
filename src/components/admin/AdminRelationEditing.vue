@@ -92,11 +92,56 @@
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <ticket v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item"/>
-          <div class="ticket-create" :class="{disabled: event === 'new'}">
-            <a class="create-link" href="#" @click.prevent="$modal.show('modal-ticket-create', {new: true, relation_id: event})">
-              <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
-              <span>Добавить</span>
-            </a>
+          <div class="ticket-create">
+            <button-add :class="[event === 'new' ? 'disabled' : '']" @click.prevent.native="$modal.show('modal-ticket-create', {new: true, relation_id: event})"/>
+          </div>
+        </div>
+      </div>
+      <div class="stock">
+        <h2 class="g-caption-section">Акции</h2>
+        <div class="stock-wrapper">
+          <div class="stock-create">
+            <button-add :class="[event === 'new' ? 'disabled' : '', 'row']" @click.prevent.native="$modal.show('modal-stock-create', {new: true, relation_id: event})"></button-add>
+          </div>
+          <stock-admin v-for="stock in stockArr" :stock="stock"/>
+        </div>
+      </div>
+      <div class="access">
+        <h2 class="g-caption-section">Доступы</h2>
+        <div class="g-item-form">
+          <label class="g-item-form__label">Контроль билетов</label>
+          <div class="access-item__input taggable">
+            <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.control_ticket" class="v-select__relation">
+                  <span slot="no-options">
+                    Введите имя
+                  </span>
+              <template #search="{attributes, events}">
+                <input
+                  class="vs__search"
+                  v-bind="attributes"
+                  v-on="events"
+                  :required="false"
+                />
+              </template>
+            </v-select>
+          </div>
+        </div>
+        <div class="g-item-form">
+          <label class="g-item-form__label">Редактирование события</label>
+          <div class="access-item__input taggable">
+            <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.relation_edit" class="v-select__relation">
+                  <span slot="no-options">
+                    Введите имя
+                  </span>
+              <template #search="{attributes, events}">
+                <input
+                  class="vs__search"
+                  v-bind="attributes"
+                  v-on="events"
+                  :required="false"
+                />
+              </template>
+            </v-select>
           </div>
         </div>
       </div>
@@ -111,13 +156,16 @@
 </template>
 
 <script>
+import BreadCrumbs from '../BreadCrumbs.vue'
+import ButtonAdd from '../ui/ButtonAdd'
 import Ticket from '../Ticket'
+import StockAdmin from './StockAdmin'
+import API from '../../api/index'
+import { mapState } from 'vuex'
+
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
-import API from '../../api/index'
-import BreadCrumbs from '../BreadCrumbs.vue'
 import { minLength, required } from 'vuelidate/lib/validators'
-import { mapState } from 'vuex'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
@@ -126,7 +174,7 @@ import 'flatpickr/dist/flatpickr.css'
 export default {
   name: 'AdminRelationEditing',
   props: ['id', 'event'],
-  components: { BreadCrumbs, flatPickr, Ticket, ckeditor: CKEditor.component },
+  components: { BreadCrumbs, flatPickr, Ticket, ckeditor: CKEditor.component, ButtonAdd, StockAdmin },
   data() {
     return {
       breadCrumbs: [
@@ -174,7 +222,9 @@ export default {
         country: '',
         city: '',
         address: '',
-        contacts: ''
+        contacts: '',
+        relation_edit: [],
+        control_ticket: []
       },
       errorSelect: {
         t_currency: false
@@ -188,7 +238,24 @@ export default {
         country: 'Неверная страна',
         city: 'Неверный город',
         address: 'Неверный адрес'
-      }
+      },
+      stockArr: [
+        {
+          title: 'Hello',
+          tickets: 22,
+          ticket_name: 'Первый билет'
+        },
+        {
+          title: 'World',
+          tickets: 100,
+          ticket_name: 'Какой то билет'
+        },
+        {
+          title: 'Starting Seminar',
+          tickets: 5,
+          ticket_name: 'Двадцатьчетвертый билет'
+        }
+      ]
     }
   },
   validations: {
@@ -472,12 +539,9 @@ export default {
   }
 
   .tickets {
-    padding-bottom: 35px;
-    margin-bottom: 60px;
-    border-bottom: 1px solid @colorBorder;
+    margin-bottom: 30px;
     .sm-block({
-      margin-bottom: 40px;
-      padding-bottom: 15px;
+      margin-bottom: 20px;
     });
     &-wrapper {
       .row-flex();
@@ -490,60 +554,74 @@ export default {
       .size-sm(6);
       .size-ss(10);
       .size-xs(12);
-      margin-bottom: 25px;
-      padding: 40px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-      min-height: 400px;
+      margin-bottom: 20px;
+      min-height: 350px;
+      .md-block({
+        min-height: 300px;
+      });
       .sm-block({
-        padding: 30px 20px;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+        min-height: 250px;
+        margin-bottom: 15px;
       });
-      .xs-block({
-        min-height: 200px;
+      .ss-block({
+        min-height: 70px;
       });
-      &.disabled {
-        .create-link {
-          pointer-events: none;
-          opacity: 0.6;
-        }
-      }
-      .create-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: #000;
-        &:hover {
-          span {
-            border-bottom-color: transparent;
-          }
-        }
-        svg {
-          width: 35px;
-          height: 35px;
-          margin-bottom: 35px;
-          path {
-            fill: @colorMain;
-          }
-        }
-        span {
-          border-bottom: 1px solid #000;
-          transition: 0.3s;
-        }
-      }
     }
   }
   .link-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-top: 30px;
+    border-top: 1px solid @colorBorder;
+    .ss-block({
+      padding-top: 20px;
+    });
     .preview {
       &.disabled {
         opacity: 0.7;
         pointer-events: none;
       }
+    }
+  }
+  .stock {
+    margin-bottom: 30px;
+    .sm-block({
+      margin-bottom: 20px;
+    });
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      .stock-create {
+        margin-bottom: 20px;
+        .sm-block({
+          margin-bottom: 15px;
+        });
+      }
+    }
+  }
+  .access-item__input {
+    padding-left: 25px;
+    padding-right: 15px;
+    width: 100%;
+    height: 68px;
+    background: @colorBgGray;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    .lg-block({
+      padding-left: 18px;
+      height: 60px;
+    });
+    .xs-block({
+      padding-left: 10px;
+      height: 40px;
+    });
+    &.taggable {
+      padding: 0;
+      height: auto;
+    }
+    &.error {
+      border: 1px solid @colorMain;
     }
   }
 </style>

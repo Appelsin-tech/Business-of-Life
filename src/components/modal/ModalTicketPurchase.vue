@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="modal__container">
-        <h3 class="title">Купить билет</h3>
+        <h3 class="g-caption-inner">Купить билет</h3>
         <form class="form-modal" @submit.prevent="onSubmit" novalidate>
           <div class="form-modal__wrapper" v-if="disabledBtn">
 

@@ -10,7 +10,7 @@
        @click.prevent="openModalPurchase">
       <span>Купить билет</span>
     </a>
-    <div class="control" v-else>
+    <div class="g-control-icon g-control-icon--ticket" v-else>
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: ticket})">
         <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
       </button>
@@ -71,11 +71,11 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 30px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
     background-color: #fff;
     border-radius: 5px;
-    .sm-block({ padding: 20px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); });
+    .sm-block({ padding: 20px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); margin-bottom: 15px;});
     .g-caption-element {
       margin-bottom: 30px;
       text-align: center;

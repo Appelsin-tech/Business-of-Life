@@ -12,6 +12,7 @@
     <modal-ticket-purchase/>
     <modal-ticket-success/>
     <modal-ticket-create-editing/>
+    <modal-stock-create-editing/>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ import AppFooter from './components/AppFooter'
 import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
 import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
 import ModalTicketCreateEditing from './components/modal/ModalTicketCreateEditing'
+import ModalStockCreateEditing from './components/modal/ModalStockCreateEditing'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -31,7 +33,8 @@ export default {
     AppFooter,
     ModalTicketPurchase,
     ModalTicketSuccess,
-    ModalTicketCreateEditing
+    ModalTicketCreateEditing,
+    ModalStockCreateEditing
   },
   data () {
     return {

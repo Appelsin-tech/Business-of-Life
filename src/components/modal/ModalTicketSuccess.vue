@@ -15,7 +15,7 @@
             <img class="svg" svg-inline src="../../assets/img/icon/check.svg" alt="">
           </div>
           <div class="success__text-wrapper">
-            <h2 class="title title--ticket-success">Спасибо!</h2>
+            <h2 class="g-caption-inner g-caption-inner--ticket">Спасибо!</h2>
             <strong class="success__text-bold">Ваша оплата успешно прошла</strong>
           </div>
         </div>

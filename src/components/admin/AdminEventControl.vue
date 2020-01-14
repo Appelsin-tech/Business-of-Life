@@ -36,6 +36,9 @@
 <!--            </div>-->
 <!--          </div>-->
         </router-link>
+        <div class="event-create">
+          <button-add @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+        </div>
       </div>
       <!--<h2 class="g-caption-section">Прошедшие мероприятия</h2>-->
       <!--<div class="event" >-->
@@ -78,10 +81,11 @@
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapState } from 'vuex'
+import ButtonAdd from '../ui/ButtonAdd'
 
 export default {
   name: 'AdminEventControl',
-  components: { BreadCrumbs},
+  components: { BreadCrumbs, ButtonAdd },
   data() {
     return {
       resposneEvent: [],
@@ -126,9 +130,27 @@ export default {
       margin-bottom: 60px;
       .sm-block({ margin-bottom: 40px;});
     }
+    .event-create {
+      .col();
+      .size(3);
+      .size-xl(4);
+      .size-sm(10);
+      .size-xs(12);
+      margin-bottom: 20px;
+      min-height: 350px;
+      .md-block({
+        min-height: 300px;
+      });
+      .sm-block({
+        min-height: 110px;
+        margin-bottom: 15px;
+      });
+      .ss-block({
+        min-height: 70px;
+      });
+    }
     .event {
       .row-flex();
-      margin-bottom: 80px;
       .lg-block({ justify-content: center;});
       &__item {
         .col();
@@ -140,17 +162,17 @@ export default {
         display: flex;
         flex-direction: column;
         padding: 40px;
-        box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
+        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
         border-radius: 6px;
-        .lg-block({padding: 26px; margin-bottom: 20px;});
+        .lg-block({padding: 26px;});
         .sm-block({
-          margin-bottom: 20px;
+          margin-bottom: 15px;
           padding: 20px;
           flex-direction: row;
           align-items: center;
+          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
         });
         .xs-block({
-          margin-bottom: 15px;
           padding: 15px;});
         &:hover {
           .g-caption-element {
@@ -161,56 +183,6 @@ export default {
           box-shadow: none;
           background: none;
           border-radius: 0;
-        }
-      }
-      .control {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .control-link {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 52px;
-          height: 52px;
-          border-radius: 50%;
-          border: 1px solid #d6d6d6;
-          transition: 0.3s;
-          cursor: pointer;
-          .md-block({ width: 40px; height: 40px; });
-          &:first-child {
-            margin-right: 10px;
-          }
-          &--refractor {
-            &:hover {
-              border-color: @colorSuccess;
-              .control-link__icon {
-                path {
-                  fill: @colorSuccess;
-                }
-              }
-            }
-          }
-          &--delete {
-            &:hover {
-              border-color: @colorError;
-              .control-link__icon {
-                path {
-                  fill: @colorError;
-                }
-              }
-            }
-          }
-          &__icon {
-            width: 25px;
-            height: 25px;
-            .md-block({ width: 18px; height: 18px; });
-            path {
-              transition: 0.3s;
-              fill: #d6d6d6;
-            }
-          }
         }
       }
       &__img {
