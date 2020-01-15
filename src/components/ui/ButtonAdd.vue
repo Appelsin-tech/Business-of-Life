@@ -43,9 +43,6 @@ export default {
     }
     &.row {
       justify-content: flex-start;
-      .xs-block({
-        padding: 20px;
-      });
       .text {
         flex-direction: row;
         svg {

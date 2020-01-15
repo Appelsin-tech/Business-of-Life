@@ -13,39 +13,39 @@
         <h3 class="g-caption-inner">Билет</h3>
         <form class="form-modal" @submit.prevent="onSubmit">
           <div class="form-modal__wrapper">
-            <div class="form-modal__item form-modal__item--col-12">
-              <label class="form-modal__label" for="form-title">Название</label>
-              <input class="form-modal__input" id="form-title" :class="{error: $v.form.title.$error}" v-model="form.title" @blur="$v.form.title.$touch()">
+            <div class="g-item-form col-12">
+              <label class="g-item-form__label" for="form-title">Название</label>
+              <input class="g-item-form__input" id="form-title" :class="{error: $v.form.title.$error}" v-model="form.title" @blur="$v.form.title.$touch()">
               <div class="input-valid-error" v-if="$v.form.title.$error">
                 <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
                 <template v-if="!$v.form.title.minLength">Минимальное количество символов - 3</template>
               </div>
             </div>
-            <div class="form-modal__item form-modal__item--col-12">
-              <label class="form-modal__label">Описание</label>
+            <div class="g-item-form col-12">
+              <label class="g-item-form__label">Описание</label>
               <ckeditor :editor="editor" v-model="form.description" :config="editorConfig" :class="{error: $v.form.description.$error}" @blur="$v.form.description.$touch()"></ckeditor>
               <div class="input-valid-error" v-if="$v.form.description.$error">
                 <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
               </div>
             </div>
-            <div class="form-modal__item ">
-              <label class="form-modal__label">Цена</label>
-              <the-mask class="form-modal__input" mask="XXXXXXXXXXXXXXXXXXX" :tokens="currencyMask" :class="{error: $v.form.price.$error}" v-model="form.price" @blur="$v.form.price.$touch()"/>
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label">Цена</label>
+              <the-mask class="g-item-form__input" mask="XXXXXXXXXXXXXXXXXXX" :tokens="currencyMask" :class="{error: $v.form.price.$error}" v-model="form.price" @blur="$v.form.price.$touch()"/>
               <div class="input-valid-error" v-if="$v.form.price.$error">
                 <template v-if="!$v.form.price.required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-modal__item ">
-              <label class="form-modal__label">Валюта</label>
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label">Валюта</label>
               <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.currency}]" :searchable="false" :options="selectCurrency" v-model="form.currency" v-on:search:blur="validateSelect('currency')"></v-select>
               <div class="input-valid-error" v-if="errorSelect.currency">
                 Выберите Валюту
               </div>
             </div>
-            <div class="form-modal__item form-modal__item--col-12">
-              <label class="form-modal__label form-modal__label--checkbox">Уточнить у пользователя</label>
+            <div class="g-item-form col col-12">
+              <label class="g-item-form__label g-item-form--checkbox">Уточнить у пользователя</label>
               <div class="checkbox-wrapper">
                 <div class="item">
                   <input class="checkbox-input" :value="4" type="checkbox" id="date_reg" v-model="form.fields">

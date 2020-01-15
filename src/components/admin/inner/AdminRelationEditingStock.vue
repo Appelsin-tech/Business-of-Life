@@ -3,20 +3,20 @@
     <div class="stock-info">
       <h3 class="g-caption-element g-caption-element--static">{{stock.title}} </h3>
       <p class="info-item">
-        <img svg-inline class="svg-icon" src="../../assets/img/icon/location.svg" alt="">
+        <img svg-inline class="svg-icon" src="../../../assets/img/icon/location.svg" alt="">
         <span class="text">Первые билеты: {{stock.tickets}}</span>
       </p>
       <p class="info-item ">
-        <img svg-inline class="svg-icon" src="../../assets/img/icon/timetable.svg" alt="">
+        <img svg-inline class="svg-icon" src="../../../assets/img/icon/timetable.svg" alt="">
         <span class="text">Билет: {{stock.ticket_name}}</span>
       </p>
     </div>
     <div class="g-control-icon">
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="">
-        <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">
+        <img svg-inline class="svg-icon" src="../../../assets/img/icon/pencil.svg" alt="">
       </button>
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
-        <img svg-inline class="svg-icon" src="../../assets/img/icon/basket.svg" alt="">
+        <img svg-inline class="svg-icon" src="../../../assets/img/icon/basket.svg" alt="">
       </button>
     </div>
 </div>
@@ -24,21 +24,19 @@
 
 <script>
 export default {
-  name: 'StockAdmin',
+  name: 'AdminRelationEditingStock',
   props: ['stock']
 }
 </script>
 
 <style scoped lang="less">
-  @import "../../assets/less/_importants";
+  @import "../../../assets/less/_importants";
 
   .stock-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
-    box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
-    border-radius: 5px;
     .default-panel-style();
     .sm-block({
       margin-bottom: 15px;
@@ -46,9 +44,6 @@ export default {
     .ss-block({
       flex-direction: column;
       align-items: flex-start;
-    });
-    .xs-block({
-      padding: 20px;
     });
     .stock-info {
       display: flex;

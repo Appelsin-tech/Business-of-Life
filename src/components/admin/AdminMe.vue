@@ -118,20 +118,14 @@ export default {
         margin-bottom: 20px;
         display: flex;
         flex-direction: column;
-        padding: 40px;
-        border-radius: 6px;
         transition: 0.3s;
-        box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
-        .lg-block({padding: 26px; margin-bottom: 20px;});
+        .default-panel-style(40px);
+        .lg-block({margin-bottom: 20px;});
         .sm-block({
-          margin-bottom: 20px;
-          padding: 20px;
+          margin-bottom: 15px;
           flex-direction: row;
           align-items: center;
         });
-        .xs-block({
-          margin-bottom: 15px;
-        padding: 15px;});
         &:hover {
           .g-caption-element {
             text-decoration: none;

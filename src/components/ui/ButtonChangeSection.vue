@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import '../../../assets/less/_importants';
+  @import '../../assets/less/_importants';
   .btn-wrapper {
     display: flex;
     flex-direction: column;

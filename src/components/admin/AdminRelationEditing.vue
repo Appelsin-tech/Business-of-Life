@@ -103,7 +103,7 @@
           <div class="stock-create">
             <button-add :class="[event === 'new' ? 'disabled' : '', 'row']" @click.prevent.native="$modal.show('modal-stock-create', {new: true, relation_id: event})"></button-add>
           </div>
-          <stock-admin v-for="stock in stockArr" :stock="stock"/>
+          <admin-relation-editing-stock v-for="stock in stockArr" :stock="stock"/>
         </div>
       </div>
       <div class="access">
@@ -123,7 +123,7 @@
 import BreadCrumbs from '../BreadCrumbs.vue'
 import ButtonAdd from '../ui/ButtonAdd'
 import Ticket from '../Ticket'
-import StockAdmin from './StockAdmin'
+import AdminRelationEditingStock from './inner/AdminRelationEditingStock'
 import AdminRelationEditingAccess from './AdminRelationEditingAccess'
 import API from '../../api/index'
 import { mapState } from 'vuex'
@@ -145,7 +145,7 @@ export default {
     Ticket,
     ckeditor: CKEditor.component,
     ButtonAdd,
-    StockAdmin,
+    AdminRelationEditingStock,
     AdminRelationEditingAccess
   },
   data() {

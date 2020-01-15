@@ -46,12 +46,11 @@ export default {
 
   .site {
     display: flex;
-    padding: 40px;
     margin-bottom: 20px;
+    .default-panel-style(40px);
     &:last-child {
       margin-bottom: 0;
     }
-    .default-panel-style();
     .sm-block({
       margin-bottom: 10px;
     });

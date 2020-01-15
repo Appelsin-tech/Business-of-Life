@@ -25,7 +25,7 @@ import AdminPartnersProgramStructure from './inner/AdminPartnersProgramStructure
 import AdminPartnersProgramStatistic from './inner/AdminPartnersProgramStatistic'
 import AdminPartnersProgramReferal from './inner/AdminPartnersProgramReferal'
 import AdminPartnersProgramConditions from './inner/AdminPartnersProgramConditions'
-import ButtonChangeSection from './inner/ButtonChangeSection'
+import ButtonChangeSection from '../ui/ButtonChangeSection'
 import {mapGetters} from 'vuex'
 
 export default {

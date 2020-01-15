@@ -134,7 +134,7 @@ export default {
         margin-bottom: 15px;
       });
       .ss-block({
-        min-height: 70px;
+        min-height: min-content;
       });
     }
     .event {
@@ -149,19 +149,12 @@ export default {
         margin-bottom: 20px;
         display: flex;
         flex-direction: column;
-        padding: 40px;
-        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
-        border-radius: 6px;
-        .lg-block({padding: 26px;});
+        .default-panel-style(40px);
         .sm-block({
           margin-bottom: 15px;
-          padding: 20px;
           flex-direction: row;
           align-items: center;
-          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
         });
-        .xs-block({
-          padding: 15px;});
         &:hover {
           .g-caption-element {
             text-decoration: none;

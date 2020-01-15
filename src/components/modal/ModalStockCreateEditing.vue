@@ -13,38 +13,38 @@
         <h3 class="g-caption-inner">Акция</h3>
         <form class="form-modal" @submit.prevent="onSubmit">
           <div class="form-modal__wrapper">
-            <div class="form-modal__item">
-              <label class="form-modal__label" >Название</label>
-              <input class="form-modal__input" :class="{error: $v.form.title.$error}" v-model="form.title" @blur="$v.form.title.$touch()">
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label" >Название</label>
+              <input class="g-item-form__input" :class="{error: $v.form.title.$error}" v-model="form.title" @blur="$v.form.title.$touch()">
               <div class="input-valid-error" v-if="$v.form.title.$error">
                 <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
                 <template v-if="!$v.form.title.minLength">Минимальное количество символов - 3</template>
               </div>
             </div>
-            <div class="form-modal__item ">
-              <label class="form-modal__label">Тип акции</label>
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label">Тип акции</label>
               <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.type}]" :searchable="false" :options="selectType" v-model="form.type" v-on:search:blur="validateSelect('type')"></v-select>
               <div class="input-valid-error" v-if="errorSelect.type">
                 Выберите тип
               </div>
             </div>
-            <div class="form-modal__item ">
-              <label class="form-modal__label">Акционный билет</label>
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label">Акционный билет</label>
               <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.ticket}]" :searchable="false" :options="selectTicket" v-model="form.ticket" v-on:search:blur="validateSelect('ticket')"></v-select>
               <div class="input-valid-error" v-if="errorSelect.ticket">
                 Выберите билет
               </div>
             </div>
-            <div class="form-modal__item ">
-              <label class="form-modal__label">Количество билетов</label>
-              <input class="form-modal__input" v-mask="maskConfig" :class="{error: $v.form.ticket_count.$error}" v-model="form.ticket_count" @blur="$v.form.ticket_count.$touch()"/>
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label">Количество билетов</label>
+              <input class="g-item-form__input" v-mask="maskConfig" :class="{error: $v.form.ticket_count.$error}" v-model="form.ticket_count" @blur="$v.form.ticket_count.$touch()"/>
               <div class="input-valid-error" v-if="$v.form.ticket_count.$error">
                 <template v-if="!$v.form.ticket_count.required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-modal__item form-modal__item--col-12">
-              <label class="form-modal__label">Информация об акции</label>
+            <div class="g-item-form col-12">
+              <label class="g-item-form__label">Информация об акции</label>
               <ckeditor :editor="editor" v-model="form.info" :config="editorConfig" :class="{error: $v.form.info.$error}" @blur="$v.form.info.$touch()"></ckeditor>
               <div class="input-valid-error" v-if="$v.form.info.$error">
                 <template v-if="!$v.form.info.required">Поле не может быть пустым</template>

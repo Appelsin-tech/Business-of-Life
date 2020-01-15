@@ -360,6 +360,7 @@ input {
         box-sizing: border-box;
         z-index: 3;
         cursor: pointer;
+        transition: 0.3s;
         .lg-block({
           padding-left: 18px;
         });
@@ -905,33 +906,66 @@ input {
   }
 }
 
-.ck-content {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  ul, ol {
-    margin: auto;
-    padding: inherit;
-    padding-left: 50px;
-    .sm-block({
-      padding-left: 20px;
-    });
-    li {
-      list-style: inherit;
+.ck.ck-editor {
+  .ck-content {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    ul, ol {
+      margin: auto;
+      padding: inherit;
+      padding-left: 50px;
+      .sm-block({
+        padding-left: 20px;
+      });
+      li {
+        list-style: inherit;
 
+      }
+    }
+    strong {
+      font-weight: bold;
+    }
+    &.ck.ck-editor__editable_inline > p {
+      &:first-child {
+        margin-top: 16px;
+        .xs-block({margin-top: 9px;});
+      }
+      &:last-child {
+        margin-bottom: 16px;
+        .xs-block({margin-bottom: 9px;});
+      }
     }
   }
-  strong {
-    font-weight: bold;
+  .ck-toolbar {
+    background: @colorBgGray;
+    border: none;
+    border-bottom: 1px solid @colorBorder;
+/*    padding-left: 25px;
+    .lg-block({padding-left: 18px;});
+    .xs-block({padding-left: 10px;});*/
   }
-  &.ck.ck-editor__editable_inline > p {
-    &:first-child {
-      margin-top: 16px;
+  &__main > .ck-editor__editable {
+    transition: 0.3s;
+    padding: 4.5px 15px 4.5px 25px;
+    .lg-block({padding: 3px 15px 3px 18px;});
+    .xs-block({padding: 0px 10px;});
+  }
+  &__main > .ck-editor__editable:not(.ck-focused) {
+    border-color: @colorBgGray;
+    border-top-color: @colorBorder;
+    background: @colorBgGray;
+    &:hover {
+      border-color: #000;
+      background: #fff;
     }
-    &:last-child {
-      margin-bottom: 16px;
-    }
+  }
+  &__main > .ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+    border-color: #000;
+    background: #fff;
+    box-shadow: none;
   }
 }
+
 
 .calendarMini {
   background-color: transparent !important;
@@ -997,6 +1031,7 @@ input {
     background: @colorBgGray;
     border: 1px solid #fff;
     box-sizing: border-box;
+    transition: 0.3s;
     .lg-block({
       padding-left: 18px;
       height: 60px;
@@ -1005,6 +1040,11 @@ input {
       padding-left: 10px;
       height: 40px;
     });
+    &:hover,
+    &:focus {
+      border-color: #000;
+      background: #fff;
+    }
     &.error {
       border: 1px solid @colorMain;
     }
@@ -1013,9 +1053,24 @@ input {
 
 .g-item-form {
   margin-bottom: 30px;
-  .ss-block({
+  .sm-block({
     margin-bottom: 20px;
   });
+  .xs-block({ margin-bottom: 15px;});
+  &.col-12 {
+    .col();
+    .size(12);
+  }
+  &.col-6 {
+    .col();
+    .size(6);
+    .size-ss(12);
+  }
+  &.col-8 {
+    .col();
+    .size(8);
+    .size-xs(12);
+  }
   &.textarea {
     display: flex;
     flex-direction: column;
@@ -1061,6 +1116,7 @@ input {
     });
     .xs-block({
       padding-left: 10px;
+      padding-right: 10px;
       height: 40px;
     });
     &:hover,

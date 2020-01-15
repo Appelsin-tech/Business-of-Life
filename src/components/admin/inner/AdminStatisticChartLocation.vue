@@ -14,7 +14,7 @@
 <script>
 import { Chart } from 'highcharts-vue'
 import API from '../../../api'
-import ButtonFilters from './ButtonFilters'
+import ButtonFilters from '../../ui/ButtonFilters'
 import Tabs from '../../Tabs'
 export default {
   name: 'AdminStatisticChartLocation',

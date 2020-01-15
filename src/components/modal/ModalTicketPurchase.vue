@@ -18,18 +18,18 @@
         <form class="form-modal" @submit.prevent="onSubmit" novalidate>
           <div class="form-modal__wrapper" v-if="disabledBtn">
 
-            <div class="form-modal__item" v-for="(item, index) in fields" :key="item.id">
-              <label class="form-modal__label" :for="`form_buy-id-${item.id}`">{{item.name}}</label>
+            <div class="g-item-form col-6" v-for="(item, index) in fields" :key="item.id">
+              <label class="g-item-form__label" :for="`form_buy-id-${item.id}`">{{item.name}}</label>
 
-              <input v-mask="maskConfig" v-if="item.id === '3'" class="form-modal__input" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()"/>
-              <flat-pickr v-else-if="item.id === '4'" :config="configDate" :class="'form-modal__input'" v-model="fieldsData['field_' + item.id]"></flat-pickr>
+              <input v-mask="maskConfig" v-if="item.id === '3'" class="g-item-form__input" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()"/>
+              <flat-pickr v-else-if="item.id === '4'" :config="configDate" :class="'g-item-form__input'" v-model="fieldsData['field_' + item.id]"></flat-pickr>
               <v-select v-else-if="item.id === '5'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStatus}]" :searchable="false" placeholder="Статус" :options="status"></v-select>
               <v-select v-else-if="item.id === '6'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedQualification}]" :searchable="false" placeholder="Квалификация" :options="qualification"></v-select>
-              <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
-              <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="form-modal__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <input v-else-if="item.id === '7'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="g-item-form__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <input v-else-if="item.id === '8'" v-mask="'########'" :id="`form_buy-id-${item.id}`" class="g-item-form__input" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
               <v-select v-else-if="item.id === '9'" v-model="fieldsData['field_' + item.id]" :multiple="false" :class="['v-select__modal', {'error': errorSelect.selectedStructure}]" :searchable="false" placeholder="Структура" :options="structure"></v-select>
 
-              <input v-else class="form-modal__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
+              <input v-else class="g-item-form__input" :id="`form_buy-id-${item.id}`" type="text" v-model="fieldsData['field_' + item.id]" :class="{error: $v.fieldsData['field_' + item.id].$error}" @blur="$v.fieldsData['field_' + item.id].$touch()">
 
               <div class="input-valid-error" v-if="$v.fieldsData.field_2.$error && item.id === '2'">
                 <template v-if="!$v.fieldsData.field_2.required">Поле не может быть пустым</template>
@@ -39,7 +39,7 @@
                 <template v-if="!$v.fieldsData['field_' + item.id].required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="form-modal__item form-modal__item--col-12">
+            <div class="g-item-form col-12">
               <p class="form-modal__text">
                 <span class="form-modal__text--desc">Способ оплаты:</span>
                 <span class="form-modal__text--var">

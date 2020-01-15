@@ -23,7 +23,7 @@
 import BreadCrumbs from '../BreadCrumbs.vue'
 import AdminProfileMain from './inner/AdminProfileMain'
 import AdminProfileSecurity from './inner/AdminProfileSecurity'
-import ButtonChangeSection from './inner/ButtonChangeSection'
+import ButtonChangeSection from '../ui/ButtonChangeSection'
 
 export default {
   name: 'AdminProfile',

@@ -163,7 +163,7 @@ const router = new Router({
           path: 'event-create',
           name: 'event-create',
           beforeEnter: checkRole,
-          component: () => import('./components/admin/AdminEventRelationsEditing'),
+          component: () => import('./components/admin/AdminEventRelationEditing'),
         },
         {
           path: 'event-control',
@@ -176,7 +176,7 @@ const router = new Router({
           name: 'event-editing',
           props: true,
           beforeEnter: checkRole,
-          component: () => import('./components/admin/AdminEventRelationsEditing'),
+          component: () => import('./components/admin/AdminEventRelationEditing'),
         },
         {
           path: 'editing/:id/:event',

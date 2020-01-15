@@ -23,7 +23,7 @@
 import BreadCrumbs from '../BreadCrumbs.vue'
 import AdminWalletMain from './inner/AdminWalletMain'
 import AdminWalletTransaction from './inner/AdminWalletTransaction'
-import ButtonChangeSection from './inner/ButtonChangeSection'
+import ButtonChangeSection from '../ui/ButtonChangeSection'
 
 export default {
   name: 'AdminWallet',

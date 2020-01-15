@@ -83,6 +83,8 @@ export default {
       align-items: center;
       background: #fff;
       border-radius: 5px;
+      height: 100%;
+      box-sizing: border-box;
       .default-panel-style();
       .g-caption-element {
         margin-bottom: 30px;
@@ -92,6 +94,7 @@ export default {
         margin-bottom: 8px;
       }
       .duration {
+        margin-top: auto;
         margin-bottom: 50px;
         font-weight: 800;
         color: #000;

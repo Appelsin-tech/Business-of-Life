@@ -90,7 +90,9 @@ export default {
     padding: 30px;
     margin-bottom: 80px;
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
-    .sm-block({box-shadow: 0 0 20px 0 rgba(0,0,0,0.2); margin-bottom: 50px;});
+    border-radius: 5px;
+    .sm-block({box-shadow: 0 0 20px 0 rgba(0,0,0,0.2); margin-bottom: 50px;  padding: 20px;});
+    .xs-block({padding: 15px;});
     .status-wrapper {
       display: flex;
       align-items: center;
