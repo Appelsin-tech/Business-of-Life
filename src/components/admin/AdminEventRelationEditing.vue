@@ -12,16 +12,14 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
+        <button-add v-if="id" :class="'row'" @click.prevent.native="$router.push({path: `/admin/editing/${id}/new`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
-            <div class="event-create">
-              <button-add v-if="id" :class="'row'" @click.prevent.native="$router.push({path: `/admin/editing/${id}/new`})"/>
-            </div>
             <admin-event-relation-editing-relation  v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
           </div>
           <h3 class="g-caption-section">Прошедшие события</h3>
-          <div class="event-wrapper--inner">
-            <admin-event-relation-editing-relation  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
+          <div class="event-wrapper--inner" v-if="myPastEvents.length">
+            <admin-event-relation-editing-relation  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation" :pastEvents="true"/>
 <!--            <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">-->
 <!--              <div class="g-icon-circle waiting" v-tooltip.left="'Прошедшее событие'">-->
 <!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/time-my.svg" alt="">-->
@@ -134,6 +132,7 @@ export default {
         let currentMoment = this.$moment()
         let itemStamp = item.stamp * 1000
         if (currentMoment - itemStamp > 0 && item.status === 3) {
+          item.status = 4
           this.myPastEvents.push(item)
         } else {
           this.myFutureEvents.push(item)
@@ -212,11 +211,6 @@ export default {
       flex-direction: column;
       &--inner {
         margin-bottom: 30px;
-      }
-      .event-create {
-        margin-bottom: 20px;
-        .sm-block({
-          margin-bottom: 15px;});
       }
     }
     .event-null {

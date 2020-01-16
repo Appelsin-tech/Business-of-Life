@@ -36,6 +36,14 @@
           <div class="item__img  item__img--partners"></div>
           <p class="g-caption-element">Партнерская программа</p>
         </router-link>
+        <router-link to="/news" class="menu__item item" v-if="status > 1">
+          <div class="item__img  item__img--partners"></div>
+          <p class="g-caption-element">Новости</p>
+        </router-link>
+        <router-link to="/admin/news-control" class="menu__item item" v-if="status > 1">
+          <div class="item__img  item__img--partners"></div>
+          <p class="g-caption-element">Редактор новостей</p>
+        </router-link>
       </div>
     </div>
   </section>

@@ -4,8 +4,9 @@
       <template v-if="status[relation.status].class === 'created'">
         <img svg-inline class="svg-icon" src="../../../assets/img/icon/close.svg" alt="">
       </template>
-      <template v-else-if="status[relation.status].class === 'waiting'">
-        <img svg-inline class="svg-icon" src="../../../assets/img/icon/time-my.svg" alt=""></template>
+      <template v-else-if="status[relation.status].class === 'waiting' || status[relation.status].class === 'past'">
+        <img svg-inline class="svg-icon" src="../../../assets/img/icon/time-my.svg" alt="">
+      </template>
       <template v-else>
         <img svg-inline class="svg-icon" src="../../../assets/img/icon/check.svg" alt="">
       </template>
@@ -42,7 +43,17 @@
 import API from '../../../api/index'
 export default {
   name: 'AdminEventRelationEditingRelation',
-  props: ['relation', 'idEvent'],
+  props: {
+    relation: {
+      required: true
+    },
+    idEvent: {
+      required: true
+    },
+    pastEvents: {
+      default: false
+    }
+  },
   data() {
     return {
       status: {
@@ -61,6 +72,10 @@ export default {
         3: {
           class: 'public',
           tooltip: 'Опубликовано'
+        },
+        4: {
+          class: 'past',
+          tooltip: 'Прошедшее событие'
         }
       }
     }

@@ -44,7 +44,7 @@
 import API from '../api/index'
 
 export default {
-  name: 'NewsStatus',
+  name: 'StatusRelation',
   props: ['idNews', 'idStatus'],
   data() {
     return {

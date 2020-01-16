@@ -1,7 +1,7 @@
 <template>
   <section class="p-news-full p-default p-default-inner">
     <div class="container">
-      <news-status :idStatus="3"/>
+      <status-relation :idStatus="3"/>
       <div class="img" :style="{backgroundImage: `url(https://picsum.photos/1000)`}"></div>
     </div>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import NewsStatus from '../components/NewsStatus'
+import StatusRelation from '../components/StatusRelation'
 import BreadCrumbs from '../components/BreadCrumbs'
 import SocialSharingMy from '../components/SocialSharingMy'
 
 export default {
   name: 'TheNewsFull',
   components: {
-    NewsStatus,
+    StatusRelation,
     BreadCrumbs,
     SocialSharingMy
   },

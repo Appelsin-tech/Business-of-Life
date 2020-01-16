@@ -10,7 +10,7 @@
             <p class="g-price-secondary">({{balance.bol}} USD)</p>
           </div>
         </div>
-        <div class="g-control-icon" v-if="false">
+        <div class="g-control-icon" v-if="true">
           <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Пополнить'" @click="">
             <img svg-inline class="svg-icon" src="../../../assets/img/icon/download.svg" alt="">
           </button>

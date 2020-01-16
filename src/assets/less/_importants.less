@@ -940,9 +940,9 @@ input {
     background: @colorBgGray;
     border: none;
     border-bottom: 1px solid @colorBorder;
-/*    padding-left: 25px;
-    .lg-block({padding-left: 18px;});
-    .xs-block({padding-left: 10px;});*/
+    padding-left: 18px;
+    .lg-block({padding-left: 11px;});
+    .xs-block({padding-left: 3px;});
   }
   &__main > .ck-editor__editable {
     transition: 0.3s;
@@ -1070,6 +1070,11 @@ input {
     .col();
     .size(8);
     .size-xs(12);
+  }
+  /*при условии двух-колоночной сетки*/
+  &.col-grid-12 {
+    grid-column: ~"1 / 3";
+    .md-block({grid-column: ~"1 / 2";})
   }
   &.textarea {
     display: flex;
@@ -1224,7 +1229,7 @@ input {
   }
 }
 
-.hashtag {
+.g-hashtag {
   display: inline-block;
   margin-right: 10px;
   font-weight: 800;
@@ -1247,6 +1252,7 @@ input {
   justify-content: flex-end;
   flex-wrap: wrap;
   max-width: 160px;
+  flex-shrink: 0;
   .sm-block({flex-direction: column;});
   .ss-block({flex-direction: row;});
   .g-icon-circle {
@@ -1271,6 +1277,15 @@ input {
         .ss-block({
           margin-bottom: 0;});
       }
+    }
+  }
+  &.static {
+    .sm-block({flex-direction: row;});
+    .ss-block({flex-direction: row;});
+    .g-icon-circle--control {
+      .sm-block({
+        margin-right: 10px;
+        margin-bottom: 0;});
     }
   }
 }

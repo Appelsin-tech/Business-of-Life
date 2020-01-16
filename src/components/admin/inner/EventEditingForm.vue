@@ -165,11 +165,13 @@ export default {
   .edit-grid {
     display: flex;
     flex-direction: column;
-    margin-bottom: 50px;
   }
   .btn-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-top: 35px;
+    .sm-block({
+      margin-top: 18px;});
     .ss-block({ flex-direction: column; align-items: flex-start; });
     .g-btn {
       &--white {

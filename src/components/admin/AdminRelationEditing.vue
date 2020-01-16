@@ -57,7 +57,7 @@
           </div>
           <div class="g-item-form">
             <label class="g-item-form__label">Дата и время</label>
-            <flat-pickr v-model="form.date" :config="configDate" :class="['item__input', {error: $v.form.date.$error}]" @blur="$v.form.date.$touch()"></flat-pickr>
+            <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input', {error: $v.form.date.$error}]" @blur="$v.form.date.$touch()"></flat-pickr>
             <div class="input-valid-error" v-if="$v.form.date.$error">
               <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>
@@ -103,7 +103,7 @@
           <div class="stock-create">
             <button-add :class="[event === 'new' ? 'disabled' : '', 'row']" @click.prevent.native="$modal.show('modal-stock-create', {new: true, relation_id: event})"></button-add>
           </div>
-          <admin-relation-editing-stock v-for="stock in stockArr" :stock="stock"/>
+          <admin-relation-editing-stock v-for="stock in stockArr" :stock="stock" :key="stock.tickets"/>
         </div>
       </div>
       <div class="access">
@@ -124,7 +124,7 @@ import BreadCrumbs from '../BreadCrumbs.vue'
 import ButtonAdd from '../ui/ButtonAdd'
 import Ticket from '../Ticket'
 import AdminRelationEditingStock from './inner/AdminRelationEditingStock'
-import AdminRelationEditingAccess from './AdminRelationEditingAccess'
+import AdminRelationEditingAccess from './inner/AdminRelationEditingAccess'
 import API from '../../api/index'
 import { mapState } from 'vuex'
 
@@ -392,7 +392,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: max-content;
     grid-column-gap: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     .lg-block({
       grid-column-gap: 50px;
     });
@@ -400,7 +400,7 @@ export default {
       grid-template-columns: 1fr 1fr;
     });
     .ss-block({
-      margin-bottom: 30px;
+      margin-bottom: 18px;
       grid-template-columns: 1fr;
     });
     .photo {

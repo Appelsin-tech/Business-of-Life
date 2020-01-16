@@ -43,6 +43,9 @@ export default {
     }
     &.row {
       justify-content: flex-start;
+      margin-bottom: 20px;
+      .sm-block({
+        margin-bottom: 15px;});
       .text {
         flex-direction: row;
         svg {

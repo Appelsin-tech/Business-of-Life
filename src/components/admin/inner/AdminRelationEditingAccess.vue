@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../assets/less/_importants";
+  @import "../../../assets/less/_importants";
 
   .access-item__input {
     padding-left: 25px;
@@ -111,5 +111,10 @@ export default {
     &.error {
       border: 1px solid @colorMain;
     }
+  }
+  .g-btn {
+    margin-top: 35px;
+    .sm-block({
+      margin-top: 18px;});
   }
 </style>

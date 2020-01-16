@@ -1,0 +1,184 @@
+<template>
+  <article class="news">
+    <div class="g-icon-circle" v-if="control" :class="status[news.status].class" v-tooltip.left="`${status[news.status].tooltip}`">
+      <template v-if="status[news.status].class === 'created'">
+        <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
+      </template>
+      <template v-else-if="status[news.status].class === 'waiting'">
+        <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
+      </template>
+      <template v-else>
+        <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
+      </template>
+    </div>
+    <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
+    <div class="content">
+      <a href="#" class="title-link">
+        <h1 class="g-caption-element">{{news.title}}</h1>
+      </a>
+      <div class="data">
+        <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
+        <span>{{news.data}}</span>
+      </div>
+      <p class="desc">{{news.desc}}</p>
+      <div class="hash-wrapper">
+        <div class="hashtag-wrapper" :class="{'control': control}">
+          <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
+        </div>
+
+        <div class="g-control-icon static" v-if="control">
+          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/news-editing/${news.id}`})">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
+          </button>
+          <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
+            <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
+          </button>
+        </div>
+      </div>
+    </div>
+  </article>
+</template>
+
+<script>
+export default {
+  name: 'NewsItem',
+  props: {
+    news: {},
+    control: {
+      default: false
+    }
+  },
+  data() {
+    return {
+      status: {
+        0: {
+          class: 'created',
+          tooltip: 'Событие не опубликовано'
+        },
+        1: {
+          class: 'waiting',
+          tooltip: 'Отправлено на модерацию'
+        },
+        2: {
+          class: 'waiting',
+          tooltip: 'Принято на модерацию'
+        },
+        3: {
+          class: 'public',
+          tooltip: 'Опубликовано'
+        },
+        4: {
+          class: 'past',
+          tooltip: 'Прошедшее событие'
+        }
+      }
+    }
+  },
+}
+</script>
+
+<style scoped lang="less">
+  @import "../assets/less/_importants";
+  .news {
+    display: flex;
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .default-panel-style(40px);
+    .sm-block({
+      margin-bottom: 10px;
+    });
+    .img {
+      flex-shrink: 0;
+      margin-right: 50px;
+      height: 260px;
+      width: 360px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: @colorBgGray;
+      .lg-block({
+        width: 280px;
+        height: 200px;
+        margin-right: 30px;
+      });
+      .sm-block({
+        display: none;
+      })
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      .title-link {
+        display: block;
+        margin-bottom: 30px;
+        color: #000;
+        .lg-block({
+          margin-bottom: 20px;
+        });
+        .xs-block({
+          margin-bottom: 10px;
+        });
+        .title {
+          font-size: 2.2rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          text-decoration: underline;
+          .lg-block({
+            font-size: 2rem;
+          });
+          .xs-block({
+            font-size: 1.8rem;
+          });
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+      .data {
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 30px;
+        .lg-block({
+          margin-bottom: 20px;
+        });
+        .xs-block({
+          margin-bottom: 10px;
+        });
+        .svg-icon {
+          margin-right: 10px;
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+          .sm-block({
+            width: 15px;
+            height: 15px;
+            margin-top: 0;
+          });
+          path {
+            fill: @colorMain;
+          }
+        }
+      }
+      .desc {
+        margin-bottom: auto;
+        font-size: 1.6rem;
+        line-height: 2.5rem;
+      }
+      .hash-wrapper {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        .ss-block({flex-direction: column; align-items: flex-start;});
+        .xs-block({
+          margin-top: 10px;
+        });
+        .hashtag-wrapper.control {
+          .ss-block({margin-bottom: 30px;});
+        }
+      }
+    }
+  }
+</style>
