@@ -45,7 +45,7 @@
 <!--            </div>-->
           </div>
           <div class="g-item-form col-grid-12">
-            <label class="g-item-form__label">Контроль билетов</label>
+            <label class="g-item-form__label">Теги</label>
             <div class="news-item__input taggable" :class="{}">
               <v-select ref="select" taggable multiple :closeOnSelect="false" :class="{}" v-model="form.name_tags" class="v-select__relation">
                   <span slot="no-options">

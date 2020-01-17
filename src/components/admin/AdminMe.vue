@@ -37,11 +37,11 @@
           <p class="g-caption-element">Партнерская программа</p>
         </router-link>
         <router-link to="/news" class="menu__item item" v-if="status > 1">
-          <div class="item__img  item__img--partners"></div>
+          <div class="item__img  item__img--news"></div>
           <p class="g-caption-element">Новости</p>
         </router-link>
         <router-link to="/admin/news-control" class="menu__item item" v-if="status > 1">
-          <div class="item__img  item__img--partners"></div>
+          <div class="item__img  item__img--news-editing"></div>
           <p class="g-caption-element">Редактор новостей</p>
         </router-link>
       </div>
@@ -193,6 +193,12 @@ export default {
           }
           &--partners {
             background-image: url('../../assets/img/admin/admin-menu-partners.jpg');
+          }
+          &--news {
+            background-image: url('../../assets/img/admin/admin-menu-news.jpg');
+          }
+          &--news-editing {
+            background-image: url('../../assets/img/admin/admin-menu-news-editing.jpg');
           }
           .img-link {
             position: absolute;
