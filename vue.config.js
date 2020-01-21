@@ -1,9 +1,27 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const isProd = () => process.env.NODE_ENV === 'production'
+const splitChunks = {
+  chunks: 'all'
+}
 module.exports = {
   devServer: {
     disableHostCheck: true
   },
+  productionSourceMap: false,
   lintOnSave: false,
+  configureWebpack: {
+    plugins: [
+      new BundleAnalyzerPlugin({
+        openAnalyzer: false
+      })
+    ]
+  },
   chainWebpack: config => {
+    config.optimization
+      .splitChunks(splitChunks)
+
+    config.plugins.delete('prefetch')
+
     config.module.rule('vue')
       .use('vue-svg-inline-loader')
       .loader('vue-svg-inline-loader')

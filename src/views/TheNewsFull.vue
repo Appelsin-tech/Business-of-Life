@@ -25,10 +25,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import StatusRelation from '../components/StatusRelation'
 import BreadCrumbs from '../components/BreadCrumbs'
 import SocialSharingMy from '../components/SocialSharingMy'
-
+const SocialSharing = require('vue-social-sharing')
+Vue.use(SocialSharing)
 export default {
   name: 'TheNewsFull',
   components: {

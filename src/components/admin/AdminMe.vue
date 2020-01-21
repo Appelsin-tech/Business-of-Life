@@ -36,11 +36,11 @@
           <div class="item__img  item__img--partners"></div>
           <p class="g-caption-element">Партнерская программа</p>
         </router-link>
-        <router-link to="/news" class="menu__item item" v-if="status > 1">
+        <router-link to="/news" class="menu__item item" v-if="status > 1 && profile.login === 'pelkin' || profile.login === 'GeneralAdmin'">
           <div class="item__img  item__img--news"></div>
           <p class="g-caption-element">Новости</p>
         </router-link>
-        <router-link to="/admin/news-control" class="menu__item item" v-if="status > 1">
+        <router-link to="/admin/news-control" class="menu__item item" v-if="status > 1 && profile.login === 'pelkin' || profile.login === 'GeneralAdmin'">
           <div class="item__img  item__img--news-editing"></div>
           <p class="g-caption-element">Редактор новостей</p>
         </router-link>
@@ -51,14 +51,17 @@
 
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'AdminUsersMe',
   components: { BreadCrumbs },
   computed: {
     ...mapGetters('user', [
-      'status'
+      'status',
+    ]),
+    ...mapState('user', [
+      'profile'
     ])
   }
 }

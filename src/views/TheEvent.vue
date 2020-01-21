@@ -150,6 +150,7 @@
 <!--      </section>-->
       <router-link class="payments" to="/payment_policy" v-if="activeEvent.tickets.length">Оплата и возврат</router-link>
     </div>
+    <modal-ticket-purchase/>
   </section>
 </template>
 
@@ -166,7 +167,8 @@ export default {
     swiper,
     swiperSlide,
     EventStatus,
-    Ticket
+    Ticket,
+    ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
   },
   data () {
     return {

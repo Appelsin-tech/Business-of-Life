@@ -116,6 +116,8 @@
         <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
       </div>
     </div>
+    <modal-ticket-create-editing/>
+    <modal-stock-create-editing/>
   </section>
 </template>
 
@@ -146,7 +148,9 @@ export default {
     ckeditor: CKEditor.component,
     ButtonAdd,
     AdminRelationEditingStock,
-    AdminRelationEditingAccess
+    AdminRelationEditingAccess,
+    ModalTicketCreateEditing: () => import('@/components/modal/ModalTicketCreateEditing'),
+    ModalStockCreateEditing: () => import('@/components/modal/ModalStockCreateEditing')
   },
   data() {
     return {

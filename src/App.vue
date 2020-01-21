@@ -9,10 +9,7 @@
       </transition>
     </main>
     <app-footer/>
-    <modal-ticket-purchase/>
     <modal-ticket-success/>
-    <modal-ticket-create-editing/>
-    <modal-stock-create-editing/>
   </div>
 </template>
 
@@ -20,10 +17,7 @@
 import MainNav from './components/MainNav.vue'
 import AppHeader from './components/AppHeader'
 import AppFooter from './components/AppFooter'
-import ModalTicketPurchase from './components/modal/ModalTicketPurchase.vue'
-import ModalTicketSuccess from './components/modal/ModalTicketSuccess.vue'
-import ModalTicketCreateEditing from './components/modal/ModalTicketCreateEditing'
-import ModalStockCreateEditing from './components/modal/ModalStockCreateEditing'
+
 import { mapGetters } from 'vuex'
 
 export default {
@@ -31,10 +25,7 @@ export default {
     MainNav,
     AppHeader,
     AppFooter,
-    ModalTicketPurchase,
-    ModalTicketSuccess,
-    ModalTicketCreateEditing,
-    ModalStockCreateEditing
+    ModalTicketSuccess: () => import('@/components/modal/ModalTicketSuccess')
   },
   data () {
     return {

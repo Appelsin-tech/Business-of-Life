@@ -15,10 +15,6 @@ import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 Vue.use(VCalendar)
 
-const SocialSharing = require('vue-social-sharing')
-
-Vue.use(SocialSharing);
-
 const moment = require('moment')
 require('moment/locale/ru')
 
@@ -34,7 +30,6 @@ Vue.use(VTooltip, {
   defaultPlacement: 'left',
   delay: { show: 0, hide: 0 }
 })
-
 
 vSelect.props.components.default = () => ({
   Deselect,
