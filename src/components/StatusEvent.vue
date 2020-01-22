@@ -44,7 +44,7 @@
 import API from '../api/index'
 
 export default {
-  name: 'EventStatus',
+  name: 'StatusEvent',
   props: ['idEvent', 'idStatus', 'idRelation'],
   data() {
     return {

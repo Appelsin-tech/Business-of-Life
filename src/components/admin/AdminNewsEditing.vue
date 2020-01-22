@@ -89,7 +89,7 @@
 
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
-import DownloadPhoto from '../DownloadPhoto'
+import DownloadPhoto from './components/DownloadPhoto'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
 

@@ -1,7 +1,7 @@
 <template>
   <section class="p-event p-default p-default-inner">
     <div class="container" v-if="activeEvent">
-      <event-status :idEvent="responseData.id" :idStatus="newStatus" :idRelation="activeEvent.id" @newStatus="refreshStatus" v-if="myEvent"/>
+      <status-event :idEvent="responseData.id" :idStatus="newStatus" :idRelation="activeEvent.id" @newStatus="refreshStatus" v-if="myEvent"/>
       <h1 class="g-caption-inner">{{responseData.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
@@ -156,7 +156,7 @@
 
 <script>
 import Ticket from '../components/Ticket'
-import EventStatus from '../components/EventStatus'
+import StatusEvent from '../components/StatusEvent'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import API from '../api/index'
 import { mapState, mapGetters } from 'vuex'
@@ -166,7 +166,7 @@ export default {
   components: {
     swiper,
     swiperSlide,
-    EventStatus,
+    StatusEvent,
     Ticket,
     ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
   },

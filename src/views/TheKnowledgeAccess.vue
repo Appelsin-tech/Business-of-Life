@@ -48,10 +48,6 @@ export default {
   },
   computed: {
     currentStatus() {
-      // return {
-      //   status: 0,
-      //   exp: 1579649971812
-      // }
       return this.$store.getters['user/access'].knowledge
     },
     activeDate() {

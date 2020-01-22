@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '../store/index'
 
 import admin from './admin'
+import knowledge from './knowledge'
 Vue.use(Router)
 
 const router = new Router({
@@ -12,6 +13,7 @@ const router = new Router({
   },
   routes: [
     ...admin,
+    ...knowledge,
     {
       path: '/',
       name: 'main',
@@ -37,14 +39,14 @@ const router = new Router({
       component: () => import('@/views/TheDescription')
     },
     {
-      path: '/knowledge',
-      name: 'knowledge',
+      path: '/knowledge-package',
+      name: 'knowledge-package',
       beforeEnter: requireAuth,
       meta: {
         auth: true,
         navDots: true
       },
-      component: () => import('@/views/TheKnowledge')
+      component: () => import('@/views/TheKnowledgePackage')
     },
     {
       path: '/knowledge-access',

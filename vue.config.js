@@ -12,7 +12,8 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new BundleAnalyzerPlugin({
-        openAnalyzer: false
+        openAnalyzer: false,
+        // analyzerMode: "disabled",
       })
     ]
   },

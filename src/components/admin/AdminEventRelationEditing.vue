@@ -66,7 +66,7 @@
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapState } from 'vuex'
-import EventEditingForm from './inner/EventEditingForm'
+import EventEditingForm from './components/EventEditingForm'
 import PanelInfo from '../ui/PanelInfo'
 import ButtonAdd from '../ui/ButtonAdd'
 import AdminEventRelationEditingRelation from './inner/AdminEventRelationEditingRelation'

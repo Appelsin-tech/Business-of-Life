@@ -20,6 +20,17 @@ const getters = {
     } else {
       return 0
     }
+  },
+  statusDev (state) {
+    if (getters.logged) {
+      if (state.profile.login === 'pelkin' || state.profile.login === 'GeneralAdmin') {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
   }
 }
 
