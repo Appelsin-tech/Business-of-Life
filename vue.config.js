@@ -13,7 +13,7 @@ module.exports = {
     plugins: [
       new BundleAnalyzerPlugin({
         openAnalyzer: false,
-        // analyzerMode: "disabled",
+        analyzerMode: "disabled",
       })
     ]
   },

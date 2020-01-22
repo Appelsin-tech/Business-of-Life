@@ -203,6 +203,7 @@ export default {
       }
     },
     beforeOpen(event) {
+      console.log(event.params)
       this.eventData.price = event.params.price
       this.eventData.currency = event.params.currency
       this.fieldsData.event_id = event.params.event_id

@@ -195,6 +195,11 @@ export default {
           this.form.price = event.params.ticket.price
           this.form.currency = event.params.ticket.currency
           this.form.id = event.params.ticket.id
+          if (event.params.ticket.fields.length > 0) {
+            event.params.ticket.fields.forEach(item => {
+              this.form.fields.push(+item.id)
+            })
+          }
         }
       }
     },
@@ -204,7 +209,8 @@ export default {
       this.form.price = ''
       this.form.currency = ''
       this.editorConfig.initialData = ''
-      this.fields = [1,2,3]
+      this.form.fields = [1, 2, 3]
+      this.$v.$reset()
     }
   }
 }

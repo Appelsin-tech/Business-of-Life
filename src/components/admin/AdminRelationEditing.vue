@@ -299,8 +299,8 @@ export default {
         this.errorSelect[name] = false
       }
     },
-    myForm(arr) {
-      let newObg = arr.find(item => item.id === this.event)
+    myForm(relation) {
+      let newObg = relation.find(item => item.url === this.event)
       this.statusRelation = newObg.status
       this.ticketsList = newObg.tickets
       this.form = {
@@ -327,7 +327,7 @@ export default {
       }
     },
     getInfoRelation() {
-      API.events.info({ id: this.id }).then(response => {
+      API.relations.info({ url: this.event }).then(response => {
         this.myForm(response.data.relations)
       })
     }

@@ -69,7 +69,7 @@ import { mapState } from 'vuex'
 import EventEditingForm from './components/EventEditingForm'
 import PanelInfo from '../ui/PanelInfo'
 import ButtonAdd from '../ui/ButtonAdd'
-import AdminEventRelationEditingRelation from './inner/AdminEventRelationEditingRelation'
+import AdminEventRelationEditingRelation from './components/AdminEventRelationEditingRelation'
 
 
 export default {
