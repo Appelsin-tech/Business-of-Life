@@ -11,7 +11,7 @@
       <span>Купить билет</span>
     </a>
     <div class="g-control-icon g-control-icon--ticket" v-else>
-      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {new: false, ticket: ticket})">
+      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {ticket: ticket})">
         <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
       </button>
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteTicket">

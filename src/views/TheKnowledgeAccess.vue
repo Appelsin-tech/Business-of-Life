@@ -1,6 +1,6 @@
 <template>
   <section class="p-auth p-default p-default-inner">
-    <bread-crumbs :arrCrumbs="[]"/>
+    <bread-crumbs/>
     <div class="container page">
       <h1 class='g-caption-inner'>База знаний</h1>
       <div class="info">

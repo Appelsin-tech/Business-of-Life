@@ -28,7 +28,7 @@
         </template>
       </div>
       <div class="btn-wrapper">
-        <button class="g-btn g-btn--no-icon" @click="$router.push({path: `/admin/editing/${idEvent}/${idRelation}`})">
+        <button class="g-btn g-btn--no-icon" @click="$router.push({path: `/admin/relation/${idEvent}/${idRelation}`})">
           <span>Редактировать</span>
         </button>
         <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
@@ -44,7 +44,7 @@
 import API from '../api/index'
 
 export default {
-  name: 'StatusEvent',
+  name: 'StatusPreview',
   props: ['idEvent', 'idStatus', 'idRelation'],
   data() {
     return {

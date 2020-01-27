@@ -1,27 +1,28 @@
 <template>
   <section class="p-event p-default p-default-inner">
-    <div class="container" v-if="activeEvent">
-      <status-event :idEvent="responseData.id" :idStatus="newStatus" :idRelation="activeEvent.id" @newStatus="refreshStatus" v-if="myEvent"/>
-      <h1 class="g-caption-inner">{{responseData.title}}</h1>
+    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+    <div class="container" v-if="activeRelation">
+      <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="myEvent"/>
+      <h1 class="g-caption-inner">{{event.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
-        <v-select @input="newActiveEvent" :value="activeEvent.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false" selected="" label="name" :options="city"></v-select>
+        <v-select @input="newActiveRelation" :value="activeRelation.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false"  label="name" :options="city"></v-select>
       </div>
       <section class="brief">
-        <div class="brief__img" :style="{backgroundImage: `url(${responseData.img})`}"></div>
+        <div class="brief__img" :style="{backgroundImage: `url(${event.img})`}"></div>
         <div class="brief__text info">
-          <p class="info__description">{{responseData.snippet}}</p>
-          <p class="info__item ">
+          <p class="info__description editor">{{event.snippet}}</p>
+          <p class="info__item">
             <strong class="info__item--bold">Дата:</strong>
-            <span class="info__item--normal">{{parseDate}}</span>
+            <span class="info__item--normal editor" >{{parseDate}}</span>
           </p>
           <p class="info__item">
             <strong class="info__item--bold">Место:</strong>
-            <span class="info__item--normal">{{activeEvent.address}}</span>
+            <span class="info__item--normal editor">{{activeRelation.address}}</span>
           </p>
-          <p class="info__item" v-if="activeEvent.speakers.length > 0">
+          <p class="info__item" v-if="activeRelation.speakers.length">
             <strong class="info__item--bold">Спикеры:</strong>
-            <span class="info__item--normal info__item--speakers" v-for="(speakers, i) in speakersName">{{speakers}}<span class="symb">,</span>&nbsp;</span>
+            <span class="info__item--normal info__item--speakers editor" v-for="(speakers, i) in activeRelation.speakers">{{speakers.name}}<span class="symb">,</span>&nbsp;</span>
           </p>
           <div class="info__ticket ticket--brief">
             <a href="#" class="g-btn g-btn--no-icon" @click.prevent="scrollMeTo('section-tickets')">
@@ -32,12 +33,12 @@
       </section>
       <section class="description">
         <h2 class="g-caption-section">Описание</h2>
-        <div class="text-wrapper editor" v-html="responseData.description"></div>
+        <div class="text-wrapper editor" v-html="event.description"></div>
       </section>
-      <section class="speakers" v-if="activeEvent.speakers.length !== 0">
+      <section class="speakers" v-if="activeRelation.speakers.length">
         <h2 class="g-caption-section">Спикеры</h2>
         <div class="speakers__wrapper">
-          <div class="speakers__item item" v-for="speaker in activeEvent.speakers">
+          <div class="speakers__item item" v-for="speaker in activeRelation.speakers">
             <div class="item__img" :style="{backgroundImage: `url(${speaker.img})`}"></div>
             <p class="item__name">{{speaker.name}}</p>
             <p class="item__post">{{speaker.role}}</p>
@@ -49,30 +50,34 @@
         <div class="org-info__wrapper">
           <div class="org-info__item item">
             <p class="item__name">Дата:</p>
-            <p class="item__info">{{parseDate}}</p>
+            <p class="item__info editor">{{parseDate}}</p>
           </div>
           <div class="org-info__item item">
             <p class="item__name">Место проведения:</p>
-            <p class="item__info">{{activeEvent.address}}</p>
+            <p class="item__info editor">{{activeRelation.address}}</p>
           </div>
           <div class="org-info__item item">
             <p class="item__name">Целевая аудитория:</p>
-            <p class="item__info">{{responseData.audience}}</p>
+            <p class="item__info editor">{{event.audience}}</p>
           </div>
           <div class="org-info__item item">
             <p class="item__name">Контактная информация:</p>
-            <div class="text-wrapper editor" v-html="activeEvent.contacts"></div>
+            <div class="text-wrapper editor" v-html="activeRelation.contacts"></div>
 <!--            <a href="mailto: info@businessof.life" class="item__info item__info&#45;&#45;link">info@businessof.life</a>-->
           </div>
         </div>
       </section>
-      <section class="tickets" ref="section-tickets" v-if="activeEvent.tickets.length">
+      <section class="tickets" ref="section-tickets" v-if="activeRelation.tickets.length">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
-          <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeEvent"/>
+          <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeRelation"/>
         </div>
       </section>
-<!--      <section class="other-activities" v-if="false">-->
+      <section class="action">
+        <h2 class="g-caption-section">Акции</h2>
+        <action v-for="action in activeRelation.actions" :key="action.id" :action="action" :relationId="activeRelation.id"></action>
+      </section>
+      <section class="other-activities" v-if="false">
 <!--      <h2 class="g-caption-section">Возможно, вас заинтересует</h2>-->
 <!--      <div class="slider-wrapper">-->
 <!--      <div class="swiper-pagination"></div>-->
@@ -147,18 +152,20 @@
 <!--      </swiper>-->
 <!--      <button class="swiper-button swiper-button&#45;&#45;next"><span></span></button>-->
 <!--      </div>-->
-<!--      </section>-->
-      <router-link class="payments" to="/payment_policy" v-if="activeEvent.tickets.length">Оплата и возврат</router-link>
+      </section>
+      <router-link class="payments" to="/payment_policy">Оплата и возврат</router-link>
     </div>
     <modal-ticket-purchase/>
   </section>
 </template>
 
 <script>
-import Ticket from '../components/Ticket'
-import StatusEvent from '../components/StatusEvent'
+import Action from '@/components/Action'
+import BreadCrumbs from '@/components/BreadCrumbs.vue'
+import Ticket from '@/components/Ticket'
+import StatusPreview from '@/components/StatusPreview'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import API from '../api/index'
+import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
@@ -166,17 +173,25 @@ export default {
   components: {
     swiper,
     swiperSlide,
-    StatusEvent,
+    StatusPreview,
     Ticket,
+    BreadCrumbs,
+    Action,
     ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
   },
   data () {
     return {
-      val: null,
-      responseData: null,
-      activeEvent: false,
+      breadCrumbs: [
+        {
+          path: '/calendar',
+          title: 'Календарь событий'
+        }
+      ],
+      valueSelectRelation: null,
+      event: null,
       myEvent: false,
       city: [],
+      activeRelation: null,
       swiperOption: {
         slidesPerView: 3,
         speed: 300,
@@ -210,15 +225,17 @@ export default {
     }
   },
   methods: {
-    activeEventFilter (res) {
+    activeRelationFilter (res) {
       res.forEach((item) => {
-        if (item.url === this.$route.params.hash) {
-          this.activeEvent = item
+        if (item.url === this.$route.params.url) {
+          API.relations.details({id: item.id}).then(response => {
+            this.activeRelation = response
+          })
         }
       })
     },
     activeCity () {
-      this.responseData.relations.forEach((item) => {
+      this.event.relations.forEach((item) => {
         let currentMoment = this.$moment()
         let itemStamp = item.stamp * 1000
         if (currentMoment - itemStamp < 0) {
@@ -226,33 +243,33 @@ export default {
         }
       })
     },
-    newActiveEvent (value) {
-      this.val = value.val
+    newActiveRelation (value) {
+      this.valueSelectRelation = value.val
       let a = value.val + ''
-      this.$router.push({ path: `/event/${a}` })
+      this.$router.push({ path: `/event/${a}`})
     },
     statusInfo () {
       if (this.logged) {
         this.$store.dispatch('user/getMyParentEvents').then(() => {
-          if (this.myParentEvents.some(item => item.id === this.responseData.id)) {
+          if (this.myParentEvents.some(item => item.id === this.event.id)) {
             this.myEvent = true
           }
         })
       }
     },
     getEvent () {
-      API.relations.info({ url: this.$route.params.hash }).then(response => {
-        this.responseData = response.data
+      API.relations.info({ url: this.$route.params.url }).then(response => {
+        this.event = response.data
         this.activeCity()
-        this.activeEventFilter(response.data.relations)
+        this.activeRelationFilter(response.data.relations)
         this.statusInfo()
       }).catch(error => {
         this.$router.push({ path: '/' })
       })
     },
     refreshStatus () {
-      this.responseData = null
-      this.activeEvent = false
+      this.activeRelation = null
+      this.event = null
       this.myEvent = false
       this.city = []
       this.getEvent()
@@ -268,9 +285,9 @@ export default {
     }
   },
   watch: {
-    val (newVal, oldVal) {
-      this.activeEventFilter(this.responseData.relations)
-    }
+    // valueSelectRelation (newVal, oldVal) {
+    //   this.activeRelationFilter(this.event.relations)
+    // }
   },
   computed: {
     ...mapState('user', [
@@ -279,27 +296,17 @@ export default {
     ...mapGetters('user', [
       'logged'
     ]),
-    filterTicketsList () {
-      return this.activeEvent.tickets.sort((a, b) => {
-        return a - b
-      })
-    },
     swiper () {
       return this.$refs.mySwiperEvents.swiper
     },
-    selectedCity () {
-      return { name: this.activeEvent.city, val: this.activeEvent.url }
-    },
-    speakersName () {
-      if (this.activeEvent) {
-        return this.activeEvent.speakers.map(item => item.name)
-      } else {
-        return []
-      }
+    filterTicketsList () {
+      return this.activeRelation.tickets.sort((a, b) => {
+        return a - b
+      })
     },
     parseDate () {
-      if (this.activeEvent) {
-        let onlyDate = this.activeEvent.date.split(' ')
+      if (this.activeRelation) {
+        let onlyDate = this.activeRelation.date.split(' ')
         let [day, month, year] = onlyDate[0].split('.')
         let da = new Date(year, month - 1, day)
         return da.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
@@ -308,20 +315,23 @@ export default {
       }
     },
     newStatus () {
-      if (this.activeEvent.status === 3) {
+      if (this.activeRelation.status === 3) {
         let currentMoment = this.$moment()
-        let itemStamp = this.activeEvent.stamp * 1000
+        let itemStamp = this.activeRelation.stamp * 1000
         if (currentMoment - itemStamp > 0) {
           return 4
         } else {
           return 3
         }
       } else {
-        return this.activeEvent.status
+        return this.activeRelation.status
       }
     }
   },
   beforeRouteUpdate (to, from, next) {
+    API.relations.details({id: this.valueSelectRelation}).then(response => {
+      this.activeRelation = response
+    })
     next()
   },
   mounted () {
@@ -332,7 +342,7 @@ export default {
 
 <style scoped lang="less">
   @import '~swiper/dist/css/swiper.css';
-  @import "../assets/less/_importants";
+  @import "~@/assets/less/_importants";
   .p-event {
     .location {
       display: flex;
@@ -437,10 +447,9 @@ export default {
         &__description {
           position: relative;
           margin-bottom: 75px;
-          font-size: 1.8rem;
           overflow: hidden;
           .md-block({ margin-bottom: 50px; });
-          .xs-block({ margin-bottom: 30px; font-size: 1.6rem; });
+          .xs-block({ margin-bottom: 30px; });
         }
         &__item {
           display: flex;
@@ -464,12 +473,11 @@ export default {
             }
           }
         }
-
       }
     }
     .description {
       margin-bottom: 100px;
-      .sm-block({ margin-bottom: 80px; });
+      .sm-block({ margin-bottom: 70px; });
       .text-wrapper {
         margin-bottom: 50px;
         .sm-block({ margin-bottom: 30px; });
@@ -550,8 +558,8 @@ export default {
     }
     .org-info {
       margin-bottom: 15px;
-      .sm-block({margin-bottom: 30px;});
-      .xs-block({margin-bottom: 45px;});
+      .sm-block({margin-bottom: 20px;});
+      .xs-block({margin-bottom: 35px;});
       .p-event__caption-second {
         margin-bottom: 90px;
         .lg-block({ margin-bottom: 75px; });
@@ -592,43 +600,12 @@ export default {
       }
     }
     .tickets {
+      margin-bottom: 80px;
+      .sm-block({ margin-bottom: 55px; });
       .tickets-wrapper {
         .row-flex();
         .ss-block({
           justify-content: center;});
-        .tickets-item {
-          .col();
-          .size(4);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 30px 15px;
-          box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.4);
-          &__title {
-            margin-bottom: 40px;
-            font-size: 2.4rem;
-            font-weight: 800;
-          }
-          .mavon {
-            margin-bottom: 20px;
-          }
-          &__price {
-            display: flex;
-            align-items: baseline;
-            flex-shrink: 0;
-            margin-bottom: 20px;
-            font-size: 5rem;
-            font-weight: 800;
-            color: @colorMainSecondary;
-            .xs-block({ font-size: 3.5rem; margin-bottom: 20px; });
-            .currency {
-              margin-left: 10px;
-              font-size: 2rem;
-              color: #000;
-              .xs-block({ font-size: 1.6rem; })
-            }
-          }
-        }
       }
     }
     .other-activities {

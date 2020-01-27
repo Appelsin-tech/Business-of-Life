@@ -128,7 +128,7 @@ const router = new Router({
       component: () => import('@/views/TheCalendar')
     },
     {
-      path: '/event/:hash',
+      path: '/event/:url',
       name: 'event',
       component: () => import('@/views/TheEvent')
     },

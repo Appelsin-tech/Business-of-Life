@@ -20,7 +20,7 @@
         <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
         <span>{{news.data}}</span>
       </div>
-      <p class="desc">{{news.desc}}</p>
+      <p class="desc editor">{{news.desc}}</p>
       <div class="hash-wrapper">
         <div class="hashtag-wrapper" :class="{'control': control}">
           <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
@@ -163,8 +163,6 @@ export default {
       }
       .desc {
         margin-bottom: auto;
-        font-size: 1.6rem;
-        line-height: 2.5rem;
       }
       .hash-wrapper {
         margin-top: 15px;

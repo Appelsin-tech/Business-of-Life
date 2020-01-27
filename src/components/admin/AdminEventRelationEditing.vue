@@ -12,7 +12,7 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
-        <button-add v-if="id" :class="'row'" @click.prevent.native="$router.push({path: `/admin/editing/${id}/new`})"/>
+        <button-add v-if="id" :class="'row'" @click.prevent.native="$router.push({path: `/admin/relation/${id}`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
             <admin-event-relation-editing-relation  v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
@@ -86,7 +86,7 @@ export default {
     return {
       breadCrumbs: [
         {
-          path: '/admin/me',
+          path: '/admin/menu',
           title: 'Личный кабинет'
         },
         {

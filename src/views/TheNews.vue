@@ -1,6 +1,6 @@
 <template>
   <section class="p-news p-default p-default-inner">
-    <bread-crumbs :arrCrumbs="[]"/>
+    <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Новости</h1>
       <news-item v-for="news in newsData" :news="news" :key="news.id"/>

@@ -1,5 +1,6 @@
 <template>
   <section class="p-faq p-default p-default-inner">
+    <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Оплата и возврат</h1>
       <div class="faq-item">
@@ -130,8 +131,12 @@
 </template>
 
 <script>
+import BreadCrumbs from '@/components/BreadCrumbs'
 export default {
-  name: 'ThePaymentPolicy'
+  name: 'ThePaymentPolicy',
+  components: {
+    BreadCrumbs
+  }
 }
 </script>
 

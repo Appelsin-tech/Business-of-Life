@@ -20,10 +20,16 @@
 <script>
 export default {
   name: 'BreadCrumbs',
-  props: ['arrCrumbs'],
+  props: {
+    arrCrumbs: {
+      default: () => []
+    },
+  },
+  computed: {
+  },
   methods: {
     routePath(d) {
-      if(d.path === '/admin/event-editing') {
+      if (d.path === '/admin/event-editing') {
         return d.path + '/' + this.$route.params.id
       } else {
         return d.path

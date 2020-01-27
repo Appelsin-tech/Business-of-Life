@@ -3,7 +3,7 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">
-        <template v-if="event === 'new'">Создание события</template>
+        <template v-if="!id">Создание события</template>
         <template v-else>Редактирование события</template>
       </h1>
       <form class="edit-form" @submit.prevent="onSubmit">
@@ -76,13 +76,13 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="g-btn g-btn--no-icon" v-if="event === 'new'" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
+          <button class="g-btn g-btn--no-icon" v-if="!id" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
             <span>Создать</span>
           </button>
           <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid">
             <span>Сохранить</span>
           </button>
-          <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="event !== 'new' && ticketsList.length !== 0" @click="newStatus">
+          <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="!id && tickets.length !== 0" @click="newStatus">
             <span v-if="statusRelation === 3 ">Снять с публикации</span>
             <span v-else>Опубликовать</span>
           </button>
@@ -92,32 +92,35 @@
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <div class="ticket-create">
-            <button-add :class="[event === 'new' ? 'disabled' : '']" @click.prevent.native="$modal.show('modal-ticket-create', {new: true, relation_id: event})"/>
+            <button-add :class="[!id ? 'disabled' : '']" @click.prevent.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})"/>
           </div>
-          <ticket v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item"/>
+          <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
       </div>
       <div class="stock">
         <h2 class="g-caption-section">Акции</h2>
-        <div class="stock-wrapper">
+        <panel-info v-if="!this.tickets.length">
+          Чтобы добавить акцию создайте билет
+        </panel-info>
+        <div class="stock-wrapper" v-else>
           <div class="stock-create">
-            <button-add :class="[event === 'new' ? 'disabled' : '', 'row']" @click.prevent.native="$modal.show('modal-stock-create', {new: true, relation_id: event})"></button-add>
+            <button-add :class="[!id ? 'disabled' : '', 'row']" @click.prevent.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>
           </div>
-          <admin-relation-editing-stock v-for="stock in stockArr" :stock="stock" :key="stock.tickets"/>
+          <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"/>
         </div>
       </div>
       <div class="access">
         <admin-relation-editing-access/>
       </div>
       <div class="link-wrapper">
-        <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${event}`" :class="{disabled: event === 'new'}">
+        <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
           <span>Предпросмотр</span>
         </router-link>
-        <router-link :to="`/admin/event-editing/${id}`" class="back-btn">Назад</router-link>
+        <router-link :to="`/admin/event-editing/${event}`" class="back-btn">Назад</router-link>
       </div>
     </div>
     <modal-ticket-create-editing/>
-    <modal-stock-create-editing/>
+    <modal-actions-create-editing/>
   </section>
 </template>
 
@@ -125,9 +128,10 @@
 import BreadCrumbs from '../BreadCrumbs.vue'
 import ButtonAdd from '../ui/ButtonAdd'
 import Ticket from '../Ticket'
-import AdminRelationEditingStock from './inner/AdminRelationEditingStock'
+import Action from '@/components/Action'
 import AdminRelationEditingAccess from './inner/AdminRelationEditingAccess'
-import API from '../../api/index'
+import API from '@/api/index'
+import PanelInfo from '@/components/ui/PanelInfo'
 import { mapState } from 'vuex'
 
 import flatPickr from 'vue-flatpickr-component'
@@ -140,23 +144,32 @@ import 'flatpickr/dist/flatpickr.css'
 
 export default {
   name: 'AdminRelationEditing',
-  props: ['id', 'event'],
+  props: {
+    event: {
+      required: true
+    },
+    id: {
+      required: false,
+      default: null
+    }
+  },
   components: {
+    PanelInfo,
     BreadCrumbs,
     flatPickr,
     Ticket,
     ckeditor: CKEditor.component,
     ButtonAdd,
-    AdminRelationEditingStock,
+    Action,
     AdminRelationEditingAccess,
     ModalTicketCreateEditing: () => import('@/components/modal/ModalTicketCreateEditing'),
-    ModalStockCreateEditing: () => import('@/components/modal/ModalStockCreateEditing')
+    ModalActionsCreateEditing: () => import('@/components/modal/ModalActionsCreateEditing')
   },
   data() {
     return {
       breadCrumbs: [
         {
-          path: '/admin/me',
+          path: '/admin/menu',
           title: 'Личный кабинет'
         },
         {
@@ -165,7 +178,7 @@ export default {
         },
         {
           title: 'Редактирование мероприятия',
-          path: '/admin/event-editing'
+          path: `/admin/event-editing/${this.event}`
         }
       ],
       editor: ClassicEditor,
@@ -183,7 +196,7 @@ export default {
         ]
       },
       resize: true,
-      ticketsList: [],
+      tickets: [],
       disabledNewTicket: true,
       configDate: {
         enableTime: true,
@@ -216,23 +229,7 @@ export default {
         city: 'Неверный город',
         address: 'Неверный адрес'
       },
-      stockArr: [
-        {
-          title: 'Hello',
-          tickets: 22,
-          ticket_name: 'Первый билет'
-        },
-        {
-          title: 'World',
-          tickets: 100,
-          ticket_name: 'Какой то билет'
-        },
-        {
-          title: 'Starting Seminar',
-          tickets: 5,
-          ticket_name: 'Двадцатьчетвертый билет'
-        }
-      ]
+      actions: []
     }
   },
   validations: {
@@ -266,19 +263,31 @@ export default {
     ...mapState('user', [
       'myParentEvents'
     ]),
-    filterTicketsList() {
-      return this.ticketsList.sort((a, b) => {
+    listTickets() {
+      let ticketsArr = []
+      if (this.tickets.length > 0) {
+        this.tickets.forEach(item => {
+          ticketsArr.push({
+            ticketTitle: item.title,
+            ticketId: item.id
+          })
+        })
+      }
+      return ticketsArr
+    },
+    filterTickets() {
+      return this.tickets.sort((a, b) => {
         return a - b
       })
     }
   },
   methods: {
     onSubmit() {
-      if (this.event === 'new') {
+      if (!this.id) {
         API.relations.create(this.form).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
-          this.$router.push({ path: `/admin/editing/${this.id}/${response.id}` })
+          this.$router.push({ path: `/admin/relation/${this.event}/${response.id}` })
           this.form.id = response.id
         }).catch(error => {
           console.log(error)
@@ -286,7 +295,6 @@ export default {
       } else {
         API.relations.edit(this.form).then(response => {
           API.response.success('Событие отредактировано')
-          // this.$router.push({path: `/admin/editing/${id}`})
         }).catch(error => {
           API.response.error(this.errorResponse[error.response.data.reason])
         })
@@ -299,36 +307,33 @@ export default {
         this.errorSelect[name] = false
       }
     },
-    myForm(relation) {
-      let newObg = relation.find(item => item.url === this.event)
-      this.statusRelation = newObg.status
-      this.ticketsList = newObg.tickets
-      this.form = {
-        id: newObg.id,
-        date: newObg.date,
-        title: newObg.title,
-        country: newObg.country,
-        city: newObg.city,
-        address: newObg.address,
-        contacts: newObg.contacts
-      }
-    },
     newStatus() {
       if (this.statusRelation === 3) {
-        API.relations.unpublish({ id: this.event }).then((response) => {
+        API.relations.unpublish({ id: this.id }).then((response) => {
           this.statusRelation = response.status
           API.response.success('Событие снято с публикации')
         })
       } else {
-        API.relations.publish({ id: this.event }).then((response) => {
+        API.relations.publish({ id: this.id }).then((response) => {
           this.statusRelation = response.status
           API.response.success('Событие опубликовано')
         })
       }
     },
     getInfoRelation() {
-      API.relations.info({ url: this.event }).then(response => {
-        this.myForm(response.data.relations)
+      API.relations.details({ id: this.id }).then(response => {
+        this.statusRelation = response.status
+        this.tickets = response.tickets
+        this.actions = response.actions
+        this.form = {
+          id: response.id,
+          date: response.date,
+          title: response.title,
+          country: response.country,
+          city: response.city,
+          address: response.address,
+          contacts: response.contacts
+        }
       })
     }
   },
@@ -336,9 +341,12 @@ export default {
     this.$root.$on('ticket-edit', () => {
       this.getInfoRelation()
     })
-    if (this.event === 'new') {
+    this.$root.$on('actions-edit', () => {
+      this.getInfoRelation()
+    })
+    if (!this.id) {
       this.form = {
-        event_id: this.id,
+        event_id: this.event,
         date: '',
         title: '',
         country: '',

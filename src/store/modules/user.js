@@ -15,7 +15,7 @@ const getters = {
   logged: state => !!state.profile,
   access: state => state.profile.access,
   status (state) {
-    if (state.profile !== null) {
+    if (getters.logged) {
       return state.profile.status
     } else {
       return 0
@@ -30,6 +30,11 @@ const getters = {
       }
     } else {
       return false
+    }
+  },
+  statusAdvisior (state) {
+    if (getters.logged) {
+      return !!(state.profile.supervisor.length > 0)
     }
   }
 }

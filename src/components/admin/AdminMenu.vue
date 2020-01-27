@@ -1,6 +1,6 @@
 <template>
   <section class="p-me p-default p-default-inner">
-    <bread-crumbs :arrCrumbs="[]"/>
+    <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
       <div class="menu">
@@ -18,7 +18,7 @@ import { mapGetters } from 'vuex'
 import PannelAdminMenu from './components/PannelAdminMenu'
 
 export default {
-  name: 'AdminUsersMe',
+  name: 'AdminUsersMenu',
   components: {
     BreadCrumbs,
     PannelAdminMenu
@@ -121,6 +121,14 @@ export default {
           } else {
             return true
           }
+        }
+      }
+    },
+    checkAdvisior(name, status) {
+      if(this.status > 0) {
+        if (this.statusDev) { // показываются все для разработки
+          return true
+        } else {
         }
       }
     }

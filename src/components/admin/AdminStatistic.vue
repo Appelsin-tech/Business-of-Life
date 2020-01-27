@@ -8,7 +8,7 @@
         <admin-statistic-chart-location :defaultResponse="responseData"/>
       </div>
       <panel-info v-else>У вас еще нет мероприятий с продажами</panel-info>
-      <router-link :to='`/admin/me`' class='back-btn'>Назад</router-link>
+      <router-link :to='`/admin/menu`' class='back-btn'>Назад</router-link>
     </div>
   </section>
 </template>
@@ -33,7 +33,7 @@ export default {
     return {
       breadCrumbs: [
         {
-          path: '/admin/me',
+          path: '/admin/menu',
           title: 'Личный кабинет'
         }
       ],

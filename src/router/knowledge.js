@@ -14,8 +14,16 @@ export default [
       {
         path: 'menu',
         name: 'knowledge-menu',
-        component: () => import('@/components/knowledge/KnowledgeMenu'),
+        component: () => import('@/components/knowledge/KnowledgeMenu')
       },
+      {
+        path: ':url/:id',
+        name: 'knowledge-course',
+        meta: {
+          auth: true
+        },
+        component: () => import('@/components/knowledge/KnowledgeCourse')
+      }
     ]
   }
 ]

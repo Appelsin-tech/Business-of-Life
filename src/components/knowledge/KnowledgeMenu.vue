@@ -1,6 +1,6 @@
 <template>
   <section class="p-knowledge-menu p-default p-default-inner">
-    <bread-crumbs :arrCrumbs="[]"/>
+    <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">База знаний</h1>
       <status-knowledge/>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
+import BreadCrumbs from '@/components/BreadCrumbs'
 import { mapGetters, mapState } from 'vuex'
 import PannelKnowledgeMenu from './components/PannelKnowledgeMenu'
 import StatusKnowledge from './components/StatusKnowledge'
@@ -51,6 +51,7 @@ export default {
   computed: {
     ...mapGetters('user', [
       'status',
+      'statusDev'
     ]),
     ...mapState('user', [
       'profile'
@@ -60,7 +61,7 @@ export default {
   methods: {
     checkStatusUser(name, status) {
       if(this.status > 0) {
-        if (this.profile.login === 'pelkin' || this.profile.login === 'GeneralAdmin') { // показываются все для разработки
+        if (this.statusDev) { // показываются все для разработки
           return true
         } else {
           let r = false

@@ -1,0 +1,108 @@
+<template>
+  <div class="action-item">
+    <div class="action-info">
+      <h3 class="g-caption-element g-caption-element--static">{{action.title}} </h3>
+      <p class="info-item">
+        <img svg-inline class="svg-icon" src="@/assets/img/icon/location.svg" alt="">
+        <span class="text">ID билета: {{action.ticket}}</span>
+      </p>
+      <p class="info-item ">
+        <img svg-inline class="svg-icon" src="@/assets/img/icon/timetable.svg" alt="">
+        <span class="text">Количество: {{action.amount}}</span>
+      </p>
+    </div>
+    <div class="g-control-icon" v-if="controlBtn">
+      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-actions-create', {relation_id: relationId, listTickets: listTickets, action: action})">
+        <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+      </button>
+      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteAction">
+        <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+      </button>
+    </div>
+</div>
+</template>
+
+<script>
+import API from '@/api/index'
+export default {
+  name: 'AdminRelationEditingAction',
+  props: {
+    action: {
+      required: true
+    },
+    relationId: {
+      required: true
+    },
+    listTickets: {
+      required: false
+    },
+    controlBtn: {
+      required: false,
+      default: false
+    }
+  },
+  methods: {
+    deleteAction () {
+      API.actions.delete({id: this.action.id}).then(() => {
+        API.response.success('Акция удалена')
+        this.$root.$emit('actions-edit')
+      })
+    },
+  }
+}
+</script>
+
+<style scoped lang="less">
+  @import "~@/assets/less/_importants";
+
+  .action-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .default-panel-style();
+    .sm-block({
+      margin-bottom: 15px;
+    });
+    .ss-block({
+      flex-direction: column;
+      align-items: flex-start;
+    });
+    .action-info {
+      display: flex;
+      flex-direction: column;
+      .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        .md-block({
+          margin-bottom: 7px;
+        });
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+        .svg-icon {
+          margin-right: 15px;
+          width: 15px;
+          height: 15px;
+          path {
+            fill: #dedede;
+          }
+        }
+        .text {
+          color: @colorSecondFonts;
+        }
+      }
+    }
+    .g-caption-element {
+      margin-bottom: 25px;
+      .md-block({
+        margin-bottom: 15px;
+      });
+    }
+    .g-control-icon {
+      .ss-block({
+        margin-top: 30px;});
+    }
+  }
+</style>

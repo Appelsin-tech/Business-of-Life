@@ -853,9 +853,18 @@ input {
   }
 }
 .editor {
+  &.fz-1_8 {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    .xs-block({
+      font-size: 1.6rem;});
+  }
   font-size: 1.6rem;
   line-height: 2.5rem;
-  p:first-child {
+  .xs-block({
+    font-size: 1.4rem;
+    line-height: 2rem;});
+/*  p:first-child {
     margin-top: 16px;
     .xs-block({
       margin-top: 10px;
@@ -866,7 +875,7 @@ input {
     .xs-block({
       margin-bottom: 10px;
     });
-  }
+  }*/
   strong {
     font-weight: 600;
   }

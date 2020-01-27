@@ -4,7 +4,7 @@ export default [
   {
     path: '/admin',
     name: 'admin',
-    redirect: '/admin/me',
+    redirect: '/admin/menu',
     beforeEnter: requireAuth,
     meta: {
       auth: true
@@ -12,9 +12,9 @@ export default [
     component: () => import('@/views/TheAdmin'),
     children: [
       {
-        path: 'me',
-        name: 'me',
-        component: () => import('@/components/admin/AdminMe'),
+        path: 'menu',
+        name: 'menu',
+        component: () => import('@/components/admin/AdminMenu'),
       },
       {
         path: 'event-create',
@@ -36,8 +36,15 @@ export default [
         component: () => import('@/components/admin/AdminEventRelationEditing'),
       },
       {
-        path: 'editing/:id/:event',
-        name: 'editing',
+        path: 'relation/:event',
+        name: 'relation-create',
+        props: true,
+        beforeEnter: checkRole,
+        component: () => import('@/components/admin/AdminRelationEditing'),
+      },
+      {
+        path: 'relation/:event/:id',
+        name: 'relation-editing',
         props: true,
         beforeEnter: checkRole,
         component: () => import('@/components/admin/AdminRelationEditing'),
@@ -101,7 +108,7 @@ async function requireAuth (to, from, next) {
 
 function checkRole (to, from, next) {
   if (store.getters['user/status'] < 2) {
-    next('/admin/me')
+    next('/admin/menu')
   } else {
     next()
   }

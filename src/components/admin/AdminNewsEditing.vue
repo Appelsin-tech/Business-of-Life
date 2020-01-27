@@ -83,16 +83,18 @@
           </div>
         </form>
       </div>
+      <router-link to="/admin/news-control" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
+import BreadCrumbs from '@/components//BreadCrumbs.vue'
 import DownloadPhoto from './components/DownloadPhoto'
+
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
-
+import 'flatpickr/dist/flatpickr.css'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
@@ -110,7 +112,7 @@ export default {
     return {
       breadCrumbs: [
         {
-          path: '/admin/me',
+          path: '/admin/menu',
           title: 'Личный кабинет'
         },
         {

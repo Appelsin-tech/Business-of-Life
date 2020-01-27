@@ -1,7 +1,7 @@
 <template>
   <section class="p-news-full p-default p-default-inner">
     <div class="container">
-      <status-relation :idStatus="3"/>
+      <status-preview :idStatus="3"/>
       <div class="img" :style="{backgroundImage: `url(https://picsum.photos/1000)`}"></div>
     </div>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
@@ -17,7 +17,7 @@
       <div class="hash-wrapper">
         <span class="desc">Теги:</span>
         <div>
-          <strong class="hashtag" v-for="(hash, index) in news.tags" :key="index">{{hash}}</strong>
+          <strong class="g-hashtag" v-for="(hash, index) in news.tags" :key="index">{{hash}}</strong>
         </div>
       </div>
     </div>
@@ -26,15 +26,16 @@
 
 <script>
 import Vue from 'vue'
-import StatusRelation from '../components/StatusRelation'
-import BreadCrumbs from '../components/BreadCrumbs'
-import SocialSharingMy from '../components/SocialSharingMy'
+import StatusPreview from '@/components/StatusPreview'
+import BreadCrumbs from '@/components/BreadCrumbs'
+import SocialSharingMy from '@/components/SocialSharingMy'
 const SocialSharing = require('vue-social-sharing')
 Vue.use(SocialSharing)
+
 export default {
   name: 'TheNewsFull',
   components: {
-    StatusRelation,
+    StatusPreview,
     BreadCrumbs,
     SocialSharingMy
   },

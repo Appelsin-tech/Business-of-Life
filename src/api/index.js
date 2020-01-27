@@ -7,6 +7,7 @@ import biling from './modules/biling'
 import statistics from './modules/statistics'
 import store from './modules/store'
 import wallet from './modules/wallet'
+import actions from './modules/actions'
 import response from './response'
 
 export default {
@@ -19,5 +20,6 @@ export default {
   response,
   statistics,
   store,
-  wallet
+  wallet,
+  actions
 }

@@ -121,7 +121,7 @@ export default {
     return {
       breadCrumbs: [
         {
-          path: '/admin/me',
+          path: '/admin/menu',
           title: 'Личный кабинет'
         }
       ],

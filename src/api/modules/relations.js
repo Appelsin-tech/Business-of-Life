@@ -50,4 +50,11 @@ export default {
       reject(error)
     })
   }),
+  details: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/details', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
 }

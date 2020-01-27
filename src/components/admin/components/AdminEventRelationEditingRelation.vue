@@ -28,7 +28,7 @@
         </p>
       </div>
       <div class="g-control-icon">
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${idEvent}/${relation.id}`})">
+        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/relation/${idEvent}/${relation.id}`})">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
         </button>
         <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
