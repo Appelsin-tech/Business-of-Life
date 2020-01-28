@@ -4,11 +4,7 @@
       <h3 class="g-caption-element g-caption-element--static">{{action.title}} </h3>
       <p class="info-item">
         <img svg-inline class="svg-icon" src="@/assets/img/icon/location.svg" alt="">
-        <span class="text">ID билета: {{action.ticket}}</span>
-      </p>
-      <p class="info-item ">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/timetable.svg" alt="">
-        <span class="text">Количество: {{action.amount}}</span>
+        <span class="text">Билет "{{action.ticket_name}}": {{action.amount}} шт.</span>
       </p>
     </div>
     <div class="g-control-icon" v-if="controlBtn">

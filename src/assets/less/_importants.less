@@ -546,9 +546,10 @@ input {
   }
   .vs__dropdown-toggle {
     .vs__selected-options {
-      display: flex;
+      display: block;
       align-items: center;
       .vs__selected {
+        position: relative;
         font-size: 2.4rem;
         font-weight: 800;
         color: @colorMain;
@@ -864,18 +865,16 @@ input {
   .xs-block({
     font-size: 1.4rem;
     line-height: 2rem;});
-/*  p:first-child {
-    margin-top: 16px;
-    .xs-block({
-      margin-top: 10px;
-    });
+  &.ul-pdl-0 {
+    ul,
+    ol {
+      list-style-position: inside;
+      padding-left: 0;
+      .sm-block({
+        padding-left: 0;
+      });
+    }
   }
-  p:last-child {
-    margin-bottom: 16px;
-    .xs-block({
-      margin-bottom: 10px;
-    });
-  }*/
   strong {
     font-weight: 600;
   }
@@ -1478,6 +1477,14 @@ input {
   &--mb {
     margin-bottom: 0;
   }
+}
+.g-subsection {
+  margin-bottom: 80px;
+  .sm-block({
+    margin-bottom: 50px;});
+}
+.g-svg-icon {
+  .g-svg-icon();
 }
 
 

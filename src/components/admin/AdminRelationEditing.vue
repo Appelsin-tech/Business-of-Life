@@ -110,7 +110,7 @@
         </div>
       </div>
       <div class="access">
-        <admin-relation-editing-access/>
+        <admin-relation-editing-access :relation="id"/>
       </div>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
@@ -129,7 +129,7 @@ import BreadCrumbs from '../BreadCrumbs.vue'
 import ButtonAdd from '../ui/ButtonAdd'
 import Ticket from '../Ticket'
 import Action from '@/components/Action'
-import AdminRelationEditingAccess from './inner/AdminRelationEditingAccess'
+import AdminRelationEditingAccess from './components/AdminRelationEditingAccess'
 import API from '@/api/index'
 import PanelInfo from '@/components/ui/PanelInfo'
 import { mapState } from 'vuex'
@@ -577,12 +577,6 @@ export default {
     &-wrapper {
       display: flex;
       flex-direction: column;
-      .stock-create {
-        margin-bottom: 20px;
-        .sm-block({
-          margin-bottom: 15px;
-        });
-      }
     }
   }
   .access {

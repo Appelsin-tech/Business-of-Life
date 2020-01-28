@@ -8,6 +8,8 @@ import statistics from './modules/statistics'
 import store from './modules/store'
 import wallet from './modules/wallet'
 import actions from './modules/actions'
+import supervisors from './modules/supervisors'
+import editors from './modules/editors'
 import response from './response'
 
 export default {
@@ -21,5 +23,7 @@ export default {
   statistics,
   store,
   wallet,
-  actions
+  actions,
+  supervisors,
+  editors
 }

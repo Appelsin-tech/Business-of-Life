@@ -247,6 +247,9 @@ export default {
       this.valueSelectRelation = value.val
       let a = value.val + ''
       this.$router.push({ path: `/event/${a}`})
+      API.relations.details({id: this.valueSelectRelation}).then(response => {
+        this.activeRelation = response
+      })
     },
     statusInfo () {
       if (this.logged) {
@@ -329,9 +332,6 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    API.relations.details({id: this.valueSelectRelation}).then(response => {
-      this.activeRelation = response
-    })
     next()
   },
   mounted () {
@@ -357,7 +357,7 @@ export default {
         font-size: 2.4rem;
         font-weight: 800;
         color: @colorMainSecondary;
-        .xs-block({ font-size: 1.8rem; })
+        .xs-block({ font-size: 1.8rem; });
       }
       &__city {
         font-size: 2.4rem;

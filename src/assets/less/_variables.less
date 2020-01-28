@@ -40,3 +40,17 @@
     padding: 15px;
   });
 }
+
+.g-svg-icon(@w: 30px; @h: 30px; @c: @colorMain) {
+  width: @w;
+  height: @h;
+  margin-right: 20px;
+  * {
+    fill: @c;
+  }
+  .sm-block({
+    width: @w - 7px;
+    height: @h - 7px;
+    margin-right: 10px;
+  });
+}

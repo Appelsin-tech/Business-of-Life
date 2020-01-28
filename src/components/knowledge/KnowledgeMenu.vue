@@ -29,17 +29,16 @@ export default {
   },
   data() {
     return {
-      // статус 3 для разработки
       menuItem: [
         {
-          to: '/asd',
-          title: 'Искусство продаж',
+          to: 'tehnika_postroeniya_biznesa/lesson_1',
+          title: 'Техника построения бизнеса',
           name: 'partners-program',
           lesson: 10,
           status: 2
         },
         {
-          to: '/asd',
+          to: 'tehnika_postroeniya_biznesa/lesson_1',
           title: 'Искусство продаж',
           name: 'event-control',
           lesson: 22,

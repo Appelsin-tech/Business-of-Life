@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
 
   .info {
     display: flex;
