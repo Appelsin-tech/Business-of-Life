@@ -46,7 +46,7 @@ export default {
           status: 2
         },
         {
-          to: '/role',
+          to: '/admin/role',
           title: 'Роли и управление доступом',
           name: 'role',
           status: 2
@@ -124,14 +124,6 @@ export default {
         }
       }
     },
-    checkAdvisior(name, status) {
-      if(this.status > 0) {
-        if (this.statusDev) { // показываются все для разработки
-          return true
-        } else {
-        }
-      }
-    }
   }
 }
 </script>

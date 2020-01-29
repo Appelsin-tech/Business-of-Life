@@ -110,7 +110,7 @@
         </div>
       </div>
       <div class="access">
-        <admin-relation-editing-access :relation="id"/>
+        <admin-relation-editing-access :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
       </div>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
@@ -197,6 +197,8 @@ export default {
       },
       resize: true,
       tickets: [],
+      supervisors: [],
+      editors: [],
       disabledNewTicket: true,
       configDate: {
         enableTime: true,
@@ -279,7 +281,7 @@ export default {
       return this.tickets.sort((a, b) => {
         return a - b
       })
-    }
+    },
   },
   methods: {
     onSubmit() {
@@ -325,6 +327,8 @@ export default {
         this.statusRelation = response.status
         this.tickets = response.tickets
         this.actions = response.actions
+        this.supervisors = response.supervisors
+        this.editors = response.editors
         this.form = {
           id: response.id,
           date: response.date,
@@ -378,13 +382,6 @@ export default {
         align-items: center;
       });
       .g-btn {
-        min-width: 250px;
-        .sm-block({
-          min-width: 220px;
-        });
-        .ss-block({
-          min-width: 200px;
-        });
         &:first-child {
           margin-right: 20px;
           .ss-block({
