@@ -32,11 +32,6 @@ const getters = {
       return false
     }
   },
-  statusAdvisior (state) {
-    if (getters.logged) {
-      return !!(state.profile.supervisor.length > 0)
-    }
-  }
 }
 
 const actions = {

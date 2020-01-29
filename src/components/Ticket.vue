@@ -18,15 +18,20 @@
         <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
       </button>
     </div>
+    <generate-ticket :id="ticket.id" v-if="false"/>
 <!--    <button @click="newTicket" class="test-btn">RUCHNIOI VIPUSK </button>-->
   </div>
 </template>
 
 <script>
+import GenerateTicket from '@/components/helpers/GenerateTicket'
 import API from '../api/index'
 export default {
   name: 'Ticket',
   props: ['btn', 'ticket', 'event'],
+  components: {
+    GenerateTicket
+  },
   methods: {
     // newTicket() {
     //   API.tickets.issue({ id: this.ticket.id}).then((response) => {

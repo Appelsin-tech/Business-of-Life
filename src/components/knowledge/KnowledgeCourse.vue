@@ -1,8 +1,8 @@
 <template>
   <section class="p-lesson p-default p-default-inner">
+    <status-preview :idEvent="5" :idStatus="3" :idRelation="10"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
-    <div class="container" >
-      <status-preview :idEvent="5" :idStatus="3" :idRelation="10"/>
+    <div class="container">
       <h1 class="g-caption-inner">Техника построения бизнеса</h1>
       <div class="lesson-select">
         <p class="desc">Урок</p>

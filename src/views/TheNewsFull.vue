@@ -1,7 +1,7 @@
 <template>
   <section class="p-news-full p-default p-default-inner">
+    <status-preview :idStatus="3"/>
     <div class="container">
-      <status-preview :idStatus="3"/>
       <div class="img" :style="{backgroundImage: `url(https://picsum.photos/1000)`}"></div>
     </div>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>

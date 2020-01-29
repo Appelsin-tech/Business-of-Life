@@ -1,8 +1,8 @@
 <template>
   <section class="p-event p-default p-default-inner">
+    <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="myEvent"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container" v-if="activeRelation">
-      <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="myEvent"/>
       <h1 class="g-caption-inner">{{event.title}}</h1>
       <div class="location">
         <p class="location__desc">Город</p>
@@ -252,7 +252,7 @@ export default {
       })
     },
     statusInfo () {
-      if (this.logged) {
+      if (this.status > 1) {
         this.$store.dispatch('user/getMyParentEvents').then(() => {
           if (this.myParentEvents.some(item => item.id === this.event.id)) {
             this.myEvent = true
@@ -287,17 +287,13 @@ export default {
       })
     }
   },
-  watch: {
-    // valueSelectRelation (newVal, oldVal) {
-    //   this.activeRelationFilter(this.event.relations)
-    // }
-  },
   computed: {
     ...mapState('user', [
       'myParentEvents'
     ]),
     ...mapGetters('user', [
-      'logged'
+      'logged',
+      'status'
     ]),
     swiper () {
       return this.$refs.mySwiperEvents.swiper

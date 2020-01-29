@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="btn-wrapper">
-            <button type="submit" class="g-btn g-btn--no-icon g-btn--white" v-if="!newStock">
+            <button type="submit" class="g-btn g-btn--no-icon" v-if="!newStock">
               <span>Сохранить</span>
             </button>
             <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>

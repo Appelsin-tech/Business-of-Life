@@ -1,40 +1,42 @@
 <template>
-  <div class="status">
-    <div class="status-wrapper">
-      <div class="status-content" >
-        <template v-if="status[idStatus].class === 'created'">
-          <div class="g-icon-circle" :class="status[idStatus].class">
-            <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
-          </div>
-          <span class="text">{{status[idStatus].tooltip}}</span>
-        </template>
-        <template v-else-if="status[idStatus].class === 'waiting'">
-          <div class="g-icon-circle" :class="status[idStatus].class">
-            <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
-          </div>
-          <span class="text">{{status[idStatus].tooltip}}</span>
-        </template>
-        <template v-else-if="status[idStatus].class === 'past'">
-          <div class="g-icon-circle" :class="status[idStatus].class">
-            <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
-          </div>
-          <span class="text">{{status[idStatus].tooltip}}</span>
-        </template>
-        <template v-else>
-          <div class="g-icon-circle" :class="status[idStatus].class">
-            <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
-          </div>
-          <span class="text">{{status[idStatus].tooltip}}</span>
-        </template>
-      </div>
-      <div class="btn-wrapper">
-        <button class="g-btn g-btn--no-icon" @click="$router.push({path: `/admin/relation/${idEvent}/${idRelation}`})">
-          <span>Редактировать</span>
-        </button>
-        <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
-          <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>
-          <span v-else>Опубликовать</span>
-        </button>
+  <div class="container">
+    <div class="status">
+      <div class="status-wrapper">
+        <div class="status-content" >
+          <template v-if="status[idStatus].class === 'created'">
+            <div class="g-icon-circle" :class="status[idStatus].class">
+              <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
+            </div>
+            <span class="text">{{status[idStatus].tooltip}}</span>
+          </template>
+          <template v-else-if="status[idStatus].class === 'waiting'">
+            <div class="g-icon-circle" :class="status[idStatus].class">
+              <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
+            </div>
+            <span class="text">{{status[idStatus].tooltip}}</span>
+          </template>
+          <template v-else-if="status[idStatus].class === 'past'">
+            <div class="g-icon-circle" :class="status[idStatus].class">
+              <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
+            </div>
+            <span class="text">{{status[idStatus].tooltip}}</span>
+          </template>
+          <template v-else>
+            <div class="g-icon-circle" :class="status[idStatus].class">
+              <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
+            </div>
+            <span class="text">{{status[idStatus].tooltip}}</span>
+          </template>
+        </div>
+        <div class="btn-wrapper">
+          <button class="g-btn g-btn--no-icon" @click="$router.push({path: `/admin/relation/${idEvent}/${idRelation}`})">
+            <span>Редактировать</span>
+          </button>
+          <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
+            <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>
+            <span v-else>Опубликовать</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -18,7 +18,7 @@ import { mapGetters } from 'vuex'
 import PannelAdminMenu from './components/PannelAdminMenu'
 
 export default {
-  name: 'AdminUsersMenu',
+  name: 'AdminMenu',
   components: {
     BreadCrumbs,
     PannelAdminMenu
