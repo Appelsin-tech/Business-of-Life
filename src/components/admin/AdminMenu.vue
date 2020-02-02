@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
       <div class="menu">
-          <div class="item" v-for="item in menuItem" :key="item.name" v-if="checkStatusUser(item.name, item.status)">
+          <div class="item" v-for="item in menu" :key="item.name">
             <pannel-admin-menu :item="item" />
           </div>
       </div>
@@ -25,13 +25,16 @@ export default {
   },
   data() {
     return {
-      // статус 3 для разработки
+      // статус 0 для обычного пользователя
+      // статус 1 для обычного пользователя, который является проверяющим
+      // статус 2 для админа, показываются все, кроме разработки
+      // статус 3 для разработки, показываются все
       menuItem: [
         {
           to: '/admin/event-control',
           title: 'Управление мероприятиями',
           name: 'event-control',
-          status: 2
+          status: 1
         },
         {
           to: '/tickets',
@@ -93,37 +96,22 @@ export default {
   computed: {
     ...mapGetters('user', [
       'status',
-      'statusDev'
+      'statusDev',
+      'relationEditors'
     ]),
-  },
-  methods: {
-    checkStatusUser(name, status) {
-      if(this.status > 0) {
-        if (this.statusDev) { // показываются все для разработки
-          return true
-        } else {
-          let r = false
-          switch (name) {
-            case 'event-control':
-              r = true
-              break
-            case 'statistic':
-              r = true
-              break
-            case 'role':
-              r = true
-              break
-          }
-          if (status === 3) { // показываются все, кроме тех которые в разработке
-            return false
-          } else if (r && this.status < 2) { // не показываются для пользователей со статусом ниже 2
-            return false
-          } else {
-            return true
-          }
-        }
+    menu() {
+      if (this.statusDev) {
+        return this.menuItem
+      } else if (this.status === 2) {
+        return this.menuItem.filter(item => item.status < 3)
+      } else if (this.relationEditors) {
+        return this.menuItem.filter(item => item.status < 2)
+      } else if (this.status === 1) {
+        return this.menuItem.filter(item => item.status < 1)
       }
     },
+  },
+  methods: {
   }
 }
 </script>

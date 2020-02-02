@@ -25,14 +25,14 @@ export default [
       {
         path: 'event-control',
         name: 'event-control',
-        beforeEnter: checkRole,
+        beforeEnter: checkEditors,
         component: () => import('@/components/admin/AdminEventControl')
       },
       {
         path: 'event-editing/:id',
         name: 'event-editing',
         props: true,
-        beforeEnter: checkRole,
+        beforeEnter: checkEditors,
         component: () => import('@/components/admin/AdminEventRelationEditing'),
       },
       {
@@ -46,7 +46,7 @@ export default [
         path: 'relation/:event/:id',
         name: 'relation-editing',
         props: true,
-        beforeEnter: checkRole,
+        beforeEnter: checkEditors,
         component: () => import('@/components/admin/AdminRelationEditing'),
       },
       {
@@ -79,17 +79,20 @@ export default [
       {
         path: 'news-control',
         name: 'news-control',
+        beforeEnter: checkRole,
         component: () => import('@/components/admin/AdminNewsControl')
       },
       {
         path: 'news-create',
         name: 'news-create',
+        beforeEnter: checkRole,
         component: () => import('@/components/admin/AdminNewsEditing')
       },
       {
         path: 'news-editing/:id',
         name: 'news-editing',
         props: true,
+        beforeEnter: checkRole,
         component: () => import('@/components/admin/AdminNewsEditing')
       },
     ]
@@ -109,6 +112,18 @@ async function requireAuth (to, from, next) {
 function checkRole (to, from, next) {
   if (store.getters['user/status'] < 2) {
     next('/admin/menu')
+  } else {
+    next()
+  }
+}
+
+function checkEditors (to, from, next) {
+  if (store.getters['user/status'] < 2) {
+    if (store.getters['user/relationEditors']) {
+      next()
+    } else {
+      next('/admin/menu')
+    }
   } else {
     next()
   }

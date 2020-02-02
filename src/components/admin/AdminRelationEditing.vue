@@ -109,7 +109,7 @@
           <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"/>
         </div>
       </div>
-      <div class="access">
+      <div class="access" v-if="!relationEditors">
         <admin-relation-editing-access :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
       </div>
       <div class="link-wrapper">
@@ -132,7 +132,7 @@ import Action from '@/components/Action'
 import AdminRelationEditingAccess from './components/AdminRelationEditingAccess'
 import API from '@/api/index'
 import PanelInfo from '@/components/ui/PanelInfo'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
@@ -264,6 +264,9 @@ export default {
   computed: {
     ...mapState('user', [
       'myParentEvents'
+    ]),
+    ...mapGetters('user', [
+      'relationEditors'
     ]),
     listTickets() {
       let ticketsArr = []

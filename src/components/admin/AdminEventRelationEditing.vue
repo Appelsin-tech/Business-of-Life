@@ -3,8 +3,8 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Мероприятие</h1>
-      <div class="event-editing">
-        <h2 class="g-caption-section">
+      <div class="event-editing" v-if="!relationEditors">
+        <h2 class="g-caption-section" >
           <template v-if="id">Редактирование мероприятия</template>
           <template v-else>Создание мероприятия</template>
         </h2>
@@ -12,7 +12,7 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
-        <button-add v-if="id" :class="'row'" @click.prevent.native="$router.push({path: `/admin/relation/${id}`})"/>
+        <button-add v-if="showBtnAdd" :class="'row'" @click.prevent.native="$router.push({path: `/admin/relation/${id}`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
             <admin-event-relation-editing-relation  v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
@@ -55,7 +55,7 @@
             У вас еще нет прошедших событий
           </panel-info>
         </div>
-        <panel-info v-if="showRelations === 2">Чтобы создать событие - заполните информацию о мероприятии</panel-info>
+        <panel-info v-if="showPanelRelation">Чтобы создать событие - заполните информацию о мероприятии</panel-info>
         <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
       </div>
     </div>
@@ -65,7 +65,7 @@
 <script>
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import EventEditingForm from './components/EventEditingForm'
 import PanelInfo from '../ui/PanelInfo'
 import ButtonAdd from '../ui/ButtonAdd'
@@ -106,6 +106,9 @@ export default {
     ...mapState('user', [
       'myParentEvents'
     ]),
+    ...mapGetters('user', [
+      'relationEditors'
+    ]),
     showButtonDelete() {
       if (this.showRelations === 1) {
         return !this.myEvent.relations.some(item => {
@@ -117,6 +120,24 @@ export default {
         return false
       }
     },
+    showBtnAdd () {
+      if( this.relationEditors) {
+        return false
+      } else if (this.id) {
+        return true
+      } else {
+        return false
+      }
+    },
+    showPanelRelation () {
+      if( this.relationEditors) {
+        return false
+      } else if (this.showRelations === 2) {
+        return true
+      } else {
+        return  false
+      }
+    }
   },
   methods: {
     deleteRelation(e) {

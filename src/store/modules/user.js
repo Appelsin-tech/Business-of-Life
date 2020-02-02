@@ -12,16 +12,10 @@ const state = () => ({
 })
 
 const getters = {
-  logged: state => !!state.profile,
-  access: state => state.profile.access,
-  status (state) {
-    if (getters.logged) {
-      return state.profile.status
-    } else {
-      return 0
-    }
-  },
-  statusDev (state) {
+  logged: state => !!state.profile, // залогинен ли пользователей
+  access: state => state.profile.access, // доступ к базе знаний
+  status: (state, getters) => getters.logged ? state.profile.status : 0, // статус пользователя
+  statusDev (state, getters) { // статус для разработки
     if (getters.logged) {
       if (state.profile.login === 'pelkin' || state.profile.login === 'GeneralAdmin') {
         return true
@@ -32,6 +26,13 @@ const getters = {
       return false
     }
   },
+  relationEditors (state, getters) { // является ли обычный пользователь редактором событий
+    if (getters.logged && getters.status === 1 && state.profile.editor.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
 }
 
 const actions = {

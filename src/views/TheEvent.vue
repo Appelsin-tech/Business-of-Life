@@ -1,6 +1,6 @@
 <template>
   <section class="p-event p-default p-default-inner">
-    <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="myEvent"/>
+    <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && myEvent"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container" v-if="activeRelation">
       <h1 class="g-caption-inner">{{event.title}}</h1>
@@ -267,6 +267,7 @@ export default {
         this.activeRelationFilter(response.data.relations)
         this.statusInfo()
       }).catch(error => {
+        console.log(error)
         this.$router.push({ path: '/' })
       })
     },

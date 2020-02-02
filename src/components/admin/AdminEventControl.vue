@@ -4,66 +4,15 @@
     <div class="container page">
       <h1 class="g-caption-inner">Управление мероприятиями</h1>
       <div class="event" v-if="myParentEvents">
-        <div class="event-create">
+        <div class="event-create" v-if="!relationEditors">
           <button-add @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
         </div>
         <router-link class="event__item" v-for="(event, index) in myParentEvents" :key="index" :to="`/admin/event-editing/${event.id}`">
           <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
-            <!--<a href="#" class="img-link img-link&#45;&#45;add">-->
-              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
-              <!--<span class="img-link__text">Загрузить фото</span>-->
-            <!--</a>-->
-            <!--<a href="#" class="img-link img-link&#45;&#45;change">-->
-              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
-              <!--<span class="img-link__text">Сменить фото</span>-->
-            <!--</a>-->
           </div>
           <p class="g-caption-element">{{event.title}}</p>
-<!--          <div class="event__ticket-sold">-->
-<!--            <div class="event__ticket-sold-wrapper">-->
-<!--              <span class="event__ticket-sold-text">Продано билетов:</span>-->
-<!--              <span class="event__ticket-sold-number">{{event.ticket}}</span>-->
-<!--            </div>-->
-<!--            <div class="control">-->
-<!--              <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
-<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
         </router-link>
       </div>
-      <!--<h2 class="g-caption-section">Прошедшие мероприятия</h2>-->
-      <!--<div class="event" >-->
-        <!--<div class="event__item event__item&#45;&#45;past" v-for="(event, index) in eventArr" :key="index" >-->
-          <!--<div class="event__img" :style="background(event.img)">-->
-            <!--<a href="#" class="img-link img-link&#45;&#45;add" v-if="!event.img">-->
-              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
-              <!--<span class="img-link__text">Загрузить фото</span>-->
-            <!--</a>-->
-            <!--<a href="#" class="img-link img-link&#45;&#45;change" v-if="event.img">-->
-              <!--<img svg-inline class="img-link__icon" src="../../assets/img/icon/camera.svg" alt="">-->
-              <!--<span class="img-link__text">Сменить фото</span>-->
-            <!--</a>-->
-          <!--</div>-->
-          <!--<a href="#" class="event__title">{{event.name}}</a>-->
-          <!--<div class="event__ticket-sold">-->
-<!--            <div class="control">-->
-<!--              <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-event-edit')">-->
-<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">-->
-<!--              </button>-->
-<!--              <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-red" v-tooltip.bottom="'Удалить'">-->
-<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/basket.svg" alt="">-->
-<!--              </button>-->
-<!--            </div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<a href="#" class="g-btn g-btn&#45;&#45;icon-left g-btn&#45;&#45;event-pasts">-->
-        <!--<span>-->
-          <!--<img svg-inline class="svg-icon" src="../../assets/img/icon/eye.svg" alt="">-->
-          <!--Смотреть все-->
-        <!--</span>-->
-      <!--</a>-->
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -72,7 +21,7 @@
 <script>
 import API from '../../api/index'
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import ButtonAdd from '../ui/ButtonAdd'
 
 export default {
@@ -83,7 +32,7 @@ export default {
       resposneEvent: [],
       breadCrumbs: [
         {
-          path: 'me',
+          path: 'menu',
           title: 'Личный кабинет'
         }
       ]
@@ -95,17 +44,16 @@ export default {
       return image
     },
     background(img) {
-      if (img !== undefined) {
-        return { backgroundImage: `url(${this.getImgUrl(img)}` }
-      } else {
-        return { backgroundImage: 'none' }
-      }
+      !!img ? { backgroundImage: `url(${this.getImgUrl(img)}` } : { backgroundImage: 'none' }
     },
   },
   computed: {
     ...mapState('user', [
       'myParentEvents'
-    ])
+    ]),
+    ...mapGetters('user', [
+      'relationEditors'
+    ]),
   },
   mounted() {
     if(this.myParentEvents.length === 0) {
