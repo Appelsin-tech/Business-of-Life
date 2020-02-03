@@ -1,3 +1,4 @@
+const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const isProd = () => process.env.NODE_ENV === 'production'
 const splitChunks = {
@@ -13,11 +14,14 @@ module.exports = {
     plugins: [
       new BundleAnalyzerPlugin({
         openAnalyzer: false,
-        analyzerMode: "disabled",
+        analyzerMode: 'disabled'
       })
     ]
   },
   chainWebpack: config => {
+    config.resolve.alias
+      .set('@admin', path.resolve(__dirname, 'src/components/admin'))
+
     config.optimization
       .splitChunks(splitChunks)
 

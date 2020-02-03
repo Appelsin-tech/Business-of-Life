@@ -1,4 +1,7 @@
 import store from '../store'
+import adminEvent from './admin/admin-event'
+import adminNews from './admin/admin-news'
+import adminCourse from './admin/admin-course'
 
 export default [
   {
@@ -11,43 +14,13 @@ export default [
     },
     component: () => import('@/views/TheAdmin'),
     children: [
+      ...adminEvent,
+      ...adminNews,
+      ...adminCourse,
       {
         path: 'menu',
         name: 'menu',
         component: () => import('@/components/admin/AdminMenu'),
-      },
-      {
-        path: 'event-create',
-        name: 'event-create',
-        beforeEnter: checkRole,
-        component: () => import('@/components/admin/AdminEventRelationEditing'),
-      },
-      {
-        path: 'event-control',
-        name: 'event-control',
-        beforeEnter: checkEditors,
-        component: () => import('@/components/admin/AdminEventControl')
-      },
-      {
-        path: 'event-editing/:id',
-        name: 'event-editing',
-        props: true,
-        beforeEnter: checkEditors,
-        component: () => import('@/components/admin/AdminEventRelationEditing'),
-      },
-      {
-        path: 'relation/:event',
-        name: 'relation-create',
-        props: true,
-        beforeEnter: checkRole,
-        component: () => import('@/components/admin/AdminRelationEditing'),
-      },
-      {
-        path: 'relation/:event/:id',
-        name: 'relation-editing',
-        props: true,
-        beforeEnter: checkEditors,
-        component: () => import('@/components/admin/AdminRelationEditing'),
       },
       {
         path: 'statistic',
@@ -75,25 +48,6 @@ export default [
         path: 'partners-program',
         name: 'partners-program',
         component: () => import('@/components/admin/AdminPartnersProgram')
-      },
-      {
-        path: 'news-control',
-        name: 'news-control',
-        beforeEnter: checkRole,
-        component: () => import('@/components/admin/AdminNewsControl')
-      },
-      {
-        path: 'news-create',
-        name: 'news-create',
-        beforeEnter: checkRole,
-        component: () => import('@/components/admin/AdminNewsEditing')
-      },
-      {
-        path: 'news-editing/:id',
-        name: 'news-editing',
-        props: true,
-        beforeEnter: checkRole,
-        component: () => import('@/components/admin/AdminNewsEditing')
       },
     ]
   },

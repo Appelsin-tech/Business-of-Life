@@ -22,30 +22,30 @@
             <admin-event-relation-editing-relation  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation" :pastEvents="true"/>
 <!--            <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">-->
 <!--              <div class="g-icon-circle waiting" v-tooltip.left="'Прошедшее событие'">-->
-<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/time-my.svg" alt="">-->
+<!--                <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">-->
 <!--              </div>-->
 <!--              <div class="event__info-wrapper">-->
 <!--                <div class="event__info">-->
 <!--                  <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>-->
 <!--                  <p class="event__info-item location">-->
-<!--                    <img svg-inline class="icon" src="../../assets/img/icon/location.svg" alt="">-->
+<!--                    <img svg-inline class="icon" src="@/assets/img/icon/location.svg" alt="">-->
 <!--                    <span class="text">{{relation.country}} {{relation.city}}</span>-->
 <!--                  </p>-->
 <!--                  <p class="event__info-item date">-->
-<!--                    <img svg-inline class="icon" src="../../assets/img/icon/timetable.svg" alt="">-->
+<!--                    <img svg-inline class="icon" src="@/assets/img/icon/timetable.svg" alt="">-->
 <!--                    <span class="text">{{relation.date}}</span>-->
 <!--                  </p>-->
 <!--                  <p class="event__info-item link">-->
-<!--                    <img svg-inline class="icon" src="../../assets/img/icon/earth-globe.svg" alt="">-->
+<!--                    <img svg-inline class="icon" src="@/assets/img/icon/earth-globe.svg" alt="">-->
 <!--                    <span class="text">https://businessof.life/event/{{relation.id}}</span>-->
 <!--                  </p>-->
 <!--                </div>-->
 <!--                <div class="g-control-icon">-->
 <!--                  <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">-->
-<!--                    <img svg-inline class="svg-icon" src="../../assets/img/icon/pencil.svg" alt="">-->
+<!--                    <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">-->
 <!--                  </button>-->
 <!--                  <button class="g-icon-circle  g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-red" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">-->
-<!--                    <img svg-inline class="svg-icon" src="../../assets/img/icon/basket.svg" alt="">-->
+<!--                    <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">-->
 <!--                  </button>-->
 <!--                </div>-->
 <!--              </div>-->
@@ -63,17 +63,18 @@
 </template>
 
 <script>
-import API from '../../api/index'
-import BreadCrumbs from '../BreadCrumbs.vue'
+import API from '@/api/index'
+import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
-import EventEditingForm from './components/EventEditingForm'
-import PanelInfo from '../ui/PanelInfo'
-import ButtonAdd from '../ui/ButtonAdd'
-import AdminEventRelationEditingRelation from './components/AdminEventRelationEditingRelation'
+import EventEditingForm from '@admin/event/EventEditingForm'
+import PanelInfo from '@/components/ui/PanelInfo'
+import ButtonAdd from '@/components/ui/ButtonAdd'
+import AdminEventRelationEditingRelation from '@admin/event/AdminEventRelationEditingRelation'
 
 
 export default {
   name: 'AdminEventRelationEditing',
+  props: ['id'],
   components: {
     BreadCrumbs,
     EventEditingForm,
@@ -81,7 +82,6 @@ export default {
     ButtonAdd,
     AdminEventRelationEditingRelation
   },
-  props: ['id'],
   data() {
     return {
       breadCrumbs: [
@@ -92,14 +92,12 @@ export default {
         {
           path: '/admin/event-control',
           title: 'Управление мероприятиями'
-        },
+        }
       ],
       myEvent: false,
       myFutureEvents: [],
       myPastEvents: [],
-      ev1: '',
-      ev2: '',
-      showRelations: 2,
+      showRelations: 2
     }
   },
   computed: {
@@ -198,7 +196,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
   .btn-wrapper {
     display: flex;
     justify-content: flex-start;

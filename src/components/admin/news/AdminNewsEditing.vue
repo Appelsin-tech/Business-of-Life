@@ -89,8 +89,8 @@
 </template>
 
 <script>
-import BreadCrumbs from '@/components//BreadCrumbs.vue'
-import DownloadPhoto from './components/DownloadPhoto'
+import BreadCrumbs from '@/components/BreadCrumbs.vue'
+import DownloadPhoto from '@/components/admin/common/DownloadPhoto'
 
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
@@ -152,7 +152,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/_importants';
+  @import '~@/assets/less/_importants';
   .edit-grid {
     display: grid;
     grid-template-columns: minmax(0, 375px) 1fr;

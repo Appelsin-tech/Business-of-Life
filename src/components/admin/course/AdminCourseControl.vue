@@ -1,17 +1,32 @@
 <template>
-  <section class="p-control-event p-default p-default-inner">
+  <section class="p-control-course p-default p-default-inner">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
-      <h1 class="g-caption-inner">Управление мероприятиями</h1>
-      <div class="event" v-if="myParentEvents">
-        <div class="event-create" v-if="!relationEditors">
-          <button-add @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+      <h1 class="g-caption-inner">Редактор курсов</h1>
+      <div class="course" v-if="myParentEvents">
+        <div class="course-create">
+          <button-add @click.prevent.native="$router.push({path: '/admin/course-create'})"/>
         </div>
-        <router-link class="event__item" v-for="(event, index) in myParentEvents" :key="index" :to="`/admin/event-editing/${event.id}`">
-          <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
+        <div class="course__item" v-for="(event, index) in myParentEvents" :key="index" >
+          <router-link class="content-wrapper" :to="`/admin/course-editing/${event.id}`">
+            <div class="course__img" :style="{backgroundImage: `url(${event.img})`}">
+            </div>
+            <p class="g-caption-element">{{event.title}}</p>
+          </router-link>
+          <div class="icon-wrapper">
+            <div class="g-icon-circle created" v-tooltip.bottom="'Курс не опубликован'">
+              <img svg-inline src="@/assets/img/icon/close.svg" class="svg-icon" alt="">
+            </div>
+            <div class="g-control-icon static">
+              <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать курс'" @click="$router.push({path: `/admin/course-editing/123`})">
+                <img svg-inline src="@/assets/img/icon/pencil.svg" class="svg-icon" alt="">
+              </button>
+              <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить курс'">
+                <img svg-inline src="@/assets/img/icon/basket.svg" class="svg-icon" alt="">
+              </button>
+            </div>
           </div>
-          <p class="g-caption-element">{{event.title}}</p>
-        </router-link>
+        </div>
       </div>
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
@@ -19,13 +34,12 @@
 </template>
 
 <script>
-import API from '../../api/index'
-import BreadCrumbs from '../BreadCrumbs.vue'
+import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
-import ButtonAdd from '../ui/ButtonAdd'
+import ButtonAdd from '@/components/ui/ButtonAdd'
 
 export default {
-  name: 'AdminEventControl',
+  name: 'AdminCourseControl',
   components: { BreadCrumbs, ButtonAdd },
   data() {
     return {
@@ -40,7 +54,7 @@ export default {
   },
   methods: {
     getImgUrl(src) {
-      const image = require(`../../assets/img/${src}.png`)
+      const image = require(`@/assets/img/${src}.png`)
       return image
     },
     background(img) {
@@ -51,12 +65,9 @@ export default {
     ...mapState('user', [
       'myParentEvents'
     ]),
-    ...mapGetters('user', [
-      'relationEditors'
-    ]),
   },
   mounted() {
-    if(this.myParentEvents.length === 0) {
+    if (this.myParentEvents.length === 0) {
       this.$store.dispatch('user/getMyParentEvents')
     }
   }
@@ -64,9 +75,9 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../assets/less/_importants";
-  .p-control-event {
-    .event-create {
+  @import "~@/assets/less/_importants";
+  .p-control-course {
+    .course-create {
       .col();
       .size(3);
       .size-xl(4);
@@ -85,9 +96,11 @@ export default {
         min-height: min-content;
       });
     }
-    .event {
+    .course {
       .row-flex();
-      .lg-block({ justify-content: center;});
+      .lg-block({
+        justify-content: center;
+      });
       &__item {
         .col();
         .size(3);
@@ -100,13 +113,26 @@ export default {
         .default-panel-style(40px);
         .sm-block({
           margin-bottom: 15px;
-          flex-direction: row;
-          align-items: center;
         });
-        &:hover {
-          .g-caption-element {
-            text-decoration: none;
+        .content-wrapper {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 20px;
+          .sm-block({
+            margin-bottom: 15px;
+            flex-direction: row;
+            align-items: center;
+          });
+          &:hover {
+            .g-caption-element {
+              text-decoration: none;
+            }
           }
+        }
+        .icon-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
         &--past {
           box-shadow: none;
@@ -124,7 +150,9 @@ export default {
         background-repeat: no-repeat;
         transition: 0.3s;
         background-color: @colorBorder;
-        .to(1430px, { width: auto;});
+        .to(1430px, {
+          width: auto;
+        });
         .lg-block({
           height: 220px;
           margin-bottom: 30px;
@@ -183,7 +211,7 @@ export default {
           }
           &--change {
             opacity: 0;
-            background: rgba(226,58,58,0.8);
+            background: rgba(226, 58, 58, 0.8);
             .img-link__icon {
               path {
                 fill: #fff;
@@ -215,7 +243,9 @@ export default {
         text-transform: uppercase;
         text-decoration: underline;
         color: #000;
-        .md-block({font-size: 1.6rem;});
+        .md-block({
+          font-size: 1.6rem;
+        });
         &:hover {
           text-decoration: none;
         }
@@ -238,7 +268,9 @@ export default {
     }
     .past-events {
       .row-flex();
-      .lg-block({ justify-content: center;});
+      .lg-block({
+        justify-content: center;
+      });
     }
     .g-btn--event-pasts {
       width: 100%;

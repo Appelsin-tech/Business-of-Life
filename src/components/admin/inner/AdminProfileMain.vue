@@ -62,7 +62,7 @@
 <script>
 import API from '../../../api'
 import {mapState} from 'vuex'
-import DownloadPhoto from '../components/DownloadPhoto'
+import DownloadPhoto from '../common/DownloadPhoto'
 
 export default {
   name: 'AdminProfileMain',

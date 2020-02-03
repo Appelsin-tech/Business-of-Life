@@ -49,13 +49,12 @@
 </template>
 
 <script>
-
 import { maxLength, required } from 'vuelidate/lib/validators'
-import API from '../../../api'
+import API from '@/api'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
-import textareaResize from '../../textareaResize'
+import textareaResize from '@/components/textareaResize'
 
 export default {
   name: 'EventEditingForm',
@@ -160,7 +159,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
 
   .edit-grid {
     display: flex;

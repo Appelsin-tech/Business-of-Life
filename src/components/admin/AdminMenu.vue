@@ -15,7 +15,7 @@
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapGetters } from 'vuex'
-import PannelAdminMenu from './components/PannelAdminMenu'
+import PannelAdminMenu from './common/PannelAdminMenu'
 
 export default {
   name: 'AdminMenu',
@@ -88,6 +88,12 @@ export default {
           to: '/admin/news-control',
           title: 'Редактор новостей',
           name: 'news-control',
+          status: 3
+        },
+        {
+          to: '/admin/course-control',
+          title: 'Редактор курсов',
+          name: 'course-control',
           status: 3
         },
       ]

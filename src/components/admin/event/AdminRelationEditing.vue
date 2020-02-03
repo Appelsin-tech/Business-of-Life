@@ -17,20 +17,6 @@
               <template v-if="!$v.form.title.minLength">Минимальное количество символов - 5</template>
             </div>
           </div>
-          <!--<div class="edit-grid__item item item&#45;&#45;col-4 photo">-->
-          <!--<span class="item__label">Фото</span>-->
-          <!--<div class="photo__wrapper">-->
-          <!--<input type="file" class="visually-hidden" id="form__file">-->
-          <!--<label class="photo__link photo__link&#45;&#45;add" for="form__file">-->
-          <!--<img svg-inline class="photo__icon" src="../../assets/img/icon/camera.svg" alt="">-->
-          <!--<span class="photo__text">Загрузить фото</span>-->
-          <!--</label>-->
-          <!--</div>-->
-          <!--<div class="input-valid-error" v-if="false">-->
-          <!--<template v-if="false">Поле не может быть пустым</template>-->
-          <!--<template v-else-if="false">Название не должно быть меньше 10 символов</template>-->
-          <!--</div>-->
-          <!--</div>-->
           <div class="g-item-form">
             <label class="g-item-form__label">Страна</label>
             <input class="g-item-form__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
@@ -125,11 +111,11 @@
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
-import ButtonAdd from '../ui/ButtonAdd'
-import Ticket from '../Ticket'
+import BreadCrumbs from '@/components/BreadCrumbs.vue'
+import ButtonAdd from '@/components/ui/ButtonAdd'
+import Ticket from '@/components/Ticket'
 import Action from '@/components/Action'
-import AdminRelationEditingAccess from './components/AdminRelationEditingAccess'
+import AdminRelationEditingAccess from '@admin/event/AdminRelationEditingAccess'
 import API from '@/api/index'
 import PanelInfo from '@/components/ui/PanelInfo'
 import { mapState, mapGetters } from 'vuex'
@@ -369,7 +355,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
   @import '~flatpickr/dist/flatpickr.css';
   .edit-form {
     margin-bottom: 50px;
@@ -415,97 +401,6 @@ export default {
       margin-bottom: 18px;
       grid-template-columns: 1fr;
     });
-    .photo {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      height: 350px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: 0.3s;
-      .lg-block({
-        height: 320px;
-      });
-      .md-block({
-        height: 300px;
-      });
-      .xs-block({
-        height: 200px;
-        margin-bottom: 0;
-      });
-      &:hover {
-        .photo-link--change {
-          opacity: 1;
-        }
-        .photo__link--add {
-          border-color: #000;
-          .photo__icon {
-            path {
-              fill: #000;
-            }
-          }
-          .photo__text {
-            color: #000;
-          }
-        }
-      }
-      &__wrapper {
-        position: relative;
-        flex-grow: 2;
-      }
-      &__link {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s;
-        cursor: pointer;
-        &--add {
-          z-index: 1;
-          border: 1px solid #d7d7d7;
-          .photo__icon {
-            path {
-              fill: #d7d7d7;
-            }
-          }
-          .photo__text {
-            color: #d7d7d7;
-          }
-        }
-        &--change {
-          opacity: 0;
-          background: rgba(226, 58, 58, 0.8);
-          .photo__icon {
-            path {
-              fill: #fff;
-            }
-          }
-          .photo__text {
-            color: #fff;
-          }
-        }
-      }
-      &__icon {
-        margin-bottom: 15px;
-        width: 50px;
-        height: 50px;
-        path {
-          transition: 0.3s;
-        }
-      }
-      &__text {
-        font-size: 1.6rem;
-        font-weight: 400;
-        text-decoration: underline;
-        transition: 0.3s;
-      }
-    }
     .g-item-form--col-12 {
       grid-column: ~"1 / 3";
       .ss-block({

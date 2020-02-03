@@ -11,10 +11,9 @@
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs'
-import ButtonAdd from '../ui/ButtonAdd'
-import NewsItem from '../NewsItem'
-
+import BreadCrumbs from '@/components/BreadCrumbs'
+import ButtonAdd from '@/components/ui/ButtonAdd'
+import NewsItem from '@/components/NewsItem'
 
 export default {
   name: 'AdminNewsControl',
@@ -66,5 +65,5 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
 </style>
