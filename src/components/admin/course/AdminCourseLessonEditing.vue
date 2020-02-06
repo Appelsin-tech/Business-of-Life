@@ -13,26 +13,12 @@
       <div class="lesson-list">
         <h2 class="g-caption-section">Редактирование уроков</h2>
         <div class="lesson-wrapper ">
-          <div class="item item-btn">
-            <span class="counter-lesson">{{lessonArr.length + 1}}</span>
-            <button-add class="row"></button-add>
+          <div class="item item-btn" :class="counterLesson === 1 ? '' : 'line'">
+            <span class="counter-lesson">{{counterLesson}}</span>
+            <button-add class="row" @click.native.prevent="$router.push(`/admin/lesson/${id}`)"></button-add>
           </div>
-          <div class="item" v-for="(item, index) in lessonArr" :key="item.id">
-            <span class="counter-lesson">{{lessonArr.length - index}}</span>
-            <div class="item-lesson">
-              <a href="#" class="g-caption-element">{{item.title}}</a>
-              <div class="g-control-icon static">
-                <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать урок'" @click="$router.push({path: `/admin/lesson/123/123`})">
-                  <img svg-inline src="@/assets/img/icon/pencil.svg" class="svg-icon">
-                </button>
-                <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Редактировать урок'">
-                  <img svg-inline src="@/assets/img/icon/info.svg" class="svg-icon">
-                </button>
-                <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить урок'">
-                  <img svg-inline src="@/assets/img/icon/basket.svg" class="svg-icon">
-                </button>
-              </div>
-            </div>
+          <div v-if="counterLesson !== 1">
+            <admin-course-lesson-editing-lesson  v-for="(lesson, index) in reverseLesson" :key="lesson.id" :course="id" :lesson="lesson" :counter="counterLesson - index - 1" v-on:delete-lesson="getInfoCourse"/>
           </div>
         </div>
         <router-link to="/admin/course-control" class="back-btn">Назад</router-link>
@@ -48,6 +34,8 @@ import { mapState, mapGetters } from 'vuex'
 import CourseEditingForm from '@admin/course/CourseEditingForm'
 import PanelInfo from '@/components/ui/PanelInfo'
 import ButtonAdd from '@/components/ui/ButtonAdd'
+import AdminCourseLessonEditingLesson from '@admin/course/AdminCourseLessonEditingLesson'
+
 export default {
   name: 'AdminCourseLessonEditing',
   props: ['id'],
@@ -56,6 +44,7 @@ export default {
     CourseEditingForm,
     PanelInfo,
     ButtonAdd,
+    AdminCourseLessonEditingLesson
   },
   data() {
     return {
@@ -69,27 +58,38 @@ export default {
           title: 'Редактирование курсов'
         }
       ],
-      myCourse: false,
+      myCourse: null,
       showButtonDelete: true,
-      counterLesson: 1,
-      lessonArr: [
-        {
-          id: 0,
-          title: 'Техника построения бизнеса'
-        },
-        {
-          id: 1,
-          title: 'Техника построения '
-        },
-        {
-          id: 2,
-          title: 'Техника построения бизнеса Техника построения бизнеса'
-        },
-        {
-          id: 3,
-          title: 'Техника построения бизнеса'
+    }
+  },
+  computed: {
+    counterLesson () {
+      if(this.myCourse !== null) {
+        if(this.myCourse.lessons.length > 0) {
+          return this.myCourse.lessons.length + 1
+        } else {
+          return 1
         }
-      ]
+      } else {
+        return 1
+      }
+    },
+    reverseLesson() {
+      if (this.myCourse !== null) {
+        return this.myCourse.lessons.reverse()
+      }
+    }
+  },
+  methods: {
+    getInfoCourse() {
+      API.courses.courses.details({id: this.id}).then(response => {
+        this.myCourse = response
+      }).catch(e => console.log(e))
+    }
+  },
+  mounted() {
+    if (this.id) {
+      this.getInfoCourse()
     }
   },
 }
@@ -102,7 +102,7 @@ export default {
   }
   .lesson-list {
     .lesson-wrapper {
-      .item {
+      .item-btn {
         position: relative;
         padding-left: 100px;
         .sm-block({padding-left: 80px;});
@@ -136,45 +136,24 @@ export default {
             transform: translate(0, -50%);
           });
         }
-        &:first-child {
+        &.line {
           &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 50px;
             top: 50%;
+            bottom: -20px;
+            width: 1px;
+            background: #000;
+            .sm-block({
+              bottom: -15px;
+              left: 40px;});
+            .ss-block({
+              left: 15px;});
           }
         }
-        &:last-child {
-          &::before {
-            bottom: 50%;
-          }
-        }
-        &::before {
-          content: '';
-          position: absolute;
-          left: 50px;
-          top: 0px;
-          bottom: -20px;
-          width: 1px;
-          background: @colorBorder;
-          .sm-block({
-            bottom: -15px;
-            left: 40px;});
-          .ss-block({
-            left: 15px;});
-        }
-      }
-      .item-lesson {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        .default-panel-style();
-        .sm-block({flex-direction: column; align-items: flex-start;
-          margin-bottom: 15px;});
-        .g-caption-element {
-          margin-right: 20px;
-          .sm-block({
-            margin-bottom: 15px;
-            margin-right: 0;})
-        }
+
       }
     }
   }

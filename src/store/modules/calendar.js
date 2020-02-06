@@ -1,4 +1,4 @@
-import API from '../../api/index'
+import API from '@/api/index'
 import Vue from 'vue'
 
 const moment = require('moment')

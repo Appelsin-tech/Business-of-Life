@@ -116,7 +116,7 @@ export default {
       } else {
         API.events.create(this.form).then(response => {
           API.response.success('Мероприятие создано')
-          this.$store.dispatch('user/getMyParentEvents').then(() => {
+          this.$store.dispatch('event/getMyEvents').then(() => {
             this.$router.push({ path: `/admin/event-editing/${response.data.id}` })
           })
         }).catch(error => {
@@ -127,7 +127,7 @@ export default {
     deleteEvent(id) {
       API.events.delete({ id: id }).then(() => {
         API.response.success('Мероприятие удалено')
-        this.$store.dispatch('user/getMyParentEvents')
+        this.$store.dispatch('event/getMyEvents')
         this.$router.push({ path: '/admin/event-control' })
       })
     }

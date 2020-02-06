@@ -1,0 +1,253 @@
+<template>
+  <div class="item-wrapper" >
+    <button-add class="btn-add" @click.prevent.native="$router.push({path: '/admin/course-create'})"/>
+    <div class="course__item" v-for="(course, index) in coursesMy" :key="index" >
+      <router-link class="content-wrapper" :to="`/knowledge/${course.id}/1`">
+        <div class="course__img" :style="{backgroundImage: `url(${course.img})`}">
+        </div>
+        <p class="g-caption-element">{{course.title}}</p>
+      </router-link>
+      <div class="icon-wrapper">
+        <template v-if="status[course.status].class === 'waiting'">
+          <div class="g-icon-circle" :class="status[course.status].class" v-tooltip.bottom="status[course.status].tooltip">
+            <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
+          </div>
+        </template>
+        <template v-else>
+          <div class="g-icon-circle" :class="status[course.status].class" v-tooltip.bottom="status[course.status].tooltip">
+            <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+          </div>
+        </template>
+        <div class="g-control-icon static">
+          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать курс'" @click="$router.push({path: `/admin/course-editing/${course.id}`})">
+            <img svg-inline src="@/assets/img/icon/pencil.svg" class="svg-icon" alt="">
+          </button>
+          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить курс'" @click="deleteCourse(course.id)">
+            <img svg-inline src="@/assets/img/icon/basket.svg" class="svg-icon" alt="">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import API from '@/api/index'
+import { mapState } from 'vuex'
+import ButtonAdd from '@/components/ui/ButtonAdd'
+export default {
+  name: 'AdminCourseControlPanel',
+  components: { ButtonAdd },
+  data() {
+    return {
+      status: {
+        0: {
+          class: 'created',
+          tooltip: 'Курс не опубликован'
+        },
+        1: {
+          class: 'waiting',
+          tooltip: 'Отправлено на модерацию'
+        },
+        2: {
+          class: 'waiting',
+          tooltip: 'Принято на модерацию'
+        },
+        3: {
+          class: 'public',
+          tooltip: 'Курс опубликован'
+        },
+      }
+    }
+  },
+  computed: {
+    ...mapState('courses', [
+      'coursesMy'
+    ]),
+  },
+  methods: {
+    getImgUrl(src) {
+      const image = require(`@/assets/img/${src}.png`)
+      return image
+    },
+    background(img) {
+      !!img ? { backgroundImage: `url(${this.getImgUrl(img)}` } : { backgroundImage: 'none' }
+    },
+    deleteCourse(id) {
+      API.courses.courses.delete({ id: id }).then(() => {
+        API.response.success('Курс удален')
+        this.$store.dispatch('courses/getMyCourses')
+      })
+    }
+  }
+}
+</script>
+
+<style scoped lang="less">
+  @import "~@/assets/less/_importants";
+  .item-wrapper {
+    .row-flex();
+    .lg-block({
+      justify-content: center;
+    });
+  }
+  .btn-add {
+    .col();
+    .size(3);
+    .size-xl(4);
+    .size-sm(10);
+    .size-xs(12);
+    margin-bottom: 20px;
+    min-height: 350px;
+    height: auto;
+    .md-block({
+      min-height: 300px;
+    });
+    .sm-block({
+      min-height: 110px;
+      margin-bottom: 15px;
+    });
+    .ss-block({
+      min-height: min-content;
+    });
+  }
+  .course {
+    &__item {
+      .col();
+      .size(3);
+      .size-xl(4);
+      .size-sm(10);
+      .size-xs(12);
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      .default-panel-style(40px);
+      .sm-block({
+        margin-bottom: 15px;
+      });
+      .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 25px;
+        .sm-block({
+          margin-bottom: 20px;
+          flex-direction: row;
+          align-items: center;
+        });
+        &:hover {
+          .g-caption-element {
+            text-decoration: none;
+          }
+        }
+      }
+      .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+      }
+      &--past {
+        box-shadow: none;
+        background: none;
+        border-radius: 0;
+      }
+    }
+    &__img {
+      position: relative;
+      margin-bottom: 40px;
+      height: 240px;
+      width: 240px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: 0.3s;
+      background-color: @colorBorder;
+      .to(1430px, {
+        width: auto;
+      });
+      .lg-block({
+        height: 220px;
+        margin-bottom: 30px;
+      });
+      .md-block({
+        height: 210px;
+      });
+      .sm-block({
+        width: 70px;
+        height: 70px;
+        margin-bottom: 0;
+        margin-right: 20px;
+        flex-shrink: 0
+      });
+      .xs-block({
+        width: 40px;
+        height: 40px;
+      });
+      &:hover {
+        .img-link--change {
+          opacity: 1;
+        }
+        .img-link--add {
+          .img-link__icon {
+            path {
+              fill: #000;
+            }
+          }
+          .img-link__text {
+            color: #000;
+          }
+        }
+      }
+      .img-link {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        &--add {
+          z-index: 1;
+          background-color: @colorBgGray;
+          .img-link__icon {
+            path {
+              fill: #d7d7d7;
+            }
+          }
+          .img-link__text {
+            color: #d7d7d7;
+          }
+        }
+        &--change {
+          opacity: 0;
+          background: rgba(226, 58, 58, 0.8);
+          .img-link__icon {
+            path {
+              fill: #fff;
+            }
+          }
+          .img-link__text {
+            color: #fff;
+          }
+        }
+        &__icon {
+          margin-bottom: 15px;
+          width: 50px;
+          height: 50px;
+          path {
+            transition: 0.3s;
+          }
+        }
+        &__text {
+          font-size: 1.6rem;
+          font-weight: 400;
+          text-decoration: underline;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+</style>

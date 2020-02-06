@@ -5,7 +5,7 @@ export default [
     path: '/knowledge',
     name: 'knowledge',
     redirect: '/knowledge/menu',
-    beforeEnter: requireAuth,
+    beforeEnter: requireAccess,
     meta: {
       auth: true
     },
@@ -17,8 +17,18 @@ export default [
         component: () => import('@/components/knowledge/KnowledgeMenu')
       },
       {
-        path: ':url/:id',
+        path: ':url/',
         name: 'knowledge-course',
+        props: true,
+        meta: {
+          auth: true
+        },
+        component: () => import('@/components/knowledge/KnowledgeCourse')
+      },
+      {
+        path: ':url/:id',
+        name: 'knowledge-lesson',
+        props: true,
         meta: {
           auth: true
         },
@@ -33,6 +43,20 @@ async function requireAuth(to, from, next) {
 
   if (!store.getters['user/statusDev']) {
     next('auth')
+  } else {
+    next()
+  }
+}
+
+async function requireAccess(to, from, next) {
+  await store.dispatch('user/login')
+
+  if (!store.getters['user/statusDev']) {
+    if (!store.getters['user/access']) {
+      next('auth')
+    } else {
+      next()
+    }
   } else {
     next()
   }

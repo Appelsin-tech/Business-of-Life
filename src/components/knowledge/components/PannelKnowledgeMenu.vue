@@ -1,14 +1,14 @@
 <template>
-  <router-link :to="item.to" class="menu-item">
-    <div class="menu-item__img" :class="item.name"></div>
+  <router-link :to="item.url" class="menu-item">
+    <div class="menu-item__img" :style="{backgroundImage: `url(${item.img})`}"></div>
     <h3 class="g-caption-element">{{item.title}}</h3>
     <p class="lesson">
       <img class="svg-icon" svg-inline src="@/assets/img/icon/book.svg" alt="">
       <span>уроков:</span>
-      {{item.lesson}}
+      {{item.lessons}}
     </p>
     <p class="description">
-      Основные навыки построения бизнеса - звонки, закрытые сделки, спонсорство, имидж, полезные техники и многое другое
+      {{item.snippet}}
     </p>
     <div class="author">
       <div class="g-icon-circle">
@@ -34,6 +34,7 @@ export default {
     flex-direction: column;
     transition: 0.3s;
     color: #000;
+    flex-grow: 1;
     &:hover {
       .g-caption-element {
         text-decoration: none;
@@ -70,36 +71,6 @@ export default {
         margin-bottom: 15px;
       });
       /*.xs-block({ height: 250px; margin-bottom: 20px; });*/
-      &.event-control {
-        background-image: url('~@/assets/img/admin/admin-menu-events.jpg');
-      }
-      &.tickets-page {
-        background-image: url('~@/assets/img/admin/admin-menu-tickets.jpg');
-      }
-      &.statistic {
-        background-image: url('~@/assets/img/admin/admin-menu-statistic.jpg');
-      }
-      &.role {
-        background-image: url('~@/assets/img/admin/admin-menu-role.jpg');
-      }
-      &.knowledge-package {
-        background-image: url('~@/assets/img/admin/admin-menu-knowledge.jpg');
-      }
-      &.profile {
-        background-image: url('~@/assets/img/admin/admin-menu-profile.jpg');
-      }
-      &.wallet {
-        background-image: url('~@/assets/img/admin/admin-menu-wallet.jpg');
-      }
-      &.partners-program {
-        background-image: url('~@/assets/img/admin/admin-menu-partners.jpg');
-      }
-      &.news {
-        background-image: url('~@/assets/img/admin/admin-menu-news.jpg');
-      }
-      &.news-control {
-        background-image: url('~@/assets/img/admin/admin-menu-news-editing.jpg');
-      }
       .img-link {
         position: absolute;
         left: 0;
@@ -142,6 +113,7 @@ export default {
     .author {
       display: flex;
       align-items: center;
+      margin-top: auto;
       .g-icon-circle {
         .xs-block({
           font-size: 1.2rem;});

@@ -1,5 +1,4 @@
 import API from '../../api/index'
-import Axios from 'axios'
 import Vue from 'vue'
 
 const moment = require('moment')

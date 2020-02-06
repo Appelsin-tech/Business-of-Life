@@ -3,15 +3,18 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Управление мероприятиями</h1>
-      <div class="event" v-if="myParentEvents">
-        <div class="event-create" v-if="!relationEditors">
-          <button-add @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+      <div class="event" >
+        <div class="event-create" v-if="!eventsMy">
+          <button-add class="btn-add" @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
         </div>
-        <router-link class="event__item" v-for="(event, index) in myParentEvents" :key="index" :to="`/admin/event-editing/${event.id}`">
-          <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
-          </div>
-          <p class="g-caption-element">{{event.title}}</p>
-        </router-link>
+        <div class="item-wrapper" v-else>
+          <button-add class="btn-add" v-if="!relationEditors" @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+          <router-link class="event__item" v-for="(event, index) in eventsMy" :key="index" :to="`/admin/event-editing/${event.id}`">
+            <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
+            </div>
+            <p class="g-caption-element">{{event.title}}</p>
+          </router-link>
+        </div>
       </div>
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
@@ -47,16 +50,16 @@ export default {
     },
   },
   computed: {
-    ...mapState('user', [
-      'myParentEvents'
+    ...mapState('event', [
+      'eventsMy'
     ]),
     ...mapGetters('user', [
       'relationEditors'
     ]),
   },
   mounted() {
-    if(this.myParentEvents.length === 0) {
-      this.$store.dispatch('user/getMyParentEvents')
+    if(this.eventsMy.length === 0) {
+      this.$store.dispatch('event/getMyEvents')
     }
   }
 }
@@ -65,28 +68,35 @@ export default {
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
   .p-control-event {
-    .event-create {
-      .col();
-      .size(3);
-      .size-xl(4);
-      .size-sm(10);
-      .size-xs(12);
-      margin-bottom: 20px;
-      min-height: 350px;
-      .md-block({
-        min-height: 300px;
-      });
-      .sm-block({
-        min-height: 110px;
-        margin-bottom: 15px;
-      });
-      .ss-block({
-        min-height: min-content;
-      });
-    }
+
     .event {
-      .row-flex();
-      .lg-block({ justify-content: center;});
+      .event-create {
+        .row-flex();
+        .lg-block({ justify-content: center;});
+      }
+      .btn-add {
+        .col();
+        .size(3);
+        .size-xl(4);
+        .size-sm(10);
+        .size-xs(12);
+        margin-bottom: 20px;
+        min-height: 350px;
+        .md-block({
+          min-height: 300px;
+        });
+        .sm-block({
+          min-height: 110px;
+          margin-bottom: 15px;
+        });
+        .ss-block({
+          min-height: min-content;
+        });
+      }
+      .item-wrapper {
+        .row-flex();
+        .lg-block({ justify-content: center;});
+      }
       &__item {
         .col();
         .size(3);

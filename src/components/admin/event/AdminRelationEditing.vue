@@ -3,8 +3,8 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">
-        <template v-if="!id">Создание события</template>
-        <template v-else>Редактирование события</template>
+        <template v-if="id">Редактирование события</template>
+        <template v-else>Создание события</template>
       </h1>
       <form class="edit-form" @submit.prevent="onSubmit">
         <h2 class="g-caption-section">Общая информация</h2>
@@ -248,8 +248,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', [
-      'myParentEvents'
+    ...mapState('event', [
+      'eventsMy'
     ]),
     ...mapGetters('user', [
       'relationEditors'

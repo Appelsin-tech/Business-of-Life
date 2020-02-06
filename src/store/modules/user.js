@@ -8,12 +8,11 @@ Vue.use(VueCookies)
 const state = () => ({
   profile: null,
   sponsor: null,
-  myParentEvents: []
 })
 
 const getters = {
   logged: state => !!state.profile, // залогинен ли пользователей
-  access: state => state.profile.access, // доступ к базе знаний
+  access: state => !!state.profile.access.knowledge.exp, // доступ к базе знаний
   status: (state, getters) => getters.logged ? state.profile.status : 0, // статус пользователя
   statusDev (state, getters) { // статус для разработки
     if (getters.logged) {
@@ -64,16 +63,7 @@ const actions = {
       console.log(error)
     })
   },
-  getMyParentEvents({ commit }) {
-    return new Promise((resolve, reject) => {
-      API.events.my().then(response => {
-        commit('SET_MY_PARENT_EVENT', response.data)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
+
   setCookieSponsor({ commit }) {
     if (VueCookies.get('sponsor')) {
       commit('SET_COOKIE', VueCookies.get('sponsor'))
@@ -87,9 +77,6 @@ const mutations = {
   },
   LOGOUT(state) {
     state.profile = null
-  },
-  SET_MY_PARENT_EVENT(state, events) {
-    state.myParentEvents = events
   },
   SET_COOKIE(state, sponsor) {
     state.sponsor = sponsor

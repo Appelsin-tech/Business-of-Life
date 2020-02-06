@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="g-caption-inner">База знаний</h1>
       <status-knowledge/>
-      <div class="menu">
+      <div class="menu" v-if="menuItem.length">
         <div class="item" v-for="item in menuItem" :key="item.name" v-if="checkStatusUser(item.name, item.status)">
           <pannel-knowledge-menu :item="item" />
         </div>
@@ -18,7 +18,7 @@ import BreadCrumbs from '@/components/BreadCrumbs'
 import { mapGetters, mapState } from 'vuex'
 import PannelKnowledgeMenu from './components/PannelKnowledgeMenu'
 import StatusKnowledge from './components/StatusKnowledge'
-
+import API from '@/api/index'
 
 export default {
   name: 'KnowledgeMenu',
@@ -29,22 +29,7 @@ export default {
   },
   data() {
     return {
-      menuItem: [
-        {
-          to: 'tehnika_postroeniya_biznesa/lesson_1',
-          title: 'Техника построения бизнеса',
-          name: 'partners-program',
-          lesson: 10,
-          status: 2
-        },
-        {
-          to: 'tehnika_postroeniya_biznesa/lesson_1',
-          title: 'Искусство продаж',
-          name: 'event-control',
-          lesson: 22,
-          status: 2
-        },
-      ]
+      menuItem: []
     }
   },
   computed: {
@@ -85,6 +70,11 @@ export default {
         }
       }
     }
+  },
+  mounted() {
+    API.courses.courses.list().then(response => {
+      this.menuItem = response
+    })
   }
 }
 </script>
@@ -106,6 +96,7 @@ export default {
         .size-md(6);
         .size-sm(10);
         .size-xs(12);
+        display: flex;
         margin-bottom: 20px;
         .default-panel-style(40px);
         .lg-block({margin-bottom: 20px;});

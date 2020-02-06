@@ -10,6 +10,7 @@ import wallet from './modules/wallet'
 import actions from './modules/actions'
 import supervisors from './modules/supervisors'
 import editors from './modules/editors'
+import courses from './modules/courses/index'
 import response from './response'
 
 export default {
@@ -25,5 +26,6 @@ export default {
   wallet,
   actions,
   supervisors,
-  editors
+  editors,
+  courses
 }

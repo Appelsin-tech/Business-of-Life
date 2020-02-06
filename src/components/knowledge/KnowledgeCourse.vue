@@ -1,55 +1,46 @@
 <template>
   <section class="p-lesson p-default p-default-inner">
-    <status-preview :idEvent="5" :idStatus="3" :idRelation="10"/>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
-    <div class="container">
-      <h1 class="g-caption-inner">Техника построения бизнеса</h1>
-      <div class="lesson-select">
-        <p class="desc">Урок</p>
-        <v-select :value="activeLesson.val" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false"  label="name" :options="selectLesson"></v-select>
-      </div>
-      <section class="preview-lesson">
-        <div class="img" :style="{backgroundImage: `url(${activeLesson.img})`}"></div>
-        <div class="info">
-          <panel-status-lesson/>
-          <strong class="g-item-form__label">В этом уроке вы узнаете</strong>
-          <div class="text-wrapper">
-            <div class="editor ul-pdl-0">
-              <ul>
-                <li>Что такое финансовая пирамида</li>
-                <li>Отличие МЛМ от пирамиды</li>
-                <li>Пять основных видов «финансовых пирамид»</li>
-                <li>Особенности предлагаемого к заключению договора</li>
-              </ul>
+    <preloader v-if="!activeLesson"/>
+    <div v-if="activeLesson">
+      <status-preview-course :idCourse="course.id" :idStatus="statusCourse" v-if="myCourses"/>
+      <bread-crumbs :arrCrumbs="breadCrumbs"/>
+      <div class="container" >
+        <h1 class="g-caption-inner">{{course.title}}</h1>
+        <div class="lesson-select">
+          <p class="desc">Урок</p>
+          <v-select @input="newActiveLesson" :value="activeLesson.title" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false"  label="title" :options="course.lessons"></v-select>
+        </div>
+        <section class="preview-lesson">
+          <div class="img" :style="{backgroundImage: `url(${course.img})`}"></div>
+          <div class="info">
+            <panel-status-lesson/>
+            <strong class="g-item-form__label">В этом уроке вы узнаете</strong>
+            <div class="text-wrapper">
+              <div class="editor ul-pdl-0" v-html="activeLesson.description"></div>
             </div>
+            <a href="#" class="g-btn g-btn--no-icon">
+              <span>Начать</span>
+            </a>
           </div>
-          <a href="#" class="g-btn g-btn--no-icon">
-            <span>Начать</span>
-          </a>
-        </div>
-      </section>
-      <section class="materials-lesson">
-        <h2 class="g-caption-section">Материалы урока</h2>
-        <div class="g-subsection video-wrapper">
-          <panel-video-lesson></panel-video-lesson>
-        </div>
-        <div class="g-subsection editors-wrapper">
-          <div class="editor">
-            <p>Ежемесячные стартинг семинары, проводимые в регионах, странах, силами лидеров компании Наюта, по программе образования обучающей системы Академии "Business of Life"</p>
-            <br>
-            <p>«Стартовые семинары» создаются для новичков - сетевиков, которые только открыли свой бизнес. Благодаря специальной программе сетевой индустрии новичок разберется быстро и сможет расставить приоритеты своего бизнеса, создав прочный фундамент для быстрого старта и успешного развития своего бизнеса.</p>
-            <br>
-            <p>На старт семинарах вы получите четкие рекомендации, услышите удивительные истории о том, как и с чего начинается бизнес, какие ошибки допускают новички и как действуют профи. Вы лично сможете познакомиться и пообщаться с состоявшимися сетевиками, которые помогут ва найти ответы на многие вопросы, избежать ошибок и отказаться от ненужных экспериментов.</p>
+        </section>
+        <section class="materials-lesson">
+          <h2 class="g-caption-section">Материалы урока</h2>
+          <div class="g-subsection video-wrapper">
+            <panel-video-lesson></panel-video-lesson>
           </div>
-        </div>
-        <div class="g-subsection audio-wrapper">
+          <div class="g-subsection editors-wrapper">
+            <div class="editor" v-html="course.description"></div>
+          </div>
+          <div class="g-subsection audio-wrapper">
             <panel-audio-lesson></panel-audio-lesson>
-        </div>
-        <div class="g-subsection file-wrapper">
-          <panel-file-lesson></panel-file-lesson>
-        </div>
-      </section>
+          </div>
+          <div class="g-subsection file-wrapper">
+            <panel-file-lesson></panel-file-lesson>
+          </div>
+        </section>
+      </div>
     </div>
+
   </section>
 </template>
 
@@ -57,22 +48,25 @@
 import PanelVideoLesson from '@/components/knowledge/components/PanelVideoLesson'
 import PanelAudioLesson from '@/components/knowledge/components/PanelAudioLesson'
 import PanelFileLesson from '@/components/knowledge/components/PanelFileLesson'
-import StatusPreview from '@/components/StatusPreview'
+import StatusPreviewCourse from '@/components/StatusPreviewCourse'
 import BreadCrumbs from '@/components/BreadCrumbs'
 
 import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
 import PanelStatusLesson from '@/components/knowledge/components/PanelStatusLesson'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'KnowledgeCourse',
+  props: ['url', 'id'],
   components: {
-    StatusPreview,
+    StatusPreviewCourse,
     BreadCrumbs,
     PanelStatusLesson,
     PanelAudioLesson,
     PanelFileLesson,
-    PanelVideoLesson
+    PanelVideoLesson,
+    Preloader
   },
   data() {
     return {
@@ -82,26 +76,55 @@ export default {
           title: 'База знаний'
         }
       ],
-      activeLesson: {
-        val: '23. Основные признаки финансовых пирамид',
-        img: 'https://picsum.photos/500/500'
-      },
-      selectLesson: [
-        {
-          name: '23. Основные признаки финансовых пирамид',
-          val: 'lesson_23'
-        },
-        {
-          name: '24. Основные признаки финансовых пирамид',
-          val: 'lesson_24'
-        },
-        {
-          name: '25. Основные признаки финансовых пирамид',
-          val: 'lesson_25'
-        },
-      ]
+      course: null,
+      valueSelectLesson: null,
+      activeLesson: null,
+      myCourses: false,
+      statusCourse: 0
     }
   },
+  computed: {
+    ...mapState('courses', [
+      'coursesMy'
+    ]),
+    ...mapGetters('user', [
+      'logged',
+      'status'
+    ]),
+  },
+  methods: {
+    newActiveLesson(value) {
+      this.valueSelectLesson = value.id
+      this.$router.push({ path: `/knowledge/${this.url}/${ value.id}`})
+      API.courses.lesson.info({id: this.valueSelectLesson}).then(response => {
+        this.activeLesson = response
+      })
+    },
+    statusInfo () {
+      if (this.status > 1) {
+        this.$store.dispatch('courses/getMyCourses').then(() => {
+          this.coursesMy.map(item => {
+            if (item.id === this.course.id) {
+              this.myCourses = true
+              this.statusCourse = item.status
+            }
+          })
+        })
+      }
+    },
+  },
+  mounted () {
+    API.courses.courses.info({url: this.url}).then(response => {
+      this.course = response
+      this.statusInfo()
+      API.courses.lesson.info({id: response.lessons[0].id}).then(lesson => {
+        this.activeLesson = lesson
+        if(!this.id) {
+          this.$router.push({ path: `/knowledge/${this.url}/${lesson.id}` })
+        }
+      })
+    })
+  }
 }
 </script>
 

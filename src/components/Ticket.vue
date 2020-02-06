@@ -1,7 +1,7 @@
 <template>
   <div class="ticket">
     <h3 class="g-caption-element g-caption-element--static">{{ticket.title}}</h3>
-    <div class="description editor" v-html="ticket.desc"></div>
+    <div class="description editor ul-pdl-0" v-html="ticket.desc"></div>
     <div class="g-price">
       <p class="g-price-main">{{ticket.price}} <span class="currency">{{ticket.currency}}</span></p>
       <p class="g-price-secondary">({{ticket.price_kzt}} KZT)</p>

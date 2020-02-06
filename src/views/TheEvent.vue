@@ -253,8 +253,8 @@ export default {
     },
     statusInfo () {
       if (this.status > 1) {
-        this.$store.dispatch('user/getMyParentEvents').then(() => {
-          if (this.myParentEvents.some(item => item.id === this.event.id)) {
+        this.$store.dispatch('event/getMyEvents').then(() => {
+          if (this.eventsMy.some(item => item.id === this.event.id)) {
             this.myEvent = true
           }
         })
@@ -289,8 +289,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', [
-      'myParentEvents'
+    ...mapState('event', [
+      'eventsMy'
     ]),
     ...mapGetters('user', [
       'logged',
@@ -328,9 +328,9 @@ export default {
       }
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    next()
-  },
+  // beforeRouteUpdate (to, from, next) {
+  //   next()
+  // },
   mounted () {
     this.getEvent()
   }

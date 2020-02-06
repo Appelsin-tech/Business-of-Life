@@ -1,8 +1,8 @@
 <template>
-  <form class="edit-form" @submit.prevent>
+  <form class="edit-form" @submit.prevent="onSubmit">
     <div class="edit-grid">
-      <download-photo/>
-      <div class="g-item-form textarea item--col-12">
+<!--      <download-photo/>-->
+      <div class="g-item-form textarea col-grid-12">
         <label class="g-item-form__label">Название</label>
         <textarea-resize>
           <textarea class="g-item-form__input" rows="1" :class="{error: $v.form.title.$error}" type="text" placeholder="Тренинг Искусство продаж " v-model="form.title" @blur="$v.form.title.$touch()"></textarea>
@@ -12,7 +12,7 @@
           <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
-      <div class="g-item-form ">
+      <div class="g-item-form col-grid-12">
         <label class="g-item-form__label">Краткое описание</label>
         <input class="g-item-form__input" :class="{error: $v.form.snippet.$error}" type="text" placeholder="Краткое описание " v-model="form.snippet" @blur="$v.form.snippet.$touch()">
         <div class="input-valid-error" v-if="$v.form.snippet.$error">
@@ -34,7 +34,7 @@
         <span v-if="idCourse">Сохранить</span>
         <span v-else>Создать</span>
       </button>
-      <button class="g-btn g-btn--no-icon g-btn--white" type="button" @click="deleteEvent(idCourse)" v-if="btnDelete">
+      <button class="g-btn g-btn--no-icon g-btn--white" type="button" @click="deleteCourse(idCourse)" v-if="btnDelete">
         <span>Удалить</span>
       </button>
     </div>
@@ -102,27 +102,28 @@ export default {
   methods: {
     onSubmit() {
       if (this.idCourse) {
-        API.events.edit(this.form).then(response => {
-          API.response.success('Мероприятие отредактировано')
+        API.courses.courses.edit(this.form).then(response => {
+          API.response.success('Курс отредактирован')
         }).catch(error => {
           console.log(error)
         })
       } else {
-        API.events.create(this.form).then(response => {
-          API.response.success('Мероприятие создано')
-          this.$store.dispatch('user/getMyParentEvents').then(() => {
-            this.$router.push({ path: `/admin/event-editing/${response.data.id}` })
+        API.courses.courses.create(this.form).then(response => {
+          console.log(response)
+          API.response.success('Курс создан')
+          this.$store.dispatch('courses/getMyCourses').then(() => {
+            this.$router.push({ path: `/admin/course-editing/${response.id}` })
           })
         }).catch(error => {
           console.log(error)
         })
       }
     },
-    deleteEvent(id) {
-      API.events.delete({ id: id }).then(() => {
-        API.response.success('Мероприятие удалено')
-        this.$store.dispatch('user/getMyParentEvents')
-        this.$router.push({ path: '/admin/event-control' })
+    deleteCourse(id) {
+      API.courses.courses.delete({ id: id }).then(() => {
+        API.response.success('Курс удален')
+        this.$store.dispatch('courses/getMyCourses')
+        this.$router.push({ path: '/admin/course-control' })
       })
     }
   },
@@ -144,7 +145,6 @@ export default {
         title: this.event.title,
         snippet: this.event.snippet,
         description: this.event.description,
-        audience: this.event.audience
       }
     }
   }
@@ -155,7 +155,8 @@ export default {
   @import "~@/assets/less/_importants";
   .edit-grid {
     display: grid;
-    grid-template-columns: minmax(0, 375px) 1fr;
+    /*minmax(0, 203px)*/
+    grid-template-columns:  1fr;
     grid-column-gap: 100px;
     margin-bottom: 15px;
     .lg-block({

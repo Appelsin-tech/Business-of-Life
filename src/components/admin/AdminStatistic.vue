@@ -41,8 +41,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', [
-      'myParentEvents',
+    ...mapState('event', [
+      'eventsMy'
     ]),
     ...mapGetters('user', [
       'logged'

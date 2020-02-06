@@ -101,8 +101,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', [
-      'myParentEvents'
+    ...mapState('event', [
+      'eventsMy'
     ]),
     ...mapGetters('user', [
       'relationEditors'
@@ -128,12 +128,12 @@ export default {
       }
     },
     showPanelRelation () {
-      if( this.relationEditors) {
+      if ( this.relationEditors) {
         return false
       } else if (this.showRelations === 2) {
         return true
       } else {
-        return  false
+        return false
       }
     }
   },
