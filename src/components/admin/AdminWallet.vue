@@ -1,5 +1,5 @@
 <template>
-  <section class='p-wallet p-default p-default-inner'>
+  <section class='p-wallet p-default-block'>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
       <h1 class='g-caption-inner'>Кошелек</h1>

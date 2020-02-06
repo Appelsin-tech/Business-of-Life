@@ -1,5 +1,5 @@
 <template>
-  <section class="p-hero p-default">
+  <section class="p-hero p-default-flex">
     <div class="container page test-production">
       <div class="wrapper-content">
         <div class="content">
@@ -49,7 +49,6 @@ export default {
     }
     .container {
       &.test-production {
-        margin-bottom: 13vh;
         .wrapper-content {
           .sm-block({.decor-cube(237px, 237px);});
           .xs-block({.decor-cube(@display: none;);})

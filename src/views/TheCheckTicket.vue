@@ -1,5 +1,5 @@
 <template>
-  <section class="p-description p-default p-default-inner">
+  <section class="p-description p-default-block">
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption-inner">Информация о билете</h1>

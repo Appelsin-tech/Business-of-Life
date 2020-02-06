@@ -2,7 +2,7 @@
   <header class="s-header" :class="[$route.name === 'knowledge-package' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}]">
     <div class="container">
       <div class="wrapper-relative">
-        <a class="logo-link" href="#" @click.prevent="goRouter('main')">
+        <a class="logo-link" href="#" @click.prevent="goRouter('')">
           <img svg-inline class="logo" src="../assets/img/logo.svg" alt="Business of Life">
         </a>
         <div class="icon-wrapper icon-wrapper--desktop" >

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-knowledge-package p-default p-default-inner">
+  <section class="p-knowledge-package p-default-block">
     <div class="container page">
       <div class="content">
         <p class="desc-light">База знаний</p>

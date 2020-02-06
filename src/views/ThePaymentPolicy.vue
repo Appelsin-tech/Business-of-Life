@@ -1,5 +1,5 @@
 <template>
-  <section class="p-faq p-default p-default-inner">
+  <section class="p-faq p-default-block">
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Оплата и возврат</h1>

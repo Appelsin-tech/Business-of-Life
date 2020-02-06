@@ -1,5 +1,5 @@
 <template>
-  <section class="p-me p-default p-default-inner">
+  <section class="p-me p-default-block">
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>

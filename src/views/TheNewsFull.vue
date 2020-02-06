@@ -1,5 +1,5 @@
 <template>
-  <section class="p-news-full p-default p-default-inner">
+  <section class="p-news-full p-default-block">
     <status-preview :idStatus="3"/>
     <div class="container">
       <div class="img" :style="{backgroundImage: `url(https://picsum.photos/1000)`}"></div>

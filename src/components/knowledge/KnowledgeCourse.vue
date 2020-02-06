@@ -1,5 +1,5 @@
 <template>
-  <section class="p-lesson p-default p-default-inner">
+  <section class="p-lesson p-default-block">
     <preloader v-if="!activeLesson"/>
     <div v-if="activeLesson">
       <status-preview-course :idCourse="course.id" :idStatus="statusCourse" v-if="myCourses"/>

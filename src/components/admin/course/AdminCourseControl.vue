@@ -1,5 +1,5 @@
 <template>
-  <section class="p-control-course p-default p-default-inner">
+  <section class="p-control-course p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Редактор курсов</h1>

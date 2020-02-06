@@ -1,5 +1,5 @@
 <template>
-  <section class='p-profile p-default p-default-inner'>
+  <section class='p-profile p-default-block'>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
       <h1 class='g-caption-inner'>Профиль</h1>

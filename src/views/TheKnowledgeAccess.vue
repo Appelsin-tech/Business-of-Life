@@ -1,5 +1,5 @@
 <template>
-  <section class="p-auth p-default p-default-inner">
+  <section class="p-auth p-default-block">
     <bread-crumbs/>
     <div class="container page">
       <h1 class='g-caption-inner'>База знаний</h1>

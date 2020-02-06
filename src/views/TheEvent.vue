@@ -1,5 +1,5 @@
 <template>
-  <section class="p-event p-default p-default-inner">
+  <section class="p-event p-default-block">
     <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && myEvent"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container" v-if="activeRelation">

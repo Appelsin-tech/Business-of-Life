@@ -1,5 +1,5 @@
 <template>
-  <section class="p-control-event p-default p-default-inner">
+  <section class="p-control-event p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Управление мероприятиями</h1>

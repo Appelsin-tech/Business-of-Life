@@ -1,5 +1,5 @@
 <template>
-  <section class="p-knowledge-menu p-default p-default-inner">
+  <section class="p-knowledge-menu p-default-block">
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">База знаний</h1>

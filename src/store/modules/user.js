@@ -12,7 +12,7 @@ const state = () => ({
 
 const getters = {
   logged: state => !!state.profile, // залогинен ли пользователей
-  access: state => !!state.profile.access.knowledge.exp, // доступ к базе знаний
+  access: state => state.profile.access.knowledge, // доступ к базе знаний
   status: (state, getters) => getters.logged ? state.profile.status : 0, // статус пользователя
   statusDev (state, getters) { // статус для разработки
     if (getters.logged) {

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-news-control p-default p-default-inner">
+  <section class="p-news-control p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container">
       <h1 class="g-caption-inner">Управление новостями</h1>

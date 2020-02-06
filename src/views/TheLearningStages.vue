@@ -1,5 +1,5 @@
 <template>
-  <section class="p-learning p-default">
+  <section class="p-learning p-default-flex">
     <div class="container page">
       <div class="row-caption">
         <div class="content">

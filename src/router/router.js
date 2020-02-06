@@ -155,8 +155,13 @@ const router = new Router({
       component: () => import('@/views/ThePaymentPolicy')
     },
     {
+      path: '/404',
+      name: '404',
+      component: () => import('@/views/The404')
+    },
+    {
       path: '*',
-      redirect: '/'
+      redirect: '/404'
     }
   ]
 })

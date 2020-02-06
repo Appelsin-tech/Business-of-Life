@@ -51,13 +51,13 @@ async function requireAuth(to, from, next) {
 async function requireAccess(to, from, next) {
   await store.dispatch('user/login')
 
-  if (!store.getters['user/statusDev']) {
-    if (!store.getters['user/access']) {
-      next('auth')
+  if (store.getters['user/logged']) {
+    if (!store.getters['user/access'].exp) {
+      next('404')
     } else {
       next()
     }
   } else {
-    next()
+    next('404')
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-auth p-default p-default-inner" :class="$route.name">
+  <section class="p-auth p-default-block" :class="$route.name">
     <div class="container page">
       <div class="row-caption">
         <div class="content">

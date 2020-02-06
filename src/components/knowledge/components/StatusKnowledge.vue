@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     currentStatus() {
-      return this.$store.getters['user/access'].knowledge
+      return this.$store.getters['user/access']
     },
     activeDate() {
       return this.$moment().to(this.currentStatus.exp, true)

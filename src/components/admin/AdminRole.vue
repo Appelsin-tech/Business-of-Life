@@ -1,5 +1,5 @@
 <template>
-  <section class='p-statistic p-default p-default-inner'>
+  <section class='p-statistic p-default-block'>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
       <h1 class='g-caption-inner'>Роли и управление доступом</h1>
