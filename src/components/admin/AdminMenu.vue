@@ -31,6 +31,12 @@ export default {
       // статус 3 для разработки, показываются все
       menuItem: [
         {
+          to: '/calendar',
+          title: 'Календарь мероприятий',
+          name: 'calendar',
+          status: 0
+        },
+        {
           to: '/admin/event-control',
           title: 'Управление мероприятиями',
           name: 'event-control',
@@ -67,6 +73,12 @@ export default {
           status: 0
         },
         {
+          to: '/admin/course-control',
+          title: 'Редактор курсов',
+          name: 'course-control',
+          status: 3
+        },
+        {
           to: '/admin/wallet',
           title: 'Кошелек',
           name: 'wallet',
@@ -88,12 +100,6 @@ export default {
           to: '/admin/news-control',
           title: 'Редактор новостей',
           name: 'news-control',
-          status: 3
-        },
-        {
-          to: '/admin/course-control',
-          title: 'Редактор курсов',
-          name: 'course-control',
           status: 3
         },
       ]

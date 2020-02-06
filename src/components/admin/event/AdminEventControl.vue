@@ -82,6 +82,7 @@ export default {
         .size-xs(12);
         margin-bottom: 20px;
         min-height: 350px;
+        height: auto;
         .md-block({
           min-height: 300px;
         });

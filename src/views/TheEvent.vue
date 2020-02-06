@@ -2,6 +2,7 @@
   <section class="p-event p-default-block">
     <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && myEvent"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
+    <preloader v-if="!activeRelation"/>
     <div class="container" v-if="activeRelation">
       <h1 class="g-caption-inner">{{event.title}}</h1>
       <div class="location">
@@ -25,7 +26,7 @@
             <span class="info__item--normal info__item--speakers editor" v-for="(speakers, i) in activeRelation.speakers">{{speakers.name}}<span class="symb">,</span>&nbsp;</span>
           </p>
           <div class="info__ticket ticket--brief">
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="scrollMeTo('section-tickets')">
+            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="scrollToSection('section-tickets')">
               <span>Купить билет</span>
             </a>
           </div>
@@ -167,6 +168,8 @@ import StatusPreview from '@/components/StatusPreview'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
+import ScrollMixin from '@/mixins/scrollToSection'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'TheEvent',
@@ -177,8 +180,10 @@ export default {
     Ticket,
     BreadCrumbs,
     Action,
+    Preloader,
     ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
   },
+  mixins: [ScrollMixin],
   data () {
     return {
       breadCrumbs: [
@@ -268,7 +273,7 @@ export default {
         this.statusInfo()
       }).catch(error => {
         console.log(error)
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/404' })
       })
     },
     refreshStatus () {
@@ -278,15 +283,6 @@ export default {
       this.city = []
       this.getEvent()
     },
-    scrollMeTo (refName) {
-      let element = this.$refs[refName]
-      let top = element.offsetTop
-      // window.scrollTo(0, top)
-      window.scrollTo({
-        top: top - 20,
-        behavior: 'smooth'
-      })
-    }
   },
   computed: {
     ...mapState('event', [

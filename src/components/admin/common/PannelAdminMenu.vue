@@ -88,6 +88,12 @@ export default {
       &.news-control {
         background-image: url('~@/assets/img/admin/admin-menu-news-editing.jpg');
       }
+      &.calendar {
+        background-image: url('~@/assets/img/admin/admin-menu-calendar.jpg');
+      }
+      &.course-control {
+        background-image: url('~@/assets/img/admin/admin-menu-courses.jpg');
+      }
       .img-link {
         position: absolute;
         left: 0;

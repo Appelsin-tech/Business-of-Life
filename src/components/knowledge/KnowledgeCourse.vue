@@ -18,12 +18,12 @@
             <div class="text-wrapper">
               <div class="editor ul-pdl-0" v-html="activeLesson.description"></div>
             </div>
-            <a href="#" class="g-btn g-btn--no-icon">
+            <button href="#" class="g-btn g-btn--no-icon" @click="scrollToSection('section-materials')">
               <span>Начать</span>
-            </a>
+            </button>
           </div>
         </section>
-        <section class="materials-lesson">
+        <section class="materials-lesson" ref="section-materials">
           <h2 class="g-caption-section">Материалы урока</h2>
           <div class="g-subsection video-wrapper">
             <panel-video-lesson></panel-video-lesson>
@@ -50,11 +50,11 @@ import PanelAudioLesson from '@/components/knowledge/components/PanelAudioLesson
 import PanelFileLesson from '@/components/knowledge/components/PanelFileLesson'
 import StatusPreviewCourse from '@/components/StatusPreviewCourse'
 import BreadCrumbs from '@/components/BreadCrumbs'
-
 import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
 import PanelStatusLesson from '@/components/knowledge/components/PanelStatusLesson'
 import Preloader from '@/components/ui/Preloader'
+import ScrollMixin from '@/mixins/scrollToSection'
 
 export default {
   name: 'KnowledgeCourse',
@@ -68,6 +68,7 @@ export default {
     PanelVideoLesson,
     Preloader
   },
+  mixins: [ScrollMixin],
   data() {
     return {
       breadCrumbs: [
@@ -123,6 +124,8 @@ export default {
           this.$router.push({ path: `/knowledge/${this.url}/${lesson.id}` })
         }
       })
+    }).catch(e => {
+      this.$router.push({ path: '/404' })
     })
   }
 }

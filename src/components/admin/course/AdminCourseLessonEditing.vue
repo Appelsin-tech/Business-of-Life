@@ -12,7 +12,7 @@
       </div>
       <div class="lesson-list">
         <h2 class="g-caption-section">Редактирование уроков</h2>
-        <div class="lesson-wrapper ">
+        <div class="lesson-wrapper" v-if="id">
           <div class="item item-btn" :class="counterLesson === 1 ? '' : 'line'">
             <span class="counter-lesson">{{counterLesson}}</span>
             <button-add class="row" @click.native.prevent="$router.push(`/admin/lesson/${id}`)"></button-add>
@@ -21,6 +21,7 @@
             <admin-course-lesson-editing-lesson  v-for="(lesson, index) in reverseLesson" :key="lesson.id" :course="id" :lesson="lesson" :counter="counterLesson - index - 1" v-on:delete-lesson="getInfoCourse"/>
           </div>
         </div>
+        <panel-info v-else>Чтобы создать урок - заполните информацию о курсе</panel-info>
         <router-link to="/admin/course-control" class="back-btn">Назад</router-link>
       </div>
     </div>
@@ -58,8 +59,7 @@ export default {
           title: 'Редактирование курсов'
         }
       ],
-      myCourse: null,
-      showButtonDelete: true,
+      myCourse: null
     }
   },
   computed: {
@@ -78,6 +78,9 @@ export default {
       if (this.myCourse !== null) {
         return this.myCourse.lessons.reverse()
       }
+    },
+    showButtonDelete () {
+      return !!this.id
     }
   },
   methods: {
