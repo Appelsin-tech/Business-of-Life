@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import API from '../../../api/index'
 export default {
   name: 'AdminEventRelationEditingRelation',
   props: {
@@ -89,12 +88,10 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
   .event {
     display: flex;
     margin-bottom: 20px;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
     .default-panel-style();
     .sm-block({
       margin-bottom: 15px;

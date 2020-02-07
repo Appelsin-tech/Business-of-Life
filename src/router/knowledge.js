@@ -32,7 +32,7 @@ export default [
         meta: {
           auth: true
         },
-        component: () => import('@/components/knowledge/KnowledgeCourse')
+        component: () => import('@/components/knowledge/KnowledgeLesson')
       }
     ]
   }
