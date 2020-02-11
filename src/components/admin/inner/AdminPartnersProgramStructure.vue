@@ -19,22 +19,22 @@
           <div class="info" >
             <p class="g-caption-element" @click="userClick(user)" :class="[user.invited === 0 ? 'disabled' : '']">{{user.login}}</p>
             <p class="info-item">
-              <img svg-inline class="svg-icon" src="../../../assets/img/icon/location.svg" alt="">
+              <img svg-inline class="svg-icon" src="@/assets/img/icon/avatar.svg" alt="">
               <span class="text">{{user.fname}}</span>
             </p>
             <p class="info-item">
-              <img svg-inline class="svg-icon" src="../../../assets/img/icon/earth-globe.svg" alt="">
+              <img svg-inline class="svg-icon" src="@/assets/img/icon/mail.svg" alt="">
               <span class="text">{{user.email}}</span>
             </p>
             <p class="info-item">
-              <img svg-inline class="svg-icon" src="../../../assets/img/icon/avatar.svg" alt="">
+              <img svg-inline class="svg-icon" src="@/assets/img/icon/avatar.svg" alt="">
               <span class="text">{{user.invited}}</span>
             </p>
           </div>
           <div class="g-control-icon">
-            <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Отправить сообщение'" @click="">
-              <img svg-inline class="svg-icon" src="../../../assets/img/icon/mail.svg" alt="">
-            </button>
+            <a :href="`mailto:${user.email}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Отправить сообщение'" @click="">
+              <img svg-inline class="svg-icon" src="@/assets/img/icon/mail.svg" alt="">
+            </a>
           </div>
 
         </div>

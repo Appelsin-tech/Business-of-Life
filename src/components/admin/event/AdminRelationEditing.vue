@@ -92,7 +92,7 @@
           <div class="stock-create">
             <button-add :class="[!id ? 'disabled' : '', 'row']" @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>
           </div>
-          <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"/>
+          <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"  :listTickets="listTickets" />
         </div>
       </div>
       <div class="access" v-if="!relationEditors">
@@ -259,8 +259,8 @@ export default {
       if (this.tickets.length > 0) {
         this.tickets.forEach(item => {
           ticketsArr.push({
-            ticketTitle: item.title,
-            ticketId: item.id
+            title: item.title,
+            id: item.id
           })
         })
       }

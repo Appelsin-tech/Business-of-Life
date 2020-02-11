@@ -24,7 +24,7 @@
             </div>
             <div class="g-item-form col-6">
               <label class="g-item-form__label">Акционный билет</label>
-              <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.ticket}]" :searchable="false" :reduce="ticket => ticket.ticketId" label="ticketTitle" :options="listTickets" v-model="form.ticket" v-on:search:blur="validateSelect('ticket')"></v-select>
+              <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.ticket}]" :searchable="false" :reduce="ticket => ticket.id" label="title" :options="listTickets" v-model="form.ticket" v-on:search:blur="validateSelect('ticket')"></v-select>
               <div class="input-valid-error" v-if="errorSelect.ticket">
                 Выберите билет
               </div>
@@ -137,6 +137,8 @@ export default {
     },
     beforeClose(event) {
       this.$v.$reset()
+      this.errorSelect.type = false
+      this.errorSelect.type = false
       this.form.title = ''
       this.form.ticket = ''
       this.form.amount = ''

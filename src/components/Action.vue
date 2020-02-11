@@ -2,10 +2,13 @@
   <div class="action-item">
     <div class="action-info">
       <h3 class="g-caption-element g-caption-element--static">{{action.title}} </h3>
-      <p class="info-item">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/location.svg" alt="">
+      <div class="info-item">
+<!--        <img svg-inline class="svg-icon" src="@/assets/img/icon/location.svg" alt="">-->
+        <div class="info-icon">
+          <span>i</span>
+        </div>
         <span class="text">Билет "{{action.ticket.title}}": {{action.amount}} шт.</span>
-      </p>
+      </div>
     </div>
     <div class="g-control-icon" v-if="controlBtn">
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-actions-create', {relation_id: relationId, listTickets: listTickets, action: action})">
@@ -76,6 +79,19 @@ export default {
         });
         &:last-of-type {
           margin-bottom: 0;
+        }
+        .info-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: @colorBorder;
+          border: 1px solid @colorBorder;
+          border-radius: 50%;
+          font-size: 1.4rem;
+          flex-shrink: 0;
+          width: 20px;
+          height: 20px;
+          margin-right: 15px;
         }
         .svg-icon {
           margin-right: 15px;
