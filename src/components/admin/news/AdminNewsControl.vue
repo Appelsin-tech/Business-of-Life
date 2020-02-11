@@ -3,7 +3,7 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container">
       <h1 class="g-caption-inner">Управление новостями</h1>
-      <button-add class="row" @click.prevent.native="$router.push('/admin/news-create')"/>
+      <button-add class="row" @click.native="$router.push('/admin/news-create')"/>
       <news-item v-for="news in newsData" :news="news" :control="true" :key="news.id"/>
       <router-link :to='`/admin/menu`' class='back-btn'>Назад</router-link>
     </div>

@@ -24,13 +24,13 @@
         </section>
         <section class="materials-lesson" ref="section-materials">
           <h2 class="g-caption-section">Материалы урока</h2>
-          <div class="g-subsection video-wrapper">
-            <panel-video-lesson></panel-video-lesson>
+          <div class="g-subsection">
+            <panel-video-lesson :src-video="'https://www.youtube.com/embed/zm0rAR0wwXM'"></panel-video-lesson>
           </div>
-          <div class="g-subsection audio-wrapper">
+          <div class="g-subsection">
             <panel-audio-lesson></panel-audio-lesson>
           </div>
-          <div class="g-subsection file-wrapper">
+          <div class="g-subsection">
             <panel-file-lesson></panel-file-lesson>
           </div>
         </section>

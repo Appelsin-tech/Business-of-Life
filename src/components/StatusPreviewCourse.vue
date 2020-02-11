@@ -3,29 +3,29 @@
     <div class="status">
       <div class="status-wrapper">
         <div class="status-content" >
-          <template v-if="status[idStatus].class === 'created'">
-            <div class="g-icon-circle" :class="status[idStatus].class">
+          <template v-if="statusTest[idStatus].class === 'created'">
+            <div class="g-icon-circle" :class="statusTest[idStatus].class">
               <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
             </div>
-            <span class="text">{{status[idStatus].tooltip}}</span>
+            <span class="text">{{statusTest[idStatus].tooltip}}</span>
           </template>
-          <template v-else-if="status[idStatus].class === 'waiting'">
-            <div class="g-icon-circle" :class="status[idStatus].class">
+          <template v-else-if="statusTest[idStatus].class === 'waiting'">
+            <div class="g-icon-circle" :class="statusTest[idStatus].class">
               <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
             </div>
-            <span class="text">{{status[idStatus].tooltip}}</span>
+            <span class="text">{{statusTest[idStatus].tooltip}}</span>
           </template>
-          <template v-else-if="status[idStatus].class === 'past'">
-            <div class="g-icon-circle" :class="status[idStatus].class">
+          <template v-else-if="statusTest[idStatus].class === 'past'">
+            <div class="g-icon-circle" :class="statusTest[idStatus].class">
               <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
             </div>
-            <span class="text">{{status[idStatus].tooltip}}</span>
+            <span class="text">{{statusTest[idStatus].tooltip}}</span>
           </template>
           <template v-else>
-            <div class="g-icon-circle" :class="status[idStatus].class">
+            <div class="g-icon-circle" :class="statusTest[idStatus].class">
               <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
             </div>
-            <span class="text">{{status[idStatus].tooltip}}</span>
+            <span class="text">{{statusTest[idStatus].tooltip}}</span>
           </template>
         </div>
         <div class="btn-wrapper">
@@ -33,7 +33,8 @@
             <span>Редактировать</span>
           </button>
           <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
-            <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>
+<!--            <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>-->
+            <span v-if="idStatus === 1">Снять с публикации</span>
             <span v-else>Опубликовать</span>
           </button>
         </div>
@@ -50,7 +51,17 @@ export default {
   props: ['idCourse', 'idStatus'],
   data() {
     return {
-      statusRelation: 0,
+      statusCourse: 0,
+      statusTest: {
+        0: {
+          class: 'created',
+          tooltip: 'Курс не опубликован'
+        },
+        1: {
+          class: 'public',
+          tooltip: 'Курс опубликован'
+        },
+      },
       status: {
         0: {
           class: 'created',
@@ -73,23 +84,24 @@ export default {
   },
   methods: {
     newStatus() {
-      if(this.idStatus === 3 || this.idStatus === 4) {
-        API.relations.unpublish({id: this.idCourse}).then((response) => {
-          this.statusRelation = response.status
+      // if(this.idStatus === 3 || this.idStatus === 4) {
+      if(this.idStatus === 1) {
+        API.courses.courses.unpublish({id: this.idCourse}).then((response) => {
+          this.statusCourse = response.status
           this.$emit('newStatus')
-          API.response.success('Событие снято с публикации')
+          API.response.success('Курс снят с публикации')
         })
       } else {
-        API.relations.publish({id: this.idCourse}).then((response) => {
-          this.statusRelation = response.status
+        API.courses.courses.publish({id: this.idCourse}).then((response) => {
+          this.statusCourse = response.status
           this.$emit('newStatus')
-          API.response.success('Событие опубликовано')
+          API.response.success('Курс опубликован')
         })
       }
     },
   },
   mounted() {
-    this.statusRelation = this.idStatus
+    this.statusCourse = this.idStatus
   }
 }
 </script>

@@ -12,7 +12,7 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
-        <button-add v-if="showBtnAdd" :class="'row'" @click.prevent.native="$router.push({path: `/admin/relation/${id}`})"/>
+        <button-add v-if="showBtnAdd" :class="'row'" @click.native="$router.push({path: `/admin/relation/${id}`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
             <admin-event-relation-editing-relation  v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>

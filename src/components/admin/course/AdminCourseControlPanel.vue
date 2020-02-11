@@ -1,20 +1,30 @@
 <template>
   <div class="item-wrapper" >
-    <button-add class="btn-add" @click.prevent.native="$router.push({path: '/admin/course-create'})"/>
+    <button-add class="btn-add" @click.native="$router.push({path: '/admin/course-create'})"/>
     <div class="course__item" v-for="(course, index) in coursesMy" :key="index" >
-      <router-link class="content-wrapper" :to="`/knowledge/${course.id}/1`">
+      <router-link class="content-wrapper" :to="`/knowledge/${course.id}`">
         <div class="course__img" :style="{backgroundImage: `url(${course.img})`}">
         </div>
         <p class="g-caption-element">{{course.title}}</p>
       </router-link>
       <div class="icon-wrapper">
-        <template v-if="status[course.status].class === 'waiting'">
-          <div class="g-icon-circle" :class="status[course.status].class" v-tooltip.bottom="status[course.status].tooltip">
+        <template v-if="statusTest[course.status].class === 'waiting'">
+          <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
             <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
           </div>
         </template>
+        <template  v-else-if="statusTest[course.status].class === 'public'">
+          <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
+            <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
+          </div>
+        </template>
+        <template  v-else-if="statusTest[course.status].class === 'close'">
+          <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
+            <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+          </div>
+        </template>
         <template v-else>
-          <div class="g-icon-circle" :class="status[course.status].class" v-tooltip.bottom="status[course.status].tooltip">
+          <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
             <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
           </div>
         </template>
@@ -40,6 +50,16 @@ export default {
   components: { ButtonAdd },
   data() {
     return {
+      statusTest: {
+        0: {
+          class: 'created',
+          tooltip: 'Курс не опубликован'
+        },
+        1: {
+          class: 'public',
+          tooltip: 'Курс опубликован'
+        },
+      },
       status: {
         0: {
           class: 'created',

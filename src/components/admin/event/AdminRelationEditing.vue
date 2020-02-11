@@ -78,7 +78,7 @@
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <div class="ticket-create">
-            <button-add :class="[!id ? 'disabled' : '']" @click.prevent.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})"/>
+            <button-add :class="[!id ? 'disabled' : '']" @click.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})"/>
           </div>
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
@@ -90,7 +90,7 @@
         </panel-info>
         <div class="stock-wrapper" v-else>
           <div class="stock-create">
-            <button-add :class="[!id ? 'disabled' : '', 'row']" @click.prevent.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>
+            <button-add :class="[!id ? 'disabled' : '', 'row']" @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>
           </div>
           <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"/>
         </div>

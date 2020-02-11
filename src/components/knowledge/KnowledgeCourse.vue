@@ -2,7 +2,7 @@
   <section class="p-lesson p-default-block">
     <preloader v-if="!course"/>
     <div v-if="course">
-      <status-preview-course :idCourse="course.id" :idStatus="statusCourse" v-if="myCourses"/>
+      <status-preview-course :idCourse="course.id" :idStatus="statusCourse" v-if="myCourses" @newStatus="refreshStstus"/>
       <bread-crumbs :arrCrumbs="breadCrumbs"/>
       <div class="container" >
         <h1 class="g-caption-inner">{{course.title}}</h1>
@@ -98,14 +98,21 @@ export default {
         })
       }
     },
+    getInfoCourse() {
+      API.courses.courses.info({url: this.url}).then(response => {
+        this.course = response
+        this.statusInfo()
+      }).catch(e => {
+        this.$router.push({ path: '/404' })
+      })
+    },
+    refreshStstus() {
+      this.course = null
+      this.getInfoCourse()
+    }
   },
   mounted () {
-    API.courses.courses.info({url: this.url}).then(response => {
-      this.course = response
-      this.statusInfo()
-    }).catch(e => {
-      this.$router.push({ path: '/404' })
-    })
+    this.getInfoCourse()
   }
 }
 </script>

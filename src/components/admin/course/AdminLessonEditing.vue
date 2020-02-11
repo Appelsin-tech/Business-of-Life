@@ -6,7 +6,7 @@
         <template v-if="id">Редактирование урока</template>
         <template v-else>Создание урока</template>
       </h1>
-      <form class="edit-form" @submit.prevent="onSubmit">
+      <form class="edit-form g-subsection" @submit.prevent="onSubmit">
         <h2 class="g-caption-section">Общая информация</h2>
         <div class="edit-grid">
           <div class="g-item-form  g-item-form--col-12">
@@ -33,8 +33,29 @@
           </div>
         </div>
       </form>
+      <div class="materials">
+        <h2 class="g-caption-section">Материалы</h2>
+        <button-add class="row" @click.native="$modal.show('modal-lesson-materials')"></button-add>
+      </div>
+      <draggable v-model="myArray" @end="moveMaterials">
+        <div v-for="item in myArray" :key="item.id" class="item-materials">
+          <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"/>
+          <div class="g-panel text" v-else>
+            <div class="editor" v-html="item.content"></div>
+            <div class="g-control-icon static">
+              <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
+                <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+              </button>
+              <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
+                <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+              </button>
+            </div>
+          </div>
+        </div>
+      </draggable>
       <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
     </div>
+    <modal-lesson-materials/>
   </section>
 </template>
 
@@ -46,13 +67,22 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import response from '@/api/response'
+import draggable from 'vuedraggable'
+import ButtonAdd from '@/components/ui/ButtonAdd'
+import ModalLessonMaterials from '@/components/modal/ModalLessonMaterials'
+import PanelVideoLesson from '@/components/knowledge/components/PanelVideoLesson'
+
 
 export default {
   name: 'AdminLessonEditing',
   props: ['course', 'id'],
   components: {
     ckeditor: CKEditor.component,
-    BreadCrumbs
+    BreadCrumbs,
+    draggable,
+    ButtonAdd,
+    ModalLessonMaterials,
+    PanelVideoLesson
   },
   data() {
     return {
@@ -89,6 +119,25 @@ export default {
         description: '',
         course_id: this.course
       },
+      myArray: [
+        {
+          id: 0,
+          type: 'text',
+          content: `<p>Hello World</p>`
+        },
+        {
+          id: 1,
+          type: 'video',
+          // content: 'https://player.vimeo.com/video/53785991'
+          content: 'https://www.youtube.com/embed/zm0rAR0wwXM'
+        },
+        {
+          id: 2,
+          type: 'text',
+          content: `
+          <ul><li>Переменные (var, let, const), типы данных, строки, числа, массивы, объекты, boolean.</li><li>Выражения, операторы (условные, логические, арифметические), преведение типов.</li><li>Разберемся с циклами, while, do while, for, for in, for of. Работа с массивами и объектами в циклах. Шаблонные строки.</li><li>Методы работы с массивами. Деструктурирующее присваивание.</li><li>Функции и все что с ними связано. Область видимости переменных, callback, анонимные функции, стрелочные функции, оператор rest.</li></ul>`
+        }
+      ],
       errorResponse: {
         title: 'Неверная длина названия',
         description: 'Неверная длина описания'
@@ -131,6 +180,9 @@ export default {
         })
       }
     },
+    moveMaterials(evt) {
+      console.log(evt)
+    },
     getDetailsLesson() {
       API.courses.lesson.details({ id: this.id }).then(response => {
         this.form.title = response.title
@@ -146,6 +198,29 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  @import "~@/assets/less/_importants";
 
+  .item-materials {
+    margin-bottom: 20px;
+    .sm-block({
+      margin-bottom: 15px;});
+  }
+  .g-panel {
+    &.text {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      .sm-block({flex-direction: column; align-items: flex-start;});
+      .editor {
+        margin-right: 15px;
+        .sm-block({
+          margin-right: 0;});
+      }
+      .g-control-icon {
+        align-self: flex-end;
+        .sm-block({align-self: flex-start; margin-top: 15px;});
+      }
+    }
+  }
 </style>

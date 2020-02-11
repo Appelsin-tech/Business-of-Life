@@ -5,10 +5,10 @@
       <h1 class="g-caption-inner">Управление мероприятиями</h1>
       <div class="event" >
         <div class="event-create" v-if="!eventsMy">
-          <button-add class="btn-add" @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+          <button-add class="btn-add" @click.native="$router.push({path: '/admin/event-create'})"/>
         </div>
         <div class="item-wrapper" v-else>
-          <button-add class="btn-add" v-if="!relationEditors" @click.prevent.native="$router.push({path: '/admin/event-create'})"/>
+          <button-add class="btn-add" v-if="!relationEditors" @click.native="$router.push({path: '/admin/event-create'})"/>
           <router-link class="event__item" v-for="(event, index) in eventsMy" :key="index" :to="`/admin/event-editing/${event.id}`">
             <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
             </div>

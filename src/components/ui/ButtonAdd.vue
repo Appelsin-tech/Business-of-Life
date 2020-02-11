@@ -1,10 +1,10 @@
 <template>
-  <a class="button-create" href="#">
-    <p class="text">
+  <div class="button-create">
+    <div class="text">
       <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
       <span class="g-caption-element g-caption-element--static">{{text}}</span>
-    </p>
-  </a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,10 +24,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
     height: 100%;
     box-sizing: border-box;
+    cursor: pointer;
     .default-panel-style();
     .xs-block({justify-content: flex-start;});
     &:hover {

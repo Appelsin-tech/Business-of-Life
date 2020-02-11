@@ -5,7 +5,7 @@
       <h1 class="g-caption-inner">Редактор курсов</h1>
       <div class="course">
         <div class="course-create" v-if="!coursesMy">
-          <button-add class="btn-add" @click.prevent.native="$router.push({path: '/admin/course-create'})"/>
+          <button-add class="btn-add" @click.native="$router.push({path: '/admin/course-create'})"/>
         </div>
         <admin-course-control-panel v-else/>
       </div>
