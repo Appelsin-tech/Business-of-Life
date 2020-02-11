@@ -37,21 +37,26 @@
         <h2 class="g-caption-section">Материалы</h2>
         <button-add class="row" @click.native="$modal.show('modal-lesson-materials')"></button-add>
       </div>
-      <draggable v-model="myArray" @end="moveMaterials">
-        <div v-for="item in myArray" :key="item.id" class="item-materials">
-          <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"/>
-          <div class="g-panel text" v-else>
-            <div class="editor" v-html="item.content"></div>
-            <div class="g-control-icon static">
-              <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
-                <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
-              </button>
-              <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
-                <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
-              </button>
+      <draggable v-model="myArray" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag">
+        <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+          <div v-for="item in myArray" :key="item.id" class="item-materials">
+            <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"/>
+            <div class="g-panel text" v-else>
+              <div class="editor" v-html="item.content"></div>
+              <div class="icon-wrapper">
+                <img svg-inline class="svg-icon drag" src="@/assets/img/icon/drag.svg" alt="">
+                <div class="g-control-icon static">
+                  <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
+                    <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+                  </button>
+                  <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
+                    <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </transition-group>
       </draggable>
       <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
     </div>
@@ -100,6 +105,7 @@ export default {
           path: `/admin/course-editing/${this.course}`
         }
       ],
+      drag: false,
       editor: ClassicEditor,
       editorConfig: {
         language: 'ru',
@@ -156,6 +162,17 @@ export default {
       }
     }
   },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: 'materials',
+        disabled: false,
+        ghostClass: 'ghost',
+        forceFallback: true,
+      }
+    }
+  },
   methods: {
     onSubmit() {
       this.$v.$touch()
@@ -181,6 +198,7 @@ export default {
       }
     },
     moveMaterials(evt) {
+      this.drag = false
       console.log(evt)
     },
     getDetailsLesson() {
@@ -203,23 +221,43 @@ export default {
 
   .item-materials {
     margin-bottom: 20px;
+    opacity: 1;
     .sm-block({
       margin-bottom: 15px;});
   }
   .g-panel {
     &.text {
       display: flex;
-      align-items: flex-end;
       justify-content: space-between;
-      .sm-block({flex-direction: column; align-items: flex-start;});
+      position: relative;
+      .sm-block({flex-direction: column;});
+      .icon-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-shrink: 0;
+        .sm-block({flex-direction: row-reverse;
+          margin-top: 15px;});
+        .svg-icon.drag {
+          width: 40px;
+          height: 40px;
+          margin-bottom: 10px;
+          .sm-block({
+            margin-bottom: 0;
+            margin-left: 10px;});
+          .ss-block({
+            width: 30px;
+            height: 30px;});
+        }
+      }
+
       .editor {
         margin-right: 15px;
         .sm-block({
           margin-right: 0;});
       }
       .g-control-icon {
-        align-self: flex-end;
-        .sm-block({align-self: flex-start; margin-top: 15px;});
       }
     }
   }
