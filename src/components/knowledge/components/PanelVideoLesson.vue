@@ -12,7 +12,9 @@
       </div>
     </div>
     <div class="icon-wrapper" v-if="editing">
-      <img svg-inline class="svg-icon drag" src="@/assets/img/icon/drag.svg" alt="">
+      <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
+        <img svg-inline class="svg-icon " src="@/assets/img/icon/drag.svg" alt="">
+      </div>
       <div class="g-control-icon static" >
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$emit('edit-video')">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">

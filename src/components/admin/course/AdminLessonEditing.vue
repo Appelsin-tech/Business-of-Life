@@ -44,7 +44,9 @@
             <div class="g-panel text" v-else>
               <div class="editor" v-html="item.content"></div>
               <div class="icon-wrapper">
-                <img svg-inline class="svg-icon drag" src="@/assets/img/icon/drag.svg" alt="">
+                <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
+                  <img svg-inline class="svg-icon " src="@/assets/img/icon/drag.svg" alt="">
+                </div>
                 <div class="g-control-icon static">
                   <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
                     <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
@@ -239,16 +241,10 @@ export default {
         flex-shrink: 0;
         .sm-block({flex-direction: row-reverse;
           margin-top: 15px;});
-        .svg-icon.drag {
-          width: 40px;
-          height: 40px;
+        .drag {
           margin-bottom: 10px;
           .sm-block({
-            margin-bottom: 0;
-            margin-left: 10px;});
-          .ss-block({
-            width: 30px;
-            height: 30px;});
+            margin-bottom: 0;})
         }
       }
 
@@ -256,8 +252,6 @@ export default {
         margin-right: 15px;
         .sm-block({
           margin-right: 0;});
-      }
-      .g-control-icon {
       }
     }
   }
