@@ -22,8 +22,8 @@
             </div>
             <div class="g-item-form col-12" v-if="form.type">
               <label class="g-item-form__label">Содержание</label>
-              <ckeditor :editor="editor" v-model="form.text" :config="editorConfig" v-if="form.type === 'text'"></ckeditor>
-              <input class="g-item-form__input" v-model="form.video" v-else-if="form.type === 'video'">
+              <ckeditor :editor="editor" v-model="form.content" :config="editorConfig" v-if="form.type === 'text'"></ckeditor>
+              <input class="g-item-form__input" v-model="form.content" v-else-if="form.type === 'video'">
             </div>
             <div class="g-item-form col-12" v-if="form.type === 'video'">
               <label class="g-item-form__label">Название видео</label>
@@ -46,6 +46,7 @@
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+import API from '@/api/index'
 
 export default {
   name: 'ModalLessonMaterials',
@@ -69,8 +70,10 @@ export default {
         ]
       },
       newMaterials: false,
+      idLesson: null,
       form: {
-        type: ''
+        type: '',
+        content: ''
       },
       listType: [
         {
@@ -87,26 +90,44 @@ export default {
       }
     }
   },
+  computed: {
+    parseLink () {
+      let parseUrl = null
+      if (this.form.type === 'video') {
+        let url = new URL(this.form.content)
+        let regYt = /youtube/
+        let regVimeo = /vimeo/
+        // https://www.youtube.com/watch?v=uor5Bkmejxw
+        if (regYt.test(this.form.content)) {
+          parseUrl = 'https://www.youtube.com/embed/' + url.searchParams.get('v')
+        } else if (regVimeo.test(this.form.content)) {
+          parseUrl = 'https://player.vimeo.com/video' + url.pathname
+        }
+      }
+      return parseUrl
+    },
+  },
   methods: {
     onSubmit () {
-      if (this.form.video) {
-        this.parseLink()
+      let data = {
+        type: this.form.type,
+        lesson_id: this.idLesson
       }
-    },
-    parseLink () {
-      let url = new URL(this.form.video)
-      let regYt = /youtube/
-      let regVimeo = /vimeo/
-      let parseUrl = null
-      // https://www.youtube.com/watch?v=uor5Bkmejxw
-      if (regYt.test(this.form.video)) {
-        parseUrl = 'https://www.youtube.com/embed/' + url.searchParams.get('v')
-      } else if (regVimeo.test(this.form.video)) {
-        parseUrl = 'https://player.vimeo.com/video' + url.pathname
+      if (this.form.type === 'video') {
+        data.content = this.parseLink
+      } else {
+        data.content = this.form.content
       }
-      //
-      console.log(parseUrl)
+      API.courses.lesson.add(data).then(response => {
+        console.log(response)
+        API.response.success('Блок добавлен')
+        this.$root.$emit('materials-edit')
+        this.$modal.hide('modal-lesson-materials')
+      }).catch(e => {
+        console.log(e)
+      })
     },
+
     validateSelect (name) {
       if (this.form[name] === '') {
         this.errorSelect[name] = true
@@ -116,16 +137,18 @@ export default {
     },
     beforeClose () {
       this.form.type = ''
-      this.form.text = ''
-      this.form.video = ''
+      this.form.content = ''
       this.errorSelect.type = false
     },
     beforeOpen (event) {
       if (event.params !== undefined) {
-        this.form.type = event.params.type
-        this.form[event.params.type] = event.params.content
-      } else {
-        this.newMaterials = true
+        this.idLesson = event.params.idLesson
+        if (event.params.newBlocks) {
+          this.newMaterials = true
+        } else {
+          this.form.type = event.params.type
+          this.form.content = event.params.content
+        }
       }
     }
   }

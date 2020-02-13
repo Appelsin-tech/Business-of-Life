@@ -1,6 +1,7 @@
 <template>
   <section class="p-event-all-editing p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
+    <preloader v-if="activePreloader"/>
     <div class="container page">
       <h1 class="g-caption-inner">
         <template v-if="id">Редактирование урока</template>
@@ -35,12 +36,13 @@
       </form>
       <div class="materials">
         <h2 class="g-caption-section">Материалы</h2>
-        <button-add class="row" @click.native="$modal.show('modal-lesson-materials')"></button-add>
+        <button-add class="row" @click.native="$modal.show('modal-lesson-materials', {idLesson: idLesson, newBlocks: true})" v-if="id"></button-add>
+        <panel-info v-else>Чтобы добавить материалы - заполните информацию о уроке</panel-info>
       </div>
-      <draggable v-model="myArray" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag">
+      <draggable v-model="myArray" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag" v-if="content">
         <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <div v-for="item in myArray" :key="item.id" class="item-materials">
-            <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"/>
+          <div v-for="item in content" :key="item.id" class="item-materials">
+            <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"  v-on:delete-video="deleteBlocks(item.id)"/>
             <div class="g-panel text" v-else>
               <div class="editor" v-html="item.content"></div>
               <div class="icon-wrapper">
@@ -51,7 +53,7 @@
                   <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
                     <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
                   </button>
-                  <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
+                  <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteBlocks(item.id)">
                     <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
                   </button>
                 </div>
@@ -78,6 +80,8 @@ import draggable from 'vuedraggable'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import ModalLessonMaterials from '@/components/modal/ModalLessonMaterials'
 import PanelVideoLesson from '@/components/knowledge/components/PanelVideoLesson'
+import Preloader from '@/components/ui/Preloader'
+import PanelInfo from '@/components/ui/PanelInfo'
 
 
 export default {
@@ -89,7 +93,9 @@ export default {
     draggable,
     ButtonAdd,
     ModalLessonMaterials,
-    PanelVideoLesson
+    PanelVideoLesson,
+    Preloader,
+    PanelInfo
   },
   data() {
     return {
@@ -124,9 +130,11 @@ export default {
       },
       form: {
         title: '',
-        description: '',
-        course_id: this.course
+        description: ''
       },
+      activePreloader: false,
+      idLesson: this.id,
+      content: null,
       myArray: [
         {
           id: 0,
@@ -179,8 +187,11 @@ export default {
     onSubmit() {
       this.$v.$touch()
       if (this.id) {
-        API.courses.lesson.edit(this.form).then(response => {
-          console.log(response)
+        API.courses.lesson.edit({
+          title: this.form.title,
+          description: this.form.description,
+          id: this.id
+        }).then(response => {
           API.response.success('Урок отредактирован')
         }).catch(e => {
           if (e.response.reason) {
@@ -188,8 +199,11 @@ export default {
           }
         })
       } else {
-        API.courses.lesson.create(this.form).then(response => {
-          console.log(response)
+        API.courses.lesson.create({
+          title: this.form.title,
+          description: this.form.description,
+          course_id: this.course
+        }).then(response => {
           API.response.success('Урок создан')
           this.$router.push({ path: `/admin/course-editing/${this.course}` })
         }).catch(e => {
@@ -199,19 +213,35 @@ export default {
         })
       }
     },
+    deleteBlocks(id) {
+      API.courses.lesson.deleteBlocks({id: id}).then(response => {
+        console.log(response)
+        API.response.success('Блок удален')
+        this.$root.$emit('materials-edit')
+      }).catch(e => {
+        console.log(e)
+      })
+      this.$root.$emit('materials-edit')
+    },
     moveMaterials(evt) {
       this.drag = false
-      console.log(evt)
     },
     getDetailsLesson() {
       API.courses.lesson.details({ id: this.id }).then(response => {
         this.form.title = response.title
         this.form.description = response.description
+        this.content = response.content
+        this.activePreloader = false
       })
     }
   },
   mounted() {
     if (this.id) {
+      this.$root.$on('materials-edit', () => {
+        this.activePreloader = true
+        this.getDetailsLesson()
+      })
+      this.activePreloader = true
       this.getDetailsLesson()
     }
   }

@@ -36,4 +36,18 @@ export default {
       reject(error)
     })
   }),
+  add: (data) => new Promise((resolve, reject) => {
+    HTTP.post('courses/lessons/blocks/add', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
+  deleteBlocks: (data) => new Promise((resolve, reject) => {
+    HTTP.post('courses/lessons/blocks/delete', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
 }

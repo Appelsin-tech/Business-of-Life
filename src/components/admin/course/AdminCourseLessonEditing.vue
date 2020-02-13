@@ -1,6 +1,7 @@
 <template>
   <section class="p-event-all-editing p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
+    <preloader v-if="activePreloader"/>
     <div class="container page">
       <h1 class="g-caption-inner">Курс</h1>
       <div class="course-editing">
@@ -36,6 +37,7 @@ import CourseEditingForm from '@admin/course/CourseEditingForm'
 import PanelInfo from '@/components/ui/PanelInfo'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import AdminCourseLessonEditingLesson from '@admin/course/AdminCourseLessonEditingLesson'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'AdminCourseLessonEditing',
@@ -45,7 +47,8 @@ export default {
     CourseEditingForm,
     PanelInfo,
     ButtonAdd,
-    AdminCourseLessonEditingLesson
+    AdminCourseLessonEditingLesson,
+    Preloader
   },
   data() {
     return {
@@ -59,7 +62,8 @@ export default {
           title: 'Редактирование курсов'
         }
       ],
-      myCourse: null
+      myCourse: null,
+      activePreloader: false
     }
   },
   computed: {
@@ -87,11 +91,13 @@ export default {
     getInfoCourse() {
       API.courses.courses.details({id: this.id}).then(response => {
         this.myCourse = response
+        this.activePreloader = false
       }).catch(e => console.log(e))
     }
   },
   mounted() {
     if (this.id) {
+      this.activePreloader = true
       this.getInfoCourse()
     }
   },

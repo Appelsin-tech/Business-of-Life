@@ -19,7 +19,7 @@
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$emit('edit-video')">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
         </button>
-        <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
+        <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-video')">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
         </button>
       </div>
