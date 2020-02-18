@@ -24,15 +24,16 @@
         </section>
         <section class="materials-lesson" ref="section-materials">
           <h2 class="g-caption-section">Материалы урока</h2>
-          <div class="g-subsection">
-            <panel-video-lesson :src-video="'https://www.youtube.com/embed/zm0rAR0wwXM'"></panel-video-lesson>
+          <div class="g-subsection" v-for="item in lesson.content" :key="item.id">
+            <panel-video-lesson :srcVideo="item.content" v-if="item.type === 'video'"/>
+            <div class="editor" v-html="item.content" v-else></div>
           </div>
-          <div class="g-subsection">
-            <panel-audio-lesson></panel-audio-lesson>
-          </div>
-          <div class="g-subsection">
-            <panel-file-lesson></panel-file-lesson>
-          </div>
+<!--          <div class="g-subsection">-->
+<!--            <panel-audio-lesson></panel-audio-lesson>-->
+<!--          </div>-->
+<!--          <div class="g-subsection">-->
+<!--            <panel-file-lesson></panel-file-lesson>-->
+<!--          </div>-->
         </section>
         <router-link :to="`/knowledge/${url}`" class="back-btn">Назад</router-link>
       </div>

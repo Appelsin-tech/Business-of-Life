@@ -39,7 +39,7 @@
         <button-add class="row" @click.native="$modal.show('modal-lesson-materials', {idLesson: idLesson, newBlocks: true})" v-if="id"></button-add>
         <panel-info v-else>Чтобы добавить материалы - заполните информацию о уроке</panel-info>
       </div>
-      <draggable v-model="myArray" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag" v-if="content">
+      <draggable v-model="content" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag" v-if="content">
         <transition-group type="transition" :name="!drag ? 'flip-list' : null">
           <div v-for="item in content" :key="item.id" class="item-materials">
             <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"  v-on:delete-video="deleteBlocks(item.id)"/>
@@ -181,6 +181,15 @@ export default {
         ghostClass: 'ghost',
         forceFallback: true,
       }
+    },
+    keysContent () {
+      let arr = []
+      if (this.content) {
+        this.content.forEach(item => {
+          arr.push(+item.id)
+        })
+      }
+      return arr
     }
   },
   methods: {
@@ -225,6 +234,9 @@ export default {
     },
     moveMaterials(evt) {
       this.drag = false
+      API.courses.lesson.orderBlocks({lesson_id: this.idLesson, array: this.keysContent}).then(response => {
+        API.response.success('Сохранено')
+      })
     },
     getDetailsLesson() {
       API.courses.lesson.details({ id: this.id }).then(response => {

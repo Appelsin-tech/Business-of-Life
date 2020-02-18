@@ -36,7 +36,7 @@ export default {
       reject(error)
     })
   }),
-  add: (data) => new Promise((resolve, reject) => {
+  addBlocks: (data) => new Promise((resolve, reject) => {
     HTTP.post('courses/lessons/blocks/add', data).then(response => {
       resolve(response.data)
     }).catch((error, res) => {
@@ -50,4 +50,18 @@ export default {
       reject(error)
     })
   }),
+  editBlocks: (data) => new Promise((resolve, reject) => {
+    HTTP.post('courses/lessons/blocks/edit', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
+  orderBlocks: (data) => new Promise((resolve, reject) => {
+    HTTP.post('courses/lessons/blocks/order', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  })
 }

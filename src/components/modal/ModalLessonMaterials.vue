@@ -105,29 +105,45 @@ export default {
         }
       }
       return parseUrl
-    },
+    }
   },
   methods: {
     onSubmit () {
-      let data = {
-        type: this.form.type,
-        lesson_id: this.idLesson
-      }
-      if (this.form.type === 'video') {
-        data.content = this.parseLink
+      if(this.newMaterials) {
+        let data = {
+          type: this.form.type,
+          lesson_id: this.idLesson
+        }
+        if (this.form.type === 'video') {
+          data.content = this.parseLink
+        } else {
+          data.content = this.form.content
+        }
+        API.courses.lesson.addBlocks(data).then(response => {
+          API.response.success('Блок добавлен')
+          this.$root.$emit('materials-edit')
+          this.$modal.hide('modal-lesson-materials')
+        }).catch(e => {
+          console.log(e)
+        })
       } else {
-        data.content = this.form.content
+        let data = {
+          id: this.form.id
+        }
+        if (this.form.type === 'video') {
+          data.content = this.parseLink
+        } else {
+          data.content = this.form.content
+        }
+        API.courses.lesson.editBlocks(data).then(response => {
+          API.response.success('Блок отредактирован')
+          this.$root.$emit('materials-edit')
+          this.$modal.hide('modal-lesson-materials')
+        }).catch(e => {
+          console.log(e)
+        })
       }
-      API.courses.lesson.add(data).then(response => {
-        console.log(response)
-        API.response.success('Блок добавлен')
-        this.$root.$emit('materials-edit')
-        this.$modal.hide('modal-lesson-materials')
-      }).catch(e => {
-        console.log(e)
-      })
     },
-
     validateSelect (name) {
       if (this.form[name] === '') {
         this.errorSelect[name] = true
@@ -135,19 +151,38 @@ export default {
         this.errorSelect[name] = false
       }
     },
+    parseLinkReverse () {
+      if (this.form.type === 'video') {
+        let url = new URL(this.form.content)
+        let regYt = /youtube/
+        let regVimeo = /vimeo/
+        // https://www.youtube.com/embed/nSm_iTHy1DE
+        // https://player.vimeo.com/video/97148
+        let a = this.form.content.split('/')
+        if (regYt.test(this.form.content)) {
+          this.form.content = 'https://www.youtube.com/watch/?v=' + a[a.length - 1]
+        } else if (regVimeo.test(this.form.content)) {
+          this.form.content = 'https://vimeo.com/' + a[a.length - 1]
+        }
+      }
+    },
     beforeClose () {
       this.form.type = ''
       this.form.content = ''
       this.errorSelect.type = false
+      this.newMaterials = false
     },
     beforeOpen (event) {
       if (event.params !== undefined) {
+        console.log(event.params)
         this.idLesson = event.params.idLesson
         if (event.params.newBlocks) {
           this.newMaterials = true
         } else {
           this.form.type = event.params.type
           this.form.content = event.params.content
+          this.form.id = event.params.id
+          this.parseLinkReverse()
         }
       }
     }

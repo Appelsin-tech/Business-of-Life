@@ -13,13 +13,21 @@
         <h3 class="g-caption-inner">Акция</h3>
         <form class="form-modal" @submit.prevent="onSubmit">
           <div class="form-modal__wrapper">
-            <div class="g-item-form col-6">
+            <div class="g-item-form col-12">
               <label class="g-item-form__label">Название</label>
               <input class="g-item-form__input" :class="{error: $v.form.title.$error}" v-model="form.title" @blur="$v.form.title.$touch()">
               <div class="input-valid-error" v-if="$v.form.title.$error">
                 <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
                 <template v-if="!$v.form.title.minLength">Минимальное количество символов - 3</template>
+              </div>
+            </div>
+            <div class="g-item-form col-12">
+              <label class="g-item-form__label">Описание</label>
+              <ckeditor :editor="editor" v-model="form.description" :config="editorConfig" :class="{error: $v.form.description.$error}" @blur="$v.form.description.$touch()"></ckeditor>
+              <div class="input-valid-error" v-if="$v.form.description.$error">
+                <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
               </div>
             </div>
             <div class="g-item-form col-6">
@@ -53,10 +61,14 @@
 
 <script>
 import { maxLength, minLength, required } from 'vuelidate/lib/validators'
-import API from '../../api/index'
+import API from '@/api/index'
+import CKEditor from '@ckeditor/ckeditor5-vue'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 
 export default {
   name: 'ModalStockCreateEditing',
+  components: { ckeditor: CKEditor.component },
   data() {
     return {
       newStock: false,
@@ -72,6 +84,20 @@ export default {
         },
         masked: ''
       },
+      editor: ClassicEditor,
+      editorConfig: {
+        language: 'ru',
+        image_previewText: '',
+        initialData: '',
+        toolbar: [
+          'bold',
+          'italic',
+          'bulletedList',
+          'numberedList',
+          'undo',
+          'redo'
+        ]
+      },
       errorSelect: {
         type: false,
         ticket: false
@@ -81,6 +107,7 @@ export default {
         title: '',
         ticket: '',
         amount: '',
+        description: ''
       },
       listTickets: []
     }
@@ -94,6 +121,10 @@ export default {
       },
       ticket: {
         required
+      },
+      description: {
+        required,
+        maxLength: maxLength(300)
       },
       amount: {
         required
@@ -132,6 +163,7 @@ export default {
           this.form.title = event.params.action.title
           this.form.ticket = event.params.action.ticket
           this.form.amount = event.params.action.amount
+          this.form.description = event.params.action.description
         }
       }
     },
@@ -143,6 +175,7 @@ export default {
       this.form.ticket = ''
       this.form.amount = ''
       this.form.relation = ''
+      this.form.description = ''
       this.listTickets = []
     }
   }

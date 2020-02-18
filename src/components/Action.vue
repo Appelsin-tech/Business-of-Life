@@ -3,11 +3,16 @@
     <div class="action-info">
       <h3 class="g-caption-element g-caption-element--static">{{action.title}} </h3>
       <div class="info-item">
-<!--        <img svg-inline class="svg-icon" src="@/assets/img/icon/location.svg" alt="">-->
         <div class="info-icon">
           <span>i</span>
         </div>
         <span class="text">Билет "{{action.ticket.title}}": {{action.amount}} шт.</span>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <span>i</span>
+        </div>
+        <div class="text editor" v-html="action.description"></div>
       </div>
     </div>
     <div class="g-control-icon" v-if="controlBtn">
