@@ -59,8 +59,11 @@ export default {
       align-items: flex-start;
       .iframe {
         margin-bottom: 20px;
-        max-width: 540px;
-        width: 100%;
+        width: 540px;
+        .sm-block({
+          width: 500px;});
+        .ss-block({
+          width: 100%;});
         iframe {
           width: 100%;
           .ss-block({max-height: 200px;});

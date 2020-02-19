@@ -50,21 +50,20 @@
         <h2 class="g-caption-section">Организационная информация</h2>
         <div class="org-info__wrapper">
           <div class="org-info__item item">
-            <p class="item__name">Дата:</p>
+            <p class="item__name g-item-form__label">Дата:</p>
             <p class="item__info editor">{{parseDate}}</p>
           </div>
           <div class="org-info__item item">
-            <p class="item__name">Место проведения:</p>
+            <p class="item__name g-item-form__label">Место проведения:</p>
             <p class="item__info editor">{{activeRelation.address}}</p>
           </div>
           <div class="org-info__item item">
-            <p class="item__name">Целевая аудитория:</p>
+            <p class="item__name g-item-form__label">Целевая аудитория:</p>
             <p class="item__info editor">{{event.audience}}</p>
           </div>
           <div class="org-info__item item">
-            <p class="item__name">Контактная информация:</p>
+            <p class="item__name g-item-form__label">Контактная информация:</p>
             <div class="text-wrapper editor" v-html="activeRelation.contacts"></div>
-<!--            <a href="mailto: info@businessof.life" class="item__info item__info&#45;&#45;link">info@businessof.life</a>-->
           </div>
         </div>
       </section>
@@ -571,14 +570,9 @@ export default {
         .size-xs(12);
       }
       .item {
-        margin-bottom: 85px;
-        .sm-block({ margin-bottom: 50px; });
-        .xs-block({ margin-bottom: 35px; });
+        margin-bottom: 30px;
+        .ss-block({ margin-bottom: 20px; });
         &__name {
-          margin-bottom: 25px;
-          font-size: 2rem;
-          font-weight: 800;
-          .sm-block({ margin-bottom: 15px; });
         }
         &__info {
           &--link {
