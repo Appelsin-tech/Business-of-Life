@@ -2,14 +2,14 @@
   <section class="p-lesson p-default-block">
     <preloader v-if="!course"/>
     <div v-if="course">
-      <status-preview-course :idCourse="course.id" :idStatus="statusCourse" v-if="myCourses" @newStatus="refreshStstus"/>
+      <status-preview-course :idCourse="course.id" :idStatus="statusMyCourse" v-if="isMyCourse" @newStatus="refreshStstus"/>
       <bread-crumbs :arrCrumbs="breadCrumbs"/>
       <div class="container" >
         <h1 class="g-caption-inner">{{course.title}}</h1>
         <section class="preview-lesson g-subsection">
           <div class="img" :style="{backgroundImage: `url(${course.img})`}"></div>
           <div class="info">
-            <panel-status-process-course-lesson source="course" :status="1"/>
+            <panel-status-process-course-lesson source="course" :statusProcessed="1"/>
             <div class="text-wrapper">
               <div class="editor" v-html="course.snippet"></div>
             </div>
@@ -33,21 +33,19 @@
 </template>
 
 <script>
-import StatusPreviewCourse from '@/components/StatusPreviewCourse'
 import BreadCrumbs from '@/components/BreadCrumbs'
 import API from '@/api/index'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import PanelStatusProcessCourseLesson from '@/components/knowledge/components/PanelStatusProcessCourseLesson'
 import Preloader from '@/components/ui/Preloader'
 import ScrollMixin from '@/mixins/scrollToSection'
 import PanelLesson from '@/components/knowledge/components/PanelLesson'
 
-
 export default {
   name: 'KnowledgeCourse',
   props: ['url'],
   components: {
-    StatusPreviewCourse,
+    StatusPreviewCourse: () => import('@/components/StatusPreviewCourse'),
     BreadCrumbs,
     PanelStatusProcessCourseLesson,
     Preloader,
@@ -64,19 +62,20 @@ export default {
       ],
       course: null,
       valueSelectLesson: null,
-      activeLesson: null,
-      myCourses: false,
-      statusCourse: 0
+      activeLesson: null
     }
   },
   computed: {
-    ...mapState('courses', [
-      'coursesMy'
-    ]),
     ...mapGetters('user', [
       'logged',
       'status'
     ]),
+    isMyCourse () {
+      return this.$store.getters[`courses/isMyCourse`](this.url)
+    },
+    statusMyCourse () {
+      return this.$store.getters[`courses/statusMyCourse`](this.url)
+    }
   },
   methods: {
     newActiveLesson(value) {
@@ -86,22 +85,9 @@ export default {
         this.activeLesson = response
       })
     },
-    statusInfo () {
-      if (this.status > 1) {
-        this.$store.dispatch('courses/getMyCourses').then(() => {
-          this.coursesMy.map(item => {
-            if (item.id === this.course.id) {
-              this.myCourses = true
-              this.statusCourse = item.status
-            }
-          })
-        })
-      }
-    },
     getInfoCourse() {
       API.courses.courses.info({url: this.url}).then(response => {
         this.course = response
-        this.statusInfo()
       }).catch(e => {
         this.$router.push({ path: '/404' })
       })
@@ -109,6 +95,9 @@ export default {
     refreshStstus() {
       this.course = null
       this.getInfoCourse()
+      if (this.status > 1) {
+        this.$store.dispatch('courses/getMyCourses')
+      }
     }
   },
   mounted () {

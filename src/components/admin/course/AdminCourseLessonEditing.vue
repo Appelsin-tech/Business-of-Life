@@ -23,7 +23,12 @@
           </div>
         </div>
         <panel-info v-else>Чтобы создать урок - заполните информацию о курсе</panel-info>
-        <router-link to="/admin/course-control" class="back-btn">Назад</router-link>
+        <div class="link-wrapper">
+          <router-link class="g-btn g-btn--no-icon preview" :to="`/knowledge/${id}`" :class="{disabled: !id}">
+            <span>Предпросмотр</span>
+          </router-link>
+          <router-link to="/admin/course-control" class="back-btn">Назад</router-link>
+        </div>
       </div>
     </div>
   </section>
@@ -162,9 +167,19 @@ export default {
               left: 15px;});
           }
         }
-
       }
     }
+  }
+  .link-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid @colorBorder;
+    .ss-block({
+      padding-top: 20px;
+      margin-top: 20px;});
   }
 
 </style>

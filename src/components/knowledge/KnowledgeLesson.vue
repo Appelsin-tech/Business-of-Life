@@ -2,7 +2,6 @@
   <section class="p-lesson p-default-block">
     <preloader v-if="!lesson"/>
     <div v-if="lesson">
-<!--      <status-preview-course :idCourse="course.id" :idStatus="statusCourse" v-if="myCourses"/>-->
       <bread-crumbs :arrCrumbs="breadCrumbs"/>
       <div class="container" >
         <h1 class="g-caption-inner">{{lesson.title}}</h1>
@@ -12,7 +11,7 @@
 <!--        </div>-->
         <section class="preview-lesson">
           <div class="info">
-            <panel-status-process-course-lesson source="lesson" :status="1"/>
+            <panel-status-process-course-lesson source="lesson" :statusProcessed="1" :urlMyCourse="pathMyCourse"/>
             <strong class="g-item-form__label">В этом уроке вы узнаете</strong>
             <div class="text-wrapper">
               <div class="editor ul-pdl-0" v-html="lesson.description"></div>
@@ -24,7 +23,7 @@
         </section>
         <section class="materials-lesson" ref="section-materials">
           <h2 class="g-caption-section">Материалы урока</h2>
-          <div class="g-subsection" v-for="item in lesson.content" :key="item.id">
+          <div class="g-subsection-60" v-for="item in lesson.content" :key="item.id">
             <panel-video-lesson :srcVideo="item.content" v-if="item.type === 'video'"/>
             <div class="editor" v-html="item.content" v-else></div>
           </div>
@@ -45,7 +44,6 @@
 import PanelVideoLesson from '@/components/knowledge/components/PanelVideoLesson'
 import PanelAudioLesson from '@/components/knowledge/components/PanelAudioLesson'
 import PanelFileLesson from '@/components/knowledge/components/PanelFileLesson'
-import StatusPreviewCourse from '@/components/StatusPreviewCourse'
 import BreadCrumbs from '@/components/BreadCrumbs'
 import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
@@ -57,7 +55,6 @@ export default {
   name: 'KnowledgeLesson',
   props: ['url', 'id'],
   components: {
-    StatusPreviewCourse,
     BreadCrumbs,
     PanelStatusProcessCourseLesson,
     PanelAudioLesson,
@@ -74,7 +71,7 @@ export default {
           title: 'База знаний'
         },
         {
-          path: '/knowledge/',
+          path: `/knowledge/${this.url}`,
           title: 'Курс'
         },
       ],
@@ -94,6 +91,13 @@ export default {
       'logged',
       'status'
     ]),
+    pathMyCourse () {
+      if(this.$store.getters[`courses/isMyCourse`](this.url)) {
+        return `${this.url}/${this.id}`
+      } else {
+        return null
+      }
+    },
   },
   mounted () {
     API.courses.lesson.info({id: this.id}).then(response => {
@@ -133,7 +137,7 @@ export default {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        .md-block({ padding-top: 0; max-width: 80%; });
+        .md-block({ padding-top: 0; });
         .sm-block({ max-width: 100%; });
         .text-wrapper {
           margin-bottom: 80px;

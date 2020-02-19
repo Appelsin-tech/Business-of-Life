@@ -39,30 +39,37 @@
         <button-add class="row" @click.native="$modal.show('modal-lesson-materials', {idLesson: idLesson, newBlocks: true})" v-if="id"></button-add>
         <panel-info v-else>Чтобы добавить материалы - заполните информацию о уроке</panel-info>
       </div>
-      <draggable v-model="content" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag" v-if="content">
-        <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <div v-for="item in content" :key="item.id" class="item-materials">
-            <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"  v-on:delete-video="deleteBlocks(item.id)"/>
-            <div class="g-panel text" v-else>
-              <div class="editor" v-html="item.content"></div>
-              <div class="icon-wrapper">
-                <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
-                  <img svg-inline class="svg-icon " src="@/assets/img/icon/drag.svg" alt="">
-                </div>
-                <div class="g-control-icon static">
-                  <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
-                    <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
-                  </button>
-                  <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteBlocks(item.id)">
-                    <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
-                  </button>
+      <div class="materials-wrapper">
+        <draggable v-model="content" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag" v-if="content">
+          <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+            <div v-for="item in content" :key="item.id" class="item-materials">
+              <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"  v-on:delete-video="deleteBlocks(item.id)"/>
+              <div class="g-panel text" v-else>
+                <div class="editor" v-html="item.content"></div>
+                <div class="icon-wrapper">
+                  <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
+                    <img svg-inline class="svg-icon " src="@/assets/img/icon/drag.svg" alt="">
+                  </div>
+                  <div class="g-control-icon static">
+                    <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
+                      <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+                    </button>
+                    <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteBlocks(item.id)">
+                      <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </transition-group>
-      </draggable>
-      <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
+          </transition-group>
+        </draggable>
+      </div>
+      <div class="link-wrapper">
+        <router-link class="g-btn g-btn--no-icon preview" :to="`/knowledge/${course}/${id}`" :class="{disabled: !course}">
+          <span>Предпросмотр</span>
+        </router-link>
+        <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
+      </div>
     </div>
     <modal-lesson-materials/>
   </section>
@@ -82,7 +89,6 @@ import ModalLessonMaterials from '@/components/modal/ModalLessonMaterials'
 import PanelVideoLesson from '@/components/knowledge/components/PanelVideoLesson'
 import Preloader from '@/components/ui/Preloader'
 import PanelInfo from '@/components/ui/PanelInfo'
-
 
 export default {
   name: 'AdminLessonEditing',
@@ -135,25 +141,6 @@ export default {
       activePreloader: false,
       idLesson: this.id,
       content: null,
-      myArray: [
-        {
-          id: 0,
-          type: 'text',
-          content: `<p>Hello World</p>`
-        },
-        {
-          id: 1,
-          type: 'video',
-          // content: 'https://player.vimeo.com/video/53785991'
-          content: 'https://www.youtube.com/embed/zm0rAR0wwXM'
-        },
-        {
-          id: 2,
-          type: 'text',
-          content: `
-          <ul><li>Переменные (var, let, const), типы данных, строки, числа, массивы, объекты, boolean.</li><li>Выражения, операторы (условные, логические, арифметические), преведение типов.</li><li>Разберемся с циклами, while, do while, for, for in, for of. Работа с массивами и объектами в циклах. Шаблонные строки.</li><li>Методы работы с массивами. Деструктурирующее присваивание.</li><li>Функции и все что с ними связано. Область видимости переменных, callback, анонимные функции, стрелочные функции, оператор rest.</li></ul>`
-        }
-      ],
       errorResponse: {
         title: 'Неверная длина названия',
         description: 'Неверная длина описания'
@@ -214,7 +201,7 @@ export default {
           course_id: this.course
         }).then(response => {
           API.response.success('Урок создан')
-          this.$router.push({ path: `/admin/course-editing/${this.course}` })
+          this.$router.push({ path: `/admin/lesson/${this.course}/${response.id}` })
         }).catch(e => {
           if (e.response.reason) {
             API.response.error(this.errorResponse[e.response.reason])
@@ -247,6 +234,9 @@ export default {
       })
     }
   },
+  // beforeRouteUpdate(to, from, next) {
+  //   next()
+  // },
   mounted() {
     if (this.id) {
       this.$root.$on('materials-edit', () => {
@@ -262,7 +252,11 @@ export default {
 
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
-
+  .materials-wrapper {
+    margin-bottom: 30px;
+    .ss-block({
+      margin-bottom: 20px;});
+  }
   .item-materials {
     margin-bottom: 20px;
     opacity: 1;
@@ -289,12 +283,20 @@ export default {
             margin-bottom: 0;})
         }
       }
-
       .editor {
         margin-right: 15px;
         .sm-block({
           margin-right: 0;});
       }
     }
+  }
+  .link-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 30px;
+    border-top: 1px solid @colorBorder;
+    .ss-block({
+      padding-top: 20px;});
   }
 </style>

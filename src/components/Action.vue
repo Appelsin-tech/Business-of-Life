@@ -12,7 +12,7 @@
         <div class="info-icon">
           <span>i</span>
         </div>
-        <div class="text editor" v-html="action.description"></div>
+        <div class="text editor" v-html="action.desc"></div>
       </div>
     </div>
     <div class="g-control-icon" v-if="controlBtn">

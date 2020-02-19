@@ -48,10 +48,10 @@ export default {
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    .default-panel-style(35px);
     .sm-block({flex-direction: column;});
     &.editing {
       width: 100%;
+      .default-panel-style(35px);
     }
     .content {
       display: inline-flex;

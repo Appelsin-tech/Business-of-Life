@@ -21,7 +21,10 @@
               </div>
             </div>
             <div class="g-item-form col-12" v-if="form.type">
-              <label class="g-item-form__label">Содержание</label>
+              <label class="g-item-form__label">
+                <template v-if="form.type === 'video'">Ссылка</template>
+                <template v-else>Содержание</template>
+              </label>
               <ckeditor :editor="editor" v-model="form.content" :config="editorConfig" v-if="form.type === 'text'"></ckeditor>
               <input class="g-item-form__input" v-model="form.content" v-else-if="form.type === 'video'">
             </div>
@@ -153,7 +156,6 @@ export default {
     },
     parseLinkReverse () {
       if (this.form.type === 'video') {
-        let url = new URL(this.form.content)
         let regYt = /youtube/
         let regVimeo = /vimeo/
         // https://www.youtube.com/embed/nSm_iTHy1DE

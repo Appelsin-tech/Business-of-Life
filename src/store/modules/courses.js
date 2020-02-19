@@ -5,6 +5,12 @@ const state = () => ({
 })
 
 const getters = {
+  isMyCourse: state => idCourse => {
+    return state.coursesMy.find(item => item.id === idCourse)
+  },
+  statusMyCourse: state => idCourse => {
+    return state.coursesMy.length ? state.coursesMy.find(item => item.id === idCourse).status : 0
+  }
 }
 
 const actions = {

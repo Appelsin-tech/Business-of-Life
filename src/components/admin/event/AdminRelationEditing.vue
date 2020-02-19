@@ -457,12 +457,6 @@ export default {
     .ss-block({
       padding-top: 20px;
     });
-    .preview {
-      &.disabled {
-        opacity: 0.7;
-        pointer-events: none;
-      }
-    }
   }
   .stock {
     margin-bottom: 30px;
@@ -475,7 +469,7 @@ export default {
     }
   }
   .access {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     .ss-block({
       margin-bottom: 20px;
     });
