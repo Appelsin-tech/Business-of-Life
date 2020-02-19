@@ -43,7 +43,7 @@
         <draggable v-model="content" tag="div" @start="drag = true" @end="moveMaterials" v-bind="dragOptions" handle=".drag" v-if="content">
           <transition-group type="transition" :name="!drag ? 'flip-list' : null">
             <div v-for="item in content" :key="item.id" class="item-materials">
-              <panel-video-lesson :srcVideo="item.content" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"  v-on:delete-video="deleteBlocks(item.id)"/>
+              <panel-video-lesson :video="item" :editing="true" v-if="item.type === 'video'" v-on:edit-video="$modal.show('modal-lesson-materials', item)"  v-on:delete-video="deleteBlocks(item.id)"/>
               <div class="g-panel text" v-else>
                 <div class="editor" v-html="item.content"></div>
                 <div class="icon-wrapper">

@@ -131,7 +131,8 @@ export default {
         })
       } else {
         let data = {
-          id: this.form.id
+          id: this.form.id,
+          title: this.form.title
         }
         if (this.form.type === 'video') {
           data.content = this.parseLink
@@ -154,8 +155,9 @@ export default {
         this.errorSelect[name] = false
       }
     },
-    parseLinkReverse () {
+    parseLinkReverse (params) {
       if (this.form.type === 'video') {
+        this.form.title = params.title
         let regYt = /youtube/
         let regVimeo = /vimeo/
         // https://www.youtube.com/embed/nSm_iTHy1DE
@@ -171,12 +173,12 @@ export default {
     beforeClose () {
       this.form.type = ''
       this.form.content = ''
+      this.form.title = ''
       this.errorSelect.type = false
       this.newMaterials = false
     },
     beforeOpen (event) {
       if (event.params !== undefined) {
-        console.log(event.params)
         this.idLesson = event.params.idLesson
         if (event.params.newBlocks) {
           this.newMaterials = true
@@ -184,7 +186,7 @@ export default {
           this.form.type = event.params.type
           this.form.content = event.params.content
           this.form.id = event.params.id
-          this.parseLinkReverse()
+          this.parseLinkReverse(event.params)
         }
       }
     }

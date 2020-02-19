@@ -1,13 +1,13 @@
 <template>
   <div class="video" :class="{editing: editing}">
     <div class="content">
-      <div class="iframe" v-if="srcVideo">
-        <iframe width="560" height="315" :src="srcVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="iframe" v-if="video">
+        <iframe width="560" height="315" :src="video.content" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="desc-wrapper">
         <div class="desc">
           <img svg-inline class="g-svg-icon" src="@/assets/img/icon/video-camera.svg" alt="">
-          <p class="g-caption-element g-caption-element--static">Что такое финансовая пирамида</p>
+          <p class="g-caption-element g-caption-element--static">{{video.title}}</p>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
 export default {
   name: 'PanelVideoLesson',
   props: {
-    srcVideo: {
+    video: {
       required: true
     },
     editing: {

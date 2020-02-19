@@ -24,7 +24,7 @@
         <section class="materials-lesson" ref="section-materials">
           <h2 class="g-caption-section">Материалы урока</h2>
           <div class="g-subsection-60" v-for="item in lesson.content" :key="item.id">
-            <panel-video-lesson :srcVideo="item.content" v-if="item.type === 'video'"/>
+            <panel-video-lesson :video="item" v-if="item.type === 'video'"/>
             <div class="editor" v-html="item.content" v-else></div>
           </div>
 <!--          <div class="g-subsection">-->
