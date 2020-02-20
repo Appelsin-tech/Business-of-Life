@@ -32,7 +32,7 @@
             </div>
             <div class="g-item-form col-6">
               <label class="g-item-form__label">Акционный билет</label>
-              <v-select :multiple="false" :class="['v-select__modal', {error: errorSelect.ticket}]" :searchable="false" :reduce="ticket => ticket.id" label="title" :options="listTickets" v-model="form.ticket" v-on:search:blur="validateSelect('ticket')"></v-select>
+              <v-select :disabled="!newStock" :multiple="false" :class="['v-select__modal', {error: errorSelect.ticket}]" :searchable="false" :reduce="ticket => ticket.id" label="title" :options="listTickets" v-model="form.ticket" v-on:search:blur="validateSelect('ticket')"></v-select>
               <div class="input-valid-error" v-if="errorSelect.ticket">
                 Выберите билет
               </div>
@@ -67,7 +67,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 
 export default {
-  name: 'ModalStockCreateEditing',
+  name: 'ModalActionsCreateEditing',
   components: { ckeditor: CKEditor.component },
   data() {
     return {
@@ -117,7 +117,7 @@ export default {
       title: {
         required,
         minLength: minLength(3),
-        maxLength: maxLength(30)
+        maxLength: maxLength(100)
       },
       ticket: {
         required
@@ -140,7 +140,12 @@ export default {
           this.$modal.hide('modal-actions-create')
         })
       } else {
-        API.actions.edit(this.form).then(response => {
+        API.actions.edit({
+          id: this.form.id,
+          title: this.form.title,
+          amount: this.form.amount,
+          description: this.form.description
+        }).then(response => {
           API.response.success('Акция отредактирована')
           this.$root.$emit('actions-edit')
           this.$modal.hide('modal-actions-create')
@@ -163,7 +168,8 @@ export default {
           this.form.title = event.params.action.title
           this.form.ticket = event.params.action.ticket
           this.form.amount = event.params.action.amount
-          this.form.description = event.params.action.description
+          this.form.description = event.params.action.desc
+          this.form.id = event.params.action.id
         }
       }
     },
@@ -176,6 +182,7 @@ export default {
       this.form.amount = ''
       this.form.relation = ''
       this.form.description = ''
+      this.form.id = ''
       this.listTickets = []
     }
   }

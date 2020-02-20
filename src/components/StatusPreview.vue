@@ -29,9 +29,9 @@
           </template>
         </div>
         <div class="btn-wrapper">
-          <button class="g-btn g-btn--no-icon" @click="$router.push({path: `/admin/relation/${idEvent}/${idRelation}`})">
+          <router-link :to="`/admin/relation/${idEvent}/${idRelation}`" class="g-btn g-btn--no-icon">
             <span>Редактировать</span>
-          </button>
+          </router-link>
           <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
             <span v-if="idStatus === 3 || idStatus === 4">Снять с публикации</span>
             <span v-else>Опубликовать</span>

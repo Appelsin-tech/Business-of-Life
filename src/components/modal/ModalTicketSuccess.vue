@@ -21,7 +21,7 @@
         </div>
         <ticket-info :ticketArr="ticketArr" class="modal"/>
         <div class="info">
-          <span class="info-icon">i</span>
+          <span class="g-icon-attention">i</span>
           <div class="text">
             <p>Ссылка на билет была отправлена на {{email}}</p>
             <p>Чтобы пройти на мероприятие покажите QR-код или назовите номер билета контролеру</p>

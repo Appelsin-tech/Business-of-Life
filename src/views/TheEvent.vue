@@ -30,6 +30,10 @@
               <span>Купить билет</span>
             </a>
           </div>
+          <div class="info__item attention" v-if="activeRelation.actions.length">
+            <span class="g-icon-attention">i</span>
+            <p>Количество билетов участвующих в&#8194;<a class="link-action" href="#" @click.prevent="scrollToSection('section-actions')">акции</a>&#8194;ограничено</p>
+          </div>
         </div>
       </section>
       <section class="description">
@@ -67,15 +71,15 @@
           </div>
         </div>
       </section>
+      <section class="action" ref="section-actions" v-if="activeRelation.actions.length">
+        <h2 class="g-caption-section">Акции</h2>
+        <action v-for="action in activeRelation.actions" :key="action.id" :action="action" :relationId="activeRelation.id"></action>
+      </section>
       <section class="tickets" ref="section-tickets" v-if="activeRelation.tickets.length">
         <h2 class="g-caption-section">Билеты</h2>
         <div class="tickets-wrapper">
           <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeRelation"/>
         </div>
-      </section>
-      <section class="action">
-        <h2 class="g-caption-section">Акции</h2>
-        <action v-for="action in activeRelation.actions" :key="action.id" :action="action" :relationId="activeRelation.id"></action>
       </section>
       <section class="other-activities" v-if="false">
 <!--      <h2 class="g-caption-section">Возможно, вас заинтересует</h2>-->
@@ -358,7 +362,9 @@ export default {
     .info__ticket {
       display: flex;
       align-items: center;
-      .xs-block({ flex-direction: column; align-items: flex-start; });
+      margin-bottom: 30px;
+      .xs-block({ flex-direction: column; align-items: flex-start;
+        margin-bottom: 20px;});
       &--slide-event {
         justify-content: space-between;
         .to(520px, { flex-direction: column; align-items: flex-start; });
@@ -448,6 +454,20 @@ export default {
           &:last-of-type {
             margin-bottom: 80px;
             .xs-block({ margin-bottom: 50px; })
+          }
+          &.attention {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            .xs-block({ margin-bottom: 20px; });
+            .link-action {
+              border-bottom: 1px solid #000;
+              transition: 0.3s;
+              color: #000;
+              &:hover {
+                border-bottom-color: transparent;
+              }
+            }
           }
           &--bold {
             margin-right: 25px;
@@ -583,9 +603,11 @@ export default {
         }
       }
     }
+    .action {
+      margin-bottom: 50px;
+      .sm-block({ margin-bottom: 35px; });
+    }
     .tickets {
-      margin-bottom: 80px;
-      .sm-block({ margin-bottom: 55px; });
       .tickets-wrapper {
         .row-flex();
         .ss-block({

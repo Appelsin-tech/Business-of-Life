@@ -6,7 +6,7 @@
       <search page="member"/>
       <div class="content" v-for="item in ticketMembers" :key="item.title">
         <h2 class="g-caption-section">{{item.title}}</h2>
-        <admin-member-item v-for="member in item.members" :member="member"></admin-member-item>
+        <admin-member-item v-for="member in item.members" :member="member" :key="member.email"></admin-member-item>
       </div>
     </div>
   </section>

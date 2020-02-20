@@ -119,7 +119,6 @@ import AdminRelationEditingAccess from '@admin/event/AdminRelationEditingAccess'
 import API from '@/api/index'
 import PanelInfo from '@/components/ui/PanelInfo'
 import { mapState, mapGetters } from 'vuex'
-
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
 import { minLength, required } from 'vuelidate/lib/validators'

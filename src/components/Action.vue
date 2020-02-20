@@ -3,16 +3,13 @@
     <div class="action-info">
       <h3 class="g-caption-element g-caption-element--static">{{action.title}} </h3>
       <div class="info-item">
-        <div class="info-icon">
-          <span>i</span>
-        </div>
-        <span class="text">Билет "{{action.ticket.title}}": {{action.amount}} шт.</span>
+        <div class="text editor" v-html="action.desc"></div>
       </div>
       <div class="info-item">
-        <div class="info-icon">
-          <span>i</span>
-        </div>
-        <div class="text editor" v-html="action.desc"></div>
+        <p class="text">осталось <span class="g-price-main g-price--mb">{{action.residue}}</span> билетов  "{{action.ticket.title}}"</p>
+      </div>
+      <div class="info-item" v-if="controlBtn">
+        <p class="text">всего билетов: {{action.amount}} шт</p>
       </div>
     </div>
     <div class="g-control-icon" v-if="controlBtn">
@@ -29,7 +26,7 @@
 <script>
 import API from '@/api/index'
 export default {
-  name: 'AdminRelationEditingAction',
+  name: 'Action',
   props: {
     action: {
       required: true
@@ -75,6 +72,9 @@ export default {
     .action-info {
       display: flex;
       flex-direction: column;
+      .g-caption-element {
+        text-transform: none;
+      }
       .info-item {
         display: flex;
         align-items: center;
@@ -107,7 +107,10 @@ export default {
           }
         }
         .text {
-          color: @colorSecondFonts;
+          .g-price-main {
+            display: inline-block;
+            margin: 0 10px;
+          }
         }
       }
     }

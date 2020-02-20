@@ -15,4 +15,11 @@ export default {
       reject(error)
     })
   }),
+  edit: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/actions/edit', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
 }
