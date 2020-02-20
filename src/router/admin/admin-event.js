@@ -33,6 +33,13 @@ export default [
     props: true,
     beforeEnter: checkEditors,
     component: () => import('@admin/event/AdminRelationEditing')
+  },
+  {
+    path: 'member/:ticket',
+    name: 'member',
+    props: true,
+    beforeEnter: checkEditors,
+    component: () => import('@admin/event/AdminMember')
   }
 ]
 

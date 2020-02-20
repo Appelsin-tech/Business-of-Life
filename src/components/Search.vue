@@ -1,9 +1,9 @@
 <template>
   <div>
-    <form class="search-wrapper" @submit.prevent="searchTicket" >
+    <form class="search-wrapper" @submit.prevent="search" >
       <div class="col search">
-        <input class="search__input" type="text" placeholder="Найти билет по номеру" v-model="hash">
-        <img svg-inline class="search__icon svg-inline" src="../assets/img/icon/search.svg" alt="">
+        <input class="search__input" type="text" :placeholder="placeholder" v-model="field" @change="changeField">
+        <img svg-inline class="search__icon svg-inline" src="@/assets/img/icon/search.svg" alt="">
       </div>
       <div class="col btn-col">
         <button class="g-btn g-btn--no-icon ">
@@ -12,42 +12,74 @@
       </div>
     </form>
     <div class="error" v-if="notFound">
-      <strong>Билет не найден</strong>
+      <strong>
+        <template v-if="page === 'ticket'">Билет не найден</template>
+        <template v-else-if="page === 'member'">Участник не найден</template>
+      </strong>
     </div>
   </div>
 </template>
 
 <script>
-import API from '../api/index'
+import API from '@/api/index'
 
 export default {
   name: 'TicketSearch',
+  props: ['page'],
   data() {
     return {
-      hash: '',
+      field: '',
       response: false,
       notFound: false
     }
   },
+  computed: {
+    placeholder () {
+      let search = 'Найти'
+      switch (this.page) {
+        case 'ticket':
+          search = 'Найти билет по номеру'
+          break
+        case 'member':
+          search = 'Найти по имени'
+          break
+      }
+      return search
+    }
+  },
   methods: {
-    searchTicket() {
-      API.tickets.check({hash: this.hash}).then(response => {
-        this.$router.push({path: `/tickets/${this.hash}`})
-        this.response = response.data
+    search() {
+      if(this.page === 'ticket') {
+        let data = {
+          hash: this.field
+        }
+        API.tickets.check(data).then(response => {
+          this.$router.push({path: `/tickets/${this.field}`})
+          this.response = response.data
+          this.notFound = false
+        }).catch(error => {
+          this.notFound = true
+          this.$emit('notFound')
+          this.$router.push({path: '/tickets'})
+        })
+      } else if (this.page === 'member') {
+        let data = {
+          member: this.field
+        }
+        console.log(data)
+      }
+    },
+    changeField() {
+      if (this.notFound) {
         this.notFound = false
-      }).catch(error => {
-        this.notFound = true
-        this.$emit('notFound')
-        this.$router.push({path: '/tickets'})
-        console.log(error)
-      })
+      }
     }
   }
 }
 </script>
 
 <style scoped lang="less">
-  @import "../assets/less/_importants";
+  @import "~@/assets/less/_importants";
 
   .search-wrapper {
     .row-flex();

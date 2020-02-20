@@ -1,6 +1,7 @@
 <template>
   <section class="p-event-all-editing p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
+    <preloader v-if="activePreloader"/>
     <div class="container page">
       <h1 class="g-caption-inner">Мероприятие</h1>
       <div class="event-editing" v-if="!relationEditors">
@@ -15,11 +16,11 @@
         <button-add v-if="showBtnAdd" :class="'row'" @click.native="$router.push({path: `/admin/relation/${id}`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
-            <admin-event-relation-editing-relation  v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
+            <admin-relation-item v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
           </div>
           <h3 class="g-caption-section">Прошедшие события</h3>
           <div class="event-wrapper--inner" v-if="myPastEvents.length">
-            <admin-event-relation-editing-relation  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation" :pastEvents="true"/>
+            <admin-relation-item  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation" :pastEvents="true"/>
 <!--            <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">-->
 <!--              <div class="g-icon-circle waiting" v-tooltip.left="'Прошедшее событие'">-->
 <!--                <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">-->
@@ -69,8 +70,8 @@ import { mapState, mapGetters } from 'vuex'
 import EventEditingForm from '@admin/event/EventEditingForm'
 import PanelInfo from '@/components/ui/PanelInfo'
 import ButtonAdd from '@/components/ui/ButtonAdd'
-import AdminEventRelationEditingRelation from '@admin/event/AdminEventRelationEditingRelation'
-
+import AdminRelationItem from '@admin/event/inner/AdminRelationItem'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'AdminEventRelationEditing',
@@ -80,7 +81,8 @@ export default {
     EventEditingForm,
     PanelInfo,
     ButtonAdd,
-    AdminEventRelationEditingRelation
+    AdminRelationItem,
+    Preloader
   },
   data() {
     return {
@@ -97,7 +99,8 @@ export default {
       myEvent: false,
       myFutureEvents: [],
       myPastEvents: [],
-      showRelations: 2
+      showRelations: 2,
+      activePreloader: false
     }
   },
   computed: {
@@ -119,22 +122,10 @@ export default {
       }
     },
     showBtnAdd () {
-      if( this.relationEditors) {
-        return false
-      } else if (this.id) {
-        return true
-      } else {
-        return false
-      }
+      return this.relationEditors ? false : !!this.id
     },
     showPanelRelation () {
-      if ( this.relationEditors) {
-        return false
-      } else if (this.showRelations === 2) {
-        return true
-      } else {
-        return false
-      }
+      return this.relationEditors ? false : this.showRelations === 2
     }
   },
   methods: {
@@ -162,6 +153,7 @@ export default {
       API.events.info({ id: this.id }).then(response => {
         this.myEvent = response.data
         this.filterRelations()
+        this.activePreloader = false
         if (this.myEvent.relations.length !== 0) {
           this.showRelations = 1
         } else {
@@ -172,6 +164,7 @@ export default {
   },
   mounted() {
     if (this.id) {
+      this.activePreloader = true
       this.getInfoEvent()
     }
   },

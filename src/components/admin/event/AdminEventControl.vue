@@ -1,6 +1,7 @@
 <template>
   <section class="p-control-event p-default-block">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
+    <preloader v-if="activePreloader"/>
     <div class="container page">
       <h1 class="g-caption-inner">Управление мероприятиями</h1>
       <div class="event" >
@@ -25,19 +26,24 @@
 import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import ButtonAdd from '@/components/ui/ButtonAdd'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'AdminEventControl',
-  components: { BreadCrumbs, ButtonAdd },
+  components: {
+    BreadCrumbs,
+    ButtonAdd,
+    Preloader
+  },
   data() {
     return {
-      resposneEvent: [],
       breadCrumbs: [
         {
           path: 'menu',
           title: 'Личный кабинет'
         }
-      ]
+      ],
+      activePreloader: false
     }
   },
   methods: {
@@ -46,8 +52,8 @@ export default {
       return image
     },
     background(img) {
-      !!img ? { backgroundImage: `url(${this.getImgUrl(img)}` } : { backgroundImage: 'none' }
-    },
+      return !!img ? { backgroundImage: `url(${this.getImgUrl(img)}` } : { backgroundImage: 'none' }
+    }
   },
   computed: {
     ...mapState('event', [
@@ -58,8 +64,11 @@ export default {
     ]),
   },
   mounted() {
-    if(this.eventsMy.length === 0) {
-      this.$store.dispatch('event/getMyEvents')
+    if (this.eventsMy.length === 0) {
+      this.activePreloader = true
+      this.$store.dispatch('event/getMyEvents').then(() => {
+        this.activePreloader = false
+      })
     }
   }
 }

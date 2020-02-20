@@ -3,7 +3,7 @@
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption-inner">Информация о билете</h1>
-      <ticket-search v-if="logged"/>
+      <search v-if="logged" page="ticket"/>
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
@@ -57,11 +57,11 @@
 <script>
 import API from '../api/index'
 import { mapState, mapGetters } from 'vuex'
-import TicketSearch from '../components/TicketSearch'
+import Search from '../components/Search'
 import BreadCrumbs from '../components/BreadCrumbs'
 export default {
   name: 'TheCheckTicket',
-  components: { TicketSearch, BreadCrumbs },
+  components: { Search, BreadCrumbs },
   data () {
     return {
       ticket: false,

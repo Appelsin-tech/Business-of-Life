@@ -13,25 +13,30 @@
     </div>
     <div class="event__info-wrapper">
       <div class="event__info">
-        <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>
-        <p class="event__info-item location">
-          <img svg-inline class="icon" src="@/assets/img/icon/location.svg" alt="">
-          <span class="text">{{relation.country}} {{relation.city}}</span>
-        </p>
-        <p class="event__info-item date">
-          <img svg-inline class="icon" src="@/assets/img/icon/timetable.svg" alt="">
-          <span class="text">{{relation.date}}</span>
-        </p>
-        <p class="event__info-item link">
-          <img svg-inline class="icon" src="@/assets/img/icon/earth-globe.svg" alt="">
-          <span class="text">https://businessof.life/event/{{relation.id}}</span>
-        </p>
+        <div class="content mb-30">
+          <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>
+          <p class="event__info-item location">
+            <img svg-inline class="icon" src="@/assets/img/icon/location.svg" alt="">
+            <span class="text">{{relation.country}} {{relation.city}}</span>
+          </p>
+          <p class="event__info-item date">
+            <img svg-inline class="icon" src="@/assets/img/icon/timetable.svg" alt="">
+            <span class="text">{{relation.date}}</span>
+          </p>
+          <p class="event__info-item link">
+            <img svg-inline class="icon" src="@/assets/img/icon/earth-globe.svg" alt="">
+            <span class="text">https://businessof.life/event/{{relation.id}}</span>
+          </p>
+        </div>
+        <router-link to="/users" class="g-btn g-btn--no-icon">
+          <span>Билет</span>
+        </router-link>
       </div>
       <div class="g-control-icon">
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/relation/${idEvent}/${relation.id}`})">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
         </button>
-        <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">
+        <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-relation', relation.id)" v-if="relation.status <= 1">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
         </button>
       </div>
@@ -41,7 +46,7 @@
 
 <script>
 export default {
-  name: 'AdminEventRelationEditingRelation',
+  name: 'AdminRelationItem',
   props: {
     relation: {
       required: true
@@ -80,9 +85,6 @@ export default {
     }
   },
   methods: {
-    deleteRelation(id) {
-      this.$emit('delete-relation', id)
-    },
   }
 }
 </script>
@@ -144,6 +146,7 @@ export default {
       }
       .text {
         color: @colorSecondFonts;
+        word-break: break-all;
       }
     }
   }

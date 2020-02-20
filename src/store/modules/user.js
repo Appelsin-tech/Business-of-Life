@@ -7,30 +7,18 @@ Vue.use(VueCookies)
 
 const state = () => ({
   profile: null,
-  sponsor: null,
+  sponsor: null
 })
 
 const getters = {
   logged: state => !!state.profile, // залогинен ли пользователей
-  access: state => state.profile.access.knowledge, // доступ к базе знаний
+  access: (state, getters) => getters.logged ? state.profile.access.knowledge : false, // доступ к базе знаний
   status: (state, getters) => getters.logged ? state.profile.status : 0, // статус пользователя
   statusDev (state, getters) { // статус для разработки
-    if (getters.logged) {
-      if (state.profile.login === 'pelkin' || state.profile.login === 'GeneralAdmin') {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      return false
-    }
+    return getters.logged ? state.profile.login === 'pelkin' || state.profile.login === 'GeneralAdmin' : false
   },
   relationEditors (state, getters) { // является ли обычный пользователь редактором событий
-    if (getters.logged && getters.status === 1 && state.profile.editor.length > 0) {
-      return true
-    } else {
-      return false
-    }
+    return getters.logged && getters.status === 1 && state.profile.editor.length > 0
   }
 }
 

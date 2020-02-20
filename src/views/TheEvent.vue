@@ -323,9 +323,6 @@ export default {
       }
     }
   },
-  // beforeRouteUpdate (to, from, next) {
-  //   next()
-  // },
   mounted () {
     this.getEvent()
   }

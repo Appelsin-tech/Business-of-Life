@@ -470,7 +470,7 @@ export default {
   }
   .access {
     margin-bottom: 30px;
-    .ss-block({
+    .sm-block({
       margin-bottom: 20px;
     });
   }
