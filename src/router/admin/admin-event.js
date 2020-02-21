@@ -35,8 +35,8 @@ export default [
     component: () => import('@admin/event/AdminRelationEditing')
   },
   {
-    path: 'member/:ticket',
-    name: 'member',
+    path: 'members/:ticket',
+    name: 'members',
     props: true,
     beforeEnter: checkEditors,
     component: () => import('@admin/event/AdminMember')

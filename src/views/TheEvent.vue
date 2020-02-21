@@ -36,7 +36,7 @@
           </div>
         </div>
       </section>
-      <section class="description">
+      <section class="description g-subsection">
         <h2 class="g-caption-section">Описание</h2>
         <div class="text-wrapper editor" v-html="event.description"></div>
       </section>
@@ -71,7 +71,7 @@
           </div>
         </div>
       </section>
-      <section class="action" ref="section-actions" v-if="activeRelation.actions.length">
+      <section class="action g-subsection" ref="section-actions" v-if="activeRelation.actions.length">
         <h2 class="g-caption-section">Акции</h2>
         <action v-for="action in activeRelation.actions" :key="action.id" :action="action" :relationId="activeRelation.id"></action>
       </section>
@@ -485,8 +485,6 @@ export default {
       }
     }
     .description {
-      margin-bottom: 100px;
-      .sm-block({ margin-bottom: 70px; });
       .text-wrapper {
         margin-bottom: 50px;
         .sm-block({ margin-bottom: 30px; });
@@ -566,9 +564,8 @@ export default {
       }
     }
     .org-info {
-      margin-bottom: 15px;
-      .sm-block({margin-bottom: 20px;});
-      .xs-block({margin-bottom: 35px;});
+      margin-bottom: 50px;
+      .sm-block({margin-bottom: 30px;});
       .p-event__caption-second {
         margin-bottom: 90px;
         .lg-block({ margin-bottom: 75px; });
@@ -588,7 +585,7 @@ export default {
       }
       .item {
         margin-bottom: 30px;
-        .ss-block({ margin-bottom: 20px; });
+        .sm-block({ margin-bottom: 20px; });
         &__name {
         }
         &__info {
@@ -604,8 +601,7 @@ export default {
       }
     }
     .action {
-      margin-bottom: 50px;
-      .sm-block({ margin-bottom: 35px; });
+
     }
     .tickets {
       .tickets-wrapper {

@@ -47,7 +47,7 @@
 import API from '@/api/index'
 
 export default {
-  name: 'AdminRelationEditingAccess',
+  name: 'AdminRelationAccessSection',
   props: {
     relation: {
       required: true
@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "../../../assets/less/_importants";
+  @import "~@/assets/less/_importants";
 
   .access-item__input {
     padding-left: 25px;

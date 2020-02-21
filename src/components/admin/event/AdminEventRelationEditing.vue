@@ -21,36 +21,6 @@
           <h3 class="g-caption-section">Прошедшие события</h3>
           <div class="event-wrapper--inner" v-if="myPastEvents.length">
             <admin-relation-item  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation" :pastEvents="true"/>
-<!--            <div class="event" v-for="(relation, i) in myPastEvents" :key="relation.id">-->
-<!--              <div class="g-icon-circle waiting" v-tooltip.left="'Прошедшее событие'">-->
-<!--                <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">-->
-<!--              </div>-->
-<!--              <div class="event__info-wrapper">-->
-<!--                <div class="event__info">-->
-<!--                  <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>-->
-<!--                  <p class="event__info-item location">-->
-<!--                    <img svg-inline class="icon" src="@/assets/img/icon/location.svg" alt="">-->
-<!--                    <span class="text">{{relation.country}} {{relation.city}}</span>-->
-<!--                  </p>-->
-<!--                  <p class="event__info-item date">-->
-<!--                    <img svg-inline class="icon" src="@/assets/img/icon/timetable.svg" alt="">-->
-<!--                    <span class="text">{{relation.date}}</span>-->
-<!--                  </p>-->
-<!--                  <p class="event__info-item link">-->
-<!--                    <img svg-inline class="icon" src="@/assets/img/icon/earth-globe.svg" alt="">-->
-<!--                    <span class="text">https://businessof.life/event/{{relation.id}}</span>-->
-<!--                  </p>-->
-<!--                </div>-->
-<!--                <div class="g-control-icon">-->
-<!--                  <button class="g-icon-circle g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/editing/${id}/${relation.id}`})">-->
-<!--                    <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">-->
-<!--                  </button>-->
-<!--                  <button class="g-icon-circle  g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-red" v-tooltip.bottom="'Удалить'" @click="deleteRelation(relation.id)" v-if="relation.status <= 1">-->
-<!--                    <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
           </div>
           <panel-info v-if="!myPastEvents.length">
             У вас еще нет прошедших событий
@@ -143,7 +113,7 @@ export default {
         let itemStamp = item.stamp * 1000
         if (currentMoment - itemStamp > 0 && item.status === 3) {
           item.status = 4
-          this.myPastEvents.push(item)
+          this.myPastEvents.unshift(item)
         } else {
           this.myFutureEvents.push(item)
         }

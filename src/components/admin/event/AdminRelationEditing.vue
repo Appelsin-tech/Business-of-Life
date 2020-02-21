@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="access" v-if="!relationEditors">
-        <admin-relation-editing-access :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
+        <admin-relation-access-section :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
       </div>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
@@ -115,7 +115,7 @@ import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import Ticket from '@/components/Ticket'
 import Action from '@/components/Action'
-import AdminRelationEditingAccess from '@admin/event/AdminRelationEditingAccess'
+import AdminRelationAccessSection from '@admin/event/inner/AdminRelationAccessSection'
 import API from '@/api/index'
 import PanelInfo from '@/components/ui/PanelInfo'
 import { mapState, mapGetters } from 'vuex'
@@ -146,7 +146,7 @@ export default {
     ckeditor: CKEditor.component,
     ButtonAdd,
     Action,
-    AdminRelationEditingAccess,
+    AdminRelationAccessSection,
     ModalTicketCreateEditing: () => import('@/components/modal/ModalTicketCreateEditing'),
     ModalActionsCreateEditing: () => import('@/components/modal/ModalActionsCreateEditing')
   },
