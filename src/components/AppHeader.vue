@@ -34,14 +34,18 @@
       </div>
       <div class="wrapper-menu-list">
         <ul class="menu-list">
+
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('main')">Главная</a>
           </li>
           <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('description')">О нас</a>
+            <a href="#" class="link" @click.prevent="goRouter('knowledge-package')">База знаний</a>
           </li>
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
+          </li>
+          <li class="item">
+            <a href="#" class="link" @click.prevent="goRouter('news')">Новости</a>
           </li>
           <li class="item">
             <a href="#" class="link" @click.prevent="goRouter('admin')" v-if="logged">Личный кабинет</a>
