@@ -25,18 +25,26 @@
                 <template v-if="form.type === 'video'">Ссылка</template>
                 <template v-else>Содержание</template>
               </label>
-              <ckeditor :editor="editor" v-model="form.content" :config="editorConfig" v-if="form.type === 'text'"></ckeditor>
-              <input class="g-item-form__input" v-model="form.content" v-else-if="form.type === 'video'">
+              <ckeditor :editor="editor" v-model="form.content" :config="editorConfig" v-if="form.type === 'text'" :class="{error: $v.form.content.$error}"></ckeditor>
+              <input class="g-item-form__input" v-model="form.content" v-else-if="form.type === 'video'" :class="{error: $v.form.content.$error}" @blur="$v.form.content.$touch()">
+              <div class="input-valid-error" v-if="$v.form.content.$error">
+                <template v-if="!$v.form.content.required">Поле не может быть пустым</template>
+                <template v-else-if="!$v.form.content.validateLink || !$v.form.content.url">Не корректная ссылка</template>
+              </div>
             </div>
             <div class="g-item-form col-12" v-if="form.type === 'video'">
               <label class="g-item-form__label">Название видео</label>
-              <input class="g-item-form__input" v-model="form.title">
+              <input class="g-item-form__input" v-model="form.title" @blur="$v.form.title.$touch()" :class="{error: $v.form.title.$error}">
+              <div class="input-valid-error" v-if="$v.form.title.$error">
+                <template v-if="!$v.form.title.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.title.minLength">Минимальное количество символов - 3</template>
+              </div>
             </div>
           </div>
-          <button type="submit" class="g-btn g-btn--no-icon" v-if="newMaterials">
+          <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-if="newMaterials">
             <span>Добавить</span>
           </button>
-          <button type="submit" class="g-btn g-btn--no-icon" v-else>
+          <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>
             <span>Сохранить</span>
           </button>
         </form>
@@ -50,6 +58,8 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import API from '@/api/index'
+import { minLength, required, url } from 'vuelidate/lib/validators'
+const validateLink = (value) => value.indexOf('youtu') >= 0 || value.indexOf('vimeo') >= 0
 
 export default {
   name: 'ModalLessonMaterials',
@@ -76,7 +86,8 @@ export default {
       idLesson: null,
       form: {
         type: '',
-        content: ''
+        content: '',
+        title: ''
       },
       listType: [
         {
@@ -90,6 +101,40 @@ export default {
       ],
       errorSelect: {
         type: false
+      },
+      error: {
+        video: false
+      }
+    }
+  },
+  validations() {
+    if(this.form.type !== 'video') {
+      return {
+        form: {
+          type: {
+            required
+          },
+          content: {
+            required
+          }
+        }
+      }
+    } else {
+      return {
+        form: {
+          type: {
+            required
+          },
+          content: {
+            required,
+            validateLink,
+            url
+          },
+          title: {
+            required,
+            minLength: minLength(3)
+          }
+        }
       }
     }
   },
@@ -112,12 +157,14 @@ export default {
   },
   methods: {
     onSubmit () {
+      this.$v.$touch()
       if(this.newMaterials) {
         let data = {
           type: this.form.type,
           lesson_id: this.idLesson
         }
         if (this.form.type === 'video') {
+          this.parseLink ? this.error.video = true : this.error.video = false
           data.content = this.parseLink
           data.title = this.form.title
         } else {
@@ -159,13 +206,13 @@ export default {
     parseLinkReverse (params) {
       if (this.form.type === 'video') {
         this.form.title = params.title
-        let regYt = /youtube/
+        let regYt = /youtu/
         let regVimeo = /vimeo/
         // https://www.youtube.com/embed/nSm_iTHy1DE
         // https://player.vimeo.com/video/97148
         let a = this.form.content.split('/')
         if (regYt.test(this.form.content)) {
-          this.form.content = 'https://www.youtube.com/watch/?v=' + a[a.length - 1]
+          this.form.content = 'https://www.youtube.com/watch?v=' + a[a.length - 1]
         } else if (regVimeo.test(this.form.content)) {
           this.form.content = 'https://vimeo.com/' + a[a.length - 1]
         }
@@ -177,6 +224,7 @@ export default {
       this.form.title = ''
       this.errorSelect.type = false
       this.newMaterials = false
+      this.$v.$reset()
     },
     beforeOpen (event) {
       if (event.params !== undefined) {
