@@ -143,11 +143,12 @@ export default {
       let parseUrl = null
       if (this.form.type === 'video') {
         let url = new URL(this.form.content)
-        let regYt = /youtube/
+        let regYt = /youtu/
         let regVimeo = /vimeo/
         // https://www.youtube.com/watch?v=uor5Bkmejxw
         if (regYt.test(this.form.content)) {
-          parseUrl = 'https://www.youtube.com/embed/' + url.searchParams.get('v')
+          let idVideo = url.searchParams.get('v') ? url.searchParams.get('v') : url.pathname
+          parseUrl = 'https://www.youtube.com/embed/' + idVideo
         } else if (regVimeo.test(this.form.content)) {
           parseUrl = 'https://player.vimeo.com/video' + url.pathname
         }
