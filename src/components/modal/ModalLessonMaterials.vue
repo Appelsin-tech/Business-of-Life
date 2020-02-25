@@ -119,6 +119,7 @@ export default {
         }
         if (this.form.type === 'video') {
           data.content = this.parseLink
+          data.title = this.form.title
         } else {
           data.content = this.form.content
         }
