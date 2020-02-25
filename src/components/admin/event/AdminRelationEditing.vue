@@ -266,9 +266,7 @@ export default {
       return ticketsArr
     },
     filterTickets() {
-      return this.tickets.sort((a, b) => {
-        return a - b
-      })
+      return this.tickets.sort((a, b) => a - b)
     },
   },
   methods: {

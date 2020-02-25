@@ -4,6 +4,7 @@
     <div class="container page">
       <h1 class="g-caption-inner">Список участников</h1>
       <search page="member"/>
+      <admin-member-filters></admin-member-filters>
       <div class="content" v-for="item in ticketMembers" :key="item.title">
         <h2 class="g-caption-section">{{item.title}}</h2>
         <admin-member-item v-for="member in item.members" :member="member" :key="member.email"></admin-member-item>
@@ -18,6 +19,7 @@ import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import Search from '@/components/Search'
 import AdminMemberItem from '@admin/event/inner/AdminMemberItem'
+import AdminMemberFilters from '@admin/event/inner/AdminMemberFilters'
 
 export default {
   name: 'AdminMember',
@@ -25,7 +27,8 @@ export default {
   components: {
     BreadCrumbs,
     Search,
-    AdminMemberItem
+    AdminMemberItem,
+    AdminMemberFilters
   },
   data() {
     return {

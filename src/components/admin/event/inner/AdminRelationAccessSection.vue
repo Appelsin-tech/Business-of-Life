@@ -37,9 +37,6 @@
         </v-select>
       </div>
     </div>
-    <!--    <button class="g-btn g-btn&#45;&#45;no-icon" :disabled="invalid">-->
-    <!--      <span>Сохранить</span>-->
-    <!--    </button>-->
   </div>
 </template>
 
