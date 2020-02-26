@@ -1,12 +1,16 @@
 <template>
   <section class="p-news p-default-block">
+    <preloader v-if="loading"/>
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Новости</h1>
-      <news-item v-for="news in newsData" :news="news" :key="news.id"/>
-      <div class="more">
-        Показать больше
+      <div class="news-wrapper" v-if="isNews && isNews.length !== 0">
+        <news-item v-for="news in isNews" :news="news" :key="news.id"/>
+        <div class="more">
+          Показать больше
+        </div>
       </div>
+      <panel-info v-else>Новостей Нет</panel-info>
     </div>
   </section>
 </template>
@@ -14,15 +18,21 @@
 <script>
 import BreadCrumbs from '../components/BreadCrumbs'
 import NewsItem from '../components/NewsItem'
+import Preloader from '@/components/ui/Preloader'
+import { mapGetters } from 'vuex'
+import PanelInfo from '@/components/ui/PanelInfo'
 
 export default {
   name: 'TheNews',
   components: {
     BreadCrumbs,
-    NewsItem
+    NewsItem,
+    Preloader,
+    PanelInfo
   },
   data() {
     return {
+      loading: false,
       newsData: [
         {
           id: 1,
@@ -51,8 +61,20 @@ export default {
       ]
     }
   },
-  computed: {},
-  methods: {}
+  computed: {
+    ...mapGetters('news', [
+      'isNews'
+    ])
+  },
+  methods: {},
+  mounted() {
+    if(this.isNews === null) {
+      this.loading = true
+      this.$store.dispatch('news/getNews').then(() => {
+        this.loading = false
+      })
+    }
+  }
 }
 </script>
 

@@ -103,6 +103,7 @@
           </button>
         </form>
       </div>
+      <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>

@@ -1,10 +1,14 @@
 <template>
   <section class="p-news-control p-default-block">
+    <preloader v-if="loading"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container">
       <h1 class="g-caption-inner">Управление новостями</h1>
-      <button-add class="row" @click.native="$router.push('/admin/news-create')"/>
-      <news-item v-for="news in newsData" :news="news" :control="true" :key="news.id"/>
+      <button-add class="row" @click.native="createNews"/>
+      <div class="news-wrapper" v-if="isMyNews && isMyNews.length !== 0">
+        <news-item v-for="news in isMyNews" :news="news" :control="true" :key="news.id"/>
+      </div>
+      <panel-info v-else>Новостей Нет</panel-info>
       <router-link :to='`/admin/menu`' class='back-btn'>Назад</router-link>
     </div>
   </section>
@@ -14,16 +18,23 @@
 import BreadCrumbs from '@/components/BreadCrumbs'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import NewsItem from '@/components/NewsItem'
+import Preloader from '@/components/ui/Preloader'
+import PanelInfo from '@/components/ui/PanelInfo'
+import { mapGetters } from 'vuex'
+import API from '@/api/index'
 
 export default {
   name: 'AdminNewsControl',
   components: {
     BreadCrumbs,
     ButtonAdd,
-    NewsItem
+    NewsItem,
+    Preloader,
+    PanelInfo
   },
   data() {
     return {
+      loading: false,
       breadCrumbs: [
         {
           path: '/admin/menu',
@@ -57,10 +68,34 @@ export default {
           desc: 'На старт семинарах вы получите четкие рекомендации, услышите удивительные истории о том, как действуют профи. Вы лично сможете познакомиться и пообщаться с состоявшимися сетевиками, избежать ошибок и отказаться от ненужных экспериментов.',
           status: 2,
           hashtag: ['#новостьдня', '#nayuta', '#разработка']
-        },
-      ],
+        }
+      ]
     }
   },
+  computed: {
+    ...mapGetters('news', [
+      'isMyNews'
+    ])
+  },
+  methods: {
+    createNews() {
+      this.loading = true
+      API.news.create({title: 'Новая новость'}).then(response => {
+        API.response.success('Новость создана')
+        this.$router.push(`/admin/news-editing/${response.id}`)
+        this.$store.dispatch('news/getMyNews')
+        this.loading = false
+      })
+    }
+  },
+  mounted() {
+    if(this.isMyNews === null) {
+      this.loading = true
+      this.$store.dispatch('news/getMyNews').then(() => {
+        this.loading = false
+      })
+    }
+  }
 }
 </script>
 

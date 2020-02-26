@@ -13,24 +13,23 @@
     </div>
     <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
     <div class="content">
-      <a href="#" class="title-link">
+      <router-link :to="`/news/${news.url}`" class="title-link">
         <h1 class="g-caption-element">{{news.title}}</h1>
-      </a>
+      </router-link>
       <div class="data">
         <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
-        <span>{{news.data}}</span>
+        <span>{{(news.published * 1000) | moment("DD.MM.YYYY HH.mm")}}</span>
       </div>
-      <p class="desc editor">{{news.desc}}</p>
+      <p class="desc editor">{{news.snippet}}</p>
       <div class="hash-wrapper">
-        <div class="hashtag-wrapper" :class="{'control': control}">
+        <div class="hashtag-wrapper" v-if="news.hashtag" :class="{'control': control}">
           <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
         </div>
-
         <div class="g-control-icon static" v-if="control">
           <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/news-editing/${news.id}`})">
             <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
           </button>
-          <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="">
+          <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteNews(news.id)">
             <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
           </button>
         </div>
@@ -40,6 +39,8 @@
 </template>
 
 <script>
+import API from '@/api/index'
+
 export default {
   name: 'NewsItem',
   props: {
@@ -53,7 +54,7 @@ export default {
       status: {
         0: {
           class: 'created',
-          tooltip: 'Событие не опубликовано'
+          tooltip: 'Новость не опубликована'
         },
         1: {
           class: 'waiting',
@@ -74,6 +75,14 @@ export default {
       }
     }
   },
+  methods: {
+    deleteNews(id) {
+      API.news.delete({id: id}).then(response => {
+        API.response.success('Новость удалена')
+        this.$store.dispatch('news/getMyNews')
+      })
+    }
+  }
 }
 </script>
 

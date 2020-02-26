@@ -8,15 +8,8 @@ export default [
     component: () => import('@admin/news/AdminNewsControl')
   },
   {
-    path: 'news-create',
-    name: 'news-create',
-    beforeEnter: checkRole,
-    component: () => import('@admin/news/AdminNewsEditing')
-  },
-  {
     path: 'news-editing/:id',
     name: 'news-editing',
-    props: true,
     beforeEnter: checkRole,
     component: () => import('@admin/news/AdminNewsEditing')
   }

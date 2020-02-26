@@ -78,7 +78,7 @@ const router = new Router({
       component: () => import('@/views/TheNews')
     },
     {
-      path: '/news/:id',
+      path: '/news/:url',
       name: 'news-full',
       beforeEnter: requireAuth,
       meta: {
@@ -167,24 +167,41 @@ const router = new Router({
 })
 
 async function requireAuth (to, from, next) {
-  await store.dispatch('user/login')
-
-  if (!store.getters['user/logged']) {
-    next('auth')
-  } else {
+  if (store.getters['user/logged']) {
     next()
+  } else {
+    await store.dispatch('user/login')
+    if (store.getters['user/logged']) {
+      next()
+    } else {
+      next('auth')
+    }
   }
 }
 async function requireAuthKnowledge (to, from, next) {
-  await store.dispatch('user/login')
-
-  if (!store.getters['user/logged']) {
-    next('auth')
+  // await store.dispatch('user/login')
+  //
+  // if (!store.getters['user/logged']) {
+  //   next('auth')
+  // } else {
+  //   if (store.getters['user/access'].knowledge.status === 2 || store.getters['user/access'].knowledge.status === 3) {
+  //     next('/knowledge')
+  //   } else {
+  //     next()
+  //   }
+  // }
+  if (store.getters['user/logged']) {
+    next()
   } else {
-    if (store.getters['user/access'].knowledge.status === 2 || store.getters['user/access'].knowledge.status === 3) {
-      next('/knowledge')
+    await store.dispatch('user/login')
+    if (store.getters['user/logged']) {
+      if (store.getters['user/access'].knowledge.status === 2 || store.getters['user/access'].knowledge.status === 3) {
+        next('/knowledge')
+      } else {
+        next()
+      }
     } else {
-      next()
+      next('auth')
     }
   }
 }

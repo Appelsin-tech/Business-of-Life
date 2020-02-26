@@ -11,6 +11,7 @@ import actions from './modules/actions'
 import supervisors from './modules/supervisors'
 import editors from './modules/editors'
 import courses from './modules/courses/index'
+import news from './modules/news'
 import response from './response'
 
 export default {
@@ -27,5 +28,6 @@ export default {
   actions,
   supervisors,
   editors,
-  courses
+  courses,
+  news
 }

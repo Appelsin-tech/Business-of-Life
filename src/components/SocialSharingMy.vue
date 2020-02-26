@@ -1,11 +1,10 @@
 <template>
   <div class="sharing-social">
     <p class="desc">Поделиться в соц. сетях</p>
-    <social-sharing url="https://vuejs.org/"
+    <social-sharing :url="`http://bol.mrpelktn.beget.tech/news/${shareObject.url}`"
                     :title="shareObject.title"
-                    description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+                    :description="shareObject.snippet"
                     quote="Vue is a progressive framework for building user interfaces."
-                    :hashtags="tags"
                     twitter-user="vuejs"
                     inline-template>
       <div class="social">
@@ -34,9 +33,9 @@ export default {
   name: 'SocialSharingMy',
   props: ['shareObject'],
   computed: {
-    tags() {
-      return this.shareObject.tags.join(' ')
-    }
+    // tags() {
+    //   return this.shareObject.tags.join(' ')
+    // }
   }
 }
 </script>

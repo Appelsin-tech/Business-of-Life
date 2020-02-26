@@ -8,6 +8,7 @@
             <pannel-admin-menu :item="item" />
           </div>
       </div>
+      <router-link to="/" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>

@@ -1,23 +1,25 @@
 <template>
   <section class="p-news-full p-default-block">
-    <status-preview :idStatus="3"/>
+    <preloader v-if="loading"/>
+    <status-preview :idStatus="3" v-if="myNews"/>
     <div class="container">
-      <div class="img" :style="{backgroundImage: `url(https://picsum.photos/1000)`}"></div>
+      <div class="img-wrapper" v-if="!loading">
+        <div class="img" :style="{backgroundImage: `url(${news.img})`}" ></div>
+      </div>
     </div>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
-    <div class="container">
-      <h1 class="g-caption-inner">Бизнес-акселератор и краудфандинговая платформа Crowdsale Network проводит
-        акцию на бирже coins.bit</h1>
+    <div class="container" v-if="!loading">
+      <h1 class="g-caption-inner">{{news.title}}</h1>
       <div class="data">
         <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
-        <span>15 декабря 2019 г. 10:00</span>
+        <span>{{(news.published * 1000) | moment("DD.MM.YYYY HH.mm")}}</span>
       </div>
       <social-sharing-my :shareObject="news"/>
-      <div class="text-wrapper editor" v-html="news.description"></div>
-      <div class="hash-wrapper">
+      <div class="text-wrapper editor" v-html="news.content"></div>
+      <div class="hash-wrapper" v-if="news.hashtag">
         <span class="desc">Теги:</span>
         <div>
-          <strong class="g-hashtag" v-for="(hash, index) in news.tags" :key="index">{{hash}}</strong>
+          <strong class="g-hashtag" v-for="(hash, index) in newsTest.tags" :key="index">{{hash}}</strong>
         </div>
       </div>
     </div>
@@ -25,6 +27,9 @@
 </template>
 
 <script>
+import API from '@/api/index'
+import Preloader from '@/components/ui/Preloader'
+import { mapGetters } from 'vuex'
 import Vue from 'vue'
 import StatusPreview from '@/components/StatusPreview'
 import BreadCrumbs from '@/components/BreadCrumbs'
@@ -37,17 +42,21 @@ export default {
   components: {
     StatusPreview,
     BreadCrumbs,
-    SocialSharingMy
+    SocialSharingMy,
+    Preloader
   },
   data() {
     return {
+      loading: true,
       breadCrumbs: [
         {
           path: '/news',
           title: 'Новости'
         }
       ],
-      news: {
+      news: null,
+      myNews: false,
+      newsTest: {
         title: 'Бизнес-акселератор и краудфандинговая платформа Crowdsale Network',
         tags: ['#nayuta', '#новостьдня', '#хэштег'],
         description: `
@@ -59,6 +68,35 @@ export default {
         `
       }
     }
+  },
+  computed: {
+    ...mapGetters('news', [
+      'isMyNews'
+    ]),
+    ...mapGetters('user', [
+      'status'
+    ])
+  },
+  methods: {
+    getNewsFull() {
+      API.news.info(this.$route.params.url).then(response => {
+        this.news = response
+        this.loading = false
+        this.statusInfo()
+      }).catch(e => console.log(e))
+    },
+    statusInfo () {
+      if (this.status > 1) {
+        this.$store.dispatch('news/getMyNews').then(() => {
+          if (this.isMyNews.some(item => item.id === this.news.id)) {
+            this.myNews = true
+          }
+        })
+      }
+    },
+  },
+  mounted() {
+    this.getNewsFull()
   }
 }
 </script>

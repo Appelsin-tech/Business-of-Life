@@ -54,12 +54,15 @@ export default [
 ]
 
 async function requireAuth (to, from, next) {
-  await store.dispatch('user/login')
-
-  if (!store.getters['user/logged']) {
-    next('auth')
-  } else {
+  if (store.getters['user/logged']) {
     next()
+  } else {
+    await store.dispatch('user/login')
+    if (store.getters['user/logged']) {
+      next()
+    } else {
+      next('auth')
+    }
   }
 }
 

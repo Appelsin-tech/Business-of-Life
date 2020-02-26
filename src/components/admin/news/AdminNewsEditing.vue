@@ -1,23 +1,21 @@
 <template>
   <section class='p-news-editing p-default-block'>
+    <preloader v-if="loading"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
       <h1 class='g-caption-inner'>Новость</h1>
       <div class="wrapper">
-        <h1 class='g-caption-section'>
-          <template v-if="id">Редактирование новости</template>
-          <template v-else>Создание новости</template>
-        </h1>
-        <form class="edit-form">
+        <h1 class='g-caption-section'>Редактирование новости</h1>
+        <form class="edit-form" @submit.prevent="onSubmit" v-if="!loading">
           <div class="edit-grid">
           <download-photo id="0"/>
           <div class="g-item-form">
             <label class="g-item-form__label">Название</label>
-            <input class="g-item-form__input" type="text">
+            <input class="g-item-form__input" type="text" v-model="form.title">
           </div>
           <div class="g-item-form">
             <label class="g-item-form__label">URL Новости</label>
-            <input class="g-item-form__input" type="text">
+            <input class="g-item-form__input" type="text" v-model="form.url">
           </div>
           <download-photo class="col-grid-12" label="Широкоформатное фото" id="1"/>
           <div class="g-item-form">
@@ -30,7 +28,7 @@
           </div>
           <div class="g-item-form col-grid-12">
             <label class="g-item-form__label">Краткое описание</label>
-            <input class="g-item-form__input" :class="{}" type="text" placeholder="Краткое описание " v-model="form.snippet" @blur="">
+            <input class="g-item-form__input" :class="{}" type="text" v-model="form.snippet" @blur="">
 <!--            <div class="input-valid-error" v-if="$v.form.snippet.$error">-->
 <!--              <template v-if="!$v.form.snippet.required">Поле не может быть пустым</template>-->
 <!--              <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>-->
@@ -38,7 +36,7 @@
           </div>
           <div class="textarea  g-item-form col-grid-12">
             <label class="g-item-form__label">Полное описание</label>
-            <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
+            <ckeditor :editor="editor" v-model="form.content" :config="editorConfig"></ckeditor>
 <!--            <div class="input-valid-error" v-if="$v.form.description.$error">-->
 <!--              <template v-if="!$v.form.description.required">Поле не может быть пустым</template>-->
 <!--              <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>-->
@@ -71,13 +69,14 @@
             <button class="g-btn g-btn--no-icon">
               <span>Сохранить</span>
             </button>
-            <router-link to="/" class="g-btn g-btn--no-icon" v-if="id">
+            <router-link :to="`/news/${form.url}`" class="g-btn g-btn--no-icon">
               <span>Предпросмотр</span>
             </router-link>
-            <button class="g-btn g-btn--no-icon g-btn--white" v-if="id">
-              <span>Снять с публикации</span>
+            <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="publishNews">
+              <span v-if="status === 0">Опубликовать</span>
+              <span v-else-if="status === 1">Снять с публикации</span>
             </button>
-            <button class="g-btn g-btn--no-icon g-btn--white" v-if="id">
+            <button type="button" class="g-btn g-btn--no-icon g-btn--white">
               <span>Удалить</span>
             </button>
           </div>
@@ -91,25 +90,28 @@
 <script>
 import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import DownloadPhoto from '@/components/admin/common/DownloadPhoto'
-
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
 import 'flatpickr/dist/flatpickr.css'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+import API from '@/api/index'
+import Preloader from '@/components/ui/Preloader'
+import { required, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'AdminNewsEditing',
-  props: ['id'],
   components: {
     BreadCrumbs,
     DownloadPhoto,
     flatPickr,
-    ckeditor: CKEditor.component
+    ckeditor: CKEditor.component,
+    Preloader
   },
   data() {
     return {
+      loading: false,
       breadCrumbs: [
         {
           path: '/admin/menu',
@@ -141,13 +143,86 @@ export default {
         dateFormat: 'd.m.Y H:i'
       },
       form: {
-        date: '',
-        description: '',
+        id: this.$route.params.id,
+        url: '',
+        img: 'https://picsum.photos/500/800',
+        title: '',
         snippet: '',
-        name_tags: ''
+        content: ''
+      },
+      myNews: null,
+      status: 0,
+      errorPublish: {
+
       }
     }
-  }
+  },
+  validations: {
+    form: {
+      url: {
+        required
+      },
+      title: {
+        required,
+        maxLength: maxLength(100)
+      },
+      snippet: {
+        required,
+        maxLength: maxLength(150)
+      },
+      content: {
+        required
+      }
+    }
+  },
+  computed: {
+
+  },
+  methods: {
+    onSubmit() {
+      API.news.edit(this.form).then(response => {
+        API.response.success('Новость отредактирована')
+        this.$store.dispatch('news/getMyNews')
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getInfoNews() {
+      API.news.details({id: this.$route.params.id}).then(response => {
+        this.myNews = response
+        this.form.title = response.title
+        this.form.snippet = response.snippet
+        this.form.content = response.content
+        this.form.img = response.img
+        this.form.url = response.url
+        this.status = response.status
+        this.loading = false
+      }).catch(e => console.log(e))
+    },
+    publishNews() {
+      let pub = {
+        0: {
+          methods: 'publish',
+          response: 'Новость опубликована',
+          error: 'Заполните все поля'
+        },
+        1: {
+          methods: 'unpublish',
+          response: 'Новость снята с публикации',
+          error: 'Заполните все поля'
+        }
+      }
+      API.news[pub[this.status].methods]({id: this.$route.params.id})
+        .then(response => {
+          API.response.success(pub[this.status].response)
+        })
+        .catch(() => API.response.error(pub[this.status].error))
+    }
+  },
+  mounted() {
+    this.loading = true
+    this.getInfoNews()
+  },
 }
 </script>
 
