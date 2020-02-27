@@ -2,7 +2,7 @@
   <section class="p-lesson p-default-block">
     <preloader v-if="!course"/>
     <div v-if="course">
-      <status-preview-course :idCourse="course.id" :idStatus="statusMyCourse" v-if="isMyCourse" @newStatus="refreshStstus"/>
+      <status-preview :idCourse="course.id" section="course" :idStatus="statusMyCourse" v-if="isMyCourse" @newStatus="refreshStstus"/>
       <bread-crumbs :arrCrumbs="breadCrumbs"/>
       <div class="container" >
         <h1 class="g-caption-inner">{{course.title}}</h1>
@@ -45,7 +45,7 @@ export default {
   name: 'KnowledgeCourse',
   props: ['url'],
   components: {
-    StatusPreviewCourse: () => import('@/components/StatusPreviewCourse'),
+    StatusPreview: () => import('@/components/StatusPreview'),
     BreadCrumbs,
     PanelStatusProcessCourseLesson,
     Preloader,

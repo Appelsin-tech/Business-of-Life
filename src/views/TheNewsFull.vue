@@ -1,7 +1,7 @@
 <template>
   <section class="p-news-full p-default-block">
     <preloader v-if="loading"/>
-    <status-preview :idStatus="3" v-if="myNews"/>
+    <status-preview v-if="myNews" :idStatus="statusMyNews" :idNews="news.id" section="news" @newStatus="statusInfo"/>
     <div class="container">
       <div class="img-wrapper" v-if="!loading">
         <div class="img" :style="{backgroundImage: `url(${news.img})`}" ></div>
@@ -31,7 +31,6 @@ import API from '@/api/index'
 import Preloader from '@/components/ui/Preloader'
 import { mapGetters } from 'vuex'
 import Vue from 'vue'
-import StatusPreview from '@/components/StatusPreview'
 import BreadCrumbs from '@/components/BreadCrumbs'
 import SocialSharingMy from '@/components/SocialSharingMy'
 const SocialSharing = require('vue-social-sharing')
@@ -40,7 +39,7 @@ Vue.use(SocialSharing)
 export default {
   name: 'TheNewsFull',
   components: {
-    StatusPreview,
+    StatusPreview: () => import('@/components/StatusPreview'),
     BreadCrumbs,
     SocialSharingMy,
     Preloader
@@ -56,17 +55,7 @@ export default {
       ],
       news: null,
       myNews: false,
-      newsTest: {
-        title: 'Бизнес-акселератор и краудфандинговая платформа Crowdsale Network',
-        tags: ['#nayuta', '#новостьдня', '#хэштег'],
-        description: `
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus assumenda blanditiis error excepturi in ipsam ipsum nam nesciunt, nobis odio porro suscipit vero voluptates. Beatae consequatur dolorem esse fuga iusto nostrum possimus, quo saepe suscipit unde voluptas, voluptatem. Libero, voluptatibus?</p><br>
-          <a href="#">nayuta.coin</a>
-          <h2>Title</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi architecto at dolor error impedit modi officiis quam ratione veritatis!</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad, architecto blanditiis consequuntur dolorum ducimus eius error fuga, fugit ipsum, possimus quasi quibusdam ratione recusandae sapiente suscipit veritatis vero? Corporis ducimus facilis illum molestias officiis omnis pariatur soluta? Ad id incidunt quasi quod repellat vel. Enim harum nemo officiis quisquam vero! Accusantium commodi cum debitis, deleniti earum enim fuga ipsum iste minima nam possimus qui quis rem suscipit unde, vitae, voluptate. Adipisci alias aliquam aperiam autem debitis distinctio dolores fugit labore mollitia neque odit, optio quas qui, quidem repellendus repudiandae saepe sequi tenetur ut vel? Dicta expedita itaque iusto quibusdam?</p>
-        `
-      }
+      statusPublished: null
     }
   },
   computed: {
@@ -75,7 +64,10 @@ export default {
     ]),
     ...mapGetters('user', [
       'status'
-    ])
+    ]),
+    statusMyNews () {
+      return this.$store.getters[`news/statusMyNews`](this.news.id)
+    }
   },
   methods: {
     getNewsFull() {

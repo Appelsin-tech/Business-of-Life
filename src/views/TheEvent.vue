@@ -1,6 +1,6 @@
 <template>
   <section class="p-event p-default-block">
-    <status-preview :idEvent="event.id" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && myEvent"/>
+    <status-preview :idEvent="event.id" section="event" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && myEvent"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="!activeRelation"/>
     <div class="container" v-if="activeRelation">
@@ -167,7 +167,6 @@
 import Action from '@/components/Action'
 import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import Ticket from '@/components/Ticket'
-import StatusPreview from '@/components/StatusPreview'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
@@ -179,7 +178,7 @@ export default {
   components: {
     swiper,
     swiperSlide,
-    StatusPreview,
+    StatusPreview: () => import('@/components/StatusPreview'),
     Ticket,
     BreadCrumbs,
     Action,

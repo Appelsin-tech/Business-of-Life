@@ -7,7 +7,10 @@ const state = () => ({
 
 const getters = {
   isNews: state => state.news,
-  isMyNews: state => state.newsMy
+  isMyNews: state => state.newsMy,
+  statusMyNews: state => idNews => {
+    return state.newsMy.length ? state.newsMy.find(item => item.id === idNews).status : 0
+  }
 }
 
 const actions = {
