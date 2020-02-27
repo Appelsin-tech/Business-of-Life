@@ -68,5 +68,9 @@ export default {
         font-weight: 800;
       }
     }
+    .g-btn {
+      .ss-block({
+        margin-top: 15px;})
+    }
   }
 </style>

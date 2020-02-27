@@ -9,6 +9,7 @@
           <pannel-knowledge-menu :item="item" />
         </div>
       </div>
+      <router-link to="/admin" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
@@ -84,7 +85,6 @@ export default {
   .p-knowledge-menu {
     .menu {
       .row-flex();
-      margin-bottom: 80px;
       justify-content: flex-start;
       .sm-block({
         justify-content: center;

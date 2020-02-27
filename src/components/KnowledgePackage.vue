@@ -71,9 +71,9 @@ export default {
       width: 300px;
     });
     .sm-block({
-      width: 250px;
       margin-bottom: 15px;
     });
+    .size-xs(12);
     &.test{
       display: none;
     }
