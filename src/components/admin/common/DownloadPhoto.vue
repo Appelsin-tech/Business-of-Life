@@ -1,7 +1,7 @@
 <template>
-  <div class="photo" :style="{backgroundImage: `url(${image})`}" :class="`row-${row}`">
+  <div class="photo" :class="`row-${row}`">
     <span class="g-item-form__label">{{label}}</span>
-    <div class="photo__wrapper">
+    <div class="photo__wrapper" :style="{backgroundImage: `url(${image})`}">
       <input type="file" class="visually-hidden" :id="`form__file_${id}`">
       <label class="photo__link" :class="[img ? 'photo__link--change' : 'photo__link--add']" :for="`form__file_${id}`">
         <img svg-inline class="svg-icon" src="@/assets/img/icon/camera.svg" alt="">
@@ -45,10 +45,6 @@ export default {
     flex-direction: column;
     position: relative;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: 0.3s;
     .md-block({
       grid-column: ~"1 / 2";
       min-height: 200px;
@@ -96,6 +92,10 @@ export default {
       position: relative;
       flex-grow: 2;
       margin-bottom: 30px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: 0.3s;
       .sm-block({
         margin-bottom: 20px;
       });

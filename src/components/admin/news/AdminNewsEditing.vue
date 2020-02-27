@@ -8,14 +8,22 @@
         <h1 class='g-caption-section'>Редактирование новости</h1>
         <form class="edit-form" @submit.prevent="onSubmit" v-if="!loading">
           <div class="edit-grid">
-          <download-photo id="0"/>
+          <download-photo id="0" :image="form.img"/>
           <div class="g-item-form">
             <label class="g-item-form__label">Название</label>
-            <input class="g-item-form__input" type="text" v-model="form.title">
+            <input class="g-item-form__input" type="text" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
+            <div class="input-valid-error" v-if="$v.form.title.$error">
+              <template v-if="!$v.form.title.required  && publishedMethods">Поле не может быть пустым</template>
+              <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
+            </div>
           </div>
           <div class="g-item-form">
             <label class="g-item-form__label">URL Новости</label>
-            <input class="g-item-form__input" type="text" v-model="form.url">
+            <input class="g-item-form__input" type="text" v-mask="maskConfig" v-model="form.url" :class="{error: $v.form.url.$error}" @blur="$v.form.url.$touch()">
+            <div class="input-valid-error" v-if="$v.form.url.$error">
+              <template v-if="!$v.form.url.required  && publishedMethods">Поле не может быть пустым</template>
+              <template v-if="!$v.form.url.maxLength">Превышено количество допустимых символов</template>
+            </div>
           </div>
           <download-photo class="col-grid-12" label="Широкоформатное фото" id="1"/>
           <div class="g-item-form">
@@ -28,19 +36,18 @@
           </div>
           <div class="g-item-form col-grid-12">
             <label class="g-item-form__label">Краткое описание</label>
-            <input class="g-item-form__input" :class="{}" type="text" v-model="form.snippet" @blur="">
-<!--            <div class="input-valid-error" v-if="$v.form.snippet.$error">-->
-<!--              <template v-if="!$v.form.snippet.required">Поле не может быть пустым</template>-->
-<!--              <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>-->
-<!--            </div>-->
+            <input class="g-item-form__input"  type="text" v-model="form.snippet" :class="{error: $v.form.snippet.$error}" @blur="$v.form.snippet.$touch()">
+            <div class="input-valid-error" v-if="$v.form.snippet.$error">
+              <template v-if="!$v.form.snippet.required && publishedMethods">Поле не может быть пустым</template>
+              <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>
+            </div>
           </div>
           <div class="textarea  g-item-form col-grid-12">
             <label class="g-item-form__label">Полное описание</label>
-            <ckeditor :editor="editor" v-model="form.content" :config="editorConfig"></ckeditor>
-<!--            <div class="input-valid-error" v-if="$v.form.description.$error">-->
-<!--              <template v-if="!$v.form.description.required">Поле не может быть пустым</template>-->
-<!--              <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>-->
-<!--            </div>-->
+            <ckeditor :editor="editor" :config="editorConfig" v-model="form.content" :class="'sssssssssssssssss'" @blur="$v.form.content.$touch()"></ckeditor>
+            <div class="input-valid-error" v-if="$v.form.content.$error">
+              <template v-if="!$v.form.content.required  && publishedMethods">Поле не может быть пустым</template>
+            </div>
           </div>
           <div class="g-item-form col-grid-12">
             <label class="g-item-form__label">Теги</label>
@@ -65,18 +72,18 @@
 <!--            </div>-->
           </div>
           </div>
-          <div class="btn-wrapper">
-            <button class="g-btn g-btn--no-icon">
+          <div class="btn-wrapper" v-if="myNews">
+            <button class="g-btn g-btn--no-icon" :disabled="sameObject || $v.$anyError">
               <span>Сохранить</span>
             </button>
-            <router-link :to="`/news/${form.url}`" class="g-btn g-btn--no-icon">
+            <router-link :to="`/news/${form.url}`" class="g-btn g-btn--no-icon" :class="{disabled: !myNews.url}">
               <span>Предпросмотр</span>
             </router-link>
-            <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="publishNews">
+            <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="publishNews" :disabled="$v.$anyError">
               <span v-if="status === 0">Опубликовать</span>
               <span v-else-if="status === 1">Снять с публикации</span>
             </button>
-            <button type="button" class="g-btn g-btn--no-icon g-btn--white">
+            <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="deleteNews">
               <span>Удалить</span>
             </button>
           </div>
@@ -142,50 +149,97 @@ export default {
         locale: Russian,
         dateFormat: 'd.m.Y H:i'
       },
+      maskConfig: {
+        mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        tokens: {
+          X: {
+            pattern: /[0-9a-zA-Z_\- +]/
+          }
+        },
+        masked: ''
+      },
       form: {
         id: this.$route.params.id,
         url: '',
-        img: 'https://picsum.photos/500/800',
+        img: 'https://picsum.photos/300/300',
         title: '',
         snippet: '',
         content: ''
       },
       myNews: null,
       status: 0,
+      publishedMethods: false,
       errorPublish: {
 
       }
     }
   },
-  validations: {
-    form: {
-      url: {
-        required
-      },
-      title: {
-        required,
-        maxLength: maxLength(100)
-      },
-      snippet: {
-        required,
-        maxLength: maxLength(150)
-      },
-      content: {
-        required
+  validations() {
+    if (!this.publishedMethods) {
+      return {
+        form: {
+          url: {
+            maxLength: maxLength(50)
+          },
+          title: {
+            maxLength: maxLength(100)
+          },
+          snippet: {
+            maxLength: maxLength(150)
+          },
+          content: {
+
+          }
+        }
+      }
+    } else {
+      return {
+        form: {
+          url: {
+            required,
+            maxLength: maxLength(50)
+          },
+          title: {
+            required,
+            maxLength: maxLength(100)
+          },
+          snippet: {
+            required,
+            maxLength: maxLength(150)
+          },
+          content: {
+            required
+          }
+        }
       }
     }
+
   },
   computed: {
-
+    sameObject() {
+      return (this.form.title === this.myNews.title
+        && this.form.url === this.myNews.url
+        && this.form.snippet === this.myNews.snippet
+        && this.form.content === this.myNews.content
+        && this.form.img === this.myNews.img)
+    }
   },
   methods: {
     onSubmit() {
-      API.news.edit(this.form).then(response => {
-        API.response.success('Новость отредактирована')
-        this.$store.dispatch('news/getMyNews')
-      }).catch(error => {
-        console.log(error)
-      })
+      if(!this.sameObject) {
+        this.$v.$touch()
+        if (this.$v.$invalid) {
+          API.response.error('Не корректно заполнены поля')
+        } else {
+          API.news.edit(this.form).then(response => {
+            API.response.success('Новость отредактирована')
+            this.$store.dispatch('news/getMyNews')
+          }).catch(error => {
+            API.response.error('Ни одно поле не было отредактировано')
+          })
+        }
+
+      }
     },
     getInfoNews() {
       API.news.details({id: this.$route.params.id}).then(response => {
@@ -193,30 +247,45 @@ export default {
         this.form.title = response.title
         this.form.snippet = response.snippet
         this.form.content = response.content
-        this.form.img = response.img
+        if(response.img !== '') {
+          this.form.img = response.img
+        }
         this.form.url = response.url
         this.status = response.status
         this.loading = false
       }).catch(e => console.log(e))
     },
     publishNews() {
-      let pub = {
-        0: {
-          methods: 'publish',
-          response: 'Новость опубликована',
-          error: 'Заполните все поля'
-        },
-        1: {
-          methods: 'unpublish',
-          response: 'Новость снята с публикации',
-          error: 'Заполните все поля'
+      this.publishedMethods = true
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        API.response.error('Заполните все поля')
+      } else {
+        if (this.status === 0) {
+          API.news.publish({id: this.$route.params.id})
+            .then(response => {
+              this.$v.$reset()
+              API.response.success('Новость опубликована')
+              this.$store.dispatch('news/getMyNews')
+            })
+            .catch(() => API.response.error('Заполните все поля'))
+        } else if (this.status === 1) {
+          API.news.unpublish({id: this.$route.params.id})
+            .then(response => {
+              this.$v.$reset()
+              API.response.success('Новость снята с публикации')
+              this.$store.dispatch('news/getMyNews')
+            })
+            .catch(() => API.response.error('ошибка'))
         }
       }
-      API.news[pub[this.status].methods]({id: this.$route.params.id})
-        .then(response => {
-          API.response.success(pub[this.status].response)
-        })
-        .catch(() => API.response.error(pub[this.status].error))
+    },
+    deleteNews() {
+      API.news.delete({id: this.$route.params.id}).then(response => {
+        API.response.success('Новость удалена')
+        this.$store.dispatch('news/getMyNews')
+        this.$router.push('/admin/news-control')
+      })
     }
   },
   mounted() {

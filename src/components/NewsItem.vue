@@ -4,11 +4,11 @@
       <template v-if="status[news.status].class === 'created'">
         <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
       </template>
+      <template v-else-if="status[news.status].class === 'public'">
+        <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
+      </template>
       <template v-else-if="status[news.status].class === 'waiting'">
         <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
-      </template>
-      <template v-else>
-        <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
       </template>
     </div>
     <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
@@ -57,8 +57,8 @@ export default {
           tooltip: 'Новость не опубликована'
         },
         1: {
-          class: 'waiting',
-          tooltip: 'Отправлено на модерацию'
+          class: 'public',
+          tooltip: 'Опубликовано'
         },
         2: {
           class: 'waiting',
