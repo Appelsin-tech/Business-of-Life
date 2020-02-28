@@ -79,11 +79,17 @@ export default {
     },
     statusInfo () {
       if (this.status > 1) {
-        this.$store.dispatch('news/getMyNews').then(() => {
+        if (this.isMyNews === null) {
+          this.$store.dispatch('news/getMyNews').then(() => {
+            if (this.isMyNews.some(item => item.id === this.news.id)) {
+              this.myNews = true
+            }
+          })
+        } else {
           if (this.isMyNews.some(item => item.id === this.news.id)) {
             this.myNews = true
           }
-        })
+        }
       }
     },
   },

@@ -1,8 +1,8 @@
 <template>
   <section class="p-lesson p-default-block">
-    <preloader v-if="!course"/>
-    <div v-if="course">
-      <status-preview :idCourse="course.id" section="course" :idStatus="statusMyCourse" v-if="isMyCourse" @newStatus="refreshStstus"/>
+    <preloader v-if="loading"/>
+    <div v-if="!loading">
+      <status-preview :idCourse="course.id" section="course" :idStatus="statusMyCourse" v-if="myCourse" @newStatus="statusInfo"/>
       <bread-crumbs :arrCrumbs="breadCrumbs"/>
       <div class="container" >
         <h1 class="g-caption-inner">{{course.title}}</h1>
@@ -62,7 +62,9 @@ export default {
       ],
       course: null,
       valueSelectLesson: null,
-      activeLesson: null
+      activeLesson: null,
+      myCourse: false,
+      loading: true
     }
   },
   computed: {
@@ -70,9 +72,9 @@ export default {
       'logged',
       'status'
     ]),
-    isMyCourse () {
-      return this.$store.getters[`courses/isMyCourse`](this.url)
-    },
+    ...mapGetters('courses', [
+      'isMyCourse'
+    ]),
     statusMyCourse () {
       return this.$store.getters[`courses/statusMyCourse`](this.url)
     }
@@ -88,17 +90,27 @@ export default {
     getInfoCourse() {
       API.courses.courses.info({url: this.url}).then(response => {
         this.course = response
+        this.loading = false
+        this.statusInfo()
       }).catch(e => {
         this.$router.push({ path: '/404' })
       })
     },
-    refreshStstus() {
-      this.course = null
-      this.getInfoCourse()
+    statusInfo () {
       if (this.status > 1) {
-        this.$store.dispatch('courses/getMyCourses')
+        if (this.isMyCourse === null) {
+          this.$store.dispatch('courses/getMyCourses').then(() => {
+            if (this.isMyCourse.some(item => item.id === this.course.id)) {
+              this.myCourse = true
+            }
+          })
+        } else {
+          if (this.isMyCourse.some(item => item.id === this.course.id)) {
+            this.myCourse = true
+          }
+        }
       }
-    }
+    },
   },
   mounted () {
     this.getInfoCourse()

@@ -11,27 +11,29 @@
         <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
       </template>
     </div>
-    <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
     <div class="content">
+      <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
       <router-link :to="`/news/${news.url}`" class="title-link">
         <h1 class="g-caption-element">{{news.title}}</h1>
       </router-link>
-      <div class="data">
-        <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
-        <span>{{(news.published * 1000) | moment("DD.MM.YYYY HH.mm")}}</span>
-      </div>
-      <p class="desc editor">{{news.snippet}}</p>
-      <div class="hash-wrapper">
-        <div class="hashtag-wrapper" v-if="news.hashtag" :class="{'control': control}">
-          <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
+      <div class="info-wrapper">
+        <div class="data">
+          <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
+          <span>{{(news.published * 1000) | moment("DD.MM.YYYY HH.mm")}}</span>
         </div>
-        <div class="g-control-icon static" v-if="control">
-          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/news-editing/${news.id}`})">
-            <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
-          </button>
-          <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteNews(news.id)">
-            <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
-          </button>
+        <p class="desc editor">{{news.snippet}}</p>
+        <div class="hash-wrapper">
+          <div class="hashtag-wrapper" v-if="news.hashtag" :class="{'control': control}">
+            <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
+          </div>
+          <div class="g-control-icon static" v-if="control">
+            <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/news-editing/${news.id}`})">
+              <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
+            </button>
+            <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteNews(news.id)">
+              <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -107,85 +109,101 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       background-color: @colorBgGray;
+      grid-row: ~"1 / 3";
       .lg-block({
         width: 280px;
         height: 200px;
         margin-right: 30px;
       });
       .sm-block({
-        display: none;
-      })
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+        grid-row: ~"1 / 2";
+      });
+      .xs-block({
+        width: 40px;
+        height: 40px;
+      });
     }
     .content {
-      display: flex;
-      flex-direction: column;
+      /*display: flex;
+      flex-direction: column;*/
+      display: grid;
+      grid-template-columns: min-content 1fr;
+      grid-template-rows: min-content 1fr;
       .title-link {
         display: block;
         margin-bottom: 30px;
         color: #000;
+        grid-column: ~"2 / 3";
         .lg-block({
           margin-bottom: 20px;
         });
-        .xs-block({
-          margin-bottom: 10px;
-        });
+        .sm-block({
+          margin-bottom: 0;});
         .title {
           font-size: 2.2rem;
           font-weight: 800;
           text-transform: uppercase;
           text-decoration: underline;
-          .lg-block({
-            font-size: 2rem;
-          });
-          .xs-block({
-            font-size: 1.8rem;
+          .sm-block({
+            padding-top: 5px;
           });
           &:hover {
             text-decoration: none;
           }
         }
       }
-      .data {
-        display: inline-flex;
-        align-items: center;
-        margin-bottom: 30px;
-        .lg-block({
-          margin-bottom: 20px;
+      .info-wrapper {
+        grid-column: ~"2 / 3";
+        .sm-block({
+          grid-column: ~"1 / 3";
+          margin-top: 15px;
         });
-        .xs-block({
-          margin-bottom: 10px;
-        });
-        .svg-icon {
-          margin-right: 10px;
-          width: 20px;
-          height: 20px;
-          flex-shrink: 0;
-          .sm-block({
-            width: 15px;
-            height: 15px;
-            margin-top: 0;
+        .data {
+          display: inline-flex;
+          align-items: center;
+          margin-bottom: 30px;
+          .lg-block({
+            margin-bottom: 20px;
           });
-          path {
-            fill: @colorMain;
+          .xs-block({
+            margin-bottom: 10px;
+          });
+          .svg-icon {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            .sm-block({
+              width: 15px;
+              height: 15px;
+              margin-top: 0;
+            });
+            path {
+              fill: @colorMain;
+            }
+          }
+        }
+        .desc {
+          margin-bottom: auto;
+        }
+        .hash-wrapper {
+          margin-top: 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          .ss-block({flex-direction: column; align-items: flex-start;});
+          .xs-block({
+            margin-top: 10px;
+          });
+          .hashtag-wrapper.control {
+            .ss-block({margin-bottom: 30px;});
           }
         }
       }
-      .desc {
-        margin-bottom: auto;
-      }
-      .hash-wrapper {
-        margin-top: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        .ss-block({flex-direction: column; align-items: flex-start;});
-        .xs-block({
-          margin-top: 10px;
-        });
-        .hashtag-wrapper.control {
-          .ss-block({margin-bottom: 30px;});
-        }
-      }
+
     }
   }
 </style>

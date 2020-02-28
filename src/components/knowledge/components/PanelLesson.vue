@@ -93,12 +93,9 @@ export default {
     &__info {
       margin-right: auto;
       padding-right: 50px;
-      .sm-block({
-        padding-right: 30px;
-      });
-      .ss-block({
-        margin-bottom: 30px;
+      .md-block({
         padding-right: 0;
+        margin-bottom: 20px;
       });
     }
     &__info-item {

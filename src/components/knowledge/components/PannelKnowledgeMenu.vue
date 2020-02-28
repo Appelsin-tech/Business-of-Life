@@ -46,7 +46,7 @@ export default {
       display: flex;
       flex-direction: column;
       .sm-block({flex-direction: row;
-        margin-bottom: 10px;});
+        margin-bottom: 15px;});
       .img {
         position: relative;
         margin-bottom: 40px;
@@ -69,13 +69,12 @@ export default {
         .sm-block({
           width: 70px;
           height: 70px;
-          margin-bottom: 20px;
+          margin-bottom: 0;
           flex-shrink: 0
         });
         .xs-block({
           width: 40px;
           height: 40px;
-          margin-bottom: 15px;
         });
         /*.xs-block({ height: 250px; margin-bottom: 20px; });*/
         .img-link {

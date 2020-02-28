@@ -1,11 +1,12 @@
 <template>
   <section class="p-knowledge-menu p-default-block">
+    <preloader v-if="loading"/>
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">База знаний</h1>
       <status-knowledge/>
-      <div class="menu" v-if="menuItem.length">
-        <div class="item" v-for="item in menuItem" :key="item.name" v-if="checkStatusUser(item.name, item.status)">
+      <div class="menu" v-if="isCourses && isCourses.length !== 0">
+        <div class="item" v-for="item in isCourses" :key="item.name" v-if="checkStatusUser(item.name, item.status)">
           <pannel-knowledge-menu :item="item" />
         </div>
       </div>
@@ -20,23 +21,29 @@ import { mapGetters, mapState } from 'vuex'
 import PannelKnowledgeMenu from './components/PannelKnowledgeMenu'
 import StatusKnowledge from './components/StatusKnowledge'
 import API from '@/api/index'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'KnowledgeMenu',
   components: {
     BreadCrumbs,
     PannelKnowledgeMenu,
-    StatusKnowledge
+    StatusKnowledge,
+    Preloader
   },
   data() {
     return {
-      menuItem: []
+      menuItem: [],
+      loading: false
     }
   },
   computed: {
     ...mapGetters('user', [
       'status',
       'statusDev'
+    ]),
+    ...mapGetters('courses', [
+      'isCourses'
     ]),
     ...mapState('user', [
       'profile'
@@ -73,9 +80,12 @@ export default {
     }
   },
   mounted() {
-    API.courses.courses.list().then(response => {
-      this.menuItem = response
-    })
+    if(this.isCourses === null) {
+      this.loading = true
+      this.$store.dispatch('courses/getCourses').then(() => {
+        this.loading = false
+      })
+    }
   }
 }
 </script>

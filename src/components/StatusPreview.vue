@@ -149,11 +149,13 @@ export default {
       if (this.idStatus === 1) {
         API.news.unpublish({id: this.idNews}).then((response) => {
           this.$emit('newStatus')
+          this.$store.dispatch('courses/getMyNews')
           API.response.success('Новость снята с публикации')
         })
       } else {
         API.news.publish({id: this.idNews}).then((response) => {
           this.$emit('newStatus')
+          this.$store.dispatch('courses/getMyNews')
           API.response.success('Новость опубликована')
         })
       }
@@ -162,11 +164,13 @@ export default {
       if (this.idStatus === 1) {
         API.courses.courses.unpublish({id: this.idCourse}).then((response) => {
           this.$emit('newStatus')
+          this.$store.dispatch('courses/getMyCourses')
           API.response.success('Курс снят с публикации')
         })
       } else {
         API.courses.courses.publish({id: this.idCourse}).then((response) => {
           this.$emit('newStatus')
+          this.$store.dispatch('courses/getMyCourses')
           API.response.success('Курс опубликован')
         })
       }
