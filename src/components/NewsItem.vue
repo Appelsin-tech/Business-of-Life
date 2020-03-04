@@ -127,8 +127,6 @@ export default {
       });
     }
     .content {
-      /*display: flex;
-      flex-direction: column;*/
       display: grid;
       grid-template-columns: min-content 1fr;
       grid-template-rows: min-content 1fr;

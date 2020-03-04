@@ -8,7 +8,7 @@
         <h1 class='g-caption-section'>Редактирование новости</h1>
         <form class="edit-form" @submit.prevent="onSubmit" v-if="!loading">
           <div class="edit-grid">
-          <download-photo id="0" :image="form.img"/>
+          <download-photo id="0" :image="form.preview_img" :folderFile="`news/${this.$route.params.id}/`" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
           <div class="g-item-form">
             <label class="g-item-form__label">Название</label>
             <input class="g-item-form__input" type="text" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
@@ -23,9 +23,10 @@
             <div class="input-valid-error" v-if="$v.form.url.$error">
               <template v-if="!$v.form.url.required  && publishedMethods">Поле не может быть пустым</template>
               <template v-if="!$v.form.url.maxLength">Превышено количество допустимых символов</template>
+              <template v-if="!$v.form.url.minLength">Минимальное количество символов - 5</template>
             </div>
           </div>
-          <download-photo class="col-grid-12" label="Широкоформатное фото" id="1"/>
+          <download-photo class="col-grid-12" :image="form.widescreen_img" label="Широкоформатное фото" id="1" :folderFile="`news/${this.$route.params.id}/`" idImage="widescreen_img" v-on:image-download="imageUpload('widescreen_img', $event)"/>
           <div class="g-item-form">
             <label class="g-item-form__label">Дата и время</label>
             <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input']" @blur=""></flat-pickr>
@@ -105,7 +106,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import API from '@/api/index'
 import Preloader from '@/components/ui/Preloader'
-import { required, maxLength } from 'vuelidate/lib/validators'
+import { required, maxLength, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'AdminNewsEditing',
@@ -161,7 +162,8 @@ export default {
       form: {
         id: this.$route.params.id,
         url: '',
-        img: 'https://picsum.photos/300/300',
+        preview_img: '',
+        widescreen_img: '',
         title: '',
         snippet: '',
         content: ''
@@ -179,6 +181,7 @@ export default {
       return {
         form: {
           url: {
+            minLength: minLength(5),
             maxLength: maxLength(50)
           },
           title: {
@@ -219,9 +222,22 @@ export default {
     sameObject() {
       return (this.form.title === this.myNews.title
         && this.form.url === this.myNews.url
+        && this.form.preview_img === this.myNews.preview_img
+        && this.form.widescreen_img === this.myNews.widescreen_img
         && this.form.snippet === this.myNews.snippet
         && this.form.content === this.myNews.content
         && this.form.img === this.myNews.img)
+    },
+    newForm () {
+      let obj = {
+        id: this.$route.params.id
+      }
+      for (let key in this.form) {
+        if (this.form[key] !== this.myNews[key]) {
+          obj[key] = this.form[key]
+        }
+      }
+      return obj
     }
   },
   methods: {
@@ -231,14 +247,15 @@ export default {
         if (this.$v.$invalid) {
           API.response.error('Не корректно заполнены поля')
         } else {
-          API.news.edit(this.form).then(response => {
+          this.loading = true
+          API.news.edit(this.newForm).then(response => {
             API.response.success('Новость отредактирована')
-            this.$store.dispatch('news/getMyNews')
+            // this.$store.dispatch('news/getMyNews')
+            this.getInfoNews()
           }).catch(error => {
             API.response.error('Ни одно поле не было отредактировано')
           })
         }
-
       }
     },
     getInfoNews() {
@@ -247,9 +264,8 @@ export default {
         this.form.title = response.title
         this.form.snippet = response.snippet
         this.form.content = response.content
-        if(response.img !== '') {
-          this.form.img = response.img
-        }
+        this.form.preview_img = response.preview_img
+        this.form.widescreen_img = response.widescreen_img
         this.form.url = response.url
         this.status = response.status
         this.loading = false
@@ -266,7 +282,7 @@ export default {
             .then(response => {
               this.$v.$reset()
               API.response.success('Новость опубликована')
-              this.$store.dispatch('news/getMyNews')
+              this.status = 1
             })
             .catch(() => API.response.error('Заполните все поля'))
         } else if (this.status === 1) {
@@ -274,7 +290,8 @@ export default {
             .then(response => {
               this.$v.$reset()
               API.response.success('Новость снята с публикации')
-              this.$store.dispatch('news/getMyNews')
+              this.status = 0
+              this.publishedMethods = false
             })
             .catch(() => API.response.error('ошибка'))
         }
@@ -283,15 +300,20 @@ export default {
     deleteNews() {
       API.news.delete({id: this.$route.params.id}).then(response => {
         API.response.success('Новость удалена')
-        this.$store.dispatch('news/getMyNews')
         this.$router.push('/admin/news-control')
       })
+    },
+    imageUpload(nameImg, e) {
+      this.form[nameImg] = e.link
     }
   },
   mounted() {
     this.loading = true
     this.getInfoNews()
   },
+  beforeRouteLeave (to, from, next) {
+    this.$store.dispatch('news/getMyNews').then(() => next())
+  }
 }
 </script>
 

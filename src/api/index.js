@@ -12,6 +12,7 @@ import supervisors from './modules/supervisors'
 import editors from './modules/editors'
 import courses from './modules/courses/index'
 import news from './modules/news'
+import files from './modules/files'
 import response from './response'
 
 export default {
@@ -29,5 +30,6 @@ export default {
   supervisors,
   editors,
   courses,
-  news
+  news,
+  files
 }

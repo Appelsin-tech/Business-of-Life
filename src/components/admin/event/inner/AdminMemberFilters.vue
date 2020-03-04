@@ -67,6 +67,12 @@
           <v-select @input="editorsMethods" :options="['Canada','United States', 'asdasdasdasd']" multiple :closeOnSelect="false" v-model="sponsor" label="login" class="v-select__filter filter"></v-select>
         </div>
       </div>
+      <div class="item mb-30">
+        <span class="g-item-form__label">Отображаемые параметры</span>
+        <div class="select-wrapper taggable">
+          <v-select @input="editorsMethods" :options="optionsShowParams"  :reduce="item => item.val" multiple :closeOnSelect="false" v-model="showParams" label="name" class="v-select__filter filter"></v-select>
+        </div>
+      </div>
       <div class="item item--btn mb-30">
         <button class="g-btn g-btn--no-icon" @click="clearFilters">
           <span>Очистить</span>
@@ -83,7 +89,6 @@ import 'flatpickr/dist/flatpickr.css'
 
 export default {
   name: 'AdminMemberFilters',
-  props: ['filters'],
   components: {
     flatPickr
   },
@@ -95,6 +100,17 @@ export default {
       sponsor: [],
       dateStart: null,
       dateEnd: null,
+      optionsShowParams: [
+        {
+          name: 'Билеты',
+          val: 'tickets'
+        },
+        {
+          name: 'Квалификация',
+          val: 'qualification'
+        }
+      ],
+      showParams: [],
       configs: {
         start: {
           minDate: null,
@@ -110,10 +126,8 @@ export default {
   },
   methods: {
     blur() {
-      console.log('lol')
     },
     editorsMethods(val) {
-      console.log(val)
       // if (this.editors.length > val.length) {
       //   let userId = null
       //   this.editors.forEach(item => {
@@ -150,6 +164,7 @@ export default {
       this.dateEnd = null
       this.configs.start.maxDate = null
       this.configs.end.minDate = null
+      this.showParams = []
     },
     onStartChange(selectedDates, dateStr, instance) {
       this.$set(this.configs.end, 'minDate', dateStr)

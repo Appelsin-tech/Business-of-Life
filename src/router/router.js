@@ -179,17 +179,6 @@ async function requireAuth (to, from, next) {
   }
 }
 async function requireAuthKnowledge (to, from, next) {
-  // await store.dispatch('user/login')
-  //
-  // if (!store.getters['user/logged']) {
-  //   next('auth')
-  // } else {
-  //   if (store.getters['user/access'].knowledge.status === 2 || store.getters['user/access'].knowledge.status === 3) {
-  //     next('/knowledge')
-  //   } else {
-  //     next()
-  //   }
-  // }
   if (store.getters['user/logged']) {
     next()
   } else {

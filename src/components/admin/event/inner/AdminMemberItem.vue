@@ -6,11 +6,13 @@
         <span class="arrow"></span>
       </div>
     </div>
-    <div class="content-wrapper" >
+    <div class="content-wrapper">
       <p class="item">email: {{member.email}}</p>
       <p class="item">Квалификация: {{member.qual}}</p>
       <p class="item">Дата регистрации в компании: {{member.reg}}</p>
+      <p class="item">Билет: {{member.ticket}}</p>
     </div>
+    <hr class="line">
   </div>
 </template>
 
@@ -87,6 +89,9 @@ export default {
           margin-bottom: 0;
         }
       }
+    }
+    .line {
+      display: none;
     }
   }
 </style>

@@ -46,6 +46,10 @@ module.exports = {
           {
             from: 'logo.jpg',
             to: '[name].[ext]'
+          },
+          {
+            from: './src/assets/css/print.css',
+            to: 'css/[name].[ext]'
           }
         ]]
       })
