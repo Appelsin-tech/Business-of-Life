@@ -95,7 +95,7 @@ export default {
           to: '/news',
           title: 'Новости',
           name: 'news',
-          status: 3
+          status: 0
         },
         {
           to: '/admin/news-control',

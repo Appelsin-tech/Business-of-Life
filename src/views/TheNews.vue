@@ -6,9 +6,9 @@
       <h1 class="g-caption-inner">Новости</h1>
       <div class="news-wrapper" v-if="isNews && isNews.length !== 0">
         <news-item v-for="news in isNews" :news="news" :key="news.id"/>
-        <div class="more">
-          Показать больше
-        </div>
+<!--        <div class="more">-->
+<!--          Показать больше-->
+<!--        </div>-->
       </div>
       <panel-info v-else>Новостей Нет</panel-info>
     </div>

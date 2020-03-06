@@ -130,6 +130,7 @@ export default {
       display: grid;
       grid-template-columns: min-content 1fr;
       grid-template-rows: min-content 1fr;
+      flex-grow: 1;
       .title-link {
         display: block;
         margin-bottom: 30px;
@@ -155,6 +156,8 @@ export default {
       }
       .info-wrapper {
         grid-column: ~"2 / 3";
+        display: flex;
+        flex-direction: column;
         .sm-block({
           grid-column: ~"1 / 3";
           margin-top: 15px;
@@ -199,9 +202,11 @@ export default {
           .hashtag-wrapper.control {
             .ss-block({margin-bottom: 30px;});
           }
+          .g-control-icon {
+            margin-left: auto;
+          }
         }
       }
-
     }
   }
 </style>

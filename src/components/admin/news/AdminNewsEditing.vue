@@ -144,10 +144,7 @@ export default {
           'undo',
           'redo',
           'link',
-          'imagetextalternative',
           'imageupload',
-          'imagestyle:side',
-          'imagestyle:full'
         ],
       },
       configDate: {
