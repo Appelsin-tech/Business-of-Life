@@ -4,7 +4,7 @@
     <status-preview v-if="myNews" :idStatus="statusMyNews" :idNews="news.id" section="news" @newStatus="statusInfo"/>
     <div class="container">
       <div class="img-wrapper" v-if="!loading">
-        <div class="img" :style="{backgroundImage: `url(${news.img})`}" ></div>
+        <div class="img" :style="{backgroundImage: `url(${news.widescreen_img})`}" ></div>
       </div>
     </div>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
