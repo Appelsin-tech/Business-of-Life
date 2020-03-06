@@ -64,7 +64,7 @@ export default {
       } else {
         f = e.target.files[0]
       }
-      let maxSize = 5 * (10 ** 6)
+      let maxSize = 2 * (10 ** 6)
       if (f.size > maxSize) {
         API.response.error('Файл слишком большой')
       } else {
@@ -91,6 +91,13 @@ export default {
         })
         .catch(e => {
           console.log(e)
+          if (e.response.data.reason === 'file_corrupted') {
+            API.response.error('Файл слишком большой')
+          } else if (e.response.data.reason === 'file_ext') {
+            API.response.error('Не верный тип файла')
+          } else {
+            API.response.error('Ошибка сервера')
+          }
         })
     },
     createImage(file) {
@@ -120,6 +127,9 @@ export default {
     .xs-block({
       min-height: 150px;
     });
+    &.preview_img {
+      .md-block({max-width: 250px;});
+    }
     &.row-2 {
       grid-row: ~"1 / 3";
       grid-column: ~"1 / 2";

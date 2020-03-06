@@ -72,18 +72,12 @@ const router = new Router({
       path: '/news',
       name: 'news',
       beforeEnter: requireAuth,
-      meta: {
-        navDots: true
-      },
       component: () => import('@/views/TheNews')
     },
     {
       path: '/news/:url',
       name: 'news-full',
       beforeEnter: requireAuth,
-      meta: {
-        navDots: true
-      },
       component: () => import('@/views/TheNewsFull')
     },
     {

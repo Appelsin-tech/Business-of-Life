@@ -62,35 +62,6 @@ export default {
     }
   },
   methods: {
-    prevPage() {
-      let currentRoute = this.$route.path
-      let index = this.routeArr.findIndex((item) => {
-        return currentRoute === item.path
-      })
-      if(index !== 0) {
-        this.$router.push({ path: this.routeArr[index - 1].path })
-        this.disabledNext = false
-        if (index - 1 === 0) {
-          this.disabledPrev = true
-        }
-      }
-    },
-    nextPage() {
-      let currentRoute = this.$route.path
-      let index = this.routeArr.findIndex((item) => {
-        return currentRoute === item.path
-      })
-      if(index !== this.routeArr.length - 1) {
-        this.$router.push({ path: this.routeArr[index + 1].path })
-        this.disabledPrev = false
-        if (index + 1 === this.routeArr.length - 1) {
-          this.disabledNext = true
-        }
-      }
-    }
-  },
-  mounted() {
-
   }
 }
 </script>

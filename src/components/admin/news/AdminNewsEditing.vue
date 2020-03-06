@@ -8,7 +8,7 @@
         <h1 class='g-caption-section'>Редактирование новости</h1>
         <form class="edit-form" @submit.prevent="onSubmit" v-if="!loading">
           <div class="edit-grid">
-          <download-photo id="0" :image="form.preview_img" :folderFile="`news/${this.$route.params.id}/`" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
+          <download-photo :image="form.preview_img" :folderFile="`news/${this.$route.params.id}/`" class="preview_img" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
           <div class="g-item-form">
             <label class="g-item-form__label">Название</label>
             <input class="g-item-form__input" type="text" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
@@ -26,7 +26,7 @@
               <template v-if="!$v.form.url.minLength">Минимальное количество символов - 5</template>
             </div>
           </div>
-          <download-photo class="col-grid-12" :image="form.widescreen_img" label="Широкоформатное фото" id="1" :folderFile="`news/${this.$route.params.id}/`" idImage="widescreen_img" v-on:image-download="imageUpload('widescreen_img', $event)"/>
+          <download-photo class="col-grid-12" :image="form.widescreen_img" label="Широкоформатное фото" :folderFile="`news/${this.$route.params.id}/`" idImage="widescreen_img" v-on:image-download="imageUpload('widescreen_img', $event)"/>
           <div class="g-item-form">
             <label class="g-item-form__label">Дата и время</label>
             <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input']" @blur=""></flat-pickr>
@@ -45,7 +45,7 @@
           </div>
           <div class="textarea  g-item-form col-grid-12">
             <label class="g-item-form__label">Полное описание</label>
-            <ckeditor :editor="editor" :config="editorConfig" v-model="form.content" :class="'sssssssssssssssss'" @blur="$v.form.content.$touch()"></ckeditor>
+            <ckeditor :editor="editor" :config="editorConfig" :upload-adapter="UploadAdapter" v-model="form.content" :class="'sssssssssssssssss'" @blur="$v.form.content.$touch()"></ckeditor>
             <div class="input-valid-error" v-if="$v.form.content.$error">
               <template v-if="!$v.form.content.required  && publishedMethods">Поле не может быть пустым</template>
             </div>
@@ -141,8 +141,12 @@ export default {
           'numberedList',
           'undo',
           'redo',
-          'link'
-        ]
+          'link',
+          'imagetextalternative',
+          'imageupload',
+          'imagestyle:side',
+          'imagestyle:full'
+        ],
       },
       configDate: {
         enableTime: true,
@@ -154,7 +158,7 @@ export default {
         mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         tokens: {
           X: {
-            pattern: /[0-9a-zA-Z_\- +]/
+            pattern: /[0-9a-zA-Z_\-+]/
           }
         },
         masked: ''
@@ -305,6 +309,42 @@ export default {
     },
     imageUpload(nameImg, e) {
       this.form[nameImg] = e.link
+    },
+    UploadAdapter: function (loader) {
+      this.loader = loader
+
+      loader.file.then(response => {
+        let file = response
+
+        this.upload = () => {
+          let formData = new FormData()
+          formData.append('file', file)
+          formData.append('id', new Date().getTime())
+          formData.append('action', 'file_upload')
+          formData.append('folder', 'news')
+
+          API.files.upload(formData)
+            .then(response => {
+              console.log(response.info.name)
+              return {
+                default: response.info.name
+              }
+              // this.$emit('image-download', {link: response.info.name})
+            })
+            .catch(e => {
+              console.log(e.response)
+              if (e.response.data.reason === 'file_corrupted') {
+                API.response.error('Файл слишком большой')
+              } else if (e.response.data.reason === 'file_ext') {
+                API.response.error('Не верный тип файла')
+              }
+            })
+        }
+
+        this.abort = () => {
+          console.log('Abort upload')
+        }
+      })
     }
   },
   mounted() {

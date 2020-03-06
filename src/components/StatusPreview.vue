@@ -149,13 +149,13 @@ export default {
       if (this.idStatus === 1) {
         API.news.unpublish({id: this.idNews}).then((response) => {
           this.$emit('newStatus')
-          this.$store.dispatch('courses/getMyNews')
+          this.$store.dispatch('news/getMyNews')
           API.response.success('Новость снята с публикации')
         })
       } else {
         API.news.publish({id: this.idNews}).then((response) => {
           this.$emit('newStatus')
-          this.$store.dispatch('courses/getMyNews')
+          this.$store.dispatch('news/getMyNews')
           API.response.success('Новость опубликована')
         })
       }
