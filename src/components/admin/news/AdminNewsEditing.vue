@@ -45,7 +45,7 @@
           </div>
           <div class="textarea  g-item-form col-grid-12">
             <label class="g-item-form__label">Полное описание</label>
-            <ckeditor :editor="editor" :config="editorConfig" :upload-adapter="UploadAdapter" v-model="form.content" :class="'sssssssssssssssss'" @blur="$v.form.content.$touch()"></ckeditor>
+            <ckeditor :editor="editor" :config="editorConfig" v-model="form.content" @blur="$v.form.content.$touch()"></ckeditor>
             <div class="input-valid-error" v-if="$v.form.content.$error">
               <template v-if="!$v.form.content.required  && publishedMethods">Поле не может быть пустым</template>
             </div>
@@ -106,6 +106,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import API from '@/api/index'
 import Preloader from '@/components/ui/Preloader'
+import UploadAdapter from '@/helpers/uploadadapter'
 import { required, maxLength, minLength } from 'vuelidate/lib/validators'
 
 export default {
@@ -115,7 +116,7 @@ export default {
     DownloadPhoto,
     flatPickr,
     ckeditor: CKEditor.component,
-    Preloader
+    Preloader,
   },
   data() {
     return {
@@ -134,6 +135,7 @@ export default {
       editorConfig: {
         language: 'ru',
         image_previewText: '',
+        extraPlugins: [this.uploader],
         toolbar: [
           'bold',
           'italic',
@@ -310,41 +312,10 @@ export default {
     imageUpload(nameImg, e) {
       this.form[nameImg] = e.link
     },
-    UploadAdapter: function (loader) {
-      this.loader = loader
-
-      loader.file.then(response => {
-        let file = response
-
-        this.upload = () => {
-          let formData = new FormData()
-          formData.append('file', file)
-          formData.append('id', new Date().getTime())
-          formData.append('action', 'file_upload')
-          formData.append('folder', 'news')
-
-          API.files.upload(formData)
-            .then(response => {
-              console.log(response.info.name)
-              return {
-                default: response.info.name
-              }
-              // this.$emit('image-download', {link: response.info.name})
-            })
-            .catch(e => {
-              console.log(e.response)
-              if (e.response.data.reason === 'file_corrupted') {
-                API.response.error('Файл слишком большой')
-              } else if (e.response.data.reason === 'file_ext') {
-                API.response.error('Не верный тип файла')
-              }
-            })
-        }
-
-        this.abort = () => {
-          console.log('Abort upload')
-        }
-      })
+    uploader (editor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader, 'content')
+      }
     }
   },
   mounted() {

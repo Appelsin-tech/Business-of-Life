@@ -1,13 +1,11 @@
 <template>
   <section class="p-control-course p-default-block">
+    <preloader v-if="loading"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Редактор курсов</h1>
       <div class="course">
-        <div class="course-create" v-if="!coursesMy">
-          <button-add class="btn-add" @click.native="$router.push({path: '/admin/course-create'})"/>
-        </div>
-        <admin-course-control-panel v-else/>
+        <admin-course-control-panel v-if="isMyCourse && isMyCourse.length !== 0"/>
       </div>
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
@@ -18,17 +16,18 @@
 import AdminCourseControlPanel from '@/components/admin/course/AdminCourseControlPanel'
 import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
-import ButtonAdd from '@/components/ui/ButtonAdd'
+import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'AdminCourseControl',
   components: {
     BreadCrumbs,
-    ButtonAdd,
-    AdminCourseControlPanel
+    AdminCourseControlPanel,
+    Preloader
   },
   data() {
     return {
+      loading: false,
       breadCrumbs: [
         {
           path: 'menu',
@@ -44,10 +43,17 @@ export default {
     ...mapState('courses', [
       'coursesMy'
     ]),
+    ...mapGetters('courses', [
+      'isMyCourse',
+      'isCourses'
+    ])
   },
   mounted() {
-    if (this.coursesMy.length === 0) {
-      this.$store.dispatch('courses/getMyCourses')
+    if (this.isMyCourse === null) {
+      this.loading = true
+      this.$store.dispatch('courses/getMyCourses').then(() => {
+        this.loading = false
+      })
     }
   }
 }

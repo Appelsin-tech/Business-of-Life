@@ -1021,6 +1021,19 @@ input {
       list-style: inherit;
     }
   }
+  .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0 auto;
+    &.image-style-side {
+      float: right;
+      margin-left: 1em;
+      &:not(.image_resized) {
+        max-width: 50%;
+      }
+    }
+  }
 }
 
 .ck.ck-editor {

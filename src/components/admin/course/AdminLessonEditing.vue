@@ -82,13 +82,13 @@ import BreadCrumbs from '@/components/BreadCrumbs'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
-import response from '@/api/response'
 import draggable from 'vuedraggable'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import ModalLessonMaterials from '@/components/modal/ModalLessonMaterials'
 import PanelVideoLesson from '@/components/knowledge/components/PanelVideoLesson'
 import Preloader from '@/components/ui/Preloader'
 import PanelInfo from '@/components/ui/PanelInfo'
+import UploadAdapter from '@/helpers/uploadadapter'
 
 export default {
   name: 'AdminLessonEditing',
@@ -124,6 +124,7 @@ export default {
       editorConfig: {
         language: 'ru',
         image_previewText: '',
+        extraPlugins: [this.uploader],
         toolbar: [
           'bold',
           'italic',
@@ -232,11 +233,13 @@ export default {
         this.content = response.content
         this.activePreloader = false
       })
+    },
+    uploader (editor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader, 'content')
+      }
     }
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   next()
-  // },
   mounted() {
     if (this.id) {
       this.$root.$on('materials-edit', () => {
