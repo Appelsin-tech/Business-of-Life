@@ -108,6 +108,7 @@ import API from '@/api/index'
 import Preloader from '@/components/ui/Preloader'
 import UploadAdapter from '@/helpers/uploadadapter'
 import { required, maxLength, minLength } from 'vuelidate/lib/validators'
+import translit from '@/mixins/translit'
 
 export default {
   name: 'AdminNewsEditing',
@@ -118,6 +119,7 @@ export default {
     ckeditor: CKEditor.component,
     Preloader,
   },
+  mixins: [translit],
   data() {
     return {
       loading: false,
@@ -241,6 +243,14 @@ export default {
         }
       }
       return obj
+    },
+    urlTranslite: {
+      get () {
+        return this.form.title
+      },
+      set (val) {
+        this.form.url = this.transliterate(val)
+      }
     }
   },
   methods: {
@@ -318,6 +328,11 @@ export default {
   mounted() {
     this.loading = true
     this.getInfoNews()
+  },
+  watch: {
+    'form.title': function (newVal, oldVal) {
+      this.form.url = this.transliterate(newVal)
+    }
   },
   beforeRouteLeave (to, from, next) {
     this.$store.dispatch('news/getMyNews').then(() => next())

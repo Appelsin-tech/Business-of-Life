@@ -89,7 +89,7 @@ export default {
     }
   },
   mounted() {
-    if(this.isMyNews === null) {
+    if (this.isMyNews === null) {
       this.loading = true
       this.$store.dispatch('news/getMyNews').then(() => {
         this.loading = false
