@@ -8,8 +8,17 @@ const state = () => ({
 const getters = {
   isCourses: state => state.courses,
   isMyCourse: state => state.coursesMy,
-  statusMyCourse: state => idCourse => {
-    return state.coursesMy.length ? state.coursesMy.find(item => item.id === idCourse).status : 0
+  statusMyCourse: (state, getters) => idCourse => {
+    if (getters.isMyCourse !== null && getters.isMyCourse.length > 0) {
+      let el = state.coursesMy.find(item => item.id === idCourse)
+      if (el !== undefined) {
+        return el.status
+      } else {
+        return 0
+      }
+    } else {
+      return null
+    }
   }
 }
 

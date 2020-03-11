@@ -1,30 +1,30 @@
 <template>
   <div class="status">
     <div class="status-content" >
-      <template v-if="statusProcessed === 0">
-        <div class="g-icon-circle" :class="dataStatus[statusProcessed].classIcon">
+      <template v-if="statusProgress === 0">
+        <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
         </div>
-        <span class="text">{{dataStatus[statusProcessed].tooltip}}</span>
+        <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>
-      <template v-else-if="statusProcessed === 1">
-        <div class="g-icon-circle" :class="dataStatus[statusProcessed].classIcon">
+      <template v-else-if="statusProgress === 1">
+        <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
         </div>
-        <span class="text">{{dataStatus[statusProcessed].tooltip}}</span>
+        <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>
       <template v-else>
-        <div class="g-icon-circle" :class="dataStatus[statusProcessed].classIcon">
+        <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
         </div>
-        <span class="text">{{dataStatus[statusProcessed].tooltip}}</span>
+        <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>
     </div>
     <div class="btn-wrapper" v-if="source === 'lesson'">
       <router-link :to="`/admin/lesson/${urlMyCourse}`" class="g-btn g-btn--no-icon" v-if="urlMyCourse">
         <span>Редактировать</span>
       </router-link>
-      <button class="g-btn g-btn--no-icon g-btn--white" v-if="statusProcessed !== 2">
+      <button class="g-btn g-btn--no-icon g-btn--white" v-if="statusProgress !== 2" @click="$emit('set-progress')" :class="{'disabled': statusProgress > 0}">
         <span>Отметить как пройденный</span>
       </button>
     </div>
@@ -38,7 +38,7 @@ export default {
     source: {
       required: true
     },
-    statusProcessed: {
+    statusProgress: {
       required: true
     },
     urlMyCourse: {
@@ -55,12 +55,12 @@ export default {
           tooltip: 'Не пройден'
         },
         {
-          classIcon: 'waiting',
-          tooltip: 'В процессе прохождения'
-        },
-        {
           classIcon: 'public',
           tooltip: 'Пройден'
+        },
+        {
+          classIcon: 'waiting',
+          tooltip: 'В процессе прохождения'
         }
       ]
     }

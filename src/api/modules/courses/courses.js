@@ -64,4 +64,11 @@ export default {
       reject(error)
     })
   }),
+  progress: (data) => new Promise((resolve, reject) => {
+    HTTP.post('courses/progress/set', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  })
 }

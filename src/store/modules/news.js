@@ -42,7 +42,7 @@ const mutations = {
   },
   SET_NEWS(state, news) {
     state.news = news
-  },
+  }
 }
 
 export default {

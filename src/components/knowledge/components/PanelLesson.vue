@@ -1,7 +1,7 @@
 <template>
   <div class="lesson">
-    <div class="g-icon-circle" :class="status[1].class" v-tooltip.left="`${status[1].tooltip}`">
-      <template v-if="status[1].class === 'created'">
+    <div class="g-icon-circle" :class="status[statusProgressLesson].class" v-tooltip.left="`${status[statusProgressLesson].tooltip}`">
+      <template v-if="status[statusProgressLesson].class === 'created'">
         <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
       </template>
       <template v-else>
@@ -13,8 +13,9 @@
         <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-caption-element">{{lesson.title}}</router-link>
         <div class="editor" v-html="lesson.description"></div>
       </div>
-      <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon">
-        <span>Продолжить изучение</span>
+      <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon" v-if="showBtnProgress">
+        <span v-if="showBtnProgress === 1">Начать изучение</span>
+        <span v-else>Продолжить изучение</span>
       </router-link>
     </div>
   </div>
@@ -30,6 +31,17 @@ export default {
     urlCourse: {
       required: true
     },
+    // 0 не показывать
+    // 1 показать Начать изучение
+    // 2 показать Продолжить изучение
+    showBtnProgress: {
+      required: false,
+      default: 2
+    },
+    statusProgressLesson: {
+      required: false,
+      default: 1
+    }
   },
   data() {
     return {

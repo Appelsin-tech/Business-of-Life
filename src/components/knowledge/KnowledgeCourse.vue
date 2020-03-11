@@ -9,12 +9,13 @@
         <section class="preview-lesson g-subsection">
           <div class="img" :style="{backgroundImage: `url(${course.img})`}"></div>
           <div class="info">
-            <panel-status-process-course-lesson source="course" :statusProcessed="1"/>
+            <panel-status-process-course-lesson source="course" :statusProgress="statusProgress"/>
             <div class="text-wrapper">
               <div class="editor" v-html="course.snippet"></div>
             </div>
             <button href="#" class="g-btn g-btn--no-icon" @click="scrollToSection('section-lessons')">
-              <span>Продолжить изучение</span>
+              <span v-if="statusProgress === 0">Начать изучение</span>
+              <span v-if="statusProgress > 0">Продолжить изучение</span>
             </button>
           </div>
         </section>
@@ -24,7 +25,7 @@
         </section>
         <section class="lessons" ref="section-lessons">
           <h2 class="g-caption-section">Программа курса</h2>
-          <panel-lesson v-for="lesson in course.lessons" :key="lesson.id" :lesson="lesson" :url-course="url"/>
+          <panel-lesson v-for="(lesson, index) in course.lessons" :key="lesson.id" :lesson="lesson" :url-course="url" :showBtnProgress="showBtnProgressLesson(index)" :statusProgressLesson="statusProgressLesson(index)"/>
         </section>
         <router-link to="/knowledge/menu" class="back-btn">Назад</router-link>
       </div>
@@ -77,18 +78,14 @@ export default {
     ]),
     statusMyCourse () {
       return this.$store.getters[`courses/statusMyCourse`](this.url)
+    },
+    statusProgress () {
+      return this.course.progress === 0 ? 0 : this.course.progress === this.course.lessons.length ? 1 : 2
     }
   },
   methods: {
-    newActiveLesson(value) {
-      this.valueSelectLesson = value.id
-      this.$router.push({ path: `/knowledge/${this.url}/${ value.id}`})
-      API.courses.lesson.info({id: this.valueSelectLesson}).then(response => {
-        this.activeLesson = response
-      })
-    },
     getInfoCourse() {
-      API.courses.courses.info({url: this.url}).then(response => {
+      API.courses.courses.info({ url: this.url }).then(response => {
         this.course = response
         this.loading = false
         this.statusInfo()
@@ -96,7 +93,7 @@ export default {
         this.$router.push({ path: '/404' })
       })
     },
-    statusInfo () {
+    statusInfo() {
       if (this.status > 1) {
         if (this.isMyCourse === null) {
           this.$store.dispatch('courses/getMyCourses').then(() => {
@@ -111,6 +108,29 @@ export default {
         }
       }
     },
+    statusProgressLesson (index) {
+      if (this.course.progress === 0 && index === 0) {
+        return 1
+      } else if (this.course.progress === index) {
+        return 1
+      } else if (this.course.progress > index) {
+        return 0
+      } else {
+        return 1
+      }
+    },
+    showBtnProgressLesson (index) {
+      if (this.course.progress === 0 && index === 0) {
+        return 1
+      } else if (this.course.progress === index && this.course.progress !== 0) {
+        return 2
+      } else {
+        return 0
+      }
+    }
+    // progressStatusLesson () {
+    //
+    // }
   },
   mounted () {
     this.getInfoCourse()

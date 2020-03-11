@@ -7,6 +7,18 @@
       <admin-member-filters/>
       <div class="print" id="printMe">
         <admin-member-item v-for="member in ticketMembers" :member="member" :key="member.id"></admin-member-item>
+        <table class="table-members">
+          <thead>
+            <tr>
+              <th v-for="item in fieldHeadTable" :key="item.id">{{item.field}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(member, index) in members" :key="index">
+              <td v-for="item in member">{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <button class="g-btn g-btn--no-icon" @click="print">
         <span>Печать</span>
@@ -56,6 +68,44 @@ export default {
           title: 'Управление мероприятиями'
         }
       ],
+      listField: [
+        {
+          field: 'Имя',
+          id: 'name'
+        },
+        {
+          field: 'Email',
+          id: 'email'
+        },
+        {
+          field: 'Дата регистрации',
+          id: 'reg'
+        },
+        {
+          field: 'Какой по счеты семинар',
+          id: 'seminar'
+        },
+        {
+          field: 'Сколько человек пригласил',
+          id: 'member_invit'
+        },
+        {
+          field: 'Статус',
+          id: 'status'
+        },
+        {
+          field: 'Квалификация',
+          id: 'qual'
+        },
+        {
+          field: 'Структура',
+          id: 'structure'
+        },
+        {
+          field: 'Спонсор',
+          id: 'sponsor'
+        }
+      ],
       ticketMembers: [
         {
           id: 1,
@@ -100,9 +150,27 @@ export default {
       ]
     }
   },
+  computed: {
+    fieldHeadTable () {
+      return this.listField
+    },
+    members () {
+      // this.listField.forEach(item => {
+      // })
+      let newObj = [ ...this.ticketMembers ]
+      newObj.forEach(member => {
+        delete member.id
+        this.listField.forEach(item => {
+          if (member[item.id] === undefined) {
+            member[item.id] = null
+          }
+        })
+      })
+      return newObj
+    }
+  },
   methods: {
     print () {
-      // Pass the element id here
       this.$htmlToPaper('printMe')
     }
   }
@@ -113,5 +181,16 @@ export default {
   @import "~@/assets/less/_importants";
   .print {
     margin-bottom: 30px;
+  }
+  .table-members {
+    width: 100%;
+    th {
+      padding: 10px 5px;
+      text-align: center;
+    }
+    th,
+    td {
+      border: 1px solid @colorBorder;
+    }
   }
 </style>

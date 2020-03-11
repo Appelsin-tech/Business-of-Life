@@ -44,11 +44,11 @@ export default {
       ],
       btnArr: [
         {
-          component: 'AdminProfileMain',
+          id: 'AdminProfileMain',
           text: 'Основные'
         },
         {
-          component: 'AdminProfileSecurity',
+          id: 'AdminProfileSecurity',
           text: 'Безопасность'
         }
       ],

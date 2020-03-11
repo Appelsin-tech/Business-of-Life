@@ -18,7 +18,7 @@ export default {
   methods: {
     btnClick(btn, index) {
       this.activeIndex = index
-      this.$emit('clickBtnChangeSection', btn.component)
+      this.$emit('clickBtnChangeSection', btn.id)
     }
   }
 }

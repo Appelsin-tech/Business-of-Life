@@ -5,13 +5,9 @@
       <bread-crumbs :arrCrumbs="breadCrumbs"/>
       <div class="container" >
         <h1 class="g-caption-inner">{{lesson.title}}</h1>
-<!--        <div class="lesson-select">-->
-<!--          <p class="desc">Урок</p>-->
-<!--          <v-select @input="newActiveLesson" :value="activeLesson.title" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false"  label="title" :options="course.lessons"></v-select>-->
-<!--        </div>-->
         <section class="preview-lesson">
           <div class="info">
-            <panel-status-process-course-lesson source="lesson" :statusProcessed="1" :urlMyCourse="pathMyCourse"/>
+            <panel-status-process-course-lesson source="lesson" :statusProgress="statusProgress" :urlMyCourse="pathMyCourse" v-on:set-progress="setProgress"/>
             <strong class="g-item-form__label">В этом уроке вы узнаете</strong>
             <div class="text-wrapper">
               <div class="editor ul-pdl-0" v-html="lesson.description"></div>
@@ -53,7 +49,7 @@ import ScrollMixin from '@/mixins/scrollToSection'
 
 export default {
   name: 'KnowledgeLesson',
-  props: ['url', 'id'],
+  props: ['url', 'id', 'progress'],
   components: {
     BreadCrumbs,
     PanelStatusProcessCourseLesson,
@@ -79,7 +75,6 @@ export default {
       lesson: null,
       valueSelectLesson: null,
       activeLesson: null,
-      myCourses: false,
       statusCourse: 0
     }
   },
@@ -92,12 +87,29 @@ export default {
       'status'
     ]),
     pathMyCourse () {
-      if(this.$store.getters[`courses/isMyCourse`](this.url)) {
+      if (this.$store.getters[`courses/statusMyCourse`](this.url)) {
         return `${this.url}/${this.id}`
       } else {
         return null
       }
     },
+    statusProgress () {
+      if (this.lesson.progress === 0) {
+        return 0
+      } else if (this.lesson.number <= this.lesson.progress) {
+        return 1
+      } else {
+        return 0
+      }
+    }
+  },
+  methods: {
+    setProgress () {
+      API.courses.courses.progress({course_id: this.lesson.course_id, progress: this.lesson.number}).then(response => {
+        this.lesson.progress = this.lesson.number
+        API.response.success('Урок пройден')
+      }).catch(e => console.log(e))
+    }
   },
   mounted () {
     API.courses.lesson.info({id: this.id}).then(response => {
