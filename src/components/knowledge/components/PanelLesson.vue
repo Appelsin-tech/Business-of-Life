@@ -10,9 +10,12 @@
     </div>
     <div class="lesson__info-wrapper">
       <div class="lesson__info">
-        <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-caption-element">{{lesson.title}}</router-link>
+        <h3 class="g-caption-element g-caption-element--static">{{lesson.title}}</h3>
         <div class="editor" v-html="lesson.description"></div>
       </div>
+      <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon g-btn--white" v-if="statusProgressLesson === 0">
+        <span>Повторить</span>
+      </router-link>
       <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon" v-if="showBtnProgress">
         <span v-if="showBtnProgress === 1">Начать изучение</span>
         <span v-else>Продолжить изучение</span>

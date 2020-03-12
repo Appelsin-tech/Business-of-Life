@@ -140,7 +140,6 @@ export default {
         description: ''
       },
       activePreloader: false,
-      idLesson: this.id,
       content: null,
       errorResponse: {
         title: 'Неверная длина названия',
@@ -178,6 +177,9 @@ export default {
         })
       }
       return arr
+    },
+    idLesson () {
+      return this.$route.params.id
     }
   },
   methods: {

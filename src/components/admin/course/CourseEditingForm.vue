@@ -109,7 +109,6 @@ export default {
         })
       } else {
         API.courses.courses.create(this.form).then(response => {
-          console.log(response)
           API.response.success('Курс создан')
           this.$store.dispatch('courses/getMyCourses').then(() => {
             this.$router.push({ path: `/admin/course-editing/${response.id}` })

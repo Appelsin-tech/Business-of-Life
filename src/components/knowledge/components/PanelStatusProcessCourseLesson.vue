@@ -9,13 +9,13 @@
       </template>
       <template v-else-if="statusProgress === 1">
         <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
+          <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
         </div>
         <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>
       <template v-else>
         <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
+          <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
         </div>
         <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>

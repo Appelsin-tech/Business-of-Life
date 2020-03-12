@@ -109,15 +109,7 @@ export default {
       }
     },
     statusProgressLesson (index) {
-      if (this.course.progress === 0 && index === 0) {
-        return 1
-      } else if (this.course.progress === index) {
-        return 1
-      } else if (this.course.progress > index) {
-        return 0
-      } else {
-        return 1
-      }
+      return this.course.progress > index ? 0 : 1
     },
     showBtnProgressLesson (index) {
       if (this.course.progress === 0 && index === 0) {
@@ -128,9 +120,6 @@ export default {
         return 0
       }
     }
-    // progressStatusLesson () {
-    //
-    // }
   },
   mounted () {
     this.getInfoCourse()
