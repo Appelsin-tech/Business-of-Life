@@ -1,5 +1,5 @@
 <template>
-  <article class="news">
+  <article class="news" :class="page">
     <div class="g-icon-circle" v-if="control" :class="status[news.status].class" v-tooltip.left="`${status[news.status].tooltip}`">
       <template v-if="status[news.status].class === 'created'">
         <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
@@ -49,6 +49,10 @@ export default {
     news: {},
     control: {
       default: false
+    },
+    page: {
+      required: false,
+      default: 'page-news'
     }
   },
   data() {
@@ -100,6 +104,25 @@ export default {
     .sm-block({
       margin-bottom: 10px;
     });
+    &.page-hero {
+      .img {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 30px;
+        .lg-block({
+          width: 100%;
+          margin-right: 0;});
+        .sm-block({
+          width: 100%;
+          margin-bottom: 20px;
+          height: 120px;
+          margin-right: 0;});
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+    }
     .img {
       flex-shrink: 0;
       margin-right: 50px;

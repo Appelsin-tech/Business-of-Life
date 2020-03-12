@@ -29,7 +29,7 @@
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
 import AdminRoleForm from '@admin/inner/AdminRoleForm'
-import API from '../../api/index'
+import API from '@/api/index'
 import ButtonChangeSection from '@/components/ui/ButtonChangeSection'
 
 export default {
@@ -49,28 +49,25 @@ export default {
       ],
       btnArr: [
         {
-          id: 'course',
+          id: 1,
           text: 'Редактор курсов'
         },
         {
-          id: 'news',
+          id: 2,
           text: 'Редактор новостей'
         },
         {
-          id: 'event',
+          id: 3,
           text: 'Редактор мероприятий'
         }
       ],
-      currentTab: 'course'
+      currentTab: 2
     }
   },
   methods: {
-    changeSection(e) {
+    changeSection (e) {
       this.currentTab = e
     }
-  },
-  mounted() {
-    // this.$refs.select.open = true
   }
 }
 </script>

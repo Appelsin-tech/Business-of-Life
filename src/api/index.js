@@ -13,6 +13,7 @@ import editors from './modules/editors'
 import courses from './modules/courses/index'
 import news from './modules/news'
 import files from './modules/files'
+import roles from './modules/roles'
 import response from './response'
 
 export default {
@@ -31,5 +32,6 @@ export default {
   editors,
   courses,
   news,
-  files
+  files,
+  roles
 }

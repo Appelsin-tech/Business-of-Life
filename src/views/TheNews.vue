@@ -4,8 +4,8 @@
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Новости</h1>
-      <div class="news-wrapper" v-if="isNews && isNews.length !== 0">
-        <news-item v-for="news in isNews" :news="news" :key="news.id"/>
+      <div class="news-wrapper" v-if="news && news.length !== 0">
+        <news-item v-for="item in news" :news="item" :key="item.id"/>
 <!--        <div class="more">-->
 <!--          Показать больше-->
 <!--        </div>-->
@@ -63,12 +63,12 @@ export default {
   },
   computed: {
     ...mapGetters('news', [
-      'isNews'
+      'news'
     ])
   },
   methods: {},
   mounted() {
-    if(this.isNews === null) {
+    if(this.news === null) {
       this.loading = true
       this.$store.dispatch('news/getNews').then(() => {
         this.loading = false

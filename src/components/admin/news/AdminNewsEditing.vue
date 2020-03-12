@@ -8,70 +8,70 @@
         <h1 class='g-caption-section'>Редактирование новости</h1>
         <form class="edit-form" @submit.prevent="onSubmit" v-if="!loading">
           <div class="edit-grid">
-          <download-photo :image="form.preview_img" :folderFile="`news/${this.$route.params.id}/`" class="preview_img" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
-          <div class="g-item-form">
-            <label class="g-item-form__label">Название</label>
-            <input class="g-item-form__input" type="text" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
-            <div class="input-valid-error" v-if="$v.form.title.$error">
-              <template v-if="!$v.form.title.required  && publishedMethods">Поле не может быть пустым</template>
-              <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
+            <download-photo :image="form.preview_img" :folderFile="`news/${this.$route.params.id}/`" class="preview_img" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
+            <div class="g-item-form">
+              <label class="g-item-form__label">Название</label>
+              <input class="g-item-form__input" type="text" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
+              <div class="input-valid-error" v-if="$v.form.title.$error">
+                <template v-if="!$v.form.title.required  && publishedMethods">Поле не может быть пустым</template>
+                <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
+              </div>
             </div>
-          </div>
-          <div class="g-item-form">
-            <label class="g-item-form__label">URL Новости</label>
-            <input class="g-item-form__input" type="text" v-mask="maskConfig" v-model="form.url" :class="{error: $v.form.url.$error}" @blur="$v.form.url.$touch()">
-            <div class="input-valid-error" v-if="$v.form.url.$error">
-              <template v-if="!$v.form.url.required  && publishedMethods">Поле не может быть пустым</template>
-              <template v-if="!$v.form.url.maxLength">Превышено количество допустимых символов</template>
-              <template v-if="!$v.form.url.minLength">Минимальное количество символов - 5</template>
+            <div class="g-item-form">
+              <label class="g-item-form__label">URL Новости</label>
+              <input class="g-item-form__input" type="text" v-mask="maskConfig" v-model="form.url" :class="{error: $v.form.url.$error}" @blur="$v.form.url.$touch()">
+              <div class="input-valid-error" v-if="$v.form.url.$error">
+                <template v-if="!$v.form.url.required  && publishedMethods">Поле не может быть пустым</template>
+                <template v-if="!$v.form.url.maxLength">Превышено количество допустимых символов</template>
+                <template v-if="!$v.form.url.minLength">Минимальное количество символов - 5</template>
+              </div>
             </div>
-          </div>
-          <download-photo class="col-grid-12" :image="form.widescreen_img" label="Широкоформатное фото" :folderFile="`news/${this.$route.params.id}/`" idImage="widescreen_img" v-on:image-download="imageUpload('widescreen_img', $event)"/>
-          <div class="g-item-form">
-            <label class="g-item-form__label">Дата и время</label>
-            <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input']" @blur=""></flat-pickr>
-<!--            <div class="input-valid-error" v-if="$v.form.date.$error">-->
-<!--              <template v-if="!$v.form.date.required">Поле не может быть пустым</template>-->
-<!--              <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>-->
-<!--            </div>-->
-          </div>
-          <div class="g-item-form col-grid-12">
-            <label class="g-item-form__label">Краткое описание</label>
-            <input class="g-item-form__input"  type="text" v-model="form.snippet" :class="{error: $v.form.snippet.$error}" @blur="$v.form.snippet.$touch()">
-            <div class="input-valid-error" v-if="$v.form.snippet.$error">
-              <template v-if="!$v.form.snippet.required && publishedMethods">Поле не может быть пустым</template>
-              <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>
+            <download-photo class="col-grid-12" :image="form.widescreen_img" label="Широкоформатное фото" :folderFile="`news/${this.$route.params.id}/`" idImage="widescreen_img" v-on:image-download="imageUpload('widescreen_img', $event)"/>
+            <div class="g-item-form">
+              <label class="g-item-form__label">Дата и время</label>
+              <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input']" @blur=""></flat-pickr>
+              <!--            <div class="input-valid-error" v-if="$v.form.date.$error">-->
+              <!--              <template v-if="!$v.form.date.required">Поле не может быть пустым</template>-->
+              <!--              <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>-->
+              <!--            </div>-->
             </div>
-          </div>
-          <div class="textarea  g-item-form col-grid-12">
-            <label class="g-item-form__label">Полное описание</label>
-            <ckeditor :editor="editor" :config="editorConfig" v-model="form.content" @blur="$v.form.content.$touch()"></ckeditor>
-            <div class="input-valid-error" v-if="$v.form.content.$error">
-              <template v-if="!$v.form.content.required  && publishedMethods">Поле не может быть пустым</template>
+            <div class="g-item-form col-grid-12">
+              <label class="g-item-form__label">Краткое описание</label>
+              <input class="g-item-form__input" type="text" v-model="form.snippet" :class="{error: $v.form.snippet.$error}" @blur="$v.form.snippet.$touch()">
+              <div class="input-valid-error" v-if="$v.form.snippet.$error">
+                <template v-if="!$v.form.snippet.required && publishedMethods">Поле не может быть пустым</template>
+                <template v-if="!$v.form.snippet.maxLength">Превышено количество допустимых символов</template>
+              </div>
             </div>
-          </div>
-          <div class="g-item-form col-grid-12">
-            <label class="g-item-form__label">Теги</label>
-            <div class="news-item__input taggable" :class="{}">
-              <v-select ref="select" taggable multiple :closeOnSelect="false" :class="{}" v-model="form.name_tags" class="v-select__relation">
+            <div class="textarea  g-item-form col-grid-12">
+              <label class="g-item-form__label">Полное описание</label>
+              <ckeditor :editor="editor" :config="editorConfig" v-model="form.content" @blur="$v.form.content.$touch()"></ckeditor>
+              <div class="input-valid-error" v-if="$v.form.content.$error">
+                <template v-if="!$v.form.content.required  && publishedMethods">Поле не может быть пустым</template>
+              </div>
+            </div>
+            <div class="g-item-form col-grid-12">
+              <label class="g-item-form__label">Теги</label>
+              <div class="news-item__input taggable" :class="{}">
+                <v-select ref="select" taggable multiple :closeOnSelect="false" :class="{}" v-model="form.name_tags" class="v-select__relation">
                   <span slot="no-options">
                     Введите тег
                   </span>
-                <template #search="{attributes, events}">
-                  <input
-                    class="vs__search"
-                    v-bind="attributes"
-                    v-on="events"
-                    :required="false"
-                    @blur=""
-                  />
-                </template>
-              </v-select>
+                  <template #search="{attributes, events}">
+                    <input
+                      class="vs__search"
+                      v-bind="attributes"
+                      v-on="events"
+                      :required="false"
+                      @blur=""
+                    />
+                  </template>
+                </v-select>
+              </div>
+              <!--            <div class="input-valid-error" v-if="$v.form.name_ticket.$error">-->
+              <!--              <template v-if="!$v.form.name_ticket.required">Поле не может быть пустым</template>-->
+              <!--            </div>-->
             </div>
-<!--            <div class="input-valid-error" v-if="$v.form.name_ticket.$error">-->
-<!--              <template v-if="!$v.form.name_ticket.required">Поле не может быть пустым</template>-->
-<!--            </div>-->
-          </div>
           </div>
           <div class="btn-wrapper" v-if="myNews">
             <button class="g-btn g-btn--no-icon" :disabled="sameObject || $v.$anyError">
@@ -176,9 +176,7 @@ export default {
       myNews: null,
       status: 0,
       publishedMethods: false,
-      errorPublish: {
-
-      }
+      errorPublish: {}
     }
   },
   validations() {
@@ -195,9 +193,7 @@ export default {
           snippet: {
             maxLength: maxLength(150)
           },
-          content: {
-
-          }
+          content: {}
         }
       }
     } else {
@@ -233,7 +229,7 @@ export default {
         && this.form.content === this.myNews.content
         && this.form.img === this.myNews.img)
     },
-    newForm () {
+    newForm() {
       let obj = {
         id: this.$route.params.id
       }
@@ -245,17 +241,17 @@ export default {
       return obj
     },
     urlTranslite: {
-      get () {
+      get() {
         return this.form.title
       },
-      set (val) {
+      set(val) {
         this.form.url = this.transliterate(val)
       }
     }
   },
   methods: {
     onSubmit() {
-      if(!this.sameObject) {
+      if (!this.sameObject) {
         this.$v.$touch()
         if (this.$v.$invalid) {
           API.response.error('Не корректно заполнены поля')
@@ -272,7 +268,7 @@ export default {
       }
     },
     getInfoNews() {
-      API.news.details({id: this.$route.params.id}).then(response => {
+      API.news.details({ id: this.$route.params.id }).then(response => {
         this.myNews = response
         this.form.title = response.title
         this.form.snippet = response.snippet
@@ -291,7 +287,7 @@ export default {
         API.response.error('Заполните все поля')
       } else {
         if (this.status === 0) {
-          API.news.publish({id: this.$route.params.id})
+          API.news.publish({ id: this.$route.params.id })
             .then(response => {
               this.$v.$reset()
               API.response.success('Новость опубликована')
@@ -299,7 +295,7 @@ export default {
             })
             .catch(() => API.response.error('Заполните все поля'))
         } else if (this.status === 1) {
-          API.news.unpublish({id: this.$route.params.id})
+          API.news.unpublish({ id: this.$route.params.id })
             .then(response => {
               this.$v.$reset()
               API.response.success('Новость снята с публикации')
@@ -311,7 +307,7 @@ export default {
       }
     },
     deleteNews() {
-      API.news.delete({id: this.$route.params.id}).then(response => {
+      API.news.delete({ id: this.$route.params.id }).then(response => {
         API.response.success('Новость удалена')
         this.$router.push('/admin/news-control')
       })
@@ -319,7 +315,7 @@ export default {
     imageUpload(nameImg, e) {
       this.form[nameImg] = e.link
     },
-    uploader (editor) {
+    uploader(editor) {
       editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
         return new UploadAdapter(loader, 'content')
       }
@@ -334,7 +330,7 @@ export default {
       this.form.url = this.transliterate(newVal)
     }
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     this.$store.dispatch('news/getMyNews').then(() => next())
   }
 }
@@ -355,7 +351,8 @@ export default {
       grid-template-columns: 1fr;
     });
     .sm-block({
-      margin-bottom: 18px;});
+      margin-bottom: 18px;
+    });
     .news-item__input {
       padding-left: 25px;
       padding-right: 15px;
@@ -384,12 +381,14 @@ export default {
   .btn-wrapper {
     transform: translateY(20px);
     .sm-block({
-      transform: translateY(15px);});
+      transform: translateY(15px);
+    });
     .g-btn {
       margin-right: 20px;
       margin-bottom: 20px;
       .sm-block({
-        margin-bottom: 15px;});
+        margin-bottom: 15px;
+      });
     }
   }
 </style>

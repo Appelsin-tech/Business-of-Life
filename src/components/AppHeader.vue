@@ -305,6 +305,9 @@ export default {
         max-width: 135px;
         outline: none;
         .lg-block({ max-width: 105px; });
+        path {
+          fill: @colorMainSecondary;
+        }
       }
       .wrapper-relative {
         position: relative;

@@ -1,8 +1,8 @@
 <template>
   <form class="edit-form" @submit.prevent="onSubmit">
     <div class="edit-grid">
-<!--      <download-photo/>-->
-      <div class="g-item-form textarea col-grid-12">
+      <download-photo :image="form.img" :folderFile="`courses/${this.$route.params.id}/`" class="preview_img" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
+      <div class="g-item-form textarea">
         <label class="g-item-form__label">Название</label>
         <textarea-resize>
           <textarea class="g-item-form__input" rows="1" :class="{error: $v.form.title.$error}" type="text" placeholder="Тренинг Искусство продаж " v-model="form.title" @blur="$v.form.title.$touch()"></textarea>
@@ -12,7 +12,7 @@
           <template v-if="!$v.form.title.maxLength">Превышено количество допустимых символов</template>
         </div>
       </div>
-      <div class="g-item-form col-grid-12">
+      <div class="g-item-form">
         <label class="g-item-form__label">Краткое описание</label>
         <input class="g-item-form__input" :class="{error: $v.form.snippet.$error}" type="text" placeholder="Краткое описание " v-model="form.snippet" @blur="$v.form.snippet.$touch()">
         <div class="input-valid-error" v-if="$v.form.snippet.$error">
@@ -79,7 +79,8 @@ export default {
         title: '',
         snippet: '',
         description: '',
-        audience: ''
+        audience: '',
+        img: ''
       }
     }
   },
@@ -100,7 +101,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       if (this.idCourse) {
         API.courses.courses.edit(this.form).then(response => {
           API.response.success('Курс отредактирован')
@@ -118,12 +119,15 @@ export default {
         })
       }
     },
-    deleteCourse(id) {
+    deleteCourse (id) {
       API.courses.courses.delete({ id: id }).then(() => {
         API.response.success('Курс удален')
         this.$store.dispatch('courses/getMyCourses')
         this.$router.push({ path: '/admin/course-control' })
       })
+    },
+    imageUpload (nameImg, e) {
+      this.form[nameImg] = e.link
     }
   },
   watch: {
@@ -133,20 +137,22 @@ export default {
           id: this.idCourse,
           title: this.course.title,
           snippet: this.course.snippet,
-          description: this.course.description
+          description: this.course.description,
+          img: this.course.img
         }
       }
     }
   },
-  mounted() {
-    if (this.course) {
-      this.form = {
-        title: this.event.title,
-        snippet: this.event.snippet,
-        description: this.event.description,
-      }
-    }
-  }
+  // mounted() {
+  //   if (this.course) {
+  //     this.form = {
+  //       title: this.event.title,
+  //       snippet: this.event.snippet,
+  //       description: this.event.description,
+  //       img: this.event.img
+  //     }
+  //   }
+  // }
 }
 </script>
 
@@ -155,7 +161,7 @@ export default {
   .edit-grid {
     display: grid;
     /*minmax(0, 203px)*/
-    grid-template-columns:  1fr;
+    grid-template-columns: minmax(0, 375px) 1fr;
     grid-column-gap: 100px;
     margin-bottom: 15px;
     .lg-block({

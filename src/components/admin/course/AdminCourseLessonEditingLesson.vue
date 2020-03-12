@@ -2,7 +2,7 @@
   <div class="item ">
     <span class="counter-lesson">{{counter}}</span>
     <div class="item-lesson">
-      <a href="#" class="g-caption-element">{{lesson.title}}</a>
+      <h3 class="g-caption-element g-caption-element--static">{{lesson.title}}</h3>
       <div class="g-control-icon static">
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать урок'" @click="$router.push({path: `/admin/lesson/${course}/${lesson.id}`})">
           <img svg-inline src="@/assets/img/icon/pencil.svg" class="svg-icon">

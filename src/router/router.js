@@ -17,9 +17,6 @@ const router = new Router({
     {
       path: '/',
       name: 'main',
-      meta: {
-        navDots: true
-      },
       component: () => import('@/views/TheHero')
     },
     {

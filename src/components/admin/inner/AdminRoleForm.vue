@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="onSubmit">
+  <div class="form" >
     <div class="item-wrapper">
       <p class="g-caption-section">Роль</p>
 <!--      <div class="g-item-form">-->
@@ -12,8 +12,8 @@
 <!--      </div>-->
       <div class="g-item-form">
         <label class="item__label">Назначить</label>
-        <div class="item__input taggable"  :class="{error: $v.form.select.$error}">
-          <v-select ref="select" taggable multiple :closeOnSelect="false" v-model="form.select" class="v-select__role" >
+        <div class="item__input taggable">
+          <v-select @input="accessMethods" ref="select" taggable multiple :closeOnSelect="false" label="login" v-model="users" class="v-select__role" >
                   <span slot="no-options">
                     Введите имя
                   </span>
@@ -23,13 +23,9 @@
                 v-bind="attributes"
                 v-on="events"
                 :required="false"
-                @blur="$v.form.select.$touch()"
               />
             </template>
           </v-select>
-        </div>
-        <div class="input-valid-error" v-if="$v.form.select.$error">
-          <template v-if="!$v.form.select.required">Поле не может быть пустым</template>
         </div>
       </div>
     </div>
@@ -103,15 +99,14 @@
 <!--        </div>-->
 <!--      </div>-->
     </div>
-    <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-      <span>Сохранить</span>
-    </button>
-  </form>
+<!--    <button class="g-btn g-btn&#45;&#45;no-icon" :disabled="$v.$invalid">-->
+<!--      <span>Сохранить</span>-->
+<!--    </button>-->
+  </div>
 </template>
 
 <script>
 import API from '@/api/index'
-import { maxLength, required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'AdminRoleForm',
@@ -122,71 +117,143 @@ export default {
   },
   data() {
     return {
-      user: [],
-      form: {
-        user: '',
-        name: ''
+      users: [],
+      listRoles: [],
+      error: {
+        exist: 'Пользователь уже является проверяющим',
+        not_found: 'Пользователь не найден'
       },
       errorSelect: {
         selectedStatus: false
       },
       checkboxData: [
         {
-          role: 'course',
+          role: 1,
           title: 'Управление курсами',
           field: ['Создание курсов', 'Модерирование курсов', 'Публикация курсов']
         },
         {
-          role: 'news',
+          role: 2,
           title: 'Управление новостями',
           field: ['Создание новостей', 'Модерирование новостей', 'Публикация новостей']
         },
         {
-          role: 'event',
+          role: 3,
           title: 'Управление мероприятиями',
           field: ['Создание мероприятий', 'Модерирование мероприятий', 'Публикация мероприятий']
+        }
+      ],
+      testRoles: [
+        {
+          email: 'aksabitov@gmail.com',
+          id: '1',
+          login: '1 2 3',
+          roles: [1, 2, 3],
+          status: 2
+        },
+        {
+          email: 'aksabitov@gmail.com',
+          id: '2',
+          login: '3',
+          roles: [3],
+          status: 2
+        },
+        {
+          email: 'aksabitov@gmail.com',
+          id: '3',
+          login: '1 3',
+          roles: [1, 3],
+          status: 2
+        },
+        {
+          email: 'aksabitov@gmail.com',
+          id: '44',
+          login: '2 3',
+          roles: [2, 3],
+          status: 2
+        },
+        {
+          email: 'aksabitov@gmail.com',
+          id: '5',
+          login: '1',
+          roles: [1],
+          status: 2
         }
       ]
     }
   },
-  validations: {
-    form: {
-      title: {
-        required,
-        maxLength: maxLength(100)
-      },
-      select: {
-        required
-      }
-    }
-  },
   computed: {
-    paramsSubmit() {
-      let obg = {
-        user: this.user
+    paramsSubmit () {
+      return {
+        user: this.users,
+        role: this.role
       }
-      switch (this.role) {
-        case 'course':
-          obg.roles[0] = 0
-          break
-        case 'news':
-          obg.roles[0] = 1
-          break
-        case 'event':
-          obg.roles[0] = 2
-          break
+    },
+    roleId: {
+      get () {
+        return this.role
+      },
+      set () {
+
       }
-      return obg
     }
   },
   methods: {
-    onSubmit() {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        API.response.error('Заполните все поля')
-        return
+    accessMethods (val) {
+      if (this.users.length > val.length) {
+        let userId = null
+        this.users.forEach(item => {
+          if (val.indexOf(item) === -1) {
+            userId = item.id
+          }
+        })
+        API.supervisors.remove({ relation: this.relation, user_id: userId}).then(response => {
+          API.response.success('Проверяющий удален')
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        API.roles.edit({ roles: this.role, user: val[val.length - 1] }).then(response => {
+          API.response.success('Пользователь добавлен')
+          this.getListRoles()
+        }).catch(error => {
+          this.users.splice(-1, 1)
+          if (error.response.reason) {
+            API.response.error(this.error[error.response.reason])
+          } else {
+            API.response.error(this.error['not_found'])
+          }
+        })
       }
     },
+    getListRoles () {
+      API.roles.list().then(response => {
+        console.log(response)
+        this.listRoles = response
+        response.forEach(item => {
+          item.roles.forEach(a => {
+            if (a === this.role) {
+              this.users.push(item.login)
+            }
+          })
+        })
+      }).catch(e => console.log(e))
+    }
+  },
+  watch: {
+    // role(oldVal, newVal) {
+    //   this.users = []
+    //   this.listRoles.forEach(item => {
+    //     item.roles.forEach(role => {
+    //       if (role === this.role) {
+    //         this.users.push(item.login)
+    //       }
+    //     })
+    //   })
+    // }
+  },
+  mounted () {
+    this.getListRoles()
   }
 }
 </script>
