@@ -11,7 +11,7 @@
         </button>
       </div>
     </form>
-    <div class="error" v-if="notFound">
+    <div class="error" v-if="notFound && page !== 'member'">
       <strong>
         <template v-if="page === 'ticket'">Билет не найден</template>
         <template v-else-if="page === 'member'">Участник не найден</template>
@@ -25,7 +25,14 @@ import API from '@/api/index'
 
 export default {
   name: 'TicketSearch',
-  props: ['page'],
+  props: {
+    page: {
+      required: true
+    },
+    idEvent: {
+      required: false
+    }
+  },
   data() {
     return {
       field: '',
@@ -53,7 +60,7 @@ export default {
         let data = {
           hash: this.field
         }
-        API.tickets.check(data).then(response => {
+        API.search.ticketCheck(data).then(response => {
           this.$router.push({path: `/tickets/${this.field}`})
           this.response = response.data
           this.notFound = false
@@ -66,6 +73,9 @@ export default {
         let data = {
           member: this.field
         }
+        API.search.participants(data).then(response => {
+          console.log(response)
+        }).catch(e => console.log(e))
         console.log(data)
       }
     },

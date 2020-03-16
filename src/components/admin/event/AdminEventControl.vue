@@ -9,7 +9,7 @@
           <button-add class="btn-add" @click.native="$router.push({path: '/admin/event-create'})"/>
         </div>
         <div class="item-wrapper" v-else>
-          <button-add class="btn-add" v-if="!relationEditors" @click.native="$router.push({path: '/admin/event-create'})"/>
+          <button-add class="admin-default" v-if="!relationEditors" @click.native="$router.push({path: '/admin/event-create'})"/>
           <router-link class="event__item" v-for="(event, index) in eventsMy" :key="index" :to="`/admin/event-editing/${event.id}`">
             <div class="event__img" :style="{backgroundImage: `url(${event.img})`}">
             </div>
@@ -27,6 +27,7 @@ import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import Preloader from '@/components/ui/Preloader'
+import API from '@/api/index'
 
 export default {
   name: 'AdminEventControl',
@@ -53,6 +54,17 @@ export default {
     },
     background(img) {
       return !!img ? { backgroundImage: `url(${this.getImgUrl(img)}` } : { backgroundImage: 'none' }
+    },
+    createEvent() {
+      this.loading = true
+      API.events.create({title: 'Новое мероприятие'}).then(response => {
+        API.response.success('Мероприятие создано')
+        this.$router.push({ path: `/admin/event-editing/${response.data.id}` })
+        this.$store.dispatch('event/getMyEvents')
+        this.loading = false
+      }).catch(error => {
+        console.log(error)
+      })
     }
   },
   computed: {
@@ -83,25 +95,12 @@ export default {
         .row-flex();
         .lg-block({ justify-content: center;});
       }
-      .btn-add {
+      .admin-default {
         .col();
         .size(3);
         .size-xl(4);
         .size-sm(10);
         .size-xs(12);
-        margin-bottom: 20px;
-        min-height: 350px;
-        height: auto;
-        .md-block({
-          min-height: 300px;
-        });
-        .sm-block({
-          min-height: 110px;
-          margin-bottom: 15px;
-        });
-        .ss-block({
-          min-height: min-content;
-        });
       }
       .item-wrapper {
         .row-flex();

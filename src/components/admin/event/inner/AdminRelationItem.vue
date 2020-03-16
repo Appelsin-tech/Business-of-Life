@@ -36,7 +36,7 @@
         <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-relation', relation.id)" v-if="relation.status <= 1">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
         </button>
-        <router-link :to="`/admin/members/${relation.id}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Участники'">
+        <router-link :to="`/admin/participant/${relation.id}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Участники'">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/avatar.svg" alt="">
         </router-link>
       </div>

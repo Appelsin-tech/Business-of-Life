@@ -14,3 +14,19 @@
 .line {
     display: block;
 }
+
+.table-members {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    padding: 10px 5px;
+    text-align: center;
+}
+th,
+td {
+    border: 1px solid #E9E9E9;
+}
+td {
+    padding: 5px;
+}

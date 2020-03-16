@@ -1,9 +1,7 @@
 <template>
-  <div class="item-wrapper" >
-    <button-add class="btn-add" @click.native="$router.push({path: '/admin/course-create'})"/>
-    <div class="course__item" v-for="(course, index) in coursesMy" :key="index" >
+  <article class="course">
       <router-link class="content-wrapper" :to="`/knowledge/${course.id}`">
-        <div class="course__img" :style="{backgroundImage: `url(${course.img})`}">
+        <div class="img" :style="{backgroundImage: `url(${course.img})`}">
         </div>
         <p class="g-caption-element">{{course.title}}</p>
       </router-link>
@@ -37,17 +35,17 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+  </article>
 </template>
 
 <script>
 import API from '@/api/index'
 import { mapState } from 'vuex'
-import ButtonAdd from '@/components/ui/ButtonAdd'
+
 export default {
   name: 'AdminCourseControlPanel',
-  components: { ButtonAdd },
+  props: ['course'],
+  components: {},
   data() {
     return {
       statusTest: {
@@ -98,7 +96,7 @@ export default {
         API.response.success('Курс удален')
         this.$store.dispatch('courses/getMyCourses')
       })
-    }
+    },
   }
 }
 </script>
@@ -111,68 +109,36 @@ export default {
       justify-content: center;
     });
   }
-  .btn-add {
-    .col();
-    .size(3);
-    .size-xl(4);
-    .size-sm(10);
-    .size-xs(12);
+  .course {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
-    min-height: 350px;
-    height: auto;
-    .md-block({
-      min-height: 300px;
-    });
+    .default-panel-style(40px);
     .sm-block({
-      min-height: 110px;
       margin-bottom: 15px;
     });
-    .ss-block({
-      min-height: min-content;
-    });
-  }
-  .course {
-    &__item {
-      .col();
-      .size(3);
-      .size-xl(4);
-      .size-sm(10);
-      .size-xs(12);
+    .content-wrapper {
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
-      .default-panel-style(40px);
+      margin-bottom: 25px;
       .sm-block({
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        flex-direction: row;
+        align-items: center;
       });
-      .content-wrapper {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 25px;
-        .sm-block({
-          margin-bottom: 20px;
-          flex-direction: row;
-          align-items: center;
-        });
-        &:hover {
-          .g-caption-element {
-            text-decoration: none;
-          }
+      &:hover {
+        .g-caption-element {
+          text-decoration: none;
         }
       }
-      .icon-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: auto;
-      }
-      &--past {
-        box-shadow: none;
-        background: none;
-        border-radius: 0;
-      }
     }
-    &__img {
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .img {
       position: relative;
       margin-bottom: 40px;
       height: 240px;

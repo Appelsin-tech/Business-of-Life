@@ -1,7 +1,7 @@
 <template>
   <form class="edit-form" @submit.prevent="onSubmit">
     <div class="edit-grid">
-      <download-photo :image="form.img" :folderFile="`courses/${this.$route.params.id}/`" class="preview_img" idImage="preview_img" v-on:image-download="imageUpload('preview_img', $event)"/>
+      <download-photo :image="form.img" :folderFile="`courses/${this.$route.params.id}/`" class="preview_img" idImage="img" v-on:image-download="imageUpload('img', $event)"/>
       <div class="g-item-form textarea">
         <label class="g-item-form__label">Название</label>
         <textarea-resize>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="btn-wrapper">
-      <button  type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
+      <button  type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid || sameObject">
         <span v-if="idCourse">Сохранить</span>
         <span v-else>Создать</span>
       </button>
@@ -79,7 +79,6 @@ export default {
         title: '',
         snippet: '',
         description: '',
-        audience: '',
         img: ''
       }
     }
@@ -98,6 +97,19 @@ export default {
         required,
         maxLength: maxLength(5000)
       },
+    }
+  },
+  computed: {
+    sameObject () {
+      if (this.course) {
+        return (this.form.title === this.course.title &&
+          this.form.snippet === this.course.snippet &&
+          this.form.description === this.course.description &&
+          this.form.img === this.course.img)
+      } else {
+        return false
+      }
+
     }
   },
   methods: {

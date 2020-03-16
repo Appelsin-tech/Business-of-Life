@@ -57,12 +57,27 @@ export default {
         }
       }
     }
+    &.admin-default {
+      height: auto;
+      margin-bottom: 20px;
+      min-height: 350px;
+      .md-block({
+        min-height: 300px;
+      });
+      .sm-block({
+        min-height: 110px;
+        margin-bottom: 15px;
+      });
+      .ss-block({
+        min-height: min-content;
+      });
+    }
     .text {
       display: flex;
       flex-direction: column;
       align-items: center;
       color: #000;
-      .xs-block({flex-direction: row;});
+      .sm-block({flex-direction: row;});
       svg {
         width: 35px;
         height: 35px;
@@ -70,10 +85,9 @@ export default {
         .sm-block({
           width: 28px;
           height: 28px;
-          margin-bottom: 25px;});
-        .xs-block({
           margin-right: 20px;
-          margin-bottom: 0;
+          margin-bottom: 0;});
+        .xs-block({
           width: 20px;
           height: 20px;
         });

@@ -27,14 +27,14 @@
               </div>
             </div>
             <download-photo class="col-grid-12" :image="form.widescreen_img" label="Широкоформатное фото" :folderFile="`news/${this.$route.params.id}/`" idImage="widescreen_img" v-on:image-download="imageUpload('widescreen_img', $event)"/>
-            <div class="g-item-form">
-              <label class="g-item-form__label">Дата и время</label>
-              <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input']" @blur=""></flat-pickr>
-              <!--            <div class="input-valid-error" v-if="$v.form.date.$error">-->
-              <!--              <template v-if="!$v.form.date.required">Поле не может быть пустым</template>-->
-              <!--              <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>-->
-              <!--            </div>-->
-            </div>
+<!--            <div class="g-item-form">-->
+<!--              <label class="g-item-form__label">Дата и время</label>-->
+<!--              <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input']" @blur=""></flat-pickr>-->
+<!--              <div class="input-valid-error" v-if="$v.form.date.$error">-->
+<!--                <template v-if="!$v.form.date.required">Поле не может быть пустым</template>-->
+<!--                <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="g-item-form col-grid-12">
               <label class="g-item-form__label">Краткое описание</label>
               <input class="g-item-form__input" type="text" v-model="form.snippet" :class="{error: $v.form.snippet.$error}" @blur="$v.form.snippet.$touch()">
@@ -50,28 +50,28 @@
                 <template v-if="!$v.form.content.required  && publishedMethods">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="g-item-form col-grid-12">
-              <label class="g-item-form__label">Теги</label>
-              <div class="news-item__input taggable" :class="{}">
-                <v-select ref="select" taggable multiple :closeOnSelect="false" :class="{}" v-model="form.name_tags" class="v-select__relation">
-                  <span slot="no-options">
-                    Введите тег
-                  </span>
-                  <template #search="{attributes, events}">
-                    <input
-                      class="vs__search"
-                      v-bind="attributes"
-                      v-on="events"
-                      :required="false"
-                      @blur=""
-                    />
-                  </template>
-                </v-select>
-              </div>
-              <!--            <div class="input-valid-error" v-if="$v.form.name_ticket.$error">-->
-              <!--              <template v-if="!$v.form.name_ticket.required">Поле не может быть пустым</template>-->
-              <!--            </div>-->
-            </div>
+<!--            <div class="g-item-form col-grid-12">-->
+<!--              <label class="g-item-form__label">Теги</label>-->
+<!--              <div class="news-item__input taggable" :class="{}">-->
+<!--                <v-select ref="select" taggable multiple :closeOnSelect="false" :class="{}" v-model="form.name_tags" class="v-select__relation">-->
+<!--                  <span slot="no-options">-->
+<!--                    Введите тег-->
+<!--                  </span>-->
+<!--                  <template #search="{attributes, events}">-->
+<!--                    <input-->
+<!--                      class="vs__search"-->
+<!--                      v-bind="attributes"-->
+<!--                      v-on="events"-->
+<!--                      :required="false"-->
+<!--                      @blur=""-->
+<!--                    />-->
+<!--                  </template>-->
+<!--                </v-select>-->
+<!--              </div>-->
+<!--              &lt;!&ndash;            <div class="input-valid-error" v-if="$v.form.name_ticket.$error">&ndash;&gt;-->
+<!--              &lt;!&ndash;              <template v-if="!$v.form.name_ticket.required">Поле не может быть пустым</template>&ndash;&gt;-->
+<!--              &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            </div>-->
           </div>
           <div class="btn-wrapper" v-if="myNews">
             <button class="g-btn g-btn--no-icon" :disabled="sameObject || $v.$anyError">
@@ -380,6 +380,8 @@ export default {
   }
   .btn-wrapper {
     transform: translateY(20px);
+    display: flex;
+    flex-wrap: wrap;
     .sm-block({
       transform: translateY(15px);
     });
@@ -389,6 +391,10 @@ export default {
       .sm-block({
         margin-bottom: 15px;
       });
+      &:last-child {
+        margin-left: auto;
+        .md-block({margin-left: 0;});
+      }
     }
   }
 </style>

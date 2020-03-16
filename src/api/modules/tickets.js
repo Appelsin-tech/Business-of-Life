@@ -8,13 +8,6 @@ export default {
       reject(error)
     })
   }),
-  check: (data) => new Promise((resolve, reject) => {
-    HTTP.post('tickets/check', data).then(response => {
-      resolve(response)
-    }).catch(error => {
-      reject(error)
-    })
-  }),
   issue: (data) => new Promise((resolve, reject) => {
     HTTP.post('tickets/issue', data).then(response => {
       resolve(response)

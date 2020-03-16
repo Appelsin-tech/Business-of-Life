@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'AdminMemberItem',
+  name: 'AdminParticipantItem',
   props: ['member'],
   data() {
     return {

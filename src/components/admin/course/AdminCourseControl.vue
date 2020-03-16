@@ -4,9 +4,16 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Редактор курсов</h1>
-      <div class="course">
-        <admin-course-control-panel v-if="isMyCourse && isMyCourse.length !== 0"/>
+      <div class="c-wrapper">
+        <div class="course-create" v-if="isMyCourse && isMyCourse.length === 0">
+          <button-add class="admin-default item-grid" @click.native="createCourse"/>
+        </div>
+        <div class="item-wrapper"  v-if="isMyCourse && isMyCourse.length !== 0" >
+          <button-add @click.native="createCourse" class="admin-default item-grid"/>
+          <admin-course-control-panel class="item-grid" v-for="course in isMyCourse" :course="course" :key="course.id"/>
+        </div>
       </div>
+      <panel-info v-if="isMyCourse && isMyCourse.length === 0">Курсов нет</panel-info>
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -17,13 +24,18 @@ import AdminCourseControlPanel from '@/components/admin/course/AdminCourseContro
 import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import Preloader from '@/components/ui/Preloader'
+import API from '@/api/index'
+import ButtonAdd from '@/components/ui/ButtonAdd'
+import PanelInfo from '@/components/ui/PanelInfo'
 
 export default {
   name: 'AdminCourseControl',
   components: {
     BreadCrumbs,
     AdminCourseControlPanel,
-    Preloader
+    Preloader,
+    ButtonAdd,
+    PanelInfo
   },
   data() {
     return {
@@ -33,11 +45,8 @@ export default {
           path: 'menu',
           title: 'Личный кабинет'
         }
-      ],
+      ]
     }
-  },
-  methods: {
-
   },
   computed: {
     ...mapState('courses', [
@@ -47,6 +56,17 @@ export default {
       'isMyCourse',
       'isCourses'
     ])
+  },
+  methods: {
+    createCourse() {
+      this.loading = true
+      API.courses.courses.create({title: 'Новый курс'}).then(response => {
+        API.response.success('Курс создан')
+        this.$router.push({ path: `/admin/course-editing/${response.id}` })
+        this.$store.dispatch('news/getMyNews')
+        this.loading = false
+      })
+    }
   },
   mounted() {
     if (this.isMyCourse === null) {
@@ -62,11 +82,21 @@ export default {
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
   .p-control-course {
-    .course-create {
-      .row-flex();
-      .lg-block({
-        justify-content: center;
-      });
+    .c-wrapper {
+      .item-wrapper,
+      .course-create {
+        .row-flex();
+        .lg-block({
+          justify-content: center;
+        });
+      }
+      .item-grid {
+        .col();
+        .size(3);
+        .size-xl(4);
+        .size-sm(10);
+        .size-xs(12);
+      }
     }
     .course {
       .btn-add {

@@ -81,7 +81,7 @@ export default {
     right: 0;
     bottom: 0;
     padding-bottom: 35px;
-    z-index: 10;
+    z-index: 7;
     .lg-block({ padding-bottom: 15px;});
     &.border-class {
       padding-top: 40px;
@@ -105,7 +105,6 @@ export default {
           }
         }
       }
-
     }
     .container {
       display: flex;

@@ -79,10 +79,10 @@ export default {
       margin-bottom: 15px;
     });
     .g-icon-circle.created {
-      border-color: @colorSecondFonts;
+      border-color: #d6d6d6;
       .svg-icon {
         path {
-          fill: @colorSecondFonts;
+          fill: #d6d6d6;
         }
       }
     }
