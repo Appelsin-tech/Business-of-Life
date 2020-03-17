@@ -235,7 +235,7 @@ export default {
               },
               {
                 id: 4,
-                value: 1535965600000
+                value: '1535965600000'
               },
               {
                 id: 9,
@@ -267,7 +267,7 @@ export default {
           let u = part.fields.find(item => item.id === i.id)
           objParticipant[i.id] = u ? u.value : null
           if (i.id === 4 && objParticipant[i.id] !== null) {
-            objParticipant[i.id] = this.$moment(objParticipant[i.id]).format('D.MM.YYYY')
+            objParticipant[i.id] = this.$moment(+objParticipant[i.id]).format('D.MM.YYYY')
           }
         })
         arrParticipant.push(objParticipant)
