@@ -68,7 +68,7 @@
           <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid">
             <span>Сохранить</span>
           </button>
-          <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="!id && tickets.length !== 0" @click="newStatus">
+          <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="id && tickets.length !== 0" @click="newStatus">
             <span v-if="statusRelation === 3 ">Снять с публикации</span>
             <span v-else>Опубликовать</span>
           </button>

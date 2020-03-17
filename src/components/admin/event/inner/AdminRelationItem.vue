@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="g-control-icon static">
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/relation/${idEvent}/${relation.id}`})">
+        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" v-if="!pastEvents" @click="$router.push({path: `/admin/relation/${idEvent}/${relation.id}`})">
           <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
         </button>
         <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-relation', relation.id)" v-if="relation.status <= 1">

@@ -29,7 +29,7 @@
           </template>
         </div>
         <div class="btn-wrapper">
-          <router-link :to="linkEdit" class="g-btn g-btn--no-icon">
+          <router-link :to="linkEdit" class="g-btn g-btn--no-icon" v-if="!hideBtnPastEvent">
             <span>Редактировать</span>
           </router-link>
           <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
@@ -102,6 +102,9 @@ export default {
         }
       }
       return obj
+    },
+    hideBtnPastEvent () {
+      return this.section === 'event' && this.idStatus === 4
     },
     linkEdit() {
       if (this.section === 'event') {

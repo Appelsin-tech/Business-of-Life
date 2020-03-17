@@ -261,12 +261,12 @@ export default {
 
       this.response.participants.forEach((part, i) => {
         let objParticipant = {}
-        objParticipant.ticket = {num: part.ticket, title: part.title}
+        objParticipant.ticket = { num: part.ticket, title: part.title }
         objParticipant.numeration = i + 1
         this.response.fields.forEach(i => {
           let u = part.fields.find(item => item.id === i.id)
           objParticipant[i.id] = u ? u.value : null
-          if (i.id === 4 && objParticipant[i.id] !== null) {
+          if (+i.id === 4 && objParticipant[i.id] !== null) {
             objParticipant[i.id] = this.$moment(+objParticipant[i.id]).format('D.MM.YYYY')
           }
         })
