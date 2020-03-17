@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="g-caption-section">Расширенный поиск</h2>
+<!--    <h2 class="g-caption-section">Расширенный поиск</h2>-->
     <div class="grid">
 <!--      <div class="item mb-30">-->
 <!--        <span class="g-item-form__label">Дата регистрации</span>-->
@@ -180,11 +180,13 @@ export default {
   @import "~@/assets/less/_importants";
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-template-columns: 1fr min-content;
+    grid-column-gap: 20px;
+    /*grid-template-columns: repeat(3, minmax(100px, 1fr));
     grid-column-gap: 20px;
     .md-block({
       grid-template-columns: repeat(2, minmax(100px, 1fr));
-    });
+    });*/
     .sm-block({
       grid-template-columns: 1fr;
     });

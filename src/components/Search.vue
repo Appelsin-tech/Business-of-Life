@@ -11,7 +11,7 @@
         </button>
       </div>
     </form>
-    <div class="error" v-if="notFound && page !== 'member'">
+    <div class="error" v-if="notFound && page !== 'member' || showError" >
       <strong>
         <template v-if="page === 'ticket'">Билет не найден</template>
         <template v-else-if="page === 'member'">Участник не найден</template>
@@ -31,6 +31,10 @@ export default {
     },
     idEvent: {
       required: false
+    },
+    showError: {
+      required: false,
+      default: false
     }
   },
   data() {

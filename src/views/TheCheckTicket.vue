@@ -3,7 +3,7 @@
     <bread-crumbs/>
     <div class="container page">
       <h1 class="g-caption-inner">Информация о билете</h1>
-      <search v-if="logged" page="ticket"/>
+      <search v-if="logged" page="ticket" :showError="showError"/>
       <div class="wrapper-control" v-if="pageTickets && existTicket">
         <div class="wrapper-control__col wrapper-control__col--qr">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
@@ -66,7 +66,7 @@ export default {
     return {
       ticket: false,
       pageTickets: false,
-      errorTicket: 'Билет не найден',
+      showError: false,
       disabledBtn: false,
       existTicket: false,
       superV: false,
@@ -108,11 +108,12 @@ export default {
       })
     },
     checkTicked () {
-      API.tickets.check({ hash: this.$route.params.id }).then(response => {
+      API.search.ticketCheck({ hash: this.$route.params.id }).then(response => {
         this.ticket = response.data
         this.existTicket = true
         this.btnSupervisor()
       }).catch(error => {
+        this.showError = error.response.status === 404
         console.log(error)
       })
     },

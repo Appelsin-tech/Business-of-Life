@@ -102,7 +102,7 @@ input {
   min-width: 280px;
   cursor: pointer;
   .lg-block({
-    padding: 22px 22px;
+    padding: 20px 22px;
     min-width: 250px;
   });
   .sm-block({
@@ -711,6 +711,7 @@ input {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   .lg-block({
     padding-left: 18px;
   });
@@ -725,6 +726,7 @@ input {
     .vs__selected-options {
       display: flex;
       flex-wrap: wrap;
+      flex-grow: 1;
     }
   }
   .vs__selected {
@@ -763,9 +765,8 @@ input {
   }
   .vs__search {
     min-width: 50px;
-    max-width: 200px;
+    max-width: 100%;
     flex-grow: 1;
-
     background: @colorBgGray;
     box-sizing: border-box;
     border: none;

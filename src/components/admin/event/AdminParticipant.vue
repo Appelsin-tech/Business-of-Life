@@ -6,24 +6,27 @@
       <h1 class="g-caption-inner">Список участников</h1>
 <!--      <search page="member" :idEvent="$route.params.relation"/>-->
       <div class="wrapper-show" v-if="!loading && response.participants.length > 0">
+        <button class="g-btn g-btn--no-icon mb-30" @click="print">
+          <span>Печать</span>
+        </button>
         <admin-participant-filters :filters="filters" v-on:filters-emit="filtersEmit"/>
         <div class="print" id="printMe" >
           <table class="table-members">
             <thead>
             <tr>
-              <th v-for="item in fieldsArr" :key="item.id" v-show="item.show">{{item.name}}</th>
+              <th v-for="item in fieldsArr" :key="item.id" v-show="item.show" :class="`fields-${item.id}`">{{item.name}}</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="member in members" :key="member.numeration">
-              <td v-for="item in fieldsArr" :key="item.id" v-show="item.show">{{member[item.id]}}</td>
+              <td v-for="item in fieldsArr" :key="item.id" v-show="item.show" :class="`fields-${item.id}`">
+                <router-link :to="`/tickets/${member[item.id].num}`" v-if="item.id === 'ticket'">{{member[item.id].title}}</router-link>
+                <template v-else>{{member[item.id]}}</template>
+              </td>
             </tr>
             </tbody>
           </table>
         </div>
-        <button class="g-btn g-btn--no-icon" @click="print">
-          <span>Печать</span>
-        </button>
       </div>
       <panel-info v-if="!loading && response.participants.length === 0">Нет проданных билетов</panel-info>
     </div>
@@ -151,10 +154,6 @@ export default {
                 value: '7777777777777777'
               },
               {
-                id: 4,
-                value: 1569664800000
-              },
-              {
                 id: 5,
                 value: 'Top Key Person'
               },
@@ -177,7 +176,11 @@ export default {
               {
                 id: 10,
                 value: 'MikeAliakberov'
-              }
+              },
+              {
+                id: 4,
+                value: 1535965600000
+              },
             ]
           },
           {
@@ -192,7 +195,7 @@ export default {
             fields: [
               {
                 id: 1,
-                value: 'Mikhail'
+                value: 'Mikhailwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
               },
               {
                 id: 2,
@@ -232,7 +235,7 @@ export default {
               },
               {
                 id: 4,
-                value: 1569664800000
+                value: 1535965600000
               },
               {
                 id: 9,
@@ -247,7 +250,7 @@ export default {
                 value: 'Sasha'
               }
             ]
-          }
+          },
         ]
       }
     }
@@ -258,7 +261,7 @@ export default {
 
       this.response.participants.forEach((part, i) => {
         let objParticipant = {}
-        objParticipant.ticket = part.title
+        objParticipant.ticket = {num: part.ticket, title: part.title}
         objParticipant.numeration = i + 1
         this.response.fields.forEach(i => {
           let u = part.fields.find(item => item.id === i.id)
@@ -287,32 +290,13 @@ export default {
       }
     },
     filterHideParams(val) {
-      if (val.length > 0) {
-
-        val.forEach(item => {
-          this.fieldsArr.forEach((field, i) => {
-            if (item === field.id) {
-              field.show = false
-              this.$set(this.fieldsArr, i, field)
-            } else {
-              let fIn = val.find(f => f === field.id)
-              if (!fIn) {
-                field.show = true
-                this.$set(this.fieldsArr, i, field)
-              }
-            }
-          })
-        })
-      } else {
-        this.fieldsArr.forEach((field, i) => {
-          field.show = true
-          this.$set(this.fieldsArr, i, field)
-        })
-      }
+      this.fieldsArr.forEach((field, i) => {
+        this.fieldsArr[i].show = !val.includes(field.id)
+      })
     },
     setFields() {
       this.fieldsArr.forEach((item, i) => {
-        item.show = true
+        this.$set(this.fieldsArr[i], 'show', true)
       })
       this.fieldsArr.splice(1, 0, {
         name: 'Билет',
@@ -341,13 +325,17 @@ export default {
 
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
+  .btn-print {
+    margin-bottom: 30px;
+  }
   .print {
     margin-bottom: 30px;
+    overflow: auto;
   }
   .table-members {
     width: 100%;
     th {
-      padding: 10px 5px;
+      padding: 10px 7px;
       text-align: center;
     }
     th,
@@ -355,7 +343,11 @@ export default {
       border: 1px solid @colorBorder;
     }
     td {
-      padding: 5px;
+      padding: 5px 7px;
+    }
+    .fields-1 {
+      max-width: 200px;
+      word-wrap: break-word;
     }
   }
 </style>
