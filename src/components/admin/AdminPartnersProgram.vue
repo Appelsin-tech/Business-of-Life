@@ -49,19 +49,19 @@ export default {
       ],
       btnArr: [
         {
-          component: 'AdminPartnersProgramReferal',
+          id: 'AdminPartnersProgramReferal',
           text: 'Реферальные сайты'
         },
         {
-          component: 'AdminPartnersProgramStructure',
+          id: 'AdminPartnersProgramStructure',
           text: 'Структура'
         },
         {
-          component: 'AdminPartnersProgramConditions',
+          id: 'AdminPartnersProgramConditions',
           text: 'Статистика'
         },
         {
-          component: 'AdminPartnersProgramConditions',
+          id: 'AdminPartnersProgramConditions',
           text: 'Условия'
         },
       ],
@@ -76,22 +76,22 @@ export default {
       if(this.status > 1) {
         return [
           {
-            component: 'AdminPartnersProgramReferal',
+            id: 'AdminPartnersProgramReferal',
             text: 'Реферальные сайты'
           },
           {
-            component: 'AdminPartnersProgramStructure',
+            id: 'AdminPartnersProgramStructure',
             text: 'Структура'
           },
           {
-            component: 'AdminPartnersProgramConditions',
+            id: 'AdminPartnersProgramConditions',
             text: 'Условия'
           },
         ]
       } else {
         return [
           {
-            component: 'AdminPartnersProgramReferal',
+            id: 'AdminPartnersProgramReferal',
             text: 'Реферальные сайты'
           },
         ]
