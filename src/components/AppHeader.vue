@@ -1,15 +1,15 @@
 <template>
-  <header class="s-header" :class="[$route.name === 'knowledge-package' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}]">
+  <header class="s-header" :class="[$route.name === 'knowledge-package' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}, layout]">
     <div class="container">
       <div class="wrapper-relative">
-        <a class="logo-link" href="#" @click.prevent="goRouter('')">
+        <router-link class="logo-link" to="/" @click.native="showMenu = false">
           <img svg-inline class="logo" src="../assets/img/logo.svg" alt="Business of Life">
-        </a>
+        </router-link>
         <div class="icon-wrapper icon-wrapper--desktop" >
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('calendar')">
+          <router-link class="icon-red icon-red--desktop" to="/calendar" @click.native="showMenu = false">
             <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
             <span>Календарь</span>
-          </a>
+          </router-link>
           <div href="#" class="icon-red icon-red--desktop user user-desktop"  v-if="logged">
             <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
             <div class="link">
@@ -17,14 +17,10 @@
               <a class="exit" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
             </div>
           </div>
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('auth')" v-else>
+          <router-link class="icon-red icon-red--desktop" to="/auth" @click.native="showMenu = false" v-else>
             <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
             <span>Войти</span>
-          </a>
-          <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('event/random-symbols')">-->
-            <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
-            <!--<span>Информация</span>-->
-          <!--</a>-->
+          </router-link>
         </div>
         <button class="burger" @click="showMenuMethod">
           <span></span>
@@ -33,22 +29,17 @@
         </button>
       </div>
       <div class="wrapper-menu-list">
-        <ul class="menu-list">
-
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('main')">Главная</a>
+        <ul class="menu-list" v-if="logged">
+          <li class="item" v-for="item in menuListFilterUserLogged" :key="item.to">
+            <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
           </li>
           <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('knowledge-package')">База знаний</a>
+            <router-link class="link" to="/admin" @click="showMenu = false">Личный кабинет</router-link>
           </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('calendar')">Календарь событий</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('news')">Новости</a>
-          </li>
-          <li class="item">
-            <a href="#" class="link" @click.prevent="goRouter('admin')" v-if="logged">Личный кабинет</a>
+        </ul>
+        <ul class="menu-list" v-else>
+          <li class="item" v-for="item in menuListDefault" :key="item.to">
+            <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
           </li>
         </ul>
         <div class="icon-wrapper icon-wrapper--mobile">
@@ -59,22 +50,11 @@
               <a class="exit" :class="{active : showLogout}" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
             </div>
           </div>
-          <a href="#" class="icon-red icon-red--desktop" @click.prevent="goRouter('auth')" v-else>
+          <router-link class="icon-red icon-red--desktop" to="/auth" @click.native="showMenu = false" v-else>
             <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
             <span>Войти</span>
-          </a>
+          </router-link>
         </div>
-
-        <!--<div class="icon-wrapper  icon-wrapper&#45;&#45;mobile">-->
-          <!--<a href="#" class="icon-red icon-red&#45;&#45;desktop" @click.prevent="goRouter('calendar')">-->
-            <!--<img svg-inline src="../assets/img/icon/calendar.svg" alt="">-->
-            <!--<span>Календарь</span>-->
-          <!--</a>-->
-          <!--<a href="#" class="icon-red icon-red&#45;&#45;mobile" @click.prevent="goRouter('event')">-->
-            <!--<img svg-inline src="../assets/img/icon/info.svg" alt="">-->
-            <!--<span>Информация</span>-->
-          <!--</a>-->
-        <!--</div>-->
       </div>
     </div>
   </header>
@@ -82,13 +62,37 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-
+import appMenuList from '@/mixins/appMenuList'
 export default {
   name: 'AppHeader',
+  props: {
+    layout: {
+      default: 'default'
+    }
+  },
+  mixins: [appMenuList],
   data() {
     return {
       showMenu: false,
-      showLogout: false
+      showLogout: false,
+      menuListDefault: [
+        {
+          to: '/',
+          title: 'Главная'
+        },
+        {
+          to: '/knowledge-package',
+          title: 'База знаний'
+        },
+        {
+          to: '/calendar',
+          title: 'Календарь событий'
+        },
+        {
+          to: '/news',
+          title: 'Новости'
+        }
+      ]
     }
   },
   methods: {
@@ -160,6 +164,7 @@ export default {
   @import "../assets/less/_importants";
   .s-header {
     position: absolute;
+    display: flex;
     top: 0;
     left: 0;
     right: 0;
@@ -180,6 +185,21 @@ export default {
       transform: scale(0);
       transition: all 0.3s ease-in-out;
       z-index: 1;
+    }
+    &.admin {
+      position: relative;
+      grid-area: header;
+      .md-block({
+        position: absolute;});
+      .container {
+        .burger {
+          display: none;
+          .md-block({
+            display: block;});
+        }
+        .icon-wrapper--desktop {
+        }
+      }
     }
     &.border-class {
       padding-bottom: 20px;
@@ -235,30 +255,14 @@ export default {
       }
       .container {
         .wrapper-menu-list {
+          overflow: auto;
           .menu-list {
             display: flex;
             z-index: 5;
+            padding: 20px 0;
             .item {
               animation: fadeItemMenu 0.15s ease-in-out forwards;
               animation-delay: 0.2s;
-              &:nth-of-type(2) {
-                animation-delay: 0.25s;
-              }
-              &:nth-of-type(3) {
-                animation-delay: 0.30s;
-              }
-              &:nth-of-type(4) {
-                animation-delay: 0.35s;
-              }
-              &:nth-of-type(5) {
-                animation-delay: 0.40s;
-              }
-              &:nth-of-type(6) {
-                animation-delay: 0.45s;
-              }
-              &:nth-of-type(7) {
-                animation-delay: 0.50s;
-              }
             }
           }
         }
@@ -268,10 +272,10 @@ export default {
             .icon-red {
               animation: fadeItemMenu 0.2s ease-in-out forwards;
               &:nth-of-type(1) {
-                animation-delay: 0.55s;
+                animation-delay: 0.2s;
               }
               &:nth-of-type(2) {
-                animation-delay: 0.6s;
+                animation-delay: 0.2s;
               }
             }
           }
@@ -300,6 +304,7 @@ export default {
     .container {
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
       .logo {
         width: 100%;
         max-width: 135px;
@@ -315,16 +320,18 @@ export default {
         justify-content: space-between;
         align-items: center;
         z-index: 10;
+
       }
       .wrapper-menu-list {
         display: flex;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
         flex-direction: column;
         justify-self: center;
+        justify-content: center;
+        flex-grow: 1;
         z-index: 9;
+        @media (max-height: 600px) {
+          justify-content: flex-start;
+        }
         .menu-list {
           position: relative;
           display: none;
@@ -337,6 +344,8 @@ export default {
             opacity: 0;
             transform: translateY(50px);
             .lg-block({ margin-bottom: 17px; });
+            .xs-block({
+              margin-bottom: 10px;});
             &:last-child {
               margin-bottom: 0;
             }
@@ -347,7 +356,7 @@ export default {
               text-transform: uppercase;
               transition: 0.3s;
               .lg-block({ font-size: 2.4rem; });
-              .xs-block({ font-size: 2rem; });
+              .xs-block({ font-size: 1.6rem; });
             }
           }
         }
@@ -356,9 +365,7 @@ export default {
         align-items: center;
         &--desktop {
           display: flex;
-          margin-right: 75px;
           margin-left: auto;
-          .lg-block({ margin-right: 50px; });
           .sm-block({ display: none; });
           .icon-red {
             margin-right: 50px;
@@ -412,10 +419,12 @@ export default {
       }
       .burger {
         position: relative;
+        margin-left: 75px;
         width: 32px;
         height: 25px;
         cursor: pointer;
         transform: rotate(0deg);
+        .lg-block({ margin-left: 50px; });
         .xs-block({ order: 2; });
         span {
           display: block;

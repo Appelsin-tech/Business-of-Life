@@ -1,5 +1,5 @@
 <template>
-  <section class="p-event-all-editing p-default-block">
+  <section class="p-event-all-editing p-inner-admin">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="activePreloader"/>
     <div class="container page">
@@ -27,8 +27,10 @@
           </panel-info>
         </div>
         <panel-info v-if="showPanelRelation">Чтобы создать событие - заполните информацию о мероприятии</panel-info>
-        <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
       </div>
+    </div>
+    <div class="container page container--btn-back">
+      <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
@@ -57,10 +59,6 @@ export default {
   data() {
     return {
       breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        },
         {
           path: '/admin/event-control',
           title: 'Управление мероприятиями'

@@ -1,13 +1,15 @@
 <template>
-  <section class='p-statistic p-default-block'>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+  <section class='p-statistic p-inner-admin'>
     <div class='container page'>
       <h1 class='g-caption-inner'>Статистика </h1>
-      <div class='wrapper' v-if="responseData.length > 0">
+      <div class='wrapper-chart' v-if="responseData.length > 0">
         <admin-statistic-chart-sales :defaultResponse="responseData"/>
         <admin-statistic-chart-location :defaultResponse="responseData"/>
       </div>
       <panel-info v-else>У вас еще нет мероприятий с продажами</panel-info>
+
+    </div>
+    <div class="container page container--btn-back">
       <router-link :to='`/admin/menu`' class='back-btn'>Назад</router-link>
     </div>
   </section>
@@ -24,19 +26,12 @@ import PanelInfo from '../ui/PanelInfo'
 export default {
   name: 'AdminStatistic',
   components: {
-    BreadCrumbs,
     AdminStatisticChartSales,
     AdminStatisticChartLocation,
     PanelInfo
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        }
-      ],
       responseData: [],
     }
   },
@@ -70,15 +65,12 @@ export default {
 <style scoped lang='less'>
   @import '../../assets/less/_importants';
   .p-statistic {
-    display: flex;
-    flex-direction: column;
     .breadcrumbs {
       align-self: stretch;
     }
-    .container.page {
+    .wrapper-chart {
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
     }
   }
   .chart-pie {

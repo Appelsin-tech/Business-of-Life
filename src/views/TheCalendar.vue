@@ -41,6 +41,7 @@
 
       </div>
     </div>
+    <modal-calendar-event/>
   </section>
 </template>
 
@@ -56,6 +57,7 @@ export default {
     CalendarChild,
     swiper,
     swiperSlide,
+    ModalCalendarEvent: () => import('@/components/modal/ModalCalendarEvent')
   },
   data() {
     return {
@@ -112,7 +114,6 @@ export default {
       let options1 = {
         key: 'qweqwe',
         color: 'red',
-        contentClass: 'wwwwwwww',
         highlight: {
           height: '5px',
           backgroundColor: 'rgba(226,58,58,0.65)',
@@ -128,7 +129,6 @@ export default {
       let options2 = {
         key: 'today',
         color: 'red',
-        contentClass: 'wwwwwwww',
         highlight: {
           height: '5px',
           backgroundColor: '#e23a3a',
@@ -148,30 +148,32 @@ export default {
   },
   methods: {
     scrollToSlide(e) {
-      let indexSlide
-      if (this.$moment(e.dateTime).isSame(this.$moment(), 'day')) {
-        indexSlide = 0
-      } else {
-        this.filterRelations.forEach((item, index) => {
-          if (item.stamp !== undefined) {
-            if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
-              indexSlide = index
-            }
-          }
-        })
-      }
-
-      if (indexSlide !== undefined) {
-        this.activeScrollSlide = indexSlide
-        this.showCalendarMini = false
-        this.calendarSwiper.slideTo(indexSlide)
-      }
+      let res = this.publicRelations.filter(item => this.$moment(e.dateTime).isSame(item.stamp * 1000, 'day'))
+      // let indexSlide
+      // if (this.$moment(e.dateTime).isSame(this.$moment(), 'day')) {
+      //   indexSlide = 0
+      // } else {
+      //   this.filterRelations.forEach((item, index) => {
+      //     if (item.stamp !== undefined) {
+      //       if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
+      //         indexSlide = index
+      //       }
+      //     }
+      //   })
+      // }
+      //
+      // if (indexSlide !== undefined) {
+      //   this.activeScrollSlide = indexSlide
+      //   this.showCalendarMini = false
+      //   this.calendarSwiper.slideTo(indexSlide)
+      // }
+      this.$modal.show('modal-calendar-event', {relations: res})
     }
   },
   mounted() {
     if (this.publicRelations.length === 0) {
       let currentDate = this.$moment().startOf('day').unix()
-      let lastDate = this.$moment().startOf('day').add(30, 'days').unix()
+      let lastDate = this.$moment().startOf('day').add(365, 'days').unix()
       this.$store.dispatch('calendar/getRelations', { from: currentDate, to: lastDate }).then(() => {
         // console.dir(this.publicEvents)
       })

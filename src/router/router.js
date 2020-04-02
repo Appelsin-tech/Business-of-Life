@@ -12,139 +12,158 @@ const router = new Router({
     window.scrollTo({ top: 0, behavior: 'smooth' })
   },
   routes: [
-    ...admin,
-    ...knowledge,
     {
-      path: '/',
-      name: 'main',
-      component: () => import('@/views/TheHero')
-    },
-    {
-      path: '/r/:sponsor',
-      name: 'main-r',
-      meta: {
-        navDots: true
-      },
-      component: () => import('@/views/TheHero')
-    },
-    {
-      path: '/description',
-      name: 'description',
-      meta: {
-        navDots: true
-      },
-      component: () => import('@/views/TheDescription')
-    },
-    {
-      path: '/knowledge-package',
-      name: 'knowledge-package',
-      beforeEnter: requireAuth,
-      meta: {
-        auth: true,
-        navDots: true
-      },
-      component: () => import('@/views/TheKnowledgePackage')
-    },
-    {
-      path: '/knowledge-access',
-      name: 'knowledge-access',
-      beforeEnter: requireAuthKnowledge,
-      meta: {
-        auth: true,
-        navDots: true
-      },
-      component: () => import('@/views/TheKnowledgeAccess')
-    },
-    {
-      path: '/learning-stages',
-      name: 'learning-stages',
-      component: () => import('@/views/TheLearningStages')
-    },
-    {
-      path: '/our-coach',
-      name: 'our-coach',
-      component: () => import('@/views/TheOurCoach')
-    },
-    {
-      path: '/news',
-      name: 'news',
-      beforeEnter: requireAuth,
-      component: () => import('@/views/TheNews')
-    },
-    {
-      path: '/news/:url',
-      name: 'news-full',
-      beforeEnter: requireAuth,
-      component: () => import('@/views/TheNewsFull')
-    },
-    {
-      path: '/photo-gallery',
-      name: 'photo-gallery',
-      meta: {
-        navDots: true
-      },
-      component: () => import('@/views/ThePhotoGallery')
-    },
-    {
-      path: '/auth',
-      name: 'auth',
-      component: () => import('@/views/TheAuth')
-    },
-    {
-      path: '/forgot',
-      name: 'forgot',
-      component: () => import('@/views/TheAuth')
-    },
-    {
-      path: '/registration',
-      name: 'registration',
-      component: () => import('@/views/TheAuth')
-    },
-    {
-      path: '/reg-completion/:key',
-      name: 'reg-completion',
-      component: () => import('@/views/TheRegCompletion')
-    },
-    {
-      path: '/recovery/:key',
-      name: 'recovery',
-      component: () => import('@/views/TheRegCompletion')
-    },
-    {
-      path: '/calendar',
-      name: 'calendar',
-      meta: {
-        navDots: true
-      },
-      component: () => import('@/views/TheCalendar')
-    },
-    {
-      path: '/event/:url',
-      name: 'event',
-      component: () => import('@/views/TheEvent')
-    },
-    {
-      path: '/my-ticket/:hash',
-      name: 'my-ticket',
-      component: () => import('@/views/TheMyTicket')
-    },
-    {
-      path: '/tickets',
-      name: 'tickets-page',
-      component: () => import('@/views/TheCheckTicket'),
+      path: '',
+      name: 'default',
+      redirect: '/',
+      component: () => import('@/layout/default'),
       children: [
         {
-          path: ':id',
-          name: 'tickets',
+          path: '/',
+          name: 'main',
+          component: () => import('@/views/TheHero')
+        },
+        {
+          path: '/r/:sponsor',
+          name: 'main-r',
+          meta: {
+            navDots: true
+          },
+          component: () => import('@/views/TheHero')
+        },
+        {
+          path: '/description',
+          name: 'description',
+          meta: {
+            navDots: true
+          },
+          component: () => import('@/views/TheDescription')
+        },
+        {
+          path: '/knowledge-package',
+          name: 'knowledge-package',
+          beforeEnter: requireAuth,
+          meta: {
+            auth: true,
+            navDots: true
+          },
+          component: () => import('@/views/TheKnowledgePackage')
+        },
+        {
+          path: '/knowledge-access',
+          name: 'knowledge-access',
+          beforeEnter: requireAuthKnowledge,
+          meta: {
+            auth: true,
+            navDots: true
+          },
+          component: () => import('@/views/TheKnowledgeAccess')
+        },
+        {
+          path: '/learning-stages',
+          name: 'learning-stages',
+          component: () => import('@/views/TheLearningStages')
+        },
+        {
+          path: '/our-coach',
+          name: 'our-coach',
+          component: () => import('@/views/TheOurCoach')
+        },
+        {
+          path: '/news',
+          name: 'news',
+          component: () => import('@/views/TheNews')
+        },
+        {
+          path: '/news/:url',
+          name: 'news-full',
+          component: () => import('@/views/TheNewsFull')
+        },
+        {
+          path: '/photo-gallery',
+          name: 'photo-gallery',
+          meta: {
+            navDots: true
+          },
+          component: () => import('@/views/ThePhotoGallery')
+        },
+        {
+          path: '/auth',
+          name: 'auth',
+          component: () => import('@/views/TheAuth')
+        },
+        {
+          path: '/forgot',
+          name: 'forgot',
+          component: () => import('@/views/TheAuth')
+        },
+        {
+          path: '/registration',
+          name: 'registration',
+          component: () => import('@/views/TheAuth')
+        },
+        {
+          path: '/reg-completion/:key',
+          name: 'reg-completion',
+          component: () => import('@/views/TheRegCompletion')
+        },
+        {
+          path: '/recovery/:key',
+          name: 'recovery',
+          component: () => import('@/views/TheRegCompletion')
+        },
+        {
+          path: '/calendar',
+          name: 'calendar',
+          meta: {
+            navDots: true
+          },
+          component: () => import('@/views/TheCalendar')
+        },
+        {
+          path: '/event/:url',
+          name: 'event',
+          component: () => import('@/views/TheEvent')
+        },
+        {
+          path: '/my-ticket/:hash',
+          name: 'my-ticket',
+          component: () => import('@/views/TheMyTicket')
+        },
+        {
+          path: '/tickets',
+          name: 'tickets-page',
           component: () => import('@/views/TheCheckTicket'),
-        }
+          children: [
+            {
+              path: ':id',
+              name: 'tickets',
+              component: () => import('@/views/TheCheckTicket'),
+            }
+          ]
+        },
+        {
+          path: '/payment_policy',
+          name: 'payment_policy',
+          component: () => import('@/views/ThePaymentPolicy')
+        },
+        ...knowledge,
       ]
     },
     {
-      path: '/payment_policy',
-      name: 'payment_policy',
-      component: () => import('@/views/ThePaymentPolicy')
+      path: '/admin',
+      name: 'admin',
+      redirect: '/admin/menu',
+      beforeEnter: requireAuth,
+      meta: {
+        auth: true
+      },
+      component: () => import('@/layout/admin'),
+      children: [
+        ...admin
+      ]
     },
+
     {
       path: '/404',
       name: '404',

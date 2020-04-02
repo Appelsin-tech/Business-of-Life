@@ -1,7 +1,6 @@
 <template>
-  <section class="p-control-course p-default-block">
+  <section class="p-control-course p-inner-admin">
     <preloader v-if="loading"/>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">Редактор курсов</h1>
       <div class="c-wrapper">
@@ -14,6 +13,8 @@
         </div>
       </div>
       <panel-info v-if="isMyCourse && isMyCourse.length === 0">Курсов нет</panel-info>
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -31,7 +32,6 @@ import PanelInfo from '@/components/ui/PanelInfo'
 export default {
   name: 'AdminCourseControl',
   components: {
-    BreadCrumbs,
     AdminCourseControlPanel,
     Preloader,
     ButtonAdd,
@@ -40,12 +40,6 @@ export default {
   data() {
     return {
       loading: false,
-      breadCrumbs: [
-        {
-          path: 'menu',
-          title: 'Личный кабинет'
-        }
-      ]
     }
   },
   computed: {

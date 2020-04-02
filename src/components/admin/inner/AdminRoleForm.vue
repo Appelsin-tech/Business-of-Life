@@ -228,14 +228,20 @@ export default {
     },
     getListRoles () {
       API.roles.list().then(response => {
-        console.log(response)
         this.listRoles = response
         response.forEach(item => {
-          item.roles.forEach(a => {
-            if (a === this.role) {
+          if (Array.isArray(item.roles)) {
+            item.roles.forEach(a => {
+              if (a === this.role) {
+                this.users.push(item.login)
+              }
+            })
+          } else {
+            if (item.roles === this.role) {
               this.users.push(item.login)
             }
-          })
+          }
+
         })
       }).catch(e => console.log(e))
     }

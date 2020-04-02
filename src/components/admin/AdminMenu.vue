@@ -1,5 +1,5 @@
 <template>
-  <section class="p-me p-default-block">
+  <section class="p-me">
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
@@ -134,7 +134,6 @@ export default {
   .p-me {
     .menu {
       .row-flex();
-      margin-bottom: 80px;
       justify-content: flex-start;
       .sm-block({
         justify-content: center;

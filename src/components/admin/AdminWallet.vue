@@ -1,6 +1,5 @@
 <template>
-  <section class='p-wallet p-default-block'>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+  <section class='p-wallet p-inner-admin'>
     <div class='container page'>
       <h1 class='g-caption-inner'>Кошелек</h1>
       <div class="wrapper-col">
@@ -15,6 +14,8 @@
           </keep-alive>
         </div>
       </div>
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -29,26 +30,19 @@ import ButtonChangeSection from '../ui/ButtonChangeSection'
 export default {
   name: 'AdminWallet',
   components: {
-    BreadCrumbs,
     AdminWalletMain,
     AdminWalletTransaction,
     ButtonChangeSection
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        }
-      ],
       btnArr: [
         {
-          component: 'AdminWalletMain',
+          id: 'AdminWalletMain',
           text: 'Кошелек'
         },
         {
-          component: 'AdminWalletTransaction',
+          id: 'AdminWalletTransaction',
           text: 'История транзакций'
         }
       ],

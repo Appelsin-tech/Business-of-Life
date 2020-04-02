@@ -1,5 +1,5 @@
 <template>
-  <section class='p-news-editing p-default-block'>
+  <section class='p-news-editing p-inner-admin'>
     <preloader v-if="loading"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
@@ -90,6 +90,9 @@
           </div>
         </form>
       </div>
+
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/news-control" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -124,10 +127,6 @@ export default {
     return {
       loading: false,
       breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        },
         {
           path: '/admin/news-control',
           title: 'Управление новостями'

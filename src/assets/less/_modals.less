@@ -220,4 +220,25 @@
       }
     }
   }
+  &__calendar-event {
+    .modal__container {
+      padding: 50px ;
+    }
+    .relation {
+      display: flex;
+      flex-direction: column;
+      .g-caption-element {
+        margin-bottom: 20px;
+      }
+      .info-list {
+        padding-left: 20px;
+        li {
+          word-break: break-all;
+          &:not(:last-child) {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
 }

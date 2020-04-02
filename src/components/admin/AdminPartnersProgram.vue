@@ -1,6 +1,6 @@
 <template>
-  <section class='p-partners-program p-default-block'>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+  <section class='p-partners-program p-inner-admin'>
+    <bread-crumbs/>
     <div class='container page'>
       <h1 class='g-caption-inner'>Партнерская программа</h1>
       <div class="wrapper-col">
@@ -15,6 +15,8 @@
           </keep-alive>
         </div>
       </div>
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -41,12 +43,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        }
-      ],
       btnArr: [
         {
           id: 'AdminPartnersProgramReferal',

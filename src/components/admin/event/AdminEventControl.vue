@@ -1,10 +1,9 @@
 <template>
-  <section class="p-control-event p-default-block">
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+  <section class="p-control-event p-inner-admin">
     <preloader v-if="activePreloader"/>
     <div class="container page">
       <h1 class="g-caption-inner">Управление мероприятиями</h1>
-      <div class="event" >
+      <div class="event">
         <div class="event-create" v-if="!eventsMy">
           <button-add class="btn-add" @click.native="$router.push({path: '/admin/event-create'})"/>
         </div>
@@ -17,6 +16,8 @@
           </router-link>
         </div>
       </div>
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -32,7 +33,6 @@ import API from '@/api/index'
 export default {
   name: 'AdminEventControl',
   components: {
-    BreadCrumbs,
     ButtonAdd,
     Preloader
   },

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-event-all-editing p-default-block">
+  <section class="p-event-all-editing p-inner-admin">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="activePreloader"/>
     <div class="container page">
@@ -68,8 +68,10 @@
         <router-link class="g-btn g-btn--no-icon preview" :to="`/knowledge/${course}/${id}`" :class="{disabled: !course}">
           <span>Предпросмотр</span>
         </router-link>
-        <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
       </div>
+    </div>
+    <div class="container page container--btn-back">
+      <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
     </div>
     <modal-lesson-materials/>
   </section>
@@ -106,10 +108,6 @@ export default {
   data() {
     return {
       breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        },
         {
           path: '/admin/course-control',
           title: 'Редактирование курсов'

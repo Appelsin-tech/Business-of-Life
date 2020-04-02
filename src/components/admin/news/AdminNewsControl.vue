@@ -1,14 +1,15 @@
 <template>
-  <section class="p-news-control p-default-block">
+  <section class="p-news-control p-inner-admin">
     <preloader v-if="loading"/>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
-    <div class="container">
+    <div class="container page">
       <h1 class="g-caption-inner">Управление новостями</h1>
       <button-add class="row" @click.native="createNews"/>
       <div class="news-wrapper" v-if="isMyNews && isMyNews.length !== 0">
         <news-item v-for="news in isMyNews" :news="news" :control="true" :key="news.id"/>
       </div>
       <panel-info v-else>Новостей Нет</panel-info>
+    </div>
+    <div class="container page container--btn-back">
       <router-link :to='`/admin/menu`' class='back-btn'>Назад</router-link>
     </div>
   </section>
@@ -35,12 +36,6 @@ export default {
   data() {
     return {
       loading: false,
-      breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        }
-      ],
       newsData: [
         {
           id: 1,
@@ -101,4 +96,9 @@ export default {
 
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
+  .p-news-control {
+    .button-create {
+      height: auto;
+    }
+  }
 </style>

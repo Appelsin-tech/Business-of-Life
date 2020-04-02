@@ -59,7 +59,7 @@ export default {
     align-items: center;
     padding: 45px 55px;
     margin-bottom: 15px;
-    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.08);
+    .default-panel-style();
     .md-block({
       padding: 40px 50px;
     });

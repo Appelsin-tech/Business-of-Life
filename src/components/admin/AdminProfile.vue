@@ -1,6 +1,5 @@
 <template>
-  <section class='p-profile p-default-block'>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+  <section class='p-profile p-inner-admin'>
     <div class='container page'>
       <h1 class='g-caption-inner'>Профиль</h1>
       <div class="wrapper-col">
@@ -15,6 +14,9 @@
           </keep-alive>
         </div>
       </div>
+
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -29,19 +31,12 @@ import ButtonChangeSection from '../ui/ButtonChangeSection'
 export default {
   name: 'AdminProfile',
   components: {
-    BreadCrumbs,
     AdminProfileMain,
     AdminProfileSecurity,
     ButtonChangeSection
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        }
-      ],
       btnArr: [
         {
           id: 'AdminProfileMain',

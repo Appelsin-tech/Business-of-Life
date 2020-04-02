@@ -1,35 +1,20 @@
 <template>
   <div id="app">
     <notifications position="bottom right" classes="my-noty" :width="widthNoty"/>
-    <app-header/>
-    <main-nav/>
-    <main>
-      <transition mode="out-in" name="fade" @before-enter="beforeEnter">
-        <router-view/>
-      </transition>
-    </main>
-    <app-footer/>
+    <router-view/>
     <modal-ticket-success/>
   </div>
 </template>
 
 <script>
-import MainNav from './components/MainNav.vue'
-import AppHeader from './components/AppHeader'
-import AppFooter from './components/AppFooter'
-
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    MainNav,
-    AppHeader,
-    AppFooter,
     ModalTicketSuccess: () => import('@/components/modal/ModalTicketSuccess')
   },
   data () {
     return {
-      showMenu: false,
       widthNoty: 400
     }
   },

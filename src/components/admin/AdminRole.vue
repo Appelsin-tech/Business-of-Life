@@ -1,6 +1,6 @@
 <template>
-  <section class='p-statistic p-default-block'>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
+  <section class='p-statistic p-inner-admin'>
+    <bread-crumbs/>
     <div class='container page'>
       <h1 class='g-caption-inner'>Роли и управление доступом</h1>
       <div class="wrapper-col">
@@ -21,6 +21,8 @@
           <admin-role-form :role="currentTab"/>
         </div>
       </div>
+    </div>
+    <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
@@ -41,12 +43,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        }
-      ],
       btnArr: [
         {
           id: 1,

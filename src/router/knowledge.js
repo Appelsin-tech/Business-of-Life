@@ -2,39 +2,30 @@ import store from '../store'
 
 export default [
   {
-    path: '/knowledge',
-    name: 'knowledge',
-    redirect: '/knowledge/menu',
+    path: '/knowledge/menu',
+    name: 'knowledge-menu',
     beforeEnter: requireAccess,
+    component: () => import('@/components/knowledge/KnowledgeMenu')
+  },
+  {
+    path: '/knowledge/:url/',
+    name: 'knowledge-course',
+    beforeEnter: requireAccess,
+    props: true,
     meta: {
       auth: true
     },
-    component: () => import('@/views/TheKnowledge'),
-    children: [
-      {
-        path: 'menu',
-        name: 'knowledge-menu',
-        component: () => import('@/components/knowledge/KnowledgeMenu')
-      },
-      {
-        path: ':url/',
-        name: 'knowledge-course',
-        props: true,
-        meta: {
-          auth: true
-        },
-        component: () => import('@/components/knowledge/KnowledgeCourse')
-      },
-      {
-        path: ':url/:id',
-        name: 'knowledge-lesson',
-        props: true,
-        meta: {
-          auth: true
-        },
-        component: () => import('@/components/knowledge/KnowledgeLesson')
-      }
-    ]
+    component: () => import('@/components/knowledge/KnowledgeCourse')
+  },
+  {
+    path: '/knowledge/:url/:id',
+    name: 'knowledge-lesson',
+    beforeEnter: requireAccess,
+    props: true,
+    meta: {
+      auth: true
+    },
+    component: () => import('@/components/knowledge/KnowledgeLesson')
   }
 ]
 

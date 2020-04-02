@@ -1,5 +1,5 @@
 <template>
-  <section class="p-event-editing p-default-block">
+  <section class="p-event-editing p-inner-admin">
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
       <h1 class="g-caption-inner">
@@ -102,8 +102,11 @@
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
           <span>Предпросмотр</span>
         </router-link>
-        <router-link :to="`/admin/event-editing/${event}`" class="back-btn">Назад</router-link>
+
       </div>
+    </div>
+    <div class="container page container--btn-back">
+      <router-link :to="`/admin/event-editing/${event}`" class="back-btn">Назад</router-link>
     </div>
     <modal-ticket-create-editing/>
     <modal-actions-create-editing/>
@@ -153,10 +156,6 @@ export default {
   data() {
     return {
       breadCrumbs: [
-        {
-          path: '/admin/menu',
-          title: 'Личный кабинет'
-        },
         {
           path: '/admin/event-control',
           title: 'Управление мероприятиями'
