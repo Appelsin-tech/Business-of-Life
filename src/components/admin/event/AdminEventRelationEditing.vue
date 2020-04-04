@@ -4,7 +4,7 @@
     <preloader v-if="activePreloader"/>
     <div class="container page">
       <h1 class="g-caption-inner">Мероприятие</h1>
-      <div class="event-editing" v-if="!relationEditors">
+      <div class="event-editing" v-if="checkMyEvent">
         <h2 class="g-caption-section" >
           <template v-if="id">Редактирование мероприятия</template>
           <template v-else>Создание мероприятия</template>
@@ -13,7 +13,7 @@
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
-        <button-add v-if="showBtnAdd" :class="'row'" @click.native="$router.push({path: `/admin/relation/${id}`})"/>
+        <button-add v-if="checkMyEvent" :class="'row'" @click.native="$router.push({path: `/admin/relation/${id}`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
             <admin-relation-item v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
@@ -76,7 +76,8 @@ export default {
       'eventsMy'
     ]),
     ...mapGetters('user', [
-      'relationEditors'
+      'editor',
+      'myId'
     ]),
     showButtonDelete() {
       if (this.showRelations === 1) {
@@ -89,11 +90,12 @@ export default {
         return false
       }
     },
-    showBtnAdd () {
-      return this.relationEditors ? false : !!this.id
+    // является ли это мероприятие моим
+    checkMyEvent () {
+      return this.id ? this.myEvent.owner_id === this.myId : true
     },
     showPanelRelation () {
-      return this.relationEditors ? false : this.showRelations === 2
+      return this.checkUserEditor ? false : this.showRelations === 2
     }
   },
   methods: {
@@ -106,6 +108,7 @@ export default {
       })
     },
     filterRelations() {
+
       this.myEvent.relations.forEach(item => {
         let currentMoment = this.$moment()
         let itemStamp = item.stamp * 1000

@@ -11,15 +11,24 @@ const state = () => ({
 })
 
 const getters = {
-  logged: state => !!state.profile, // залогинен ли пользователей
-  access: (state, getters) => getters.logged ? state.profile.access.knowledge : false, // доступ к базе знаний
-  status: (state, getters) => getters.logged ? state.profile.status : 0, // статус пользователя
-  statusDev (state, getters) { // статус для разработки
+  // залогинен ли пользователей
+  logged: state => !!state.profile,
+  // доступ к базе знаний
+  access: (state, getters) => getters.logged ? state.profile.access.knowledge : false,
+  // мой id
+  myId: (state, getters) => getters.logged ? state.profile.id : null,
+  // статус пользователя
+  status: (state, getters) => getters.logged ? state.profile.status : 0,
+  // статус для разработки
+  statusDev (state, getters) {
     return getters.logged ? state.profile.login === 'pelkin' || state.profile.login === 'GeneralAdmin' : false
   },
-  relationEditors (state, getters) { // является ли обычный пользователь редактором событий
+  // является ли обычный пользователь редактором событий
+  relationEditors (state, getters) {
     return getters.logged && getters.status === 1 && state.profile.editor.length > 0
-  }
+  },
+  // масив событий где пользователь является редактором
+  editor: (state, getters) => getters.logged ? state.profile.editor : []
 }
 
 const actions = {

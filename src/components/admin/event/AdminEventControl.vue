@@ -38,12 +38,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: 'menu',
-          title: 'Личный кабинет'
-        }
-      ],
       activePreloader: false
     }
   },

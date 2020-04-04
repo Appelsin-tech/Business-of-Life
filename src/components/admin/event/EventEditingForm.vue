@@ -21,7 +21,7 @@
       </div>
       <div class="textarea  g-item-form item--col-12">
         <label class="g-item-form__label">Полное описание</label>
-        <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
+        <ckeditor :editor="editor" v-model="form.description" @ready="readyEditor" :config="editorConfig"  @blur="$v.form.description.$touch()"></ckeditor>
         <div class="input-valid-error" v-if="$v.form.description.$error">
           <template v-if="!$v.form.description.required">Поле не может быть пустым</template>
           <template v-if="!$v.form.description.maxLength">Превышено количество допустимых символов</template>
@@ -76,7 +76,7 @@ export default {
           'link'
         ]
       },
-      name: '',
+      name: 'asdasdasd',
       form: {
         title: '',
         snippet: '',
@@ -130,29 +130,32 @@ export default {
         this.$store.dispatch('event/getMyEvents')
         this.$router.push({ path: '/admin/event-control' })
       })
+    },
+    readyEditor () {
+      if (this.event) {
+        this.form.description = this.event.description
+      }
     }
   },
   watch: {
     event(newVal, oldVal) {
       if (newVal !== undefined) {
-        this.form = {
-          id: this.idEvent,
-          title: this.event.title,
-          snippet: this.event.snippet,
-          description: this.event.description,
-          audience: this.event.audience
-        }
+        this.form.id = this.idEvent
+        this.form.title = this.event.title
+        this.form.snippet = this.event.snippet
+        this.form.audience = this.event.audience
       }
+    },
+    'form.description': function(val) {
+      this.$emit('input', val)
     }
   },
   mounted() {
     if (this.event) {
-      this.form = {
-        title: this.event.title,
-        snippet: this.event.snippet,
-        description: this.event.description,
-        audience: this.event.audience
-      }
+      this.form.id = this.idEvent
+      this.form.title = this.event.title
+      this.form.snippet = this.event.snippet
+      this.form.audience = this.event.audience
     }
   }
 }

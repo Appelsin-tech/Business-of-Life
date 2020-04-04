@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import API from '../api/index'
 export default {
   name: 'KnowledgePackage',
@@ -29,13 +30,22 @@ export default {
       arrMonth: ['месяц', 'месяца', 'месяцев']
     }
   },
+  computed: {
+    ...mapGetters('user', [
+      'logged'
+    ])
+  },
   methods: {
     buyItems(item) {
-      API.store.buy({
-        item_id: item.id
-      }).then(response => {
-        this.WidgetPayment(item.price_kzt, response.id)
-      })
+      if (this.logged) {
+        API.store.buy({
+          item_id: item.id
+        }).then(response => {
+          this.WidgetPayment(item.price_kzt, response.id)
+        })
+      } else {
+        this.$router.push('/auth')
+      }
     },
     WidgetPayment(price, id) {
       const widget = new cp.CloudPayments()

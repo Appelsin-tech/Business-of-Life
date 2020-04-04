@@ -6,8 +6,7 @@
           <div class="content">
             <h1 class="visually-hidden">Business of Life</h1>
             <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
-            <strong class="desc-strong g-caption">Эксклюзивная <br> база знаний</strong>
-            <p class="desc-connect" v-if="false">Присоединяйтесь к нам, чтобы получить доступ к уникальной базе знаний!</p>
+            <strong class="desc-strong g-caption">Международная академия для интернет предпринимателей</strong>
             <router-link to="/description" class="g-btn">
               <span>
                 Стать участником
@@ -32,7 +31,7 @@
           </div>
           <div class="col-text">
             <div class="content">
-              <p class="desc desc--bold">В бизнесе МЛМ можно буквально за 1 год выйти на
+              <p class="desc desc--bold">В бизнесе электронной коммерции можно буквально за 1 год выйти на
                 достойный уровень ежемесячного дохода и за несколько
                 лет добиться выдающихся результатов</p>
               <p class="desc">Для того, чтобы добиться такого результата, необходимо выполнить всего два условия. Первое –
@@ -127,14 +126,6 @@ export default {
       .sm-block({opacity: 0.3});
       .xs-block({background: url("../assets/img/bg-hero-mobile.jpg") no-repeat center / cover;})
     }
-    .container {
-      &.test-production {
-        .wrapper-content {
-          .sm-block({.decor-cube(237px, 237px);});
-          .xs-block({.decor-cube(@display: none;);})
-        }
-      }
-    }
     .wrapper-content {
       position: relative;
       padding-left: 100px;
@@ -142,8 +133,10 @@ export default {
       box-sizing: border-box;
       z-index: 2;
       transform: translateY(-6%);
+      max-width: 70%;
       .decor-cube(364px, 364px);
-      .lg-block({ padding-left: 82px; padding-top: 82px; .decor-cube(320px, 320px); max-width: 670px;});
+      .lg-block({ padding-left: 82px; padding-top: 82px; .decor-cube(300px, 300px);});
+      .sm-block({max-width: 100%; padding-left: 54px; padding-top: 54px;});
       .xs-block({ padding-left:0; padding-top: 0; .decor-cube(@display: none;);});
       @media screen and (max-height: 520px) {
         transform: translateY(0);

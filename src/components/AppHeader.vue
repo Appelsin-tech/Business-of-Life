@@ -1,5 +1,5 @@
 <template>
-  <header class="s-header" :class="[$route.name === 'knowledge-package' && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}, layout]">
+  <header class="s-header" :class="[($route.name === 'knowledge-package' || $route.name === 'marathon') && !showMenu ? 'white' : '', {active : showMenu, 'border-class': !borderClass}, layout]">
     <div class="container">
       <div class="wrapper-relative">
         <router-link class="logo-link" to="/" @click.native="showMenu = false">
@@ -91,6 +91,10 @@ export default {
         {
           to: '/news',
           title: 'Новости'
+        },
+        {
+          to: '/KoronaNaMillion',
+          title: 'Корона на миллион'
         }
       ]
     }
@@ -136,6 +140,9 @@ export default {
           rout = true
           break
         case 'forgot':
+          rout = true
+          break
+        case 'marathon':
           rout = true
           break
       }

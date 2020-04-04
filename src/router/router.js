@@ -42,7 +42,6 @@ const router = new Router({
         {
           path: '/knowledge-package',
           name: 'knowledge-package',
-          beforeEnter: requireAuth,
           meta: {
             auth: true,
             navDots: true
@@ -146,6 +145,11 @@ const router = new Router({
           path: '/payment_policy',
           name: 'payment_policy',
           component: () => import('@/views/ThePaymentPolicy')
+        },
+        {
+          path: '/KoronaNaMillion',
+          name: 'marathon',
+          component: () => import('@/views/TheMarathon')
         },
         ...knowledge,
       ]

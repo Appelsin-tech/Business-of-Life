@@ -2,7 +2,7 @@
   <aside class="sidebar-admin">
     <ul class="list-menu">
       <li v-for="item in menuListFilterUserLogged" :key="item.to">
-        <router-link class="link" :class="{line: item.line}" :exact="true" active-class="active" :to="item.to">
+        <router-link class="link" :class="{line: item.line}" :exact="true" active-class="active" :to="item.to" v-tooltip.right="{content: item.title, container: '.sidebar-admin'}">
           <font-awesome-icon :icon="item.icon" class="fa-icon"/>
           <p class="title-item">{{item.title}}</p>
         </router-link>
@@ -27,6 +27,11 @@ export default {
     color: #fff;
     .md-block({
       display: none;});
+    .tooltip {
+      @media (min-width: 1570px) {
+        display: none;
+      }
+    }
     .list-menu {
       padding-top: 70px;
       padding-bottom: 70px;

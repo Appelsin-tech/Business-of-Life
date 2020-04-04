@@ -89,6 +89,12 @@ export default {
           icon: ['fas', 'signal'],
           status: 2
         },
+        {
+          to: '/KoronaNaMillion',
+          title: 'Корона на миллион',
+          icon: ['fas', 'trophy'],
+          status: 0
+        },
       ]
     }
   },

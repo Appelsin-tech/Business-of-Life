@@ -1,5 +1,5 @@
 <template>
-  <footer class="s-footer" :class="[$route.name === 'knowledge-package' ? 'white' : '', {'border-class': !borderClass}]" >
+  <footer class="s-footer" :class="[($route.name === 'knowledge-package') ? 'white' : '', {'border-class': !borderClass}]" >
     <div class="container">
       <div class="copyright-wrapper">
         <p class="copyright">TОО "Business of Life"</p>
@@ -64,6 +64,9 @@ export default {
           rout = true
           break
         case 'forgot':
+          rout = true
+          break
+        case 'marathon':
           rout = true
           break
       }
