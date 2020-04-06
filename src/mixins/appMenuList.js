@@ -28,6 +28,12 @@ export default {
           status: 0
         },
         {
+          to: '/KoronaNaMillion',
+          title: 'Марафон "Корона на миллион"',
+          icon: ['fas', 'trophy'],
+          status: 0
+        },
+        {
           to: '/knowledge-package',
           title: 'База знаний',
           icon: ['fas', 'puzzle-piece'],
@@ -88,12 +94,6 @@ export default {
           title: 'Статистика продаж',
           icon: ['fas', 'signal'],
           status: 2
-        },
-        {
-          to: '/KoronaNaMillion',
-          title: 'Корона на миллион',
-          icon: ['fas', 'trophy'],
-          status: 0
         },
       ]
     }

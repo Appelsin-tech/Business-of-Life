@@ -336,7 +336,7 @@ export default {
         justify-content: center;
         flex-grow: 1;
         z-index: 9;
-        @media (max-height: 600px) {
+        @media (max-height: 900px) {
           justify-content: flex-start;
         }
         .menu-list {
