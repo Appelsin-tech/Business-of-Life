@@ -21,7 +21,7 @@
     </section>
     <section class="s-description">
       <div class="container">
-        <h2 class="g-caption-inner">О марафоне</h2>
+        <h2 class="g-caption-inner g-caption-inner--mb-80">О марафоне</h2>
         <div class="col-wrapper">
           <div class="col-iframe">
             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/avbezSkXTf0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -49,7 +49,7 @@
     </section>
     <section class="s-prize">
       <div class="container">
-        <h2 class="g-caption-inner">Призовой фонд</h2>
+        <h2 class="g-caption-inner g-caption-inner--mb-80">Призовой фонд</h2>
         <div class="col-wrapper">
           <div class="col-img">
             <img src="@/assets/img/prize.png" alt="">
@@ -65,7 +65,7 @@
               <div class="item">
                 <p class="item-title">Дополнительно</p>
                 <p class="sum-blue"><strong class="g-caption-inner">1 000 000</strong>  <span>CSNP</span></p>
-                <p class="item-desc">(будет поровну распределен между финалистами марфона)</p>
+                <p class="item-desc">(будет поровну распределен между финалистами марафона)</p>
               </div>
             </div>
             <p class="desc-bottom">
@@ -79,7 +79,7 @@
     </section>
     <section class="s-target">
       <div class="container">
-        <h2 class="g-caption-inner">что будет на марафоне</h2>
+        <h2 class="g-caption-inner g-caption-inner--mb-80">что будет на марафоне</h2>
         <p class="g-caption-section">Наша основная цель — дать максимум пользы всем, кто на время карантина находится дома</p>
         <p class="description">Когда большинство сейчас в страхе и условиях неопределенности, участники нашего марафона будут прокачиваться, получая максимум пользы:</p>
         <ul class="list-benefit">
@@ -88,6 +88,15 @@
             <p class="text">{{item.text}}</p>
           </li>
         </ul>
+      </div>
+    </section>
+    <section class="s-registration">
+      <div class="container">
+        <h2 class="g-caption-inner">Присоединяйтесь к нам</h2>
+        <span class="desc">Марафон уже стартовал!</span>
+        <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
+          <span>Стать участником</span>
+        </a>
       </div>
     </section>
   </div>
@@ -132,6 +141,18 @@ export default {
 
 <style scoped lang="less">
   @import "../assets/less/_importants";
+  .g-caption-inner--mb-80 {
+    margin-bottom: 80px;
+    .lg-block({
+      margin-bottom: 40px;
+    });
+    .sm-block({
+      margin-bottom: 30px;
+    });
+    .xs-block({
+      margin-bottom: 25px;
+    });
+  }
   .s-marathon {
     background: #18191A;
     min-height: auto;
@@ -285,7 +306,6 @@ export default {
     .col-wrapper {
       display: flex;
       justify-content: space-between;
-      margin-top: 80px;
       .md-block({ flex-direction: column;
         margin-top: 0;});
       .col-img {
@@ -386,7 +406,6 @@ export default {
     }
   }
   .s-target {
-    margin-bottom: 250px;
     padding: 60px 0;
     .lg-block({
       padding: 40px 0;});
@@ -396,9 +415,8 @@ export default {
       margin-bottom: 70px;
       display: block;
       font-size: 2rem;
-      font-weight: 800;
       color: #000;
-      text-transform: uppercase;
+      line-height: 1.5;
       .lg-block({
         margin-bottom: 50px;});
       .sm-block({
@@ -427,7 +445,7 @@ export default {
           width: 40px;
           height: 40px;
           margin-bottom: 20px;
-          color: @colorMain;
+          color: @colorMainSecondary;
           .xs-block({
             margin-bottom: 15px;
             width: 30px;
@@ -436,6 +454,34 @@ export default {
         .text {
           line-height: 1.5;
         }
+      }
+    }
+  }
+  .s-registration {
+    padding: 100px 0;
+    margin: 60px 0 250px;
+    background: #18191A;
+    .lg-block({
+      padding: 80px 0;
+      margin: 40px 0 250px;});
+    .xs-block({
+      padding: 50px 0;
+      margin: 25px 0 250px;});
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .g-caption-inner {
+        color: #fff;
+      }
+      .desc {
+        color: #fff;
+        margin-bottom: 50px;
+        .lg-block({
+          margin-bottom: 30px;});
+        .sm-block({
+          margin-bottom: 20px;});
       }
     }
   }
