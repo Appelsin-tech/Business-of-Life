@@ -107,20 +107,21 @@ export default {
         this.getInfoEvent()
       })
     },
-    filterRelations() {
-
+    filterRelations () {
       this.myEvent.relations.forEach(item => {
         let currentMoment = this.$moment()
         let itemStamp = item.stamp * 1000
-        if (currentMoment - itemStamp > 0 && item.status === 3) {
-          item.status = 4
-          this.myPastEvents.unshift(item)
-        } else {
-          this.myFutureEvents.push(item)
+        if (this.editor.find(relation => relation.id === item.id)) {
+          if (currentMoment - itemStamp > 0 && item.status === 3) {
+            item.status = 4
+            this.myPastEvents.unshift(item)
+          } else {
+            this.myFutureEvents.push(item)
+          }
         }
       })
     },
-    getInfoEvent() {
+    getInfoEvent () {
       API.events.info({ id: this.id }).then(response => {
         this.myEvent = response.data
         this.filterRelations()

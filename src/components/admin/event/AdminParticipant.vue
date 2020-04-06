@@ -311,10 +311,10 @@ export default {
   },
   mounted() {
     API.search.participants({ id: this.$route.params.relation, search: '' }).then(response => {
-      this.response = this.test
-      this.fieldsArr = [...this.test.fields]
-      // this.response = response.data
-      // this.fieldsArr = [...response.data.fields]
+      // this.response = this.test
+      // this.fieldsArr = [...this.test.fields]
+      this.response = response.data
+      this.fieldsArr = [...response.data.fields]
       this.setFields()
       this.loading = false
     }).catch(e => console.log(e))
