@@ -1,17 +1,20 @@
 <template>
   <div>
-    <section class="p-marathon p-default-flex">
+    <section class="s-marathon p-default-flex">
       <div class="container page">
         <div class="wrapper-content">
-          <div class="content">
+          <div class="col-img">
+            <img src="@/assets/img/marathon-man.jpg" alt="Человек">
+          </div>
+          <div class="col-content">
             <h1 class="visually-hidden">Марафон "Корона на миллион"</h1>
             <strong class="g-caption-inner">Марафон</strong>
             <strong class="desc-strong g-caption">«Корона на Миллион»</strong>
             <p class="desc-connect" >Прими участие БЕСПЛАТНО!</p>
             <p class="desc-connect" >Развивайся онлайн - прокачай свой личный бренд и получи возможности новых технологий и бизнеса в Интернет</p>
-            <router-link to="/description" class="g-btn g-btn--no-icon">
+            <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
               <span>Стать участником</span>
-            </router-link>
+            </a>
           </div>
         </div>
       </div>
@@ -35,6 +38,9 @@
               </div>
               <div class="item">
                 <p class="title-info"><strong>Стомость участия:</strong> <span>Бесплатно</span></p>
+              </div>
+              <div class="item">
+                <p class="title-info"><span>* дополнительно может потребоваться покупка недорогих сервисов для создания контента в инстаграм, инструментов рассылки и тд.</span></p>
               </div>
             </div>
           </div>
@@ -71,39 +77,91 @@
         </div>
       </div>
     </section>
+    <section class="s-target">
+      <div class="container">
+        <h2 class="g-caption-inner">что будет на марафоне</h2>
+        <p class="g-caption-section">Наша основная цель — дать максимум пользы всем, кто на время карантина находится дома</p>
+        <p class="description">Когда большинство сейчас в страхе и условиях неопределенности, участники нашего марафона будут прокачиваться, получая максимум пользы:</p>
+        <ul class="list-benefit">
+          <li v-for="item in listBenefit" :key="item.text">
+            <font-awesome-icon :icon="item.icon" class="fa-icon"/>
+            <p class="text">{{item.text}}</p>
+          </li>
+        </ul>
+      </div>
+    </section>
   </div>
 
 </template>
 
 <script>
 export default {
-  name: 'TheMarathon'
+  name: 'TheMarathon',
+  data() {
+    return {
+      listBenefit: [
+        {
+          icon: ['fas', 'graduation-cap'],
+          text: 'Новые знания о возможностях бизнеса в Интернет'
+        },
+        {
+          icon: ['fas', 'signal'],
+          text: 'Освоение онлайн инструментов продвижения товаров и услуг в Интернет'
+        },
+        {
+          icon: ['fas', 'dollar-sign'],
+          text: 'Готовый бизнес в Интернете не выходя из дома, который будет приносить как активный, так и пассивный доход, даже когда вы отойдете от дел'
+        },
+        {
+          icon: ['fas', 'people-arrows'],
+          text: 'Создание и развитие личного бренда через социальные сети Instagram, YouTube, создавая качественный контент'
+        },
+        {
+          icon: ['far', 'clock'],
+          text: 'Полезное и увлекательное времяпровождение'
+        },
+        {
+          icon: ['fas', 'user-friends'],
+          text: 'Новые знакомства с интересными людьми'
+        }
+      ]
+    }
+  },
 }
 </script>
 
 <style scoped lang="less">
   @import "../assets/less/_importants";
-  .p-marathon {
-    background: #0f1d5f;
+  .s-marathon {
+    background: #18191A;
+    min-height: auto;
+    padding-bottom: 150px;
     .wrapper-content {
       position: relative;
+      display: flex;
+      justify-content: space-between;
       padding-top: 80px;
       box-sizing: border-box;
       z-index: 2;
       transform: translateY(-6%);
-      max-width: 60%;
       @media screen and (max-height: 520px) {
         transform: translateY(0);
       }
-      .lg-block({max-width: 67%;});
-      .md-block({max-width: 90%;});
-      .content {
+      .col-img {
+        max-width: 30%;
+        .lg-block({
+          display: none;});
+      }
+      .col-content {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         position: relative;
         z-index: 5;
         color: #fff;
+        max-width: 60%;
+        .lg-block({max-width: 67%;});
+        .md-block({max-width: 90%;});
         .g-caption {
           margin-bottom: 40px;
           color: #fff;
@@ -129,7 +187,7 @@ export default {
     }
   }
   .s-description {
-    padding: 100px 0 50px;
+    padding: 100px 0 60px;
     .lg-block({
       padding: 80px 0 40px;});
     .xs-block({
@@ -139,22 +197,27 @@ export default {
       justify-content: space-between;
       .md-block({ flex-direction: column; });
       .col-iframe {
-        width: 50%;
-        margin-right: 100px;
+        width: 45%;
+        flex-shrink: 0;
         .md-block({
+          width: 60%;
           height: 250px;
           margin-right: 0;
           margin-bottom: 30px;});
         .sm-block({
           width: 100%;});
+        .xs-block({
+          height: 210px;});
       }
       .col-text {
+        width: 45%;
+        .md-block({
+          width: 100%;});
         .content {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           line-height: 1.5;
-          padding-top: 15px;
           .item {
             margin-bottom: 30px;
             .sm-block({
@@ -173,14 +236,18 @@ export default {
               }
             }
             &:nth-child(3) {
+                margin-bottom: 0;
               .title-info {
                 display: flex;
-                flex-direction: column;
                 strong {
-                  margin-bottom: 15px;
-                  .sm-block({
-                    margin-bottom: 10px;});
+                  margin-right: 1em;
                 }
+              }
+            }
+            &:nth-child(4) {
+              margin-bottom: 0;
+              .title-info {
+                margin-bottom: 0;
               }
             }
             .title-info {
@@ -210,8 +277,7 @@ export default {
     }
   }
   .s-prize {
-    margin-bottom: 250px;
-    padding: 50px 0;
+    padding: 60px 0;
     .lg-block({
       padding: 40px 0;});
     .xs-block({
@@ -315,6 +381,60 @@ export default {
               border-bottom-color: transparent;
             }
           }
+        }
+      }
+    }
+  }
+  .s-target {
+    margin-bottom: 250px;
+    padding: 60px 0;
+    .lg-block({
+      padding: 40px 0;});
+    .xs-block({
+      padding: 25px 0;});
+    .description {
+      margin-bottom: 70px;
+      display: block;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #000;
+      text-transform: uppercase;
+      .lg-block({
+        margin-bottom: 50px;});
+      .sm-block({
+        margin-bottom: 30px;
+        font-size: 1.8rem;});
+      .xs-block({
+        margin-bottom: 20px;
+        line-height: 1.5;
+        font-size: 1.6rem;});
+    }
+    .list-benefit {
+      .row-flex();
+      justify-content: space-between;
+      > li {
+        .col();
+        .size(3.5);
+        .size-lg(5);
+        .size-ss(11);
+        .size-xs(12);
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+        .sm-block({
+          margin-bottom: 20px;});
+        .fa-icon {
+          width: 40px;
+          height: 40px;
+          margin-bottom: 20px;
+          color: @colorMain;
+          .xs-block({
+            margin-bottom: 15px;
+            width: 30px;
+            height: 30px;});
+        }
+        .text {
+          line-height: 1.5;
         }
       }
     }

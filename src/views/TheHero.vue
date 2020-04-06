@@ -168,7 +168,7 @@ export default {
     }
   }
   .s-description {
-    padding: 100px 0 50px;
+    padding: 100px 0 60px;
     .lg-block({
       padding: 80px 0 40px;});
     .xs-block({
@@ -240,11 +240,12 @@ export default {
           width: auto; });
         .img {
           display: flex;
-          margin-bottom: 40px;
           align-items: flex-end;
           justify-content: center;
           width: 100%;
           box-sizing: border-box;
+          .md-block({
+            margin-bottom: 40px;});
           .sm-block({ width: auto; margin-bottom: 30px; });
           > img {
             max-height: 570px;
@@ -257,7 +258,7 @@ export default {
   }
   .s-registration {
     padding: 100px 0;
-    margin: 50px 0;
+    margin: 60px 0;
     background-color: @colorMainSecondary;
     background-image: url("../assets/img/logo-bg.png");
     background-position-y: 55%;
@@ -288,7 +289,7 @@ export default {
   }
   .s-news {
     margin-bottom: 250px;
-    padding: 50px 0;
+    padding: 60px 0;
     .lg-block({
       padding: 40px 0;});
     .xs-block({

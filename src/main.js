@@ -14,8 +14,8 @@ import Deselect from './components/Dselect'
 import VueCookies from 'vue-cookies'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faPuzzlePiece, faSignal, faWallet, faStar, faNewspaper as fasNewspapper, faUser, faUserFriends, faBook, faTrophy } from '@fortawesome/free-solid-svg-icons'
-import { faCalendarAlt, faNewspaper as farNewspapper, faCheckSquare } from '@fortawesome/free-regular-svg-icons'
+import { faHome, faPuzzlePiece, faSignal, faWallet, faStar, faNewspaper as fasNewspapper, faUser, faUserFriends, faBook, faTrophy, faGraduationCap, faDollarSign, faPeopleArrows } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt, faNewspaper as farNewspapper, faCheckSquare, faClock } from '@fortawesome/free-regular-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 
@@ -33,7 +33,11 @@ library.add(
   faCheckSquare,
   faUserFriends,
   faBook,
-  faTrophy
+  faTrophy,
+  faGraduationCap,
+  faDollarSign,
+  faPeopleArrows,
+  faClock
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
