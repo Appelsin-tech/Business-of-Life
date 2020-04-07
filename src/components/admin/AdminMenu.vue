@@ -3,9 +3,20 @@
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
+<!--      <div class="course-tools">-->
+<!--        <div class="col-wrapper">-->
+<!--          <div class="col-desc">-->
+<!--            <p class="g-caption-element g-caption-element&#45;&#45;static">Рады снова вас видеть, {{profile.login}}!</p>-->
+<!--            <p class="desc">Для того, чтобы начать строить бизнес вместе с нами - изучите данный курс. Он поможет вам разобраться со всеми инструментами платформы и пригласить своих первых партнеров</p>-->
+<!--          </div>-->
+<!--          <div class="col-course">-->
+<!--            <panel-knowledge-menu/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="menu">
           <div class="item" v-for="item in menu" :key="item.name">
-            <pannel-admin-menu :item="item" />
+            <panel-admin-menu :item="item" />
           </div>
       </div>
       <router-link to="/" class="back-btn">Назад</router-link>
@@ -15,14 +26,16 @@
 
 <script>
 import BreadCrumbs from '../BreadCrumbs.vue'
-import { mapGetters } from 'vuex'
-import PannelAdminMenu from './common/PannelAdminMenu'
+import { mapGetters, mapState } from 'vuex'
+import PanelAdminMenu from './common/PanelAdminMenu'
+import PanelKnowledgeMenu from '@/components/knowledge/components/PanelKnowledgeMenu'
 
 export default {
   name: 'AdminMenu',
   components: {
     BreadCrumbs,
-    PannelAdminMenu
+    PanelAdminMenu,
+    PanelKnowledgeMenu
   },
   data() {
     return {
@@ -111,6 +124,9 @@ export default {
       'status',
       'statusDev',
       'relationEditors'
+    ]),
+    ...mapState('user', [
+      'profile'
     ]),
     menu() {
       if (this.statusDev) {

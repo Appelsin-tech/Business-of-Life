@@ -21,10 +21,27 @@ export default {
 
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
+  ::-webkit-scrollbar { /* chrome based */
+    width: 0px;  /* ширина scrollbar'a */
+    background: transparent;  /* опционально */
+  }
   .sidebar-admin {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    max-width: 350px;
     background: @colorMainSecondary;
     grid-area: aside;
     color: #fff;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+    @media (max-width: 1700px) {
+      max-width: 250px;
+    }
+    @media (max-width: 1570px) {
+      max-width: 70px;
+    }
     .md-block({
       display: none;});
     .tooltip {

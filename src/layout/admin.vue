@@ -46,7 +46,7 @@ export default {
       grid-template-columns: minmax(10px, 250px) 1fr;
     }
     @media (max-width: 1570px) {
-      grid-template-columns: minmax(10px, min-content) 1fr;
+      grid-template-columns: minmax(10px, 70px) 1fr;
     }
     .md-block({grid-template-columns: 1fr;  grid-template-areas:
       'header'

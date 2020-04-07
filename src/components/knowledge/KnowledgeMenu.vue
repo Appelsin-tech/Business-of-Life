@@ -7,7 +7,7 @@
       <status-knowledge/>
       <div class="menu" v-if="isCourses && isCourses.length !== 0">
         <div class="item" v-for="item in isCourses" :key="item.name" v-if="checkStatusUser(item.name, item.status)">
-          <pannel-knowledge-menu :item="item" />
+          <panel-knowledge-menu :item="item" />
         </div>
       </div>
       <router-link to="/admin" class="back-btn">Назад</router-link>
@@ -18,7 +18,7 @@
 <script>
 import BreadCrumbs from '@/components/BreadCrumbs'
 import { mapGetters, mapState } from 'vuex'
-import PannelKnowledgeMenu from './components/PannelKnowledgeMenu'
+import PanelKnowledgeMenu from './components/PanelKnowledgeMenu'
 import StatusKnowledge from './components/StatusKnowledge'
 import API from '@/api/index'
 import Preloader from '@/components/ui/Preloader'
@@ -27,7 +27,7 @@ export default {
   name: 'KnowledgeMenu',
   components: {
     BreadCrumbs,
-    PannelKnowledgeMenu,
+    PanelKnowledgeMenu,
     StatusKnowledge,
     Preloader
   },
