@@ -157,6 +157,8 @@ export default {
     background: #18191A;
     min-height: auto;
     padding-bottom: 150px;
+    .md-block({
+      padding-bottom: 50px;});
     .wrapper-content {
       position: relative;
       display: flex;
@@ -168,10 +170,13 @@ export default {
       @media screen and (max-height: 520px) {
         transform: translateY(0);
       }
+      .md-block({
+        flex-direction: column-reverse;});
       .col-img {
         max-width: 30%;
-        .lg-block({
-          display: none;});
+        .md-block({align-self: center;});
+        .sm-block({max-width: 38%;});
+        .ss-block({max-width: 180px;});
       }
       .col-content {
         display: flex;
@@ -181,8 +186,9 @@ export default {
         z-index: 5;
         color: #fff;
         max-width: 60%;
-        .lg-block({max-width: 67%;});
-        .md-block({max-width: 90%;});
+        .lg-block({max-width: 60%;});
+        .md-block({max-width: 90%;
+          margin-bottom: 50px;});
         .g-caption {
           margin-bottom: 40px;
           color: #fff;
