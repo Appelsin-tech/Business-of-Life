@@ -1,7 +1,9 @@
 <template>
-  <router-link :to="item.url" class="menu-item">
+  <a href="" :class="{'paid-course': !item.free}" class="menu-item" @click.prevent="routerPush">
     <div class="img-wrapper">
-      <div class="img" :style="{backgroundImage: `url(${item.img})`}"></div>
+      <div class="img" :style="{backgroundImage: `url(${item.img})`}">
+        <font-awesome-icon :icon="['fas', 'lock']" class="fa-icon" v-if="!item.free"/>
+      </div>
       <h3 class="g-caption-element">{{item.title}}</h3>
     </div>
     <p class="lesson">
@@ -19,19 +21,41 @@
 <!--      <div class="img"></div>-->
       <span class="name">Business of Life</span>
     </div>
-  </router-link>
+  </a>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'PannelAdminKnowledgeMenu',
-  props: ['item']
+  name: 'PanelKnowledgeMenu',
+  props: ['item'],
+  computed: {
+    ...mapGetters('user', [
+      'accessKnowledge'
+    ])
+  },
+  methods: {
+    routerPush () {
+      // если не бесплатный курс
+      if (!this.item.free) {
+        // если у пользователя нет доступа к платному курсу
+        if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
+          this.$router.push('/knowledge-package')
+        } else {
+          this.$router.push(`/knowledge/${this.item.url}`)
+        }
+      } else {
+        this.$router.push(`/knowledge/${this.item.url}`)
+      }
+    }
+  }
 }
 </script>
 
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
   .menu-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     transition: 0.3s;
@@ -42,12 +66,46 @@ export default {
         text-decoration: none;
       }
     }
+    &.paid-course {
+      .img-wrapper {
+        .img {
+          background: none !important;
+          &::after {
+            position: absolute;
+            content: '';
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #ccc;
+            z-index: 1;
+          }
+          .fa-icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            z-index: 2;
+            color: #303030;
+            .sm-block({
+              width: 25px;
+              height: 25px;});
+            .xs-block({
+              width: 18px;
+              height: 18px;});
+          }
+        }
+      }
+    }
     .img-wrapper {
       display: flex;
       flex-direction: column;
+      position: relative;
       .sm-block({flex-direction: row;
         margin-bottom: 15px;});
       .img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
         margin-bottom: 40px;
         height: 240px;

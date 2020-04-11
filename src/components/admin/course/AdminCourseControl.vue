@@ -4,15 +4,15 @@
     <div class="container page">
       <h1 class="g-caption-inner">Редактор курсов</h1>
       <div class="c-wrapper">
-        <div class="course-create" v-if="isMyCourse && isMyCourse.length === 0">
+        <div class="course-create" v-if="listMyCourses && listMyCourses.length === 0">
           <button-add class="admin-default item-grid" @click.native="createCourse"/>
         </div>
-        <div class="item-wrapper"  v-if="isMyCourse && isMyCourse.length !== 0" >
+        <div class="item-wrapper"  v-if="listMyCourses && listMyCourses.length !== 0" >
           <button-add @click.native="createCourse" class="admin-default item-grid"/>
-          <admin-course-control-panel class="item-grid" v-for="course in isMyCourse" :course="course" :key="course.id"/>
+          <admin-course-control-panel class="item-grid" v-for="course in listMyCourses" :course="course" :key="course.id"/>
         </div>
       </div>
-      <panel-info v-if="isMyCourse && isMyCourse.length === 0">Курсов нет</panel-info>
+      <panel-info v-if="listMyCourses && listMyCourses.length === 0">Курсов нет</panel-info>
     </div>
     <div class="container page container--btn-back">
       <router-link to="/admin/menu" class="back-btn">Назад</router-link>
@@ -47,8 +47,8 @@ export default {
       'coursesMy'
     ]),
     ...mapGetters('courses', [
-      'isMyCourse',
-      'isCourses'
+      'listMyCourses',
+      'listCourses'
     ])
   },
   methods: {

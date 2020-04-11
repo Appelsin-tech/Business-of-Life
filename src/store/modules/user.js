@@ -13,8 +13,8 @@ const state = () => ({
 const getters = {
   // залогинен ли пользователей
   logged: state => !!state.profile,
-  // доступ к базе знаний
-  access: (state, getters) => getters.logged ? state.profile.access.knowledge : false,
+  // приобретался ли когда нибудь доступ к базе знаний
+  accessKnowledge: (state, getters) => getters.logged ? state.profile.access.knowledge : false,
   // мой id
   myId: (state, getters) => getters.logged ? state.profile.id : null,
   // статус пользователя
@@ -28,7 +28,7 @@ const getters = {
     return getters.logged && getters.status === 1 && state.profile.editor.length > 0
   },
   // масив событий где пользователь является редактором
-  editor: (state, getters) => getters.logged ? state.profile.editor : []
+  editor: (state, getters) => getters.logged ? state.profile.editor : [],
 }
 
 const actions = {

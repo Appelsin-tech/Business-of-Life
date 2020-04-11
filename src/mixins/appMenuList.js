@@ -34,7 +34,7 @@ export default {
           status: 0
         },
         {
-          to: '/knowledge-package',
+          to: '/knowledge/menu',
           title: 'База знаний',
           icon: ['fas', 'puzzle-piece'],
           status: 0

@@ -167,7 +167,6 @@ const router = new Router({
         ...admin
       ]
     },
-
     {
       path: '/404',
       name: '404',

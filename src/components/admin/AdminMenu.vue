@@ -81,7 +81,7 @@ export default {
           status: 0
         },
         {
-          to: '/knowledge-package',
+          to: '/knowledge/menu',
           title: 'База знаний',
           name: 'knowledge-package',
           status: 0

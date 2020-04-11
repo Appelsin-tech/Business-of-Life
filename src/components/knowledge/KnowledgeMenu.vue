@@ -4,9 +4,9 @@
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">База знаний</h1>
-      <status-knowledge/>
-      <div class="menu" v-if="isCourses && isCourses.length !== 0">
-        <div class="item" v-for="item in isCourses" :key="item.name" v-if="checkStatusUser(item.name, item.status)">
+      <status-knowledge />
+      <div class="menu" v-if="listCourses && listCourses.length !== 0">
+        <div class="item" v-for="item in listCourses" :key="item.name">
           <panel-knowledge-menu :item="item" />
         </div>
       </div>
@@ -39,48 +39,18 @@ export default {
   },
   computed: {
     ...mapGetters('user', [
+      'accessKnowledge',
       'status',
       'statusDev'
     ]),
     ...mapGetters('courses', [
-      'isCourses'
+      'listCourses'
     ]),
-    ...mapState('user', [
-      'profile'
-    ]),
-
   },
   methods: {
-    checkStatusUser(name, status) {
-      if(this.status > 0) {
-        if (this.statusDev) { // показываются все для разработки
-          return true
-        } else {
-          let r = false
-          switch (name) {
-            case 'event-control':
-              r = true
-              break
-            case 'statistic':
-              r = true
-              break
-            case 'role':
-              r = true
-              break
-          }
-          if (status === 3) { // показываются все, кроме тех которые в разработке
-            return false
-          } else if (r && this.status < 2) { // не показываются для пользователей со статусом ниже 2
-            return false
-          } else {
-            return true
-          }
-        }
-      }
-    }
   },
   mounted() {
-    if(this.isCourses === null) {
+    if(this.listCourses === null) {
       this.loading = true
       this.$store.dispatch('courses/getCourses').then(() => {
         this.loading = false

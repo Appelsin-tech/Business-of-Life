@@ -6,10 +6,10 @@ const state = () => ({
 })
 
 const getters = {
-  isCourses: state => state.courses,
-  isMyCourse: state => state.coursesMy,
+  listCourses: state => state.courses,
+  listMyCourses: state => state.coursesMy,
   statusMyCourse: (state, getters) => idCourse => {
-    if (getters.isMyCourse !== null && getters.isMyCourse.length > 0) {
+    if (getters.listMyCourses !== null && getters.listMyCourses.length > 0) {
       let el = state.coursesMy.find(item => item.id === idCourse)
       if (el !== undefined) {
         return el.status

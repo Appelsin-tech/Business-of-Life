@@ -7,7 +7,7 @@
       </div>
       <p class="g-caption-element g-caption-element--static">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
     </div>
-    <router-link to="/knowledge" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
+    <router-link to="/knowledge-package" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
       <span>Продлить доступ</span>
     </router-link>
   </div>
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     currentStatus() {
-      return this.$store.getters['user/access']
+      return this.$store.getters['user/accessKnowledge']
     },
     activeDate() {
       return this.$moment().to(this.currentStatus.exp, true)

@@ -71,10 +71,11 @@ export default {
   computed: {
     ...mapGetters('user', [
       'logged',
-      'status'
+      'status',
+      'accessKnowledge'
     ]),
     ...mapGetters('courses', [
-      'isMyCourse'
+      'listMyCourses'
     ]),
     statusMyCourse () {
       return this.$store.getters[`courses/statusMyCourse`](this.url)
@@ -86,6 +87,13 @@ export default {
   methods: {
     getInfoCourse() {
       API.courses.courses.info({ url: this.url }).then(response => {
+        // если не бесплатный курс
+        if (!response.free) {
+          // если у пользователя нет доступа к платному курсу
+          if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
+            this.$router.push('/knowledge-package')
+          }
+        }
         this.course = response
         this.loading = false
         this.statusInfo()
@@ -95,14 +103,14 @@ export default {
     },
     statusInfo() {
       if (this.status > 1) {
-        if (this.isMyCourse === null) {
+        if (this.listMyCourses === null) {
           this.$store.dispatch('courses/getMyCourses').then(() => {
-            if (this.isMyCourse.some(item => item.id === this.course.id)) {
+            if (this.listMyCourses.some(item => item.id === this.course.id)) {
               this.myCourse = true
             }
           })
         } else {
-          if (this.isMyCourse.some(item => item.id === this.course.id)) {
+          if (this.listMyCourses.some(item => item.id === this.course.id)) {
             this.myCourse = true
           }
         }

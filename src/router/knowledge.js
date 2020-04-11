@@ -4,13 +4,16 @@ export default [
   {
     path: '/knowledge/menu',
     name: 'knowledge-menu',
-    beforeEnter: requireAccess,
+    beforeEnter: requireAuth,
+    meta: {
+      auth: true
+    },
     component: () => import('@/components/knowledge/KnowledgeMenu')
   },
   {
     path: '/knowledge/:url/',
     name: 'knowledge-course',
-    beforeEnter: requireAccess,
+    beforeEnter: requireAuth,
     props: true,
     meta: {
       auth: true
@@ -20,7 +23,7 @@ export default [
   {
     path: '/knowledge/:url/:id',
     name: 'knowledge-lesson',
-    beforeEnter: requireAccess,
+    beforeEnter: requireAuth,
     props: true,
     meta: {
       auth: true
@@ -29,21 +32,24 @@ export default [
   }
 ]
 
-async function requireAuth(to, from, next) {
-  await store.dispatch('user/login')
-
-  if (!store.getters['user/statusDev']) {
-    next('auth')
-  } else {
+async function requireAuth (to, from, next) {
+  if (store.getters['user/logged']) {
     next()
+  } else {
+    await store.dispatch('user/login')
+    if (store.getters['user/logged']) {
+      next()
+    } else {
+      next('auth')
+    }
   }
 }
 
-async function requireAccess(to, from, next) {
+async function requireAuthAccess(to, from, next) {
   await store.dispatch('user/login')
 
   if (store.getters['user/logged']) {
-    if (!store.getters['user/access'].exp) {
+    if (store.getters['user/accessKnowledge'].exp) {
       next('404')
     } else {
       next()
