@@ -87,8 +87,11 @@ export default {
   methods: {
     getInfoCourse() {
       API.courses.courses.info({ url: this.url }).then(response => {
-        // если не бесплатный курс
-        if (!response.free) {
+        // мой курс или нет
+        if (this.status > 1 && this.listMyCourses.some(item => item.id === response.id)) {
+          this.myCourse = true
+        }
+        if (!response.free && !this.myCourse) {
           // если у пользователя нет доступа к платному курсу
           if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
             this.$router.push('/knowledge-package')
@@ -96,24 +99,14 @@ export default {
         }
         this.course = response
         this.loading = false
-        this.statusInfo()
+
       }).catch(e => {
         this.$router.push({ path: '/404' })
       })
     },
     statusInfo() {
-      if (this.status > 1) {
-        if (this.listMyCourses === null) {
-          this.$store.dispatch('courses/getMyCourses').then(() => {
-            if (this.listMyCourses.some(item => item.id === this.course.id)) {
-              this.myCourse = true
-            }
-          })
-        } else {
-          if (this.listMyCourses.some(item => item.id === this.course.id)) {
-            this.myCourse = true
-          }
-        }
+      if (this.status > 1 && this.listMyCourses === null) {
+        this.$store.dispatch('courses/getMyCourses')
       }
     },
     statusProgressLesson (index) {
@@ -129,7 +122,8 @@ export default {
       }
     }
   },
-  mounted () {
+  async mounted () {
+    await this.statusInfo()
     this.getInfoCourse()
   }
 }

@@ -55,7 +55,7 @@
             <img src="@/assets/img/marathon-corona.png" alt="">
           </div>
           <div class="col-content">
-            <p class="sum-red">2 000 000 CSNP</p>
+            <p class="sum-bold">2 000 000 CSNP</p>
             <p class="desc-sum g-caption-section">Эквивалент 2 миллионов токенов ~ 200'000$</p>
             <div class="desc-wrapper">
               <div class="item">
@@ -95,11 +95,13 @@
         <h2 class="g-caption-inner g-caption-inner--mb-80">Наши тренеры</h2>
         <div class="wrapper-coach">
           <div class="coach" v-for="coach in listCoach" :key="coach.name">
-            <img class="img" :src="require(`@/assets/img/marathon-coach/${coach.img}`)" alt="">
+            <div class="img-wrapper">
+              <img class="img" :src="require(`@/assets/img/marathon-coach/${coach.img}`)" alt="">
+              <a :href="coach.instagram" class="social" target="_blank">
+                <font-awesome-icon :icon="['fab', 'instagram']" class="fa-icon"/>
+              </a>
+            </div>
             <p class="name">{{coach.name}}</p>
-            <a :href="coach.instagram" class="social" target="_blank">
-              <font-awesome-icon :icon="['fab', 'instagram']" class="fa-icon"/>
-            </a>
             <p class="desc" v-html="coach.desc"></p>
           </div>
         </div>
@@ -227,6 +229,18 @@ export default {
           name: 'Михаил Дудник',
           desc: 'Президент Ассоциации спикеров Казахстана <br> Эксперт в системном развитии харизмы для бизнеса',
           instagram: 'https://instagram.com/real_dudnik?igshid=uzoc7c3n3drk'
+        },
+        {
+          img: 'coach-14.jpg',
+          name: 'Ернар Ескендир ',
+          desc: 'Архитектор, дизайнер, фотограф',
+          instagram: 'https://instagram.com/yernaryeskendir?igshid=n8mjig2x4kjc'
+        },
+        {
+          img: 'coach-15.jpg',
+          name: 'Сулушаш  Ардаккызы ',
+          desc: 'StoryMaker, SMM-менеджер',
+          instagram: 'https://instagram.com/sulushash_ardakkyzy?igshid=1peltln40roqg'
         }
       ]
     }
@@ -251,6 +265,9 @@ export default {
   .g-btn {
     background: #FFCC00;
     border-color: #FFCC00;
+    span {
+      color: #000;
+    }
   }
   .s-marathon {
     background: #18191A;
@@ -424,12 +441,12 @@ export default {
           margin-bottom: 25px;});
       }
       .col-content {
-        .sum-red {
+        .sum-bold {
           display: block;
           font-size: 7rem;
           font-weight: 800;
           text-transform: uppercase;
-          color: @colorMain;
+          color: #FFCC00;
           margin-bottom: 20px;
           .lg-block({
             font-size: 5rem;
@@ -583,19 +600,52 @@ export default {
         align-items: center;
         margin-bottom: 60px;
         line-height: 1.5;
-        .img {
-          margin-bottom: 30px;
-          display: inline-block;
-          width: 150px;
-          height: 150px;
-          object-fit: cover;
-          object-position: center;
-          border-radius: 50%;
-          background-color: #ccc;
+        .img-wrapper {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 50px;
           .md-block({
-            margin-bottom: 20px;});
-          .ss-block({
-            margin-bottom: 12px;});
+            margin-bottom: 40px;});
+          .img {
+            display: inline-block;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            background-color: #ccc;
+          }
+          .social {
+            position: absolute;
+            bottom: 0;
+            transform: translateY(50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 50%;
+            border: 1px solid #FFCC00;
+            background: #FFCC00;
+            transition: 0.3s;
+      /*      &:hover {
+              background: @colorMain;
+              border-color: @colorMain;
+              .fa-icon {
+                color: #fff;
+              }
+            }*/
+            .fa-icon {
+              width: 20px;
+              height: 20px;
+              color: #000;
+              transition: 0.3s;
+              .sm-block({
+                width: 18px;
+                height: 18px;});
+            }
+          }
         }
         .name {
           font-weight: bold;
@@ -607,36 +657,6 @@ export default {
           margin-bottom: auto;
           line-height: 1.5;
           text-align: center;
-        }
-        .social {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 15px;
-          margin-bottom: 20px;
-          border-radius: 50%;
-          border: 1px solid #000;
-          transition: 0.3s;
-          .md-block({
-            margin-bottom: 15px;});
-          .sm-block({
-            padding: 12px;});
-          &:hover {
-            background: @colorMain;
-            border-color: @colorMain;
-            .fa-icon {
-              color: #fff;
-            }
-          }
-          .fa-icon {
-            width: 20px;
-            height: 20px;
-            color: #000;
-            transition: 0.3s;
-            .sm-block({
-              width: 18px;
-              height: 18px;});
-          }
         }
       }
     }

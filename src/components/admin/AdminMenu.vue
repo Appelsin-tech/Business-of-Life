@@ -3,17 +3,29 @@
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
-<!--      <div class="course-tools">-->
-<!--        <div class="col-wrapper">-->
-<!--          <div class="col-desc">-->
-<!--            <p class="g-caption-element g-caption-element&#45;&#45;static">Рады снова вас видеть, {{profile.login}}!</p>-->
-<!--            <p class="desc">Для того, чтобы начать строить бизнес вместе с нами - изучите данный курс. Он поможет вам разобраться со всеми инструментами платформы и пригласить своих первых партнеров</p>-->
-<!--          </div>-->
-<!--          <div class="col-course">-->
-<!--            <panel-knowledge-menu/>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="course-tools">
+        <div class="col-desc">
+          <p class="g-caption-element g-caption-element--static">Рады снова вас видеть, {{profile.login}}!</p>
+          <p class="desc">Для того, чтобы начать строить бизнес вместе с нами - изучите данный курс. Он поможет вам разобраться со всеми инструментами платформы и пригласить своих первых партнеров</p>
+        </div>
+        <div class="col-course" v-if="startCourse">
+          <router-link :to="`/knowledge/21`" class="course-start" >
+            <div class="img" :style="{backgroundImage: `url(${startCourse.img})`}"></div>
+            <div class="content">
+              <h3 class="g-caption-element">{{startCourse.title}}</h3>
+              <p class="lesson">
+                <img class="svg-icon" svg-inline src="@/assets/img/icon/book.svg" alt="">
+                <span>уроков:</span>
+                {{startCourse.lessons}}
+              </p>
+              <p class="description">
+                {{startCourse.snippet}}
+              </p>
+            </div>
+
+          </router-link>
+        </div>
+      </div>
       <div class="menu">
           <div class="item" v-for="item in menu" :key="item.name">
             <panel-admin-menu :item="item" />
@@ -29,6 +41,7 @@ import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapGetters, mapState } from 'vuex'
 import PanelAdminMenu from './common/PanelAdminMenu'
 import PanelKnowledgeMenu from '@/components/knowledge/components/PanelKnowledgeMenu'
+import API from '@/api/index'
 
 export default {
   name: 'AdminMenu',
@@ -116,7 +129,8 @@ export default {
           name: 'news-control',
           status: 3
         },
-      ]
+      ],
+      startCourse: null
     }
   },
   computed: {
@@ -141,6 +155,11 @@ export default {
     },
   },
   methods: {
+  },
+  mounted () {
+    API.courses.courses.info({ url: 21 }).then(response => {
+      this.startCourse = response
+    })
   }
 }
 </script>
@@ -148,6 +167,97 @@ export default {
 <style scoped lang="less">
   @import "../../assets/less/_importants";
   .p-me {
+    .course-tools {
+      display: flex;
+      margin-bottom: 30px;
+      .default-panel-style(40px);
+      .lg-block({
+        flex-direction: column;});
+      .col-desc {
+        margin-right: 50px;
+        .lg-block({
+          margin-right: 0;
+          margin-bottom: 30px;});
+        .sm-block({
+          margin-bottom: 20px;});
+        .desc {
+          margin-top: 30px;
+          line-height: 1.5;
+          font-size: 1.6rem;
+          .sm-block({
+            margin-top: 20px;});
+        }
+      }
+      .col-course {
+        min-width: 600px;
+        .lg-block({min-width: auto;});
+        .course-start {
+          display: flex;
+          color: #000;
+          .default-panel-style(40px);
+          &:hover {
+            .g-caption-element {
+              text-decoration: none;
+            }
+          }
+          .img {
+            margin-right: 40px;
+            height: 240px;
+            width: 240px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+            .lg-block({
+              height: 200px;
+              width: 200px;
+            });
+            .md-block({
+              height: 210px;
+            });
+            .sm-block({
+              width: 70px;
+              height: 70px;
+              margin-right: 30px;
+            });
+            .xs-block({
+              width: 40px;
+              height: 40px;
+            });
+          }
+          .content {
+            .g-caption-element {
+              margin-bottom: 25px;
+              .sm-block({margin-bottom: 15px; padding-top: 5px});
+            }
+            .lesson {
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+              .sm-block({margin-bottom: 10px;});
+              .svg-icon {
+                width: 30px;
+                height: 30px;
+                .sm-block({
+                  width: 20px;
+                  height: 20px;});
+                * {
+                  fill: @colorMain;
+                }
+              }
+              span {
+                margin: 0 15px;
+              }
+            }
+            .description {
+              margin-bottom: 15px;
+              line-height: 1.4;
+            }
+          }
+
+        }
+      }
+    }
     .menu {
       .row-flex();
       justify-content: flex-start;
