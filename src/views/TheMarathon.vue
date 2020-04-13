@@ -103,13 +103,13 @@
       <div class="container">
         <h2 class="g-caption-inner g-caption-inner--mb-80">Наши тренеры</h2>
         <div class="wrapper-coach">
-          <div class="coach">
-            <img src="" alt="">
-            <p class="name">Арнольд Толстых</p>
-            <p class="post">Ведущий программист</p>
-            <p class="desc">Просто наш гений. Технологически поднял не один сттартап. Даст фору даже Алану Маску!</p>
-            <a href="mailto:" target="_blank" class="email">manager.site.ru</a>
-            <a href="tel:" class="phone">+7 (495) 123-45-67</a>
+          <div class="coach" v-for="coach in listCoach" :key="coach.name">
+            <img class="img" :src="require(`@/assets/img/marathon-coach/${coach.img}`)" alt="">
+            <p class="name">{{coach.name}}</p>
+            <a :href="coach.instagram" class="social" target="_blank">
+              <font-awesome-icon :icon="['fab', 'instagram']" class="fa-icon"/>
+            </a>
+            <p class="desc" v-html="coach.desc"></p>
           </div>
         </div>
       </div>
@@ -148,6 +148,86 @@ export default {
           icon: ['fas', 'user-friends'],
           text: 'Новые знакомства с интересными людьми'
         }
+      ],
+      listCoach: [
+        {
+          img: 'coach-1.jpg',
+          name: 'Elen Yu',
+          desc: 'Инста•тьютор <br> Автор курса “Сторис не как у всех”',
+          instagram: 'https://instagram.com/elen__yu?igshid=vs8omdo1phil'
+        },
+        {
+          img: 'coach-2.jpg',
+          name: 'Андрей Красик',
+          desc: 'Профессиональный видеограф <br> г.Киев',
+          instagram: 'https://instagram.com/andreykrasik'
+        },
+        {
+          img: 'coach-3.jpg',
+          name: 'Кугай Евгений',
+          desc: 'Директор по развитию фитнес клуба Fitness Palace Astana. Мастер тренер групповых и функциональных программ. Сертифицированный инструктор по кунг фу Академии ММА. Сертифицированный инструктор программ Les Mills, TRX. Презентер международных конвенций.',
+          instagram: 'https://instagram.com/ast_freeman?igshid=1o06fyjd1xfwp'
+        },
+        {
+          img: 'coach-4.jpg',
+          name: 'Светлана Казакова',
+          desc: 'Инструктор тренажерного зала и групповых программ <br> Нутрициолог',
+          instagram: 'https://instagram.com/kazakova_fitness_aktau'
+        },
+        {
+          img: 'coach-5.jpg',
+          name: 'Жалгасов Ерлан',
+          desc: 'Психолог, гипнолог, гипнотизёр, менталист, тренер, специалист в области управления человеческими ресурсами, магистр делового администрирования (MBA). Член Казахской ассоциации психологов и психотерапевтов (КАПП).',
+          instagram: 'https://www.instagram.com/tv/B-i1K-jjgjZ/?igshid=xldoyyk5nqwd'
+        },
+        {
+          img: 'coach-6.jpg',
+          name: 'Ермек Жукин',
+          desc: 'Бизнес тренер, консультант, владелец компании «EnergiCo», эксперт в области эффективных технологий продаж. Проводит семинары по продажам с 2003 года.',
+          instagram: 'https://instagram.com/schoolsaleskz?igshid=e9s5s4s4y15z'
+        },
+        {
+          img: 'coach-7.jpg',
+          name: 'Айганым Егзекова',
+          desc: 'Основательница холдинга Medial Group, который занимается оснащением клиник под ключ, оборудованием машин скорой помощи и вертолетов санитарной авиации.',
+          instagram: 'https://instagram.com/aiganym_yegzek?igshid=yte8g30vixbi'
+        },
+        {
+          img: 'coach-8.jpg',
+          name: 'Азимов Аят',
+          desc: 'Основатель франшизы Global Coffee <br> Кофейный магнат.',
+          instagram: 'https://instagram.com/ayatazimov?igshid=qre03i9tak7a'
+        },
+        {
+          img: 'coach-9.jpg',
+          name: 'Шунгулов Адильбек',
+          desc: 'Майнер-инженер. <br> 4 года в майнинге криптовалют. <br> Дата центр под ключ.',
+          instagram: 'https://instagram.com/adilbekshungulov'
+        },
+        {
+          img: 'coach-10.jpg',
+          name: 'Еркебулан Токабаев',
+          desc: 'Практикующий трейдер с 2012 года. <br> Основатель школы трейдинга Trading Skill',
+          instagram: 'https://instagram.com/tradingskill01'
+        },
+        {
+          img: 'coach-11.jpg',
+          name: 'Арман Абжанов',
+          desc: 'Опыт в трейдинге и инвестировании больше 5 лет. С 2015 года торговал на фондовом рынке. С 2018 по настоящее время торгует на криптовалютном рынке. Является трейдером в команде Bearox.kz',
+          instagram: 'https://instagram.com/bearox.kz?igshid=1tr97wlwcvuj1'
+        },
+        {
+          img: 'coach-12.jpg',
+          name: 'Ерлан Думанулы',
+          desc: 'Основатель платформы для стартапов и инвесторов Crowdsale Network',
+          instagram: 'https://instagram.com/yerlan_dumanuly?igshid=1vpcabcof89se'
+        },
+        {
+          img: 'coach-13.jpg',
+          name: 'Михаил Дудник',
+          desc: 'Президент Ассоциации спикеров Казахстана <br> Эксперт в системном развитии харизмы для бизнеса',
+          instagram: 'https://instagram.com/real_dudnik?igshid=uzoc7c3n3drk'
+        }
       ]
     }
   },
@@ -167,6 +247,10 @@ export default {
     .xs-block({
       margin-bottom: 25px;
     });
+  }
+  .g-btn {
+    background: #FFCC00;
+    border-color: #FFCC00;
   }
   .s-marathon {
     background: #18191A;
@@ -484,10 +568,10 @@ export default {
     background: #18191A;
     .lg-block({
       padding: 80px 0;
-      margin: 40px 0 250px;});
+      margin: 40px 0;});
     .xs-block({
       padding: 50px 0;
-      margin: 25px 0 250px;});
+      margin: 25px 0;});
     .container {
       display: flex;
       flex-direction: column;
@@ -508,10 +592,68 @@ export default {
   }
   .s-coach {
     padding: 60px 0;
-    margin-bottom: 250px;
+    margin-bottom: 190px;
     .lg-block({
       padding: 40px 0;});
     .xs-block({
       padding: 25px 0;});
+    .wrapper-coach {
+      .row-flex();
+      .xl-block({
+        justify-content: space-around;});
+      .coach {
+        .col();
+        .size(3);
+        .size-xl(5);
+        .size-md(6);
+        .size-ss(12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 60px;
+        line-height: 1.5;
+        .img {
+          margin-bottom: 30px;
+          display: inline-block;
+          width: 150px;
+          height: 150px;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 50%;
+          background-color: #ccc;
+          .md-block({
+            margin-bottom: 20px;});
+          .ss-block({
+            margin-bottom: 12px;});
+        }
+        .name {
+          font-weight: bold;
+          margin-bottom: 20px;
+          .md-block({
+            margin-bottom: 15px;});
+        }
+        .desc {
+          margin-bottom: auto;
+          line-height: 1.5;
+          text-align: center;
+        }
+        .social {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 15px;
+          margin-bottom: 20px;
+          border-radius: 50%;
+          background: @colorMain;
+          .md-block({
+            margin-bottom: 15px;});
+          .fa-icon {
+            width: 15px;
+            height: 15px;
+            color: #fff;
+          }
+        }
+      }
+    }
   }
 </style>

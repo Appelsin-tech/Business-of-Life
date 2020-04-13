@@ -66,9 +66,6 @@ export default {
         case 'forgot':
           rout = true
           break
-        case 'marathon':
-          rout = true
-          break
       }
       return rout
     },
