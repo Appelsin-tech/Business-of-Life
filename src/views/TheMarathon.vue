@@ -99,6 +99,21 @@
         </a>
       </div>
     </section>
+    <section class="s-coach">
+      <div class="container">
+        <h2 class="g-caption-inner g-caption-inner--mb-80">Наши тренеры</h2>
+        <div class="wrapper-coach">
+          <div class="coach">
+            <img src="" alt="">
+            <p class="name">Арнольд Толстых</p>
+            <p class="post">Ведущий программист</p>
+            <p class="desc">Просто наш гений. Технологически поднял не один сттартап. Даст фору даже Алану Маску!</p>
+            <a href="mailto:" target="_blank" class="email">manager.site.ru</a>
+            <a href="tel:" class="phone">+7 (495) 123-45-67</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
 </template>
@@ -465,7 +480,7 @@ export default {
   }
   .s-registration {
     padding: 100px 0;
-    margin: 60px 0 250px;
+    margin: 60px 0;
     background: #18191A;
     .lg-block({
       padding: 80px 0;
@@ -490,5 +505,13 @@ export default {
           margin-bottom: 20px;});
       }
     }
+  }
+  .s-coach {
+    padding: 60px 0;
+    margin-bottom: 250px;
+    .lg-block({
+      padding: 40px 0;});
+    .xs-block({
+      padding: 25px 0;});
   }
 </style>

@@ -63,8 +63,8 @@ export default {
     }
   },
   mounted() {
-    if (this.isMyCourse === null) {
-      this.loading = true
+    if (this.listMyCourses === null) {
+      console.log('send')
       this.$store.dispatch('courses/getMyCourses').then(() => {
         this.loading = false
       })
