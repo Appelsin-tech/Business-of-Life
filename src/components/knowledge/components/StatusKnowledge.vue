@@ -39,7 +39,7 @@ export default {
       return this.$store.getters['user/accessKnowledge']
     },
     activeDate() {
-      return this.$moment().to(this.currentStatus.exp, true)
+      return this.$moment().to(this.currentStatus.exp * 1000, true)
     },
   },
 }

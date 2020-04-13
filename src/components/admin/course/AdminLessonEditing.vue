@@ -189,6 +189,7 @@ export default {
           description: this.form.description,
           id: this.id
         }).then(response => {
+          this.$store.dispatch('courses/getMyCourses')
           API.response.success('Урок отредактирован')
         }).catch(e => {
           if (e.response.reason) {
@@ -201,6 +202,7 @@ export default {
           description: this.form.description,
           course_id: this.course
         }).then(response => {
+          this.$store.dispatch('courses/getMyCourses')
           API.response.success('Урок создан')
           this.$router.push({ path: `/admin/lesson/${this.course}/${response.id}` })
         }).catch(e => {

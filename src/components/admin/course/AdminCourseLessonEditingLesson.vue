@@ -36,6 +36,7 @@ export default {
   methods: {
     deleteLesson() {
       API.courses.lesson.delete({id: this.lesson.id}).then(response => {
+        this.$store.dispatch('courses/getMyCourses')
         API.response.success('Урок удален')
         this.$emit('delete-lesson')
       })

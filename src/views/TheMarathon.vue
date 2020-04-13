@@ -54,9 +54,11 @@
           <div class="col-img">
             <img src="@/assets/img/marathon-corona.png" alt="">
           </div>
-          <div class="col-content">
+          <div class="col-sum">
             <p class="sum-bold">2 000 000 CSNP</p>
             <p class="desc-sum g-caption-section">Эквивалент 2 миллионов токенов ~ 200'000$</p>
+          </div>
+          <div class="col-content">
             <div class="desc-wrapper">
               <div class="item">
                 <p class="item-title">Победитель получит</p>
@@ -195,6 +197,12 @@ export default {
           instagram: 'https://instagram.com/aiganym_yegzek?igshid=yte8g30vixbi'
         },
         {
+          img: 'coach-13.jpg',
+          name: 'Михаил Дудник',
+          desc: 'Президент Ассоциации спикеров Казахстана <br> Эксперт в системном развитии харизмы для бизнеса',
+          instagram: 'https://instagram.com/real_dudnik?igshid=uzoc7c3n3drk'
+        },
+        {
           img: 'coach-8.jpg',
           name: 'Азимов Аят',
           desc: 'Основатель франшизы Global Coffee <br> Кофейный магнат.',
@@ -219,18 +227,6 @@ export default {
           instagram: 'https://instagram.com/bearox.kz?igshid=1tr97wlwcvuj1'
         },
         {
-          img: 'coach-12.jpg',
-          name: 'Ерлан Думанулы',
-          desc: 'Основатель платформы для стартапов и инвесторов Crowdsale Network',
-          instagram: 'https://instagram.com/yerlan_dumanuly?igshid=1vpcabcof89se'
-        },
-        {
-          img: 'coach-13.jpg',
-          name: 'Михаил Дудник',
-          desc: 'Президент Ассоциации спикеров Казахстана <br> Эксперт в системном развитии харизмы для бизнеса',
-          instagram: 'https://instagram.com/real_dudnik?igshid=uzoc7c3n3drk'
-        },
-        {
           img: 'coach-14.jpg',
           name: 'Ернар Ескендир ',
           desc: 'Архитектор, дизайнер, фотограф',
@@ -241,10 +237,16 @@ export default {
           name: 'Сулушаш  Ардаккызы ',
           desc: 'StoryMaker, SMM-менеджер',
           instagram: 'https://instagram.com/sulushash_ardakkyzy?igshid=1peltln40roqg'
+        },
+        {
+          img: 'coach-12.jpg',
+          name: 'Ерлан Думанулы',
+          desc: 'Основатель платформы для стартапов и инвесторов Crowdsale Network',
+          instagram: 'https://instagram.com/yerlan_dumanuly?igshid=1vpcabcof89se'
         }
       ]
     }
-  },
+  }
 }
 </script>
 
@@ -287,10 +289,12 @@ export default {
         transform: translateY(0);
       }
       .md-block({
-        flex-direction: column-reverse;});
+        flex-direction: column; align-items: center;
+        padding-top: 50px;});
+      .sm-block({
+        padding-top: 20px;});
       .col-img {
         max-width: 30%;
-        .md-block({align-self: center;});
         .sm-block({max-width: 38%;});
         .ss-block({max-width: 180px;});
       }
@@ -304,7 +308,8 @@ export default {
         max-width: 60%;
         .lg-block({max-width: 60%;});
         .md-block({max-width: 90%;
-          margin-bottom: 50px;});
+          margin-top: 50px; align-items: center;
+          text-align: center;});
         .g-caption {
           margin-bottom: 40px;
           color: #fff;
@@ -426,21 +431,21 @@ export default {
     .xs-block({
       padding: 25px 0;});
     .col-wrapper {
-      display: flex;
-      justify-content: space-between;
-      .md-block({ flex-direction: column;
-        margin-top: 0;});
+      display: grid;
+      grid-template-columns: minmax(50px, 30%) 1fr;
+      grid-column-gap: 100px;
+      .md-block({grid-gap: 50px;});
+      .ss-block({grid-gap: 30px;});
+      .ss-block({grid-gap: 30px;});
       .col-img {
-        max-width: 30%;
-        margin-right: 100px;
+        grid-row: ~"1 / 3";
         .md-block({
-          margin-right: 0;
-          margin-bottom: 40px;});
-        .xs-block({
-          margin-right: 0;
-          margin-bottom: 25px;});
+          grid-row: ~"1 / 2";});
       }
-      .col-content {
+      .col-sum {
+        display: flex;
+        flex-direction: column;
+        .md-block({ justify-content: center;});
         .sum-bold {
           display: block;
           font-size: 7rem;
@@ -455,7 +460,7 @@ export default {
             font-size: 4rem;
             margin-bottom: 10px;
           });
-          .xs-block({
+          .ss-block({
             font-size: 2.6rem;
           });
         }
@@ -463,7 +468,15 @@ export default {
           margin-bottom: 50px;
           .lg-block({
             margin-bottom: 35px;});
+          .md-block({
+            margin-bottom: 0;});
+          .ss-block({
+            font-size: 2rem;});
         }
+      }
+      .col-content {
+        grid-column: ~"2 / 3";
+        .md-block({grid-column: ~"1 / 3";});
         .desc-wrapper {
           display: flex;
           margin-bottom: 50px;
@@ -567,7 +580,7 @@ export default {
           width: 40px;
           height: 40px;
           margin-bottom: 20px;
-          color: @colorMainSecondary;
+          color: #FFCC00;
           .xs-block({
             margin-bottom: 15px;
             width: 30px;
@@ -624,26 +637,19 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 13px;
             border-radius: 50%;
             border: 1px solid #FFCC00;
             background: #FFCC00;
             transition: 0.3s;
-      /*      &:hover {
-              background: @colorMain;
-              border-color: @colorMain;
-              .fa-icon {
-                color: #fff;
-              }
-            }*/
             .fa-icon {
-              width: 20px;
-              height: 20px;
+              width: 25px;
+              height: 25px;
               color: #000;
               transition: 0.3s;
               .sm-block({
-                width: 18px;
-                height: 18px;});
+                width: 20px;
+                height: 20px;});
             }
           }
         }

@@ -55,7 +55,14 @@ export default {
         .ss-block({
           flex-direction: column;
           align-items: flex-start;
-        })
+        });
+        .g-control-icon {
+          .g-icon-circle:last-child {
+            .svg-icon {
+              transform: rotate(180deg);
+            }
+          }
+        }
       }
       .info {
         margin-right: auto;

@@ -85,7 +85,6 @@ export default {
       if (this.myCourse !== null) {
         return this.myCourse.lessons.reverse()
       }
-      // return this.myCourse !== null ? this.myCourse.lessons.reverse() : null
     },
     showButtonDelete () {
       return !!this.id

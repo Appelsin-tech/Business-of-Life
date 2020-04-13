@@ -3,7 +3,7 @@
     <bread-crumbs/>
     <div class="container">
       <h1 class="g-caption-inner">Личный кабинет</h1>
-      <div class="course-tools">
+      <div class="course-tools" v-if="startCourse && startCourse.progress !== startCourse.lessons.length">
         <div class="col-desc">
           <p class="g-caption-element g-caption-element--static">Рады снова вас видеть, {{profile.login}}!</p>
           <p class="desc">Для того, чтобы начать строить бизнес вместе с нами - изучите данный курс. Он поможет вам разобраться со всеми инструментами платформы и пригласить своих первых партнеров</p>
@@ -16,7 +16,7 @@
               <p class="lesson">
                 <img class="svg-icon" svg-inline src="@/assets/img/icon/book.svg" alt="">
                 <span>уроков:</span>
-                {{startCourse.lessons}}
+                {{startCourse.lessons.length}}
               </p>
               <p class="description">
                 {{startCourse.snippet}}
