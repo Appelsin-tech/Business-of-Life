@@ -34,7 +34,7 @@
                 <p class="info">в партнерстве с платформой для инвесторов и стартапов <a href="https://crowdsale.network/" target="_blank">Crowdsale Network</a></p>
               </div>
               <div class="item">
-                <p class="title-info"><strong>Формат:</strong> Онлайн задания</p>
+                <p class="title-info"><strong>Формат:</strong> <span>Онлайн занятия и практические задания. Лучшие получат бонусные уроки и разборы с тренерами</span></p>
               </div>
               <div class="item">
                 <p class="title-info"><strong>Стомость участия:</strong> <span>Бесплатно</span></p>
@@ -56,7 +56,7 @@
           </div>
           <div class="col-sum">
             <p class="sum-bold">2 000 000 CSNP</p>
-            <p class="desc-sum g-caption-section">Эквивалент 2 миллионов токенов ~ 200'000$</p>
+            <p class="desc-sum g-caption-section">Эквивалент 2 миллионов токенов ~ 200'000$</p>
           </div>
           <div class="col-content">
             <div class="desc-wrapper">
@@ -142,22 +142,22 @@ export default {
         },
         {
           icon: ['fas', 'people-arrows'],
-          text: 'Создание и развитие личного бренда через социальные сети Instagram, YouTube, создавая качественный контент'
+          text: 'Создание и развитие личного бренда через социальные сети Instagram, создавая качественный контент'
         },
         {
-          icon: ['far', 'clock'],
-          text: 'Полезное и увлекательное времяпровождение'
+          icon: ['fas', 'running'],
+          text: 'Полезное и увлекательное времяпровождение. Совместные онлайн тренировки'
         },
         {
           icon: ['fas', 'user-friends'],
-          text: 'Новые знакомства с интересными людьми'
+          text: 'Международный онлайн нетворкинг'
         }
       ],
       listCoach: [
         {
           img: 'coach-1.jpg',
           name: 'Elen Yu',
-          desc: 'Инста•тьютор <br> Автор курса “Сторис не как у всех”',
+          desc: 'Инста•тьютор, дизайнер, маркетер <br> Автор курса “Сторис не как у всех”',
           instagram: 'https://instagram.com/elen__yu?igshid=vs8omdo1phil'
         },
         {
@@ -165,6 +165,18 @@ export default {
           name: 'Андрей Красик',
           desc: 'Профессиональный видеограф <br> г.Киев',
           instagram: 'https://instagram.com/andreykrasik'
+        },
+        {
+          img: 'coach-14.jpg',
+          name: 'Ернар Ескендир ',
+          desc: 'Архитектор, дизайнер, фотограф',
+          instagram: 'https://instagram.com/yernaryeskendir?igshid=n8mjig2x4kjc'
+        },
+        {
+          img: 'coach-15.jpg',
+          name: 'Сулушаш  Ардаккызы ',
+          desc: 'StoryMaker, SMM-менеджер',
+          instagram: 'https://instagram.com/sulushash_ardakkyzy?igshid=1peltln40roqg'
         },
         {
           img: 'coach-3.jpg',
@@ -189,6 +201,12 @@ export default {
           name: 'Ермек Жукин',
           desc: 'Бизнес тренер, консультант, владелец компании «EnergiCo», эксперт в области эффективных технологий продаж. Проводит семинары по продажам с 2003 года.',
           instagram: 'https://instagram.com/schoolsaleskz?igshid=e9s5s4s4y15z'
+        },
+        {
+          img: 'coach-16.jpg',
+          name: 'Айдар Тулекеев',
+          desc: 'Эксперт построения систем продаж и отдела продаж',
+          instagram: 'https://instagram.com/aidartulekeev?igshid=1dn1asoy063se'
         },
         {
           img: 'coach-7.jpg',
@@ -225,18 +243,6 @@ export default {
           name: 'Арман Абжанов',
           desc: 'Опыт в трейдинге и инвестировании больше 5 лет. С 2015 года торговал на фондовом рынке. С 2018 по настоящее время торгует на криптовалютном рынке. Является трейдером в команде Bearox.kz',
           instagram: 'https://instagram.com/bearox.kz?igshid=1tr97wlwcvuj1'
-        },
-        {
-          img: 'coach-14.jpg',
-          name: 'Ернар Ескендир ',
-          desc: 'Архитектор, дизайнер, фотограф',
-          instagram: 'https://instagram.com/yernaryeskendir?igshid=n8mjig2x4kjc'
-        },
-        {
-          img: 'coach-15.jpg',
-          name: 'Сулушаш  Ардаккызы ',
-          desc: 'StoryMaker, SMM-менеджер',
-          instagram: 'https://instagram.com/sulushash_ardakkyzy?igshid=1peltln40roqg'
         },
         {
           img: 'coach-12.jpg',
@@ -377,6 +383,7 @@ export default {
             }
             &:nth-child(2) {
               .title-info {
+                display: flex;
                 margin-bottom: 0;
                 strong {
                   margin-right: 1em;
@@ -470,6 +477,8 @@ export default {
             margin-bottom: 35px;});
           .md-block({
             margin-bottom: 0;});
+          .sm-block({
+            font-size: 2.2rem;});
           .ss-block({
             font-size: 2rem;});
         }
