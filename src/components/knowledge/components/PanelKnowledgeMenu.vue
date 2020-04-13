@@ -1,8 +1,8 @@
 <template>
-  <a href="" :class="{'paid-course': !item.free}" class="menu-item" @click.prevent="routerPush">
+  <a href="" :class="{'closed-course': closeCourse}" class="menu-item" @click.prevent="routerPush">
     <div class="img-wrapper">
       <div class="img" :style="{backgroundImage: `url(${item.img})`}">
-        <font-awesome-icon :icon="['fas', 'lock']" class="fa-icon" v-if="!item.free"/>
+        <font-awesome-icon :icon="['fas', 'lock']" class="fa-icon" v-if="closeCourse"/>
       </div>
       <h3 class="g-caption-element">{{item.title}}</h3>
     </div>
@@ -32,7 +32,19 @@ export default {
   computed: {
     ...mapGetters('user', [
       'accessKnowledge'
-    ])
+    ]),
+    closeCourse () {
+      // закрыт курс для этого пользователя или нет
+      if (!this.item.free) {
+        if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
+    }
   },
   methods: {
     routerPush () {
@@ -66,7 +78,7 @@ export default {
         text-decoration: none;
       }
     }
-    &.paid-course {
+    &.closed-course {
       .img-wrapper {
         .img {
           background: none !important;

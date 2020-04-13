@@ -52,7 +52,7 @@
         <h2 class="g-caption-inner g-caption-inner--mb-80">Призовой фонд</h2>
         <div class="col-wrapper">
           <div class="col-img">
-            <img src="@/assets/img/prize.png" alt="">
+            <img src="@/assets/img/marathon-corona.png" alt="">
           </div>
           <div class="col-content">
             <p class="sum-red">2 000 000 CSNP</p>
@@ -90,15 +90,6 @@
         </ul>
       </div>
     </section>
-    <section class="s-registration">
-      <div class="container">
-        <h2 class="g-caption-inner">Присоединяйтесь к нам</h2>
-        <span class="desc">Марафон уже стартовал!</span>
-        <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
-          <span>Стать участником</span>
-        </a>
-      </div>
-    </section>
     <section class="s-coach">
       <div class="container">
         <h2 class="g-caption-inner g-caption-inner--mb-80">Наши тренеры</h2>
@@ -112,6 +103,15 @@
             <p class="desc" v-html="coach.desc"></p>
           </div>
         </div>
+      </div>
+    </section>
+    <section class="s-registration">
+      <div class="container">
+        <h2 class="g-caption-inner">Присоединяйтесь к нам</h2>
+        <span class="desc">Марафон уже стартовал!</span>
+        <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
+          <span>Стать участником</span>
+        </a>
       </div>
     </section>
   </div>
@@ -562,37 +562,8 @@ export default {
       }
     }
   }
-  .s-registration {
-    padding: 100px 0;
-    margin: 60px 0;
-    background: #18191A;
-    .lg-block({
-      padding: 80px 0;
-      margin: 40px 0;});
-    .xs-block({
-      padding: 50px 0;
-      margin: 25px 0;});
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .g-caption-inner {
-        color: #fff;
-      }
-      .desc {
-        color: #fff;
-        margin-bottom: 50px;
-        .lg-block({
-          margin-bottom: 30px;});
-        .sm-block({
-          margin-bottom: 20px;});
-      }
-    }
-  }
   .s-coach {
     padding: 60px 0;
-    margin-bottom: 190px;
     .lg-block({
       padding: 40px 0;});
     .xs-block({
@@ -644,15 +615,57 @@ export default {
           padding: 15px;
           margin-bottom: 20px;
           border-radius: 50%;
-          background: @colorMain;
+          border: 1px solid #000;
+          transition: 0.3s;
           .md-block({
             margin-bottom: 15px;});
+          .sm-block({
+            padding: 12px;});
+          &:hover {
+            background: @colorMain;
+            border-color: @colorMain;
+            .fa-icon {
+              color: #fff;
+            }
+          }
           .fa-icon {
-            width: 15px;
-            height: 15px;
-            color: #fff;
+            width: 20px;
+            height: 20px;
+            color: #000;
+            transition: 0.3s;
+            .sm-block({
+              width: 18px;
+              height: 18px;});
           }
         }
+      }
+    }
+  }
+  .s-registration {
+    padding: 100px 0;
+    margin: 60px 0 250px;
+    background: #18191A;
+    .lg-block({
+      padding: 80px 0;
+      margin: 40px 0 250px;});
+    .xs-block({
+      padding: 50px 0;
+      margin: 25px 0 250px;});
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .g-caption-inner {
+        color: #fff;
+      }
+      .desc {
+        color: #fff;
+        margin-bottom: 50px;
+        .lg-block({
+          margin-bottom: 30px;});
+        .sm-block({
+          margin-bottom: 20px;});
       }
     }
   }

@@ -57,7 +57,7 @@ export default {
       API.courses.courses.create({title: 'Новый курс', snippet: 'Краткое описание', description: 'Полное и подробное описание содержания курса'}).then(response => {
         API.response.success('Курс создан')
         this.$router.push({ path: `/admin/course-editing/${response.id}` })
-        this.$store.dispatch('news/getMyNews')
+        this.$store.dispatch('courses/getMyCourses')
         this.loading = false
       })
     }
