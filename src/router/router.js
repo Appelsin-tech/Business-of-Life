@@ -147,7 +147,7 @@ const router = new Router({
           component: () => import('@/views/ThePaymentPolicy')
         },
         {
-          path: '/KoronaNaMillion',
+          path: '/coronanamillion',
           name: 'marathon',
           component: () => import('@/views/TheMarathon')
         },

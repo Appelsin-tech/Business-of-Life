@@ -28,7 +28,7 @@ export default {
           status: 0
         },
         {
-          to: '/KoronaNaMillion',
+          to: '/coronanamillion',
           title: 'Марафон "Корона на миллион"',
           icon: ['fas', 'trophy'],
           status: 0

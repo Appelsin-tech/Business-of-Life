@@ -93,7 +93,7 @@ export default {
           title: 'Новости'
         },
         {
-          to: '/KoronaNaMillion',
+          to: '/coronanamillion',
           title: 'Корона на миллион'
         }
       ]
