@@ -24,7 +24,7 @@
         <h2 class="g-caption-inner g-caption-inner--mb-80">О марафоне</h2>
         <div class="col-wrapper">
           <div class="col-iframe">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/avbezSkXTf0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/jZFimUTU6tI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <div class="col-text">
             <div class="content">
