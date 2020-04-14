@@ -6,6 +6,7 @@ import wallet from './modules/wallet'
 import event from './modules/event'
 import courses from './modules/courses'
 import news from './modules/news'
+import settings from './modules/settings'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     wallet,
     event,
     courses,
-    news
+    news,
+    settings
   },
   strict: debug,
   plugins: []

@@ -187,7 +187,7 @@ export default {
         {
           img: 'coach-4.jpg',
           name: 'Светлана Казакова',
-          desc: 'Инструктор тренажерного зала и групповых программ <br> Нутрициолог',
+          desc: 'Сертифицированный инструктор тренажерного зала и групповых программ <br> Нутрициолог',
           instagram: 'https://instagram.com/kazakova_fitness_aktau'
         },
         {
@@ -201,12 +201,6 @@ export default {
           name: 'Ермек Жукин',
           desc: 'Бизнес тренер, консультант, владелец компании «EnergiCo», эксперт в области эффективных технологий продаж. Проводит семинары по продажам с 2003 года.',
           instagram: 'https://instagram.com/schoolsaleskz?igshid=e9s5s4s4y15z'
-        },
-        {
-          img: 'coach-16.jpg',
-          name: 'Айдар Тулекеев',
-          desc: 'Эксперт построения систем продаж и отдела продаж',
-          instagram: 'https://instagram.com/aidartulekeev?igshid=1dn1asoy063se'
         },
         {
           img: 'coach-7.jpg',
