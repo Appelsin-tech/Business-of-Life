@@ -35,6 +35,7 @@ import { minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
 import AuthRegForm from '../components/AuthRegForm'
 
+
 export default {
   name: 'TheAuth',
   components: {AuthRegForm},

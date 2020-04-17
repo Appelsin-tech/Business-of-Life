@@ -10,13 +10,13 @@ html {
   });
 }
 body {
-  font-family: @fontMontserrat;
+  font-family: @fontHelvetica;
   min-height: 100vh;
   font-weight: normal;
   font-style: normal;
   font-size: 1.6rem;
   color: var(--app_font__color);
-  background: #fff;
+  background: #F7F7F7;
   &.menu-open {
     -webkit-overflow-scrolling: touch;
     position: fixed;
@@ -1697,6 +1697,9 @@ input {
 }
 .g-panel {
   .default-panel-style();
+  &--img {
+    .default-panel-style(40px);
+  }
 }
 
 .back-btn {

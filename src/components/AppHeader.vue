@@ -6,10 +6,6 @@
           <img svg-inline class="logo" src="../assets/img/logo.svg" alt="Business of Life">
         </router-link>
         <div class="icon-wrapper icon-wrapper--desktop" >
-          <router-link class="icon-red icon-red--desktop" to="/calendar" @click.native="showMenu = false">
-            <icon-calendar-month class="g-icon"/>
-            <span class="text">Календарь</span>
-          </router-link>
           <div href="#" class="icon-red icon-red--desktop user user-desktop"  v-if="logged">
             <icon-account class="g-icon"/>
             <div class="link">

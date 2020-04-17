@@ -25,9 +25,9 @@
           <template v-if="!$v.form_reg.sponsor.minLength">Значение должно быть не менее 3-х символов</template>
         </div>
       </div>
-      <button class="g-btn" :disabled="$v.$invalid || btnLoading">
-        <span class="text">Регистрация <icon-arrow-right class="g-icon"/></span>
-      </button>
+      <button-app :disabled="$v.$invalid || btnLoading">
+        Регистрация
+      </button-app>
     </div>
     <div class="item-wrapper" v-else-if="pageName === 'auth'">
       <div class="g-item-form" >
@@ -46,11 +46,9 @@
           <template v-if="!$v.form_auth.password.minLength">Значение должно быть не менее 6 символов</template>
         </div>
       </div>
-      <button class="g-btn" :disabled="$v.$invalid || btnLoading">
-        <span class="text">Войти
-          <icon-arrow-right class="g-icon"/>
-        </span>
-      </button>
+      <button-app :disabled="$v.$invalid || btnLoading">
+        Войти
+      </button-app>
     </div>
     <div class="item-wrapper" v-else-if="pageName === 'forgot'">
       <div class="g-item-form">
@@ -61,9 +59,12 @@
           <template v-if="!$v.form_forgot.email.email">Некорректный Email</template>
         </div>
       </div>
-      <button class="g-btn" :disabled="$v.$invalid || btnLoading">
-        <span class="text">Отправить <icon-arrow-right class="g-icon"/></span>
-      </button>
+      <button-app :disabled="$v.$invalid || btnLoading">
+        Отправить
+      </button-app>
+<!--      <button class="g-btn" :disabled="$v.$invalid || btnLoading">-->
+<!--        <span class="text">Отправить <icon-arrow-right class="g-icon"/></span>-->
+<!--      </button>-->
     </div>
 
   </form>
@@ -73,9 +74,13 @@
 import { email, minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
 import {mapState} from 'vuex'
+import ButtonApp from '@/components/ui/ButtonApp'
 
 export default {
   name: 'AuthRegForm',
+  components: {
+    ButtonApp
+  },
   data() {
     return {
       btnLoading: false,
@@ -207,7 +212,7 @@ export default {
         grid-template-columns: 1fr 1fr 280px;
         .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
       }
-      .g-btn {
+      .btn-app {
         .lg-block({
           margin-top: 35px;
         });
@@ -219,7 +224,7 @@ export default {
         grid-template-columns: 1fr 1fr;
         .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
       }
-      .g-btn {
+      .btn-app {
         margin-top: 0;
         grid-row: ~"3 / 4";
         justify-self: flex-start;
@@ -231,7 +236,7 @@ export default {
         grid-template-columns: 1fr 280px;
         .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
       }
-      .g-btn {
+      .btn-app {
         .lg-block({
           margin-top: 35px;
         });
@@ -277,7 +282,7 @@ export default {
         }
       }
     }
-    .g-btn {
+    .btn-app {
       height: 68px;
       padding-top: 0;
       padding-bottom: 0;
@@ -291,8 +296,11 @@ export default {
       });
       .md-block({
         max-width: 250px;
-        height: 60px;
+        height: 50px;
         align-self: center;
+      });
+      .sm-block({
+        height: 40px;
       });
     }
   }

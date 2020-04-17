@@ -1,0 +1,28 @@
+
+--место_элемент__что
+--боковая-панель_заголовок__цвет-выделения
+
+БОКОВОЕ МЕНЮ:
+цвет иконок: --sidebar-admin_icon__color
+цвет иконки выделения: --sidebar-admin_icon__color-focus
+цвет названия меню: --sidebar-admin_title__color
+цвет названия меню выделение: --sidebar-admin_title__color-focus
+цвета разделителя разделов: --sidebar-admin_border__color
+цвет фона выделения: --sidebar-admin_color__focus
+
+КОНТЕНТ
+цвет акцента: --app_emphasis__color
+цвет заголовка страницы: --app_title__color
+цвет заголовка раздела страницы: --app_title-inner__color
+цвет заголовка плашек: --app_title-panel__color
+цвет заголовка полей: --app_label__color
+цвет обычного текста: --app_font__color
+второстепенный цвет обычного текста: --app_font-secondary__color
+цвет главных кнопок: --app_btn__color
+цвет текста главных кнопок: --app_btn-font__color
+цвет функциональных кнопок: --app_btn-functional__color (Функциональные - это на плашках и создать новую плашку)
+цвет текста и иконок функциональных кнопок: --app_btn-functional-font-and-icon__color
+цвет иконок: --app_icon__color
+
+цвет фона для картинок (заглушка): --app_image-bg__color
+--------

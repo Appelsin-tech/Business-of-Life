@@ -30,7 +30,7 @@ export default {
     top: 0;
     bottom: 0;
     max-width: 320px;
-    background: @colorMainSecondary;
+    background: #fff;
     grid-area: aside;
     color: #fff;
     overflow-y: auto;
@@ -59,9 +59,9 @@ export default {
         @media (max-width: 1570px) {
           padding: 12px;
         }
+        &:focus,
         &:hover {
-          background: var(--sidebar-admin_link__color-focus);
-          opacity: 0.8;
+          background: #e2e2e2;
         }
         &.active {
           background: var(--sidebar-admin_link__color-focus);

@@ -1,5 +1,5 @@
 <template>
-  <article class="news" :class="page">
+  <article class="news g-panel g-panel--img" :class="page">
     <div class="g-icon-circle" v-if="control" :class="status[news.status].class" v-tooltip.left="`${status[news.status].tooltip}`">
       <template v-if="status[news.status].class === 'created'">
         <icon-close class="g-icon"/>
@@ -100,7 +100,6 @@ export default {
     &:last-child {
       margin-bottom: 0;
     }
-    .default-panel-style(40px);
     .sm-block({
       margin-bottom: 10px;
     });

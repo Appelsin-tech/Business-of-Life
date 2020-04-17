@@ -7,12 +7,9 @@
             <h1 class="visually-hidden">Business of Life</h1>
             <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
             <strong class="desc-strong g-caption">Международная академия для интернет предпринимателей</strong>
-            <router-link to="/description" class="g-btn">
-              <span class="text">
-                Стать участником
-                <icon-arrow-right class="g-icon"/>
-              </span>
-            </router-link>
+            <button-app :to="'/description'">
+              Стать участником
+            </button-app>
           </div>
         </div>
       </div>
@@ -45,12 +42,9 @@
                 <span class="post">Президент академии</span>
                 <strong class="g-caption-section">Гульнара Садуова</strong>
               </p>
-              <router-link to="/calendar" class="g-btn">
-                <span class="text">
-                  Наши мероприятия
-                <icon-arrow-right class="g-icon"/>
-                </span>
-              </router-link>
+              <button-app :to="'/calendar'">
+                Наши мероприятия
+              </button-app>
             </div>
           </div>
         </div>
@@ -60,9 +54,9 @@
       <div class="container">
         <h2 class="g-caption-inner">Присоединяйтесь к нам!</h2>
         <span class="desc">Зарегистрируйся прямо сейчас!</span>
-        <router-link to="/auth" class="g-btn">
-          <span class="text">Регистрация <icon-arrow-right class="g-icon"/></span>
-        </router-link>
+        <button-app :to="'/auth'">
+          Регистрация
+        </button-app>
       </div>
     </section>
     <section class="s-news" v-if="news && news.length !== 0">
@@ -73,9 +67,9 @@
             <news-item v-for="item in maxItemNews" :news="item" :key="item.id" page="page-hero"/>
           </div>
         </div>
-        <router-link to="/news" class="g-btn">
-          <span class="text">Показать больше <icon-arrow-right class="g-icon"/></span>
-        </router-link>
+        <button-app :to="'/news'">
+          Показать больше
+        </button-app>
       </div>
     </section>
   </div>
@@ -84,10 +78,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import NewsItem from '@/components/NewsItem'
+import ButtonApp from '@/components/ui/ButtonApp'
+
 export default {
   name: 'TheHero',
   components: {
-    NewsItem
+    NewsItem,
+    ButtonApp
   },
   computed: {
     ...mapGetters('user', [
@@ -218,7 +215,7 @@ export default {
               margin-bottom: 0;
             }
           }
-          .g-btn {
+          .btn-app {
             margin-top: 30px;
             .xs-block({ margin-top: 20px; });
           }
