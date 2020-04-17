@@ -12,7 +12,7 @@
         </div>
         <div class="success">
           <div class="success__icon">
-            <img class="svg" svg-inline src="../../assets/img/icon/check.svg" alt="">
+            <icon-check class="g-icon"/>
           </div>
           <div class="success__text-wrapper">
             <h2 class="g-caption-inner g-caption-inner--ticket">Спасибо!</h2>

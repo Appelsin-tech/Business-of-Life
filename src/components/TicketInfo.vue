@@ -24,16 +24,16 @@
     <!--<div class="btn-wrapper">-->
       <!--<a href="#" class="g-btn g-btn&#45;&#45;icon-left" download="#">-->
             <!--<span>-->
-              <!--<img svg-inline class="svg-icon svg-icon&#45;&#45;download" src="../assets/img/icon/download.svg" alt="">-->
+<!--    <icon-download class="g-icon"/>-->
               <!--Скачать билет-->
             <!--</span>-->
       <!--</a>-->
       <!--<a href="#" class="btn">-->
-        <!--<img svg-inline class="btn__icon" src="../assets/img/icon/telegram.svg" alt="">-->
+<!--    <icon-telegram class="g-icon btn__icon"/>-->
         <!--<span class="btn__text">Отправить билет на почту</span>-->
       <!--</a>-->
       <!--<a href="#" class="btn">-->
-        <!--<img svg-inline class="btn__icon" src="../assets/img/icon/printer.svg" alt="">-->
+<!--    <icon-printer class="g-icon btn__icon"/>-->
         <!--<span class="btn__text">Распечатать билет</span>-->
       <!--</a>-->
     <!--</div>-->
@@ -141,9 +141,7 @@ export default {
           width: 25px;
           height: 25px;
           margin-right: 10px;
-          path {
-            fill: @colorMain;
-          }
+          color: @colorMain;
         }
         &__text {
           font-weight: 800;

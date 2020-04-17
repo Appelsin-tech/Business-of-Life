@@ -6,11 +6,11 @@
       </h3>
       <div class="date-event">
         <div class="time">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
+          <icon-clock-outline class="g-icon"/>
           <span>{{event.date}}</span>
         </div>
         <div class="location ">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">
+          <icon-map-marker class="g-icon"/>
           <div class="location__text">
             <span>{{event.country}}, {{event.city}}</span>
             <span>{{event.address}}</span>
@@ -66,10 +66,8 @@ export default {
         color: #fff;
         .time,
         .location {
-          .svg-icon {
-            path {
-              fill: #fff;
-            }
+          .g-icon {
+            color: #fff;
           }
         }
       }
@@ -115,20 +113,18 @@ export default {
         margin-bottom: 20px;
         font-size: 1.4rem;
         word-break: normal;
-        .svg-icon {
+        .g-icon {
           margin-right: 10px;
           margin-top: -3px;
           width: 20px;
           height: 20px;
           flex-shrink: 0;
+          color: var(--app_icon__color);
           .sm-block({
             width: 15px;
             height: 15px;
             margin-top: 0;
           });
-          path {
-            fill: @colorMain;
-          }
         }
       }
       .location__text {

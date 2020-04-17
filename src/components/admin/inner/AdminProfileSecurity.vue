@@ -29,7 +29,7 @@
       </div>
     </div>
     <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-      <span>Сохранить</span>
+      <span class="text">Сохранить</span>
     </button>
   </form>
 </template>

@@ -2,10 +2,10 @@
   <div class="lesson">
     <div class="g-icon-circle" :class="status[statusProgressLesson].class" v-tooltip.left="`${status[statusProgressLesson].tooltip}`">
       <template v-if="status[statusProgressLesson].class === 'created'">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+        <icon-close class="g-icon"/>
       </template>
       <template v-else>
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
+        <icon-check class="g-icon"/>
       </template>
     </div>
     <div class="lesson__info-wrapper">
@@ -14,11 +14,11 @@
         <div class="editor" v-html="lesson.description"></div>
       </div>
       <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon g-btn--white" v-if="statusProgressLesson === 0">
-        <span>Повторить</span>
+        <span class="text">Повторить</span>
       </router-link>
       <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon" v-if="showBtnProgress">
-        <span v-if="showBtnProgress === 1">Начать изучение</span>
-        <span v-else>Продолжить изучение</span>
+        <span class="text" v-if="showBtnProgress === 1">Начать изучение</span>
+        <span class="text" v-else>Продолжить изучение</span>
       </router-link>
     </div>
   </div>
@@ -80,10 +80,8 @@ export default {
     });
     .g-icon-circle.created {
       border-color: #d6d6d6;
-      .svg-icon {
-        path {
-          fill: #d6d6d6;
-        }
+      .g-icon {
+        color: #d6d6d6;
       }
     }
     .g-caption-element {

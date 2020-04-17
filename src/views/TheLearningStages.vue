@@ -20,7 +20,7 @@
                 <p class="desc-steps">Скрытый текст</p>
               </div>
               <a class="circle-btn" href="#">
-                <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
+                <icon-arrow-right class="g-icon"/>
               </a>
             </div>
           </swiper-slide>
@@ -32,7 +32,7 @@
                 <p class="desc-steps">Скрытый текст</p>
               </div>
               <a class="circle-btn" href="#">
-                <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
+                <icon-arrow-right class="g-icon"/>
               </a>
             </div>
           </swiper-slide>
@@ -45,7 +45,7 @@
                   50-70 человек</p>
               </div>
               <a class="circle-btn" href="#">
-                <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
+                <icon-arrow-right class="g-icon"/>
               </a>
             </div>
           </swiper-slide>
@@ -232,14 +232,12 @@ export default {
           z-index: 5;
           .lg-block({ width: 50px; height: 50px;});
           .sm-block({ display: none; });
-          svg {
+          .g-icon {
             width: 20px;
             height: 15px;
             transition: 0.3s;
+            color: @colorMain;
             .lg-block({ width: 20px; height: 20px; });
-            path {
-              stroke: @colorMain;
-            }
           }
         }
       }

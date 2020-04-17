@@ -2,10 +2,10 @@
   <article class="news" :class="page">
     <div class="g-icon-circle" v-if="control" :class="status[news.status].class" v-tooltip.left="`${status[news.status].tooltip}`">
       <template v-if="status[news.status].class === 'created'">
-        <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
+        <icon-close class="g-icon"/>
       </template>
       <template v-else-if="status[news.status].class === 'public'">
-        <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
+        <icon-check class="g-icon"/>
       </template>
       <template v-else-if="status[news.status].class === 'waiting'">
         <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
@@ -18,7 +18,7 @@
       </router-link>
       <div class="info-wrapper">
         <div class="data">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
+          <icon-clock-outline class="g-icon"/>
           <span>{{(news.published * 1000) | moment("DD.MM.YYYY HH.mm")}}</span>
         </div>
         <p class="desc editor">{{news.snippet}}</p>
@@ -28,10 +28,10 @@
           </div>
           <div class="g-control-icon static" v-if="control">
             <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/news-editing/${news.id}`})">
-              <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
+              <icon-lead-pencil class="g-icon"/>
             </button>
             <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteNews(news.id)">
-              <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
+              <icon-delete class="g-icon"/>
             </button>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-color: @colorBgGray;
+      background-color: var(--app_image-bg__color);
       grid-row: ~"1 / 3";
       .lg-block({
         width: 280px;
@@ -157,7 +157,6 @@ export default {
       .title-link {
         display: block;
         margin-bottom: 30px;
-        color: #000;
         grid-column: ~"2 / 3";
         .lg-block({
           margin-bottom: 20px;
@@ -195,7 +194,7 @@ export default {
           .xs-block({
             margin-bottom: 10px;
           });
-          .svg-icon {
+          .g-icon {
             margin-right: 10px;
             width: 20px;
             height: 20px;
@@ -205,9 +204,6 @@ export default {
               height: 15px;
               margin-top: 0;
             });
-            path {
-              fill: @colorMain;
-            }
           }
         }
         .desc {

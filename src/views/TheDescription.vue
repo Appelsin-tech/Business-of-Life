@@ -16,9 +16,9 @@
             смелые цели, стремится сделать свою жизнь лучше, готов учиться, действовать, и превращать свои мечты в
             реальность!</p>
           <router-link to="/calendar" class="g-btn">
-            <span>
+            <span class="text">
               Наши мероприятия
-            <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+              <icon-arrow-right class="g-icon"/>
             </span>
           </router-link>
         </div>

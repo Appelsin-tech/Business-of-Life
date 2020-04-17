@@ -26,7 +26,7 @@
         </div>
       </div>
       <button class="g-btn" :disabled="$v.$invalid || btnLoading">
-        <span>Регистрация<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
+        <span class="text">Регистрация <icon-arrow-right class="g-icon"/></span>
       </button>
     </div>
     <div class="item-wrapper" v-else-if="pageName === 'auth'">
@@ -47,8 +47,8 @@
         </div>
       </div>
       <button class="g-btn" :disabled="$v.$invalid || btnLoading">
-        <span>Войти
-          <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+        <span class="text">Войти
+          <icon-arrow-right class="g-icon"/>
         </span>
       </button>
     </div>
@@ -62,7 +62,7 @@
         </div>
       </div>
       <button class="g-btn" :disabled="$v.$invalid || btnLoading">
-        <span>Отправить<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
+        <span class="text">Отправить <icon-arrow-right class="g-icon"/></span>
       </button>
     </div>
 

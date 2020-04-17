@@ -13,7 +13,7 @@
             <p class="desc-connect" >Прими участие БЕСПЛАТНО!</p>
             <p class="desc-connect" >Развивайся онлайн - прокачай свой личный бренд и получи возможности новых технологий и бизнеса в Интернет</p>
             <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
-              <span>Стать участником</span>
+              <span class="text">Стать участником</span>
             </a>
           </div>
         </div>
@@ -37,7 +37,7 @@
                 <p class="title-info"><strong>Формат:</strong> <span>Онлайн занятия и практические задания. Лучшие получат бонусные уроки и разборы с тренерами</span></p>
               </div>
               <div class="item">
-                <p class="title-info"><strong>Стомость участия:</strong> <span>Бесплатно</span></p>
+                <p class="title-info"><strong>Стоимость участия:</strong> <span>Бесплатно</span></p>
               </div>
               <div class="item">
                 <p class="title-info"><span>* дополнительно может потребоваться покупка недорогих сервисов для создания контента в инстаграм, инструментов рассылки и тд.</span></p>
@@ -86,7 +86,7 @@
         <p class="description">Когда большинство сейчас в страхе и условиях неопределенности, участники нашего марафона будут прокачиваться, получая максимум пользы:</p>
         <ul class="list-benefit">
           <li v-for="item in listBenefit" :key="item.text">
-            <font-awesome-icon :icon="item.icon" class="fa-icon"/>
+            <component :is="item.icon" class="g-icon"/>
             <p class="text">{{item.text}}</p>
           </li>
         </ul>
@@ -100,7 +100,7 @@
             <div class="img-wrapper">
               <img class="img" :src="require(`@/assets/img/marathon-coach/${coach.img}`)" alt="">
               <a :href="coach.instagram" class="social" target="_blank">
-                <font-awesome-icon :icon="['fab', 'instagram']" class="fa-icon"/>
+                <icon-instagram class="g-icon"/>
               </a>
             </div>
             <p class="name">{{coach.name}}</p>
@@ -114,7 +114,7 @@
         <h2 class="g-caption-inner">Присоединяйтесь к нам</h2>
         <span class="desc">Марафон уже стартовал!</span>
         <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
-          <span>Стать участником</span>
+          <span class="text">Стать участником</span>
         </a>
       </div>
     </section>
@@ -129,27 +129,27 @@ export default {
     return {
       listBenefit: [
         {
-          icon: ['fas', 'graduation-cap'],
+          icon: 'icon-school',
           text: 'Новые знания о возможностях бизнеса в Интернет'
         },
         {
-          icon: ['fas', 'signal'],
+          icon: 'icon-finance',
           text: 'Освоение онлайн инструментов продвижения товаров и услуг в Интернет'
         },
         {
-          icon: ['fas', 'dollar-sign'],
+          icon: 'icon-currency-usd',
           text: 'Готовый бизнес в Интернете не выходя из дома, который будет приносить как активный, так и пассивный доход, даже когда вы отойдете от дел'
         },
         {
-          icon: ['fas', 'people-arrows'],
+          icon: 'icon-account-switch',
           text: 'Создание и развитие личного бренда через социальные сети Instagram, создавая качественный контент'
         },
         {
-          icon: ['fas', 'running'],
+          icon: 'icon-run-fast',
           text: 'Полезное и увлекательное времяпровождение. Совместные онлайн тренировки'
         },
         {
-          icon: ['fas', 'user-friends'],
+          icon: 'icon-lan-connect',
           text: 'Международный онлайн нетворкинг'
         }
       ],
@@ -267,7 +267,7 @@ export default {
   .g-btn {
     background: #FFCC00;
     border-color: #FFCC00;
-    span {
+    .text {
       color: #000;
     }
   }
@@ -579,7 +579,7 @@ export default {
         margin-bottom: 30px;
         .sm-block({
           margin-bottom: 20px;});
-        .fa-icon {
+        .g-icon {
           width: 40px;
           height: 40px;
           margin-bottom: 20px;
@@ -645,7 +645,7 @@ export default {
             border: 1px solid #FFCC00;
             background: #FFCC00;
             transition: 0.3s;
-            .fa-icon {
+            .g-icon {
               width: 25px;
               height: 25px;
               color: #000;

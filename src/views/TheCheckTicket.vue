@@ -41,10 +41,10 @@
             </div>
             <div class="btn-wrapper">
               <a href="#" v-if="superV" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" >
-                <span>Закрыть билет</span>
+                <span class="text">Закрыть билет</span>
               </a>
               <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
-                <span>Продлить билет</span>
+                <span class="text">Продлить билет</span>
               </a>
             </div>
           </div>

@@ -5,7 +5,7 @@
         <div class="status-content" >
           <template v-if="status[idStatus].class === 'created'">
             <div class="g-icon-circle" :class="status[idStatus].class">
-              <img svg-inline class="svg-icon" src="../assets/img/icon/close.svg" alt="">
+              <icon-close class="g-icon"/>
             </div>
             <span class="text">{{status[idStatus].tooltip}}</span>
           </template>
@@ -23,18 +23,18 @@
           </template>
           <template v-else-if="status[idStatus].class === 'public'">
             <div class="g-icon-circle" :class="status[idStatus].class">
-              <img svg-inline class="svg-icon" src="../assets/img/icon/check.svg" alt="">
+              <icon-check class="g-icon"/>
             </div>
             <span class="text">{{status[idStatus].tooltip}}</span>
           </template>
         </div>
         <div class="btn-wrapper">
           <router-link :to="linkEdit" class="g-btn g-btn--no-icon" v-if="!hideBtnPastEvent">
-            <span>Редактировать</span>
+            <span class="text">Редактировать</span>
           </router-link>
           <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
-            <span v-if="btnText">Снять с публикации</span>
-            <span v-else>Опубликовать</span>
+            <span class="text" v-if="btnText">Снять с публикации</span>
+            <span class="text" v-else>Опубликовать</span>
           </button>
         </div>
       </div>
@@ -201,7 +201,7 @@ export default {
         align-items: center;
         .sm-block({ margin-bottom: 20px;});
         .text {
-          color: #000;
+          color: var(--app_title-panel__color);
           text-transform: uppercase;
           font-weight: 600;
         }

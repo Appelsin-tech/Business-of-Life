@@ -27,7 +27,7 @@
           </p>
           <div class="info__ticket ticket--brief">
             <a href="#" class="g-btn g-btn--no-icon" @click.prevent="scrollToSection('section-tickets')">
-              <span>Купить билет</span>
+              <span class="text">Купить билет</span>
             </a>
           </div>
           <div class="info__item attention" v-if="activeRelation.actions.length">
@@ -93,11 +93,11 @@
 <!--      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>-->
 <!--      <div class="slide-event__date">-->
 <!--      <p class="slide-event__time">-->
-<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">-->
+<!--        <icon-clock-outline class="g-icon"/>-->
 <!--      <span>14.00 - 16.00</span>-->
 <!--      </p>-->
 <!--      <p class="slide-event__location">-->
-<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">-->
+<!--        <icon-map-marker class="g-icon"/>-->
 <!--      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>-->
 <!--      </p>-->
 <!--      </div>-->
@@ -115,11 +115,11 @@
 <!--      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>-->
 <!--      <div class="slide-event__date">-->
 <!--      <p class="slide-event__time">-->
-<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">-->
+<!--      <icon-clock-outline class="g-icon"/>-->
 <!--      <span>14.00 - 16.00</span>-->
 <!--      </p>-->
 <!--      <p class="slide-event__location">-->
-<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">-->
+<!--      <icon-map-marker class="g-icon"/>-->
 <!--      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>-->
 <!--      </p>-->
 <!--      </div>-->
@@ -137,11 +137,11 @@
 <!--      <h3 class="slide-event__name">Бизнес-тренинг “Старт с нуля”</h3>-->
 <!--      <div class="slide-event__date">-->
 <!--      <p class="slide-event__time">-->
-<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">-->
+<!--      <icon-clock-outline class="g-icon"/>-->
 <!--      <span>14.00 - 16.00</span>-->
 <!--      </p>-->
 <!--      <p class="slide-event__location">-->
-<!--      <img class="svg-icon" svg-inline src="../assets/img/icon/location.svg" alt="">-->
+<!--      <icon-map-marker class="g-icon"/>-->
 <!--      <span>г. Москва, ул. Ленина, 32, оф. 391 (ТЦ “Европа”)</span>-->
 <!--      </p>-->
 <!--      </div>-->
@@ -348,7 +348,7 @@ export default {
         margin-bottom: 10px;
         font-size: 2.4rem;
         font-weight: 800;
-        color: @colorMainSecondary;
+        color: var(--app_emphasis__color);
         .xs-block({ font-size: 1.8rem; });
       }
       &__city {
@@ -472,6 +472,7 @@ export default {
             margin-right: 25px;
             font-size: 2rem;
             font-weight: 800;
+            color: var(--app_label__color);
           }
           &--speakers {
             &:last-of-type {
@@ -698,8 +699,8 @@ export default {
       margin-top: 50px;
       font-size: 2.4rem;
       font-weight: 800;
-      color: @colorMainSecondary;
-      border-bottom: 1px solid @colorMainSecondary;
+      color: var(--app_emphasis__color);
+      border-bottom: 1px solid var(--app_emphasis__color);
       transition: 0.3s;
       .sm-block({ font-size: 2rem; });
       &:hover {

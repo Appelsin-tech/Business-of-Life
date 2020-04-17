@@ -42,10 +42,10 @@
             </div>
           </div>
           <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-if="newMaterials">
-            <span>Добавить</span>
+            <span class="text">Добавить</span>
           </button>
           <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>
-            <span>Сохранить</span>
+            <span class="text">Сохранить</span>
           </button>
         </form>
       </div>

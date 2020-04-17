@@ -7,12 +7,12 @@
         <div class="message" :class="status[currentStatus.status].classIcon">
           <div class="status_icon">
             <img svg-inline class="icon first" src="../assets/img/icon/time-my.svg" alt="" v-if="currentStatus.status === 0 || currentStatus.status === 2">
-            <img svg-inline class="icon open" src="../assets/img/icon/check.svg" alt="" v-else-if="currentStatus.status === 1">
+            <icon-check class="g-icon icon open"  v-else-if="currentStatus.status === 1"/>
           </div>
           <p class="text">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
         </div>
         <router-link to="/knowledge" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
-          <span>Продлить доступ</span>
+          <span class="text">Продлить доступ</span>
         </router-link>
       </div>
       <p>В ближайшее время Ваша заявка будет обработана и вам на почту будет отправлено письмо с доступом</p>

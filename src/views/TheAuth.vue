@@ -142,8 +142,8 @@ export default {
         }
         .link {
           text-transform: uppercase;
-          color: @colorMain;
-          border-bottom: 1px solid @colorMain;
+          color: var(--app_emphasis__color);
+          border-bottom: 1px solid var(--app_emphasis__color);
           transition: 0.3s;
           &:hover {
             border-bottom-color: transparent;

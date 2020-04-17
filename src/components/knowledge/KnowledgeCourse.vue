@@ -14,8 +14,8 @@
               <div class="editor" v-html="course.snippet"></div>
             </div>
             <button href="#" class="g-btn g-btn--no-icon" @click="scrollToSection('section-lessons')">
-              <span v-if="statusProgress === 0">Начать изучение</span>
-              <span v-if="statusProgress > 0">Продолжить изучение</span>
+              <span class="text" v-if="statusProgress === 0">Начать изучение</span>
+              <span class="text" v-if="statusProgress > 0">Продолжить изучение</span>
             </button>
           </div>
         </section>

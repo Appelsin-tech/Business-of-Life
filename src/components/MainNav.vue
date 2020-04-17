@@ -1,14 +1,5 @@
 <template>
   <div id="nav-menu" class="navigation-wrapper" v-if="$route.meta.navDots">
-    <!--<div class="nav-wrapper">
-      <button class="arrow arrow&#45;&#45;prev" @click="prevPage" :class="{disabled: disabledPrev}">
-        <img class="arrow__svg" svg-inline src="../assets/img/icon/arrow-slider.svg" alt="">
-      </button>
-      <button class="arrow arrow&#45;&#45;next" @click="nextPage" :class="{disabled: disabledNext}">
-        <img class="arrow__svg" svg-inline src="../assets/img/icon/arrow-slider.svg" alt="">
-      </button>
-    </div>-->
-
     <ul id="mainMenu" class="main-nav-menu">
       <li v-for="(item, index) in routeArr" :key="index">
         <router-link :to="item.path" class="dots" exact active-class="active"  v-tooltip.right="item.tooltip"/>

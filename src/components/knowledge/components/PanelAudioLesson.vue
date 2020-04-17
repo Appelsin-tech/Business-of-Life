@@ -1,7 +1,7 @@
 <template>
   <div class="audio">
     <div class="desc">
-      <img svg-inline class="g-svg-icon" src="@/assets/img/icon/wave.svg" alt="">
+      <icon-volume-high class="g-icon"/>
       <strong class="g-item-form__label">Виды финансовых махинаций</strong>
     </div>
     <audio class="audio-src" controls src=""></audio>

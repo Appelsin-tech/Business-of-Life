@@ -2,13 +2,13 @@
   <div class="event">
     <div class="g-icon-circle" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
       <template v-if="status[relation.status].class === 'created'">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+        <icon-close class="g-icon"/>
       </template>
       <template v-else-if="status[relation.status].class === 'waiting' || status[relation.status].class === 'past'">
         <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
       </template>
       <template v-else>
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
+        <icon-check class="g-icon"/>
       </template>
     </div>
     <div class="event__info-wrapper">
@@ -16,28 +16,28 @@
         <div class="content">
           <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>
           <p class="event__info-item location">
-            <img svg-inline class="icon" src="@/assets/img/icon/location.svg" alt="">
+            <icon-map-marker class="g-icon"/>
             <span class="text">{{relation.country}} {{relation.city}}</span>
           </p>
           <p class="event__info-item date">
-            <img svg-inline class="icon" src="@/assets/img/icon/timetable.svg" alt="">
+            <icon-calendar-clock class="g-icon"/>
             <span class="text">{{relation.date}}</span>
           </p>
           <p class="event__info-item link">
-            <img svg-inline class="icon" src="@/assets/img/icon/earth-globe.svg" alt="">
+            <icon-link class="g-icon"/>
             <span class="text">https://businessof.life/event/{{relation.id}}</span>
           </p>
         </div>
       </div>
       <div class="g-control-icon static">
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" v-if="!pastEvents" @click="$router.push({path: `/admin/relation/${idEvent}/${relation.id}`})">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+          <icon-lead-pencil class="g-icon"/>
         </button>
         <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-relation', relation.id)" v-if="relation.status <= 1">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+          <icon-delete class="g-icon"/>
         </button>
         <router-link :to="`/admin/participant/${relation.id}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Участники'">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/avatar.svg" alt="">
+          <icon-account class="g-icon"/>
         </router-link>
       </div>
     </div>
@@ -115,10 +115,7 @@ export default {
       });
       .g-control-icon {
         .g-icon-circle {
-          margin-right: 0;
-          margin-left: 10px;
-          margin-bottom: 5px;
-          margin-top: 5px;
+          margin: 5px 0 5px 10px;
           &:first-child {
             margin-left: 0;
           }
@@ -143,13 +140,14 @@ export default {
       &:last-of-type {
         margin-bottom: 0;
       }
-      .icon {
+      .g-icon {
         margin-right: 15px;
-        width: 15px;
-        height: 15px;
-        path {
-          fill: #dedede;
-        }
+        width: 20px;
+        height: 20px;
+        color: #dedede;
+        .ss-block({
+          width: 15px;
+          height: 15px;});
       }
       .text {
         color: @colorSecondFonts;

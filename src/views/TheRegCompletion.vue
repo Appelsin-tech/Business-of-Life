@@ -73,7 +73,7 @@
             </div>
           </div>
           <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid  || btnLoading">
-            <span>Отправить</span>
+            <span class="text">Отправить</span>
           </button>
         </form>
       </div>

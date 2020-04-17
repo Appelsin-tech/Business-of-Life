@@ -11,88 +11,88 @@ export default {
         {
           to: '/admin/menu',
           title: 'Главная',
-          icon: ['fas', 'home'],
+          icon: 'icon-home',
           status: 0
         },
         {
           to: '/admin/wallet',
           title: 'Кошелек',
-          icon: ['fas', 'wallet'],
+          icon: 'icon-wallet',
           status: 0
         },
         {
           to: '/admin/partners-program',
           title: 'Партнерская программа',
-          icon: ['fas', 'user-friends'],
+          icon: 'icon-account-group',
           line: true,
           status: 0
         },
         {
           to: '/coronanamillion',
           title: 'Марафон "Корона на миллион"',
-          icon: ['fas', 'trophy'],
+          icon: 'icon-trophy-variant',
           status: 0
         },
         {
           to: '/knowledge/menu',
           title: 'База знаний',
-          icon: ['fas', 'puzzle-piece'],
+          icon: 'icon-puzzle',
           status: 0
         },
         {
           to: '/news',
           title: 'Новости',
-          icon: ['fas', 'newspaper'],
+          icon: 'icon-newspaper',
           status: 0
         },
         {
           to: '/calendar',
           title: 'Календарь мероприятий',
-          icon: ['far', 'calendar-alt'],
+          icon: 'icon-calendar-month',
           line: true,
           status: 0
         },
         {
           to: '/admin/profile',
           title: 'Профиль',
-          icon: ['fas', 'user'],
+          icon: 'icon-account',
           status: 0
         },
         {
           to: '/admin/news-control',
           title: 'Управление новостями',
-          icon: ['fas', 'newspaper'],
+          icon: 'icon-newspaper-plus',
           status: 3
         },
         {
           to: '/admin/event-control',
           title: 'Управление мероприятиями',
-          icon: ['far', 'newspaper'],
+          icon: 'icon-calendar-edit',
           status: 1
         },
         {
           to: '/tickets',
           title: 'Проверка билетов',
-          icon: ['far', 'check-square'],
+          icon: 'icon-clipboard-check-outline',
           status: 0
         },
         {
           to: '/admin/course-control',
           title: 'Редактор курсов',
-          icon: ['fas', 'book'],
+          icon: 'icon-book-plus',
           status: 3
         },
         {
           to: '/admin/role',
           title: 'Роли и управление доступом',
-          icon: ['fas', 'star'],
+          icon: 'icon-account-star',
           line: true,
           status: 2
         },
         {
           to: '/admin/statistic',
           title: 'Статистика продаж',
-          icon: ['fas', 'signal'],
+          icon: 'icon-finance',
           status: 2
         },
       ]

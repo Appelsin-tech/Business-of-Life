@@ -38,11 +38,11 @@
     </div>
     <div class="btn-wrapper">
       <button  type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-        <span v-if="idEvent">Сохранить</span>
-        <span v-else>Создать</span>
+        <span class="text" v-if="idEvent">Сохранить</span>
+        <span class="text" v-else>Создать</span>
       </button>
       <button class="g-btn g-btn--no-icon g-btn--white" type="button" @click="deleteEvent(idEvent)" v-if="btnDelete">
-        <span>Удалить</span>
+        <span class="text">Удалить</span>
       </button>
     </div>
   </form>

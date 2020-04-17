@@ -3,7 +3,7 @@
     <div class="item-wrapper">
       <p class="g-caption-section">Основные</p>
       <div class="grid-wrapper grid-wrapper--main">
-<!--        <download-photo row="3" id="2"/>-->
+<!--        <download-photo row="3" id="2" :image="form.img" :folderFile="`courses/${this.$route.params.id}/`" class="preview_img" idImage="img" v-on:image-download="imageUpload('img', $event)"/>-->
         <div class="g-item-form">
           <label class="g-item-form__label" for="form-role-title">Логин</label>
           <input class="g-item-form__input" id="form-role-title"  type="text" disabled v-model="login">
@@ -54,7 +54,7 @@
       </div>
     </div>
     <button class="g-btn g-btn--no-icon">
-      <span>Сохранить</span>
+      <span class="text">Сохранить</span>
     </button>
   </form>
 </template>

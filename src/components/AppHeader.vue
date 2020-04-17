@@ -7,19 +7,19 @@
         </router-link>
         <div class="icon-wrapper icon-wrapper--desktop" >
           <router-link class="icon-red icon-red--desktop" to="/calendar" @click.native="showMenu = false">
-            <img svg-inline src="../assets/img/icon/calendar.svg" alt="">
-            <span>Календарь</span>
+            <icon-calendar-month class="g-icon"/>
+            <span class="text">Календарь</span>
           </router-link>
           <div href="#" class="icon-red icon-red--desktop user user-desktop"  v-if="logged">
-            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
+            <icon-account class="g-icon"/>
             <div class="link">
-              <span class="lk" @click="goRouter('admin')">{{profile.login}}</span>
+              <span class="lk text" @click="goRouter('admin')">{{profile.login}}</span>
               <a class="exit" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
             </div>
           </div>
           <router-link class="icon-red icon-red--desktop" to="/auth" @click.native="showMenu = false" v-else>
-            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
-            <span>Войти</span>
+            <icon-account class="g-icon"/>
+            <span class="text">Войти</span>
           </router-link>
         </div>
         <button class="burger" @click="showMenuMethod">
@@ -43,16 +43,16 @@
           </li>
         </ul>
         <div class="icon-wrapper icon-wrapper--mobile">
-          <div href="#" class="icon-red icon-red--desktop user user-mobile" @click="activeClass" v-if="logged">
-            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
+          <div class="icon-red icon-red--desktop user user-mobile" @click="activeClass" v-if="logged">
+            <icon-account class="g-icon"/>
             <div class="link">
-              <span class="lk">{{profile.login}}</span>
+              <span class="lk text">{{profile.login}}</span>
               <a class="exit" :class="{active : showLogout}" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
             </div>
           </div>
           <router-link class="icon-red icon-red--desktop" to="/auth" @click.native="showMenu = false" v-else>
-            <img svg-inline src="../assets/img/icon/avatar.svg" alt="">
-            <span>Войти</span>
+            <icon-account class="g-icon"/>
+            <span class="text">Войти</span>
           </router-link>
         </div>
       </div>
@@ -63,6 +63,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import appMenuList from '@/mixins/appMenuList'
+
 export default {
   name: 'AppHeader',
   props: {
@@ -204,13 +205,11 @@ export default {
           .md-block({
             display: block;});
         }
-        .icon-wrapper--desktop {
-        }
       }
     }
     &.border-class {
       padding-bottom: 20px;
-      border-bottom: 1px solid @colorBorder;
+      border-bottom: 1px solid var(--app_element-border__color);
       .lg-block({ padding-bottom: 15px; });
     }
     &.white {
@@ -223,18 +222,16 @@ export default {
         .icon-wrapper {
           .icon-red--desktop {
             &:hover {
-              span {
+              .text {
                 color: #fff;
                 border-bottom-color: #fff;
               }
             }
-            span {
+            .text {
               color: #fff;
             }
-            svg {
-              * {
-                fill: #fff;
-              }
+            .g-icon {
+              color: #fff;
             }
             &.user {
               &::after {
@@ -327,7 +324,6 @@ export default {
         justify-content: space-between;
         align-items: center;
         z-index: 10;
-
       }
       .wrapper-menu-list {
         display: flex;
@@ -359,7 +355,7 @@ export default {
             .link {
               font-size: 2.8rem;
               font-weight: bold;
-              color: @colorMainSecondary;
+              color: var(--app_emphasis__color);
               text-transform: uppercase;
               transition: 0.3s;
               .lg-block({ font-size: 2.4rem; });
@@ -401,23 +397,20 @@ export default {
           align-items: center;
           position: relative;
           &:hover {
-            span {
-              color: @colorSecondFonts;
-              border-bottom-color: @colorSecondFonts;
+            .text {
+              color: var(--app_font__color);
+              border-bottom-color: var(--app_font__color);
             }
           }
-          svg {
+         .g-icon {
             margin-right: 17px;
             width: 30px;
             height: 30px;
             .lg-block({ width: 25px; height: 25px; });
-            path {
-              fill: @colorMain;
-            }
           }
-          span {
+          .text {
             font-size: 1.4rem;
-            color: #000;
+            color: var(--app_font__color);
             border-bottom: 1px solid transparent;
             transition: 0.3s;
             .sm-block({ font-size: 2rem; });
@@ -440,7 +433,7 @@ export default {
           width: 100%;
           opacity: 1;
           left: 0;
-          background-color: @colorMainSecondary;
+          background-color: var(--app_font__color);
           transform: rotate(0deg);
           transform-origin: left center;
           transition: .25s ease-in-out;
@@ -472,23 +465,20 @@ export default {
       align-items: center;
       position: relative;
       &:hover {
-        span {
-          color: @colorSecondFonts;
-          border-bottom-color: @colorSecondFonts;
+        .text {
+          color: var(--app_font__color);
+          border-bottom-color: var(--app_font__color);
         }
       }
-      svg {
+      .g-icon {
         margin-right: 20px;
         width: 35px;
         height: 35px;
         .lg-block({ width: 30px; height: 30px; });
-        path {
-          fill: @colorMain;
-        }
       }
-      span {
+      .text {
         font-size: 1.4rem;
-        color: #000;
+        color: var(--app_font__color);
         border-bottom: 1px solid transparent;
         transition: 0.3s;
         .sm-block({ font-size: 2rem; });
@@ -497,8 +487,8 @@ export default {
         padding-right: 25px;
         cursor: pointer;
         &:hover {
-          span {
-            color: #000;
+          .text {
+            color: var(--app_font__color);
             border-bottom-color: transparent;
           }
           .link {
@@ -536,7 +526,7 @@ export default {
             opacity: 0;
             bottom: -37px;
             right: 0;
-            color: #000;
+            color: var(--app_font__color);
             padding-top: 20px;
             transition: 0.3s;
             &.active {
@@ -550,7 +540,7 @@ export default {
           content: '';
           right: 0;
           top: 12px;
-          border-top: 8px solid  @colorMainSecondary;
+          border-top: 8px solid  var(--app_font__color);
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           transition: 0.3s;

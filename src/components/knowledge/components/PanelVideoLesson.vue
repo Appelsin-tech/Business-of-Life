@@ -6,21 +6,21 @@
       </div>
       <div class="desc-wrapper">
         <div class="desc">
-          <img svg-inline class="g-svg-icon" src="@/assets/img/icon/video-camera.svg" alt="">
+          <icon-camera class="g-icon"/>
           <p class="g-caption-element g-caption-element--static">{{video.title}}</p>
         </div>
       </div>
     </div>
     <div class="icon-wrapper" v-if="editing">
       <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
-        <img svg-inline class="svg-icon " src="@/assets/img/icon/drag.svg" alt="">
+        <icon-drag-variant class="g-icon"/>
       </div>
       <div class="g-control-icon static" >
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$emit('edit-video')">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+          <icon-lead-pencil class="g-icon"/>
         </button>
         <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-video')">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+          <icon-delete class="g-icon"/>
         </button>
       </div>
     </div>
@@ -78,6 +78,9 @@ export default {
         .desc {
           display: flex;
           align-items: center;
+          .g-icon {
+            margin-right: 25px;
+          }
         }
         .g-item-form__label {
           margin-bottom: 0;
@@ -92,17 +95,6 @@ export default {
       flex-shrink: 0;
       .sm-block({flex-direction: row-reverse;
         margin-top: 15px;});
-      .svg-icon.drag {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 10px;
-        .sm-block({
-          margin-bottom: 0;
-          margin-left: 10px;});
-        .ss-block({
-          width: 30px;
-          height: 30px;});
-      }
     }
   }
 </style>

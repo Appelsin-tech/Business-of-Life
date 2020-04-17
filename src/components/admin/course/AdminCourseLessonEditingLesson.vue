@@ -5,13 +5,10 @@
       <h3 class="g-caption-element g-caption-element--static">{{lesson.title}}</h3>
       <div class="g-control-icon static">
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать урок'" @click="$router.push({path: `/admin/lesson/${course}/${lesson.id}`})">
-          <img svg-inline src="@/assets/img/icon/pencil.svg" class="svg-icon">
-        </button>
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Редактировать урок'">
-          <img svg-inline src="@/assets/img/icon/info.svg" class="svg-icon">
+          <icon-lead-pencil class="g-icon"/>
         </button>
         <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить урок'" @click="deleteLesson()">
-          <img svg-inline src="@/assets/img/icon/basket.svg" class="svg-icon">
+          <icon-delete class="g-icon"/>
         </button>
       </div>
     </div>

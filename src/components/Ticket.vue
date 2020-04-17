@@ -8,14 +8,14 @@
     </div>
     <a href="#" class="g-btn g-btn--no-icon" v-if="btn"
        @click.prevent="openModalPurchase">
-      <span>Купить билет</span>
+      <span class="text">Купить билет</span>
     </a>
     <div class="g-control-icon g-control-icon--ticket" v-else>
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {ticket: ticket})">
-        <img svg-inline class="svg-icon" src="../assets/img/icon/pencil.svg" alt="">
+        <icon-lead-pencil class="g-icon "/>
       </button>
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteTicket">
-        <img svg-inline class="svg-icon" src="../assets/img/icon/basket.svg" alt="">
+        <icon-delete class="g-icon"/>
       </button>
     </div>
     <generate-ticket :id="ticket.id" v-if="false"/>

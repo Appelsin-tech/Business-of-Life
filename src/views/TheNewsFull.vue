@@ -11,7 +11,7 @@
     <div class="container" v-if="!loading">
       <h1 class="g-caption-inner">{{news.title}}</h1>
       <div class="data">
-        <img class="svg-icon" svg-inline src="../assets/img/icon/clock.svg" alt="">
+        <icon-clock-outline class="g-icon"/>
         <span>{{(news.published * 1000) | moment("DD.MM.YYYY HH.mm")}}</span>
       </div>
       <social-sharing-my :shareObject="news"/>
@@ -109,7 +109,7 @@ export default {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-color: @colorBgGray;
+      background-color: var(--app_image-bg__color);
       .lg-block({
         height: 200px;
       });
@@ -130,7 +130,7 @@ export default {
       .xs-block({
         margin-bottom: 10px;
       });
-      .svg-icon {
+      .g-icon {
         margin-right: 10px;
         width: 20px;
         height: 20px;
@@ -140,9 +140,6 @@ export default {
           height: 15px;
           margin-top: 0;
         });
-        path {
-          fill: @colorMain;
-        }
       }
     }
     .text-wrapper {

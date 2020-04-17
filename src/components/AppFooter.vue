@@ -14,17 +14,7 @@
       <!--<ul class="list-social">-->
         <!--<li>-->
           <!--<a href="#" class="item">-->
-            <!--<img class="vk" svg-inline src="../assets/img/icon/social/vk.svg" alt="">-->
-          <!--</a>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<a href="#" class="item">-->
-            <!--<img class="yt" svg-inline src="../assets/img/icon/social/youtube.svg" alt="">-->
-          <!--</a>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<a href="#" class="item">-->
-            <!--<img class="inst" svg-inline src="../assets/img/icon/social/instagram.svg" alt="">-->
+<!--      <icon-vk class="g-icon vk"/>-->
           <!--</a>-->
         <!--</li>-->
       <!--</ul>-->
@@ -88,7 +78,7 @@ export default {
     .lg-block({ padding-bottom: 15px;});
     &.border-class {
       padding-top: 40px;
-      border-top: 1px solid @colorBorder;
+      border-top: 1px solid var(--app_element-border__color);
     }
     &.white {
       .container {
@@ -128,15 +118,15 @@ export default {
           margin-bottom: 10px;
         }
         &--link {
-          color: @colorMainSecondary;
-          border-bottom: 1px solid @colorMainSecondary;
+          color: var(--app_emphasis__color);
+          border-bottom: 1px solid var(--app_emphasis__color);
           transition: 0.3s;
           &:hover {
             border-bottom-color: transparent;
           }
         }
         &--tel {
-          color: @colorMainSecondary;
+          color: var(--app_emphasis__color);
         }
       }
       .list-social {
@@ -161,7 +151,8 @@ export default {
             &:hover {
               background: rgba(0,0,0,1);
             }
-            svg {
+            .g-icon {
+              color: #fff;
               &.vk {
                 width: 22px;
                 height: 22px;
@@ -177,9 +168,6 @@ export default {
                 width: 20px;
                 height: 20px;
                 .sm-block({ width: 16px; height: 16px;});
-              }
-              path {
-                fill: #fff;
               }
             }
           }

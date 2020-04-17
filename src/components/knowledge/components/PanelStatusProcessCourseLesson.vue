@@ -3,13 +3,13 @@
     <div class="status-content" >
       <template v-if="statusProgress === 0">
         <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+          <icon-close class="g-icon"/>
         </div>
         <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>
       <template v-else-if="statusProgress === 1">
         <div class="g-icon-circle" :class="dataStatus[statusProgress].classIcon">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
+          <icon-check class="g-icon"/>
         </div>
         <span class="text">{{dataStatus[statusProgress].tooltip}}</span>
       </template>
@@ -22,10 +22,10 @@
     </div>
     <div class="btn-wrapper" v-if="source === 'lesson'">
       <router-link :to="`/admin/lesson/${urlMyCourse}`" class="g-btn g-btn--no-icon" v-if="urlMyCourse">
-        <span>Редактировать</span>
+        <span class="text">Редактировать</span>
       </router-link>
       <button class="g-btn g-btn--no-icon g-btn--white" v-if="statusProgress !== 2" @click="$emit('set-progress')" :class="{'disabled': statusProgress > 0}">
-        <span>Отметить как пройденный</span>
+        <span class="text">Отметить как пройденный</span>
       </button>
     </div>
   </div>

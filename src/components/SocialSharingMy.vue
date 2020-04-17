@@ -9,19 +9,19 @@
                     inline-template>
       <div class="social">
         <network network="facebook" class="link fb">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/social/facebook.svg" alt="">
+          <icon-facebook class="g-icon"/>
         </network>
         <network network="odnoklassniki" class="link ok">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/social/odnoklassniki.svg" alt="">
+          <icon-odnoklassniki class="g-icon"/>
         </network>
         <network network="telegram" class="link tg">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/social/telegram.svg" alt="">
+          <icon-telegram class="g-icon"/>
         </network>
         <network network="twitter" class="link tw">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/social/twitter.svg" alt="">
+          <icon-twitter class="g-icon"/>
         </network>
         <network network="vk" class="link vk">
-          <img class="svg-icon" svg-inline src="../assets/img/icon/social/vk.svg" alt="">
+          <icon-vk class="g-icon"/>
         </network>
       </div>
     </social-sharing>
@@ -70,12 +70,10 @@ export default {
         &.vk {
           background: #45668e;
         }
-        .svg-icon {
+        .g-icon {
           width: 20px;
           height: 20px;
-          * {
-            fill: #fff;
-          }
+          color: #fff;
         }
       }
     }

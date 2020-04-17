@@ -17,6 +17,7 @@ export default {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 2rem;
+    color: var(--app_title-panel__color);
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     .default-panel-style();

@@ -3,12 +3,12 @@
     <div class="message" >
       <div class="g-icon-circle" :class="status[currentStatus.status].classIcon">
         <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="" v-if="currentStatus.status === 0 || currentStatus.status === 2">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="" v-else-if="currentStatus.status === 1">
+        <icon-check class="g-icon" v-else-if="currentStatus.status === 1"/>
       </div>
       <p class="g-caption-element g-caption-element--static">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
     </div>
     <router-link to="/knowledge-package" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
-      <span>Продлить доступ</span>
+      <span class="text">Продлить доступ</span>
     </router-link>
   </div>
 </template>

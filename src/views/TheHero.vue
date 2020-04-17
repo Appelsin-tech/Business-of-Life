@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="p-hero p-default-flex">
+    <section class="s-hero p-default-flex">
       <div class="container page test-production">
         <div class="wrapper-content">
           <div class="content">
@@ -8,9 +8,9 @@
             <img class="img-name-academy" src="../assets/img/name-business.png" alt="Business of Life">
             <strong class="desc-strong g-caption">Международная академия для интернет предпринимателей</strong>
             <router-link to="/description" class="g-btn">
-              <span>
+              <span class="text">
                 Стать участником
-                <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+                <icon-arrow-right class="g-icon"/>
               </span>
             </router-link>
           </div>
@@ -46,9 +46,9 @@
                 <strong class="g-caption-section">Гульнара Садуова</strong>
               </p>
               <router-link to="/calendar" class="g-btn">
-                <span>
+                <span class="text">
                   Наши мероприятия
-                <img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt="">
+                <icon-arrow-right class="g-icon"/>
                 </span>
               </router-link>
             </div>
@@ -61,7 +61,7 @@
         <h2 class="g-caption-inner">Присоединяйтесь к нам!</h2>
         <span class="desc">Зарегистрируйся прямо сейчас!</span>
         <router-link to="/auth" class="g-btn">
-          <span>Регистрация<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
+          <span class="text">Регистрация <icon-arrow-right class="g-icon"/></span>
         </router-link>
       </div>
     </section>
@@ -74,7 +74,7 @@
           </div>
         </div>
         <router-link to="/news" class="g-btn">
-          <span>Показать больше<img svg-inline class="svg-icon" src="../assets/img/icon/right-arrow.svg" alt=""></span>
+          <span class="text">Показать больше <icon-arrow-right class="g-icon"/></span>
         </router-link>
       </div>
     </section>
@@ -112,7 +112,7 @@ export default {
 
 <style scoped lang="less">
   @import "../assets/less/_importants";
-  .p-hero {
+  .s-hero {
     &::after {
       position: absolute;
       content: '';
@@ -161,7 +161,6 @@ export default {
           margin-bottom: 50px;
           font-size: 1.8rem;
           font-weight: 800;
-          color: #000;
           .sm-block({ font-weight: 600; font-size: 1.6rem;})
         }
       }
@@ -190,11 +189,6 @@ export default {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          .desc-light {
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-            color: #666666;
-          }
           .desc {
             margin-bottom: 20px;
             font-size: 1.6rem;
@@ -220,7 +214,7 @@ export default {
               font-size: 1.4rem;
             }
             .g-caption-section {
-              color: @colorMainSecondary;
+              color: var(--app_title__color);
               margin-bottom: 0;
             }
           }
@@ -259,7 +253,7 @@ export default {
   .s-registration {
     padding: 100px 0;
     margin: 60px 0;
-    background-color: @colorMainSecondary;
+    background-color: #101a63;
     background-image: url("../assets/img/logo-bg.png");
     background-position-y: 55%;
     .lg-block({

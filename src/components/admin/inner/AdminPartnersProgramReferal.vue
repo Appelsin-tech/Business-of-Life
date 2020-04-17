@@ -8,7 +8,7 @@
         <input type="text" id="copy-input" class="visually-hidden" :value="`https://bussinessof.life/r/${profileLogin}`">
         <a :href="`https://businessof.life/r/${profileLogin}`" ref="linkToCopy" class="ref-link">{{`https://bussinessof.life/r/${profileLogin}`}}</a>
         <button class="g-btn g-btn--no-icon g-btn--white" @click="copyLink">
-          <span>Копировать ссылку</span>
+          <span class="text">Копировать ссылку</span>
         </button>
       </div>
     </div>

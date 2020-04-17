@@ -15,7 +15,7 @@ body {
   font-weight: normal;
   font-style: normal;
   font-size: 1.6rem;
-  color: #000;
+  color: var(--app_font__color);
   background: #fff;
   &.menu-open {
     -webkit-overflow-scrolling: touch;
@@ -99,8 +99,8 @@ input {
   display: inline-flex;
   align-items: center;
   padding: 22px 27px;
-  background: @colorMain;
-  border: 3px solid @colorMain;
+  background: var(--app_btn__color);
+  border: 3px solid var(--app_btn__color);
   box-sizing: border-box;
   transition: 0.3s;
   min-width: 280px;
@@ -117,13 +117,11 @@ input {
   &:hover,
   &:focus {
     background: #fff;
-    span {
+    .text {
       color: #000;
     }
-    .svg-icon {
-      path {
-        fill: #000;
-      }
+    .g-icon {
+      color: #000;
     }
   }
   &:disabled {
@@ -134,14 +132,14 @@ input {
     opacity: 0.7;
     pointer-events: none;
   }
-  span {
+  .text {
     position: relative;
     display: inline-flex;
     flex-grow: 1;
     align-items: center;
     padding-right: 75px;
     font-size: 1.3rem;
-    color: #fff;
+    color: var(--app_btn-font__color);
     font-weight: 900;
     text-transform: uppercase;
     transition: 0.3s;
@@ -150,28 +148,26 @@ input {
       font-weight: 600;
     });
   }
-  .svg-icon {
+  .g-icon {
     position: absolute;
     right: 0;
     width: 25px;
     height: 25px;
     margin-left: auto;
     flex-shrink: 0;
-    path {
-      fill: #fff;
-      transition: 0.3s;
-    }
+    color: var(--app_btn-font__color);
+    transition: 0.3s;
   }
   &--icon-left {
     min-width: 250px;
     .sm-block({
       min-width: 180px;
     });
-    .svg-icon {
+    .g-icon {
       left: 0;
       right: auto;
     }
-    span {
+    .text {
       margin-right: 0;
       padding-left: 60px;
       padding-right: 0;
@@ -195,9 +191,9 @@ input {
     });
     &:hover,
     &:focus {
-      border-color: @colorMain;
+      border-color: var(--app_btn__color);
     }
-    span {
+    .text {
       color: #000;
     }
   }
@@ -210,7 +206,7 @@ input {
     .sm-block({
       min-width: 150px;
     });
-    span {
+    .text {
       padding: 0;
       flex-grow: 0;
     }
@@ -221,7 +217,7 @@ input {
   font-size: 5.1rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: @colorMainSecondary;
+  color: var(--app_title__color);
   margin-bottom: 20px;
   .lg-block({
     font-size: 5rem;
@@ -238,7 +234,7 @@ input {
     font-size: 3.6rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: @colorMainSecondary;
+    color: var(--app_title__color);
     .lg-block({
       font-size: 3.5rem;
       margin-bottom: 40px;
@@ -257,7 +253,7 @@ input {
     margin-bottom: 33px;
     font-size: 2.7rem;
     font-weight: 800;
-    color: #000;
+    color: var(--app_title-section__color);
     text-transform: uppercase;
     .lg-block({
       margin-bottom: 30px;
@@ -274,7 +270,7 @@ input {
     display: block;
     font-size: 2rem;
     font-weight: 800;
-    color: #000;
+    color: var(--app_title-panel__color);
     text-transform: uppercase;
     text-decoration: underline;
     cursor: pointer;
@@ -291,6 +287,19 @@ input {
       text-decoration: none;
       cursor: auto;
     }
+  }
+}
+.g-icon {
+  color: var(--app_icon__color);
+  line-height: 0;
+  font-size: 0;
+  transition: 0.3s;
+  &--function {
+    color: var( --app_btn-functional-font-and-icon__color);
+  }
+  svg {
+    width: 100%;
+    height: 100%;
   }
 }
 .pagination-coach-fill {
@@ -1250,6 +1259,7 @@ input {
     margin-bottom: 15px;
     font-weight: 800;
     font-size: 1.8rem;
+    color: var(--app_label__color);
     .ss-block({
       margin-bottom: 10px;
     });
@@ -1259,6 +1269,7 @@ input {
     padding-right: 15px;
     width: 100%;
     height: 68px;
+    color: var(--app_font__color);
     background: @colorBgGray;
     border: 1px solid @colorBgGray;
     box-sizing: border-box;
@@ -1437,7 +1448,7 @@ input {
   margin-right: 10px;
   font-weight: 800;
   font-size: 1.8rem;
-  color: @colorMainSecondary;
+  color: var(--app_emphasis__color);
   text-decoration: underline;
   cursor: pointer;
   .xs-block({
@@ -1533,9 +1544,10 @@ input {
     height: 30px;
     margin-right: 15px;
   });
-  .svg-icon {
+  .g-icon {
     width: 22px;
     height: 22px;
+    color: #000;
     .md-block({
       width: 20px;
       height: 20px;
@@ -1544,35 +1556,20 @@ input {
       width: 15px;
       height: 15px;
     });
-    path {
-      fill: #000;
-      transition: 0.3s;
-    }
   }
   &.created {
     border-color: @colorMain;
-    .svg-icon {
-      width: 18px;
-      height: 18px;
-      .md-block({
-        width: 15px;
-        height: 15px;
-      });
-      .ss-block({
-        width: 12px;
-        height: 12px;
-      });
-      path {
-        fill: @colorMain;
-      }
+    .g-icon {
+      color: @colorMain;
     }
   }
   &.past,
   &.waiting {
     border-color: @colorWait;
-    .svg-icon {
+    .g-icon {
       width: 30px;
       height: 30px;
+      color: @colorWait;
       .md-block({
         width: 25px;
         height: 25px;
@@ -1581,18 +1578,12 @@ input {
         width: 20px;
         height: 20px;
       });
-      * {
-        fill: @colorWait;
-        stroke: @colorWait;
-      }
     }
   }
   &.public {
     border-color: @colorSuccess;
-    .svg-icon {
-      path {
-        fill: @colorSuccess;
-      }
+    .g-icon {
+      color: @colorSuccess;
     }
   }
   &--control {
@@ -1607,38 +1598,30 @@ input {
       margin-right: 10px;
       margin-bottom: 0;
     });
-    .svg-icon {
-      path {
-        fill: #d6d6d6;
-      }
+    .g-icon {
+      color: #d6d6d6;
     }
     &-green {
       &:hover {
         border-color: @colorSuccess;
-        .svg-icon {
-          path {
-            fill: @colorSuccess;
-          }
+        .g-icon {
+          color: @colorSuccess;
         }
       }
     }
     &-red {
       &:hover {
         border-color: @colorError;
-        .svg-icon {
-          path {
-            fill: @colorError;
-          }
+        .g-icon {
+         color: @colorError;
         }
       }
     }
     &-black {
       &:hover {
         border-color: #000;
-        .svg-icon {
-          path {
-            fill: #000;
-          }
+        .g-icon {
+          color: #000;
         }
       }
     }
@@ -1646,10 +1629,8 @@ input {
       margin-right: 0;
       &:hover {
         border-color: #000;
-        .svg-icon {
-          path {
-            fill: #000;
-          }
+        .g-icon {
+          color: #000;
         }
       }
     }
@@ -1659,10 +1640,8 @@ input {
   }
   &--blue {
     border-color: @colorMainSecondary;
-    .svg-icon {
-      path {
-        fill: @colorMainSecondary
-      }
+    .g-icon {
+      color: @colorMainSecondary;
     }
   }
   &--mr {
@@ -1680,14 +1659,14 @@ input {
     flex-shrink: 0;
     font-size: 3rem;
     font-weight: 800;
-    color: @colorMainSecondary;
+    color: var(--app_emphasis__color);
     .sm-block({
       font-size: 2rem;
     });
     .currency {
       margin-left: 10px;
       font-size: 2rem;
-      color: #000;
+      color: var(--app_font__color);
       .xs-block({
         font-size: 1.6rem;
       })

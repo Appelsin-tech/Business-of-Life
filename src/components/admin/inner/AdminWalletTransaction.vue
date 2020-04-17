@@ -5,7 +5,7 @@
         <p class="g-caption-section">{{item.date |  moment("D MMMM YYYY")}}</p>
         <div class="transaction" v-for="(trans, index) in item.trans" :key="index">
           <div class="g-icon-circle">
-            <img class="svg-icon" svg-inline src="@/assets/img/icon/right-arrow.svg" alt="">
+            <icon-arrow-right class="g-icon"/>
           </div>
           <div class="info-wrapper">
             <div class="info">
@@ -88,12 +88,10 @@ export default {
           margin-bottom: 10px;
           font-weight: 600;
           font-size: 2.2rem;
+          color: var(--app_title-panel__color);
           .sm-block({
             font-size: 1.8rem;});
           .ss-block({margin-bottom: 5px;});
-        }
-        .number {
-          color: #000;
         }
       }
     }

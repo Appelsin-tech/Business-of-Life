@@ -63,14 +63,14 @@
         </div>
         <div class="btn-wrapper">
           <button class="g-btn g-btn--no-icon" v-if="!id" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
-            <span>Создать</span>
+            <span class="text">Создать</span>
           </button>
           <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid">
-            <span>Сохранить</span>
+            <span class="text">Сохранить</span>
           </button>
           <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="id && tickets.length !== 0" @click="newStatus">
-            <span v-if="statusRelation === 3 ">Снять с публикации</span>
-            <span v-else>Опубликовать</span>
+            <span class="text" v-if="statusRelation === 3 ">Снять с публикации</span>
+            <span class="text" v-else>Опубликовать</span>
           </button>
         </div>
       </form>
@@ -100,7 +100,7 @@
       </div>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
-          <span>Предпросмотр</span>
+          <span class="text">Предпросмотр</span>
         </router-link>
 
       </div>

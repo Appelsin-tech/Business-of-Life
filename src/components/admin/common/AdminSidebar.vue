@@ -3,7 +3,7 @@
     <ul class="list-menu">
       <li v-for="item in menuListFilterUserLogged" :key="item.to">
         <router-link class="link" :class="{line: item.line}" :exact="true" active-class="active" :to="item.to" v-tooltip.right="{content: item.title, container: '.layout-admin', boundariesElement: 'body',  classes: 'tooltip-admin-sidebar'}">
-          <font-awesome-icon :icon="item.icon" class="fa-icon"/>
+          <component :is="item.icon" class="g-icon"></component>
           <p class="title-item">{{item.title}}</p>
         </router-link>
       </li>
@@ -29,7 +29,7 @@ export default {
     position: fixed;
     top: 0;
     bottom: 0;
-    max-width: 350px;
+    max-width: 320px;
     background: @colorMainSecondary;
     grid-area: aside;
     color: #fff;
@@ -45,25 +45,32 @@ export default {
     .md-block({
       display: none;});
     .list-menu {
-      padding-top: 70px;
-      padding-bottom: 70px;
+      padding: 70px 10px 70px 15px;
+      @media (max-width: 1570px) {
+        padding: 70px 10px;
+      }
       .link {
         display: flex;
         align-items: center;
-        padding: 25px 20px 25px 30px;
-        color: #fff;
-        font-size: 1.8rem;
+        padding: 12px 10px 12px 15px;
+        font-size: 1.6rem;
         transition: 0.3s;
-        @media (max-width: 1700px) {
-          padding: 20px 25px;
-        }
+        border-radius: 5px;
         @media (max-width: 1570px) {
+          padding: 12px;
         }
         &:hover {
-          background: #3D3EB8;
+          background: var(--sidebar-admin_link__color-focus);
+          opacity: 0.8;
         }
         &.active {
-          background: #31336d;
+          background: var(--sidebar-admin_link__color-focus);
+          .title-item {
+            color: var(--sidebar-admin_title__color-focus);
+          }
+          .g-icon {
+            color: var(--sidebar-admin_icon__color-focus);
+          }
         }
         &.line {
           position: relative;
@@ -78,7 +85,7 @@ export default {
             left: 20px;
             right: 20px;
             height: 1px;
-            background: rgba(255,255,255, 0.4);
+            background: var(--sidebar-admin_border__color);
             @media (max-width: 1570px) {
               bottom: -7px;
               left: 10px;
@@ -87,6 +94,7 @@ export default {
           }
         }
         .title-item {
+          color: var(--sidebar-admin_title__color);
           @media (max-width: 1700px) {
             font-size: 1.4rem;
           }
@@ -94,10 +102,12 @@ export default {
             display: none;
           }
         }
-        .fa-icon {
+        .g-icon {
           width: 20px;
           height: 20px;
           margin-right: 25px;
+          color: var(--sidebar-admin_icon__color);
+          flex-shrink: 0;
           @media (max-width: 1700px) {
             margin-right: 18px;
           }

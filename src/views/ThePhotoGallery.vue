@@ -22,7 +22,7 @@
                     бухтиярова 12 сентября 2019</h3>
                   <p class="description">У нас работают только профессиональные тренеры с многолетним опытом в своей сфере</p>
                   <a href="#" class="link-photo">
-                    <img svg-inline src="../assets/img/icon/picture.svg" alt="">
+                    <icon-image class="g-icon"/>
                     <span>24 фотографии</span>
                   </a>
                 </div>
@@ -181,13 +181,11 @@ export default {
               &:visited {
                 color: #666666;
               }
-              svg {
+              .g-icon {
                 width: 25px;
                 height: 25px;
                 margin-right: 15px;
-                path {
-                  fill: @colorMain;
-                }
+                color: var(--app_icon__color);
               }
             }
           }

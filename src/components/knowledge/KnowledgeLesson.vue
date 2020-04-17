@@ -12,8 +12,8 @@
             <div class="text-wrapper">
               <div class="editor ul-pdl-0" v-html="lesson.description"></div>
             </div>
-            <button href="#" class="g-btn g-btn--no-icon" @click="scrollToSection('section-materials')">
-              <span>Начать</span>
+            <button class="g-btn g-btn--no-icon" @click="scrollToSection('section-materials')">
+              <span class="text">Начать</span>
             </button>
           </div>
         </section>

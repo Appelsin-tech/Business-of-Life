@@ -3,11 +3,11 @@
     <form class="search-wrapper" @submit.prevent="search" >
       <div class="col search">
         <input class="search__input" type="text" :placeholder="placeholder" v-model="field" @change="changeField">
-        <img svg-inline class="search__icon svg-inline" src="@/assets/img/icon/search.svg" alt="">
+        <icon-magnify class="g-icon search__icon"/>
       </div>
       <div class="col btn-col">
         <button class="g-btn g-btn--no-icon ">
-          <span>Найти</span>
+          <span class="text">Найти</span>
         </button>
       </div>
     </form>
@@ -134,9 +134,7 @@ export default {
           background: #fff;
         }
         &:focus + .search__icon {
-          path {
-            fill: #000;
-          }
+          color: #000;
         }
       }
       &__icon {
@@ -145,11 +143,9 @@ export default {
         top: calc(~"50% - 14px");
         width: 28px;
         height: 28px;
+        color: #fff;
+        transition: 0.3s;
         .xs-block({ width: 16px; height: 16px; top: calc(~"50% - 8px"); left: 7px;});
-        path {
-          fill: #fff;
-          transition: 0.3s;
-        }
       }
     }
     .g-btn {

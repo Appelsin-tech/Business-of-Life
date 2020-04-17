@@ -81,10 +81,10 @@
           </div>
           <div class="btn-wrapper">
             <button type="submit" class="g-btn g-btn--no-icon" v-if="!newTicket">
-              <span>Сохранить</span>
+              <span class="text">Сохранить</span>
             </button>
             <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>
-              <span>Создать</span>
+              <span class="text">Создать</span>
             </button>
           </div>
         </form>

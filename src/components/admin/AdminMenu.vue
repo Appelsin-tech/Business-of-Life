@@ -14,8 +14,8 @@
             <div class="content">
               <h3 class="g-caption-element">{{startCourse.title}}</h3>
               <p class="lesson">
-                <img class="svg-icon" svg-inline src="@/assets/img/icon/book.svg" alt="">
-                <span>уроков:</span>
+                <icon-book class="g-icon"/>
+                <span class="text">уроков:</span>
                 {{startCourse.lessons.length}}
               </p>
               <p class="description">
@@ -235,17 +235,14 @@ export default {
               align-items: center;
               margin-bottom: 15px;
               .sm-block({margin-bottom: 10px;});
-              .svg-icon {
+              .g-icon {
                 width: 30px;
                 height: 30px;
                 .sm-block({
                   width: 20px;
                   height: 20px;});
-                * {
-                  fill: @colorMain;
-                }
               }
-              span {
+              .text {
                 margin: 0 15px;
               }
             }

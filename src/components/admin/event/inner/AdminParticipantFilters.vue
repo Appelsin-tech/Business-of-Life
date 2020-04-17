@@ -75,7 +75,7 @@
       </div>
       <div class="item item--btn mb-30">
         <button class="g-btn g-btn--no-icon" @click="clearFilters">
-          <span>Очистить</span>
+          <span class="text">Очистить</span>
         </button>
       </div>
     </div>

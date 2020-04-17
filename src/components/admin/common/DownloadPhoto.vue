@@ -6,7 +6,7 @@
       <label class="photo__link" :class="[!!img ? 'photo__link--change' : 'photo__link--add']" :for="`form__file_${idImage}`" >
         <div class="progress" v-show="progressShow">{{uploadPercentage}} / 100%</div>
         <div class="text-wrapper" v-show="!progressShow">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/camera.svg" alt="">
+          <icon-camera class="g-icon"/>
           <span class="photo__text">
             <template v-if="!!img">Изменить фото</template>
             <template v-else>Загрузить фото</template>
@@ -170,10 +170,8 @@ export default {
         }
         .photo__link--add {
           border-color: #000;
-          .svg-icon {
-            path {
-              fill: #000;
-            }
+          .g-icon {
+            color: #000;
           }
           .photo__text {
             color: #000;
@@ -222,10 +220,8 @@ export default {
         &--add {
           z-index: 1;
           border: 1px solid #d7d7d7;
-          .svg-icon {
-            path {
-              fill: #d7d7d7;
-            }
+          .g-icon {
+            color: #d7d7d7;
           }
           .photo__text {
             color: #d7d7d7;
@@ -234,10 +230,8 @@ export default {
         &--change {
           opacity: 0;
           background: rgba(226, 58, 58, 0.8);
-          .svg-icon {
-            path {
-              fill: #fff;
-            }
+          .g-icon {
+            color: #fff;
           }
           .photo__text {
             color: #fff;
@@ -246,17 +240,15 @@ export default {
       }
     }
 
-    .svg-icon {
+    .g-icon {
       margin-bottom: 15px;
       width: 50px;
       height: 50px;
+      transition: 0.3s;
       .sm-block({
         width: 35px;
         height: 35px;
       });
-      path {
-        transition: 0.3s;
-      }
     }
     &__text {
       font-size: 1.6rem;

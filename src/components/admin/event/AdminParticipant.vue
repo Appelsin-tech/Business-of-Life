@@ -7,7 +7,7 @@
 <!--      <search page="member" :idEvent="$route.params.relation"/>-->
       <div class="wrapper-show" v-if="!loading && response.participants.length > 0">
         <button class="g-btn g-btn--no-icon mb-30" @click="print">
-          <span>Печать</span>
+          <span class="text">Печать</span>
         </button>
         <admin-participant-filters :filters="filters" v-on:filters-emit="filtersEmit"/>
         <div class="print" id="printMe" >

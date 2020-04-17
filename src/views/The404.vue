@@ -4,7 +4,7 @@
       <div class="content">
         <strong class="g-caption">Страница не найдена</strong>
         <router-link to="/" class="g-btn g-btn--no-icon">
-          <span>Главная</span>
+          <span class="text">Главная</span>
         </router-link>
       </div>
     </div>

@@ -12,10 +12,10 @@
         </div>
         <div class="g-control-icon" v-if="true">
           <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Пополнить'" @click="">
-            <img svg-inline class="svg-icon" src="../../../assets/img/icon/download.svg" alt="">
+            <icon-upload class="g-icon"/>
           </button>
           <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Вывести'" @click="">
-            <img svg-inline class="svg-icon" src="../../../assets/img/icon/download.svg" alt="">
+            <icon-download class="g-icon"/>
           </button>
         </div>
       </div>
@@ -56,13 +56,6 @@ export default {
           flex-direction: column;
           align-items: flex-start;
         });
-        .g-control-icon {
-          .g-icon-circle:last-child {
-            .svg-icon {
-              transform: rotate(180deg);
-            }
-          }
-        }
       }
       .info {
         margin-right: auto;

@@ -13,25 +13,25 @@
         </template>
         <template  v-else-if="statusTest[course.status].class === 'public'">
           <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-            <img svg-inline class="svg-icon" src="@/assets/img/icon/check.svg" alt="">
+            <icon-check class="g-icon"/>
           </div>
         </template>
         <template  v-else-if="statusTest[course.status].class === 'close'">
           <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-            <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+            <icon-close class="g-icon"/>
           </div>
         </template>
         <template v-else>
           <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-            <img svg-inline class="svg-icon" src="@/assets/img/icon/close.svg" alt="">
+            <icon-close class="g-icon"/>
           </div>
         </template>
         <div class="g-control-icon static">
           <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать курс'" @click="$router.push({path: `/admin/course-editing/${course.id}`})">
-            <img svg-inline src="@/assets/img/icon/pencil.svg" class="svg-icon" alt="">
+            <icon-lead-pencil class="g-icon"/>
           </button>
           <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить курс'" @click="deleteCourse(course.id)">
-            <img svg-inline src="@/assets/img/icon/basket.svg" class="svg-icon" alt="">
+            <icon-delete class="g-icon"/>
           </button>
         </div>
       </div>
@@ -175,9 +175,7 @@ export default {
         }
         .img-link--add {
           .img-link__icon {
-            path {
-              fill: #000;
-            }
+            color: #000;
           }
           .img-link__text {
             color: #000;
@@ -199,9 +197,7 @@ export default {
           z-index: 1;
           background-color: @colorBgGray;
           .img-link__icon {
-            path {
-              fill: #d7d7d7;
-            }
+            color: #d7d7d7;
           }
           .img-link__text {
             color: #d7d7d7;
@@ -211,9 +207,7 @@ export default {
           opacity: 0;
           background: rgba(226, 58, 58, 0.8);
           .img-link__icon {
-            path {
-              fill: #fff;
-            }
+            color: #fff;
           }
           .img-link__text {
             color: #fff;
@@ -223,9 +217,7 @@ export default {
           margin-bottom: 15px;
           width: 50px;
           height: 50px;
-          path {
-            transition: 0.3s;
-          }
+          transition: 0.3s;
         }
         &__text {
           font-size: 1.6rem;

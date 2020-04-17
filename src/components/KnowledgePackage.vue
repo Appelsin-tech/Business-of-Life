@@ -11,7 +11,7 @@
       </div>
       <a href="#" class="g-btn g-btn--no-icon"
          @click.prevent="buyItems(item)">
-        <span>Получить доступ</span>
+        <span class="text">Получить доступ</span>
       </a>
     </div>
     <!--          <v-select ref="select" v-model="bonus['bonus_' + index]" :multiple="false" :class="['v-select__pricing']" placeholder="партнерский бонус" :searchable="false" :options="bonusOptions"></v-select>-->

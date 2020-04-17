@@ -13,27 +13,27 @@
       </div>
       <div class="ref-user" v-for="user in team" :key="user.login">
         <div class="g-icon-circle g-icon-circle--blue g-icon-circle--mr">
-          <img svg-inline class="svg-icon" src="../../../assets/img/icon/avatar.svg" alt="">
+          <icon-account class="g-icon"/>
         </div>
         <div class="info-wrapper">
           <div class="info" >
             <p class="g-caption-element" @click="userClick(user)" :class="[user.invited === 0 ? 'disabled' : '']">{{user.login}}</p>
             <p class="info-item">
-              <img svg-inline class="svg-icon" src="@/assets/img/icon/avatar.svg" alt="">
+              <icon-account class="g-icon"/>
               <span class="text">{{user.fname}}</span>
             </p>
             <p class="info-item">
-              <img svg-inline class="svg-icon" src="@/assets/img/icon/mail.svg" alt="">
+              <icon-email class="g-icon"/>
               <span class="text">{{user.email}}</span>
             </p>
             <p class="info-item">
-              <img svg-inline class="svg-icon" src="@/assets/img/icon/avatar.svg" alt="">
+              <icon-account class="g-icon"/>
               <span class="text">{{user.invited}}</span>
             </p>
           </div>
           <div class="g-control-icon">
             <a :href="`mailto:${user.email}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Отправить сообщение'" @click="">
-              <img svg-inline class="svg-icon" src="@/assets/img/icon/mail.svg" alt="">
+              <icon-email class="g-icon"/>
             </a>
           </div>
 
@@ -173,16 +173,14 @@ export default {
           .md-block({
             margin-bottom: 5px;
           });
-          .svg-icon {
+          .g-icon {
             margin-right: 15px;
             width: 15px;
             height: 15px;
-            path {
-              fill: #dedede;
-            }
+            color: #dedede;
           }
           .text {
-            color: @colorSecondFonts;
+            color: var(--app_font-secondary__color);
           }
         }
       }

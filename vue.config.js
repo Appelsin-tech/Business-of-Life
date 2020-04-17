@@ -21,6 +21,7 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias
       .set('@admin', path.resolve(__dirname, 'src/components/admin'))
+      .set('icons', path.resolve(__dirname, 'node_modules/vue-material-design-icons'))
 
     config.optimization
       .splitChunks(splitChunks)

@@ -10,7 +10,7 @@
        <knowledge-package v-for="(item, index) in bonusFilter" :key="item.price_kzt" :item="item"></knowledge-package>
       </div>
       <router-link to="/knowledge/menu" class="g-btn g-btn--no-icon" v-if="statusDev">
-        <span>База знаний</span>
+        <span class="text">База знаний</span>
       </router-link>
     </div>
   </section>

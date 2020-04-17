@@ -51,8 +51,8 @@
             </div>
           </div>
           <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-            <span>Купить билет</span>
-            <span>{{eventData.price}} {{eventData.currency}}</span>
+            <span class="text">Купить билет</span>
+            <span class="text">{{eventData.price}} {{eventData.currency}}</span>
           </button>
         </form>
       </div>

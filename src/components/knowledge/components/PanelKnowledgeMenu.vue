@@ -2,13 +2,14 @@
   <a href="" :class="{'closed-course': closeCourse}" class="menu-item" @click.prevent="routerPush">
     <div class="img-wrapper">
       <div class="img" :style="{backgroundImage: `url(${item.img})`}">
-        <font-awesome-icon :icon="['fas', 'lock']" class="fa-icon" v-if="closeCourse"/>
+<!--        <icon-arrow-right class="g-icon"/>-->
+        <icon-lock class="g-icon" v-if="closeCourse"/>
       </div>
       <h3 class="g-caption-element">{{item.title}}</h3>
     </div>
     <p class="lesson">
-      <img class="svg-icon" svg-inline src="@/assets/img/icon/book.svg" alt="">
-      <span>уроков:</span>
+      <icon-book class="g-icon"/>
+      <span class="text">уроков:</span>
       {{item.lessons}}
     </p>
     <p class="description">
@@ -71,7 +72,7 @@ export default {
     display: flex;
     flex-direction: column;
     transition: 0.3s;
-    color: #000;
+    color: var(--app_font__color);
     flex-grow: 1;
     &:hover {
       .g-caption-element {
@@ -92,7 +93,7 @@ export default {
             background-color: #ccc;
             z-index: 1;
           }
-          .fa-icon {
+          .g-icon {
             position: absolute;
             width: 50px;
             height: 50px;
@@ -169,17 +170,14 @@ export default {
       align-items: center;
       margin-bottom: 15px;
       .sm-block({margin-bottom: 10px;});
-      .svg-icon {
+      .g-icon {
         width: 30px;
         height: 30px;
         .sm-block({
           width: 20px;
           height: 20px;});
-        * {
-          fill: @colorMain;
-        }
       }
-      span {
+      .text {
         margin: 0 15px;
       }
     }

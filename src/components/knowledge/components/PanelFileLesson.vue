@@ -1,6 +1,6 @@
 <template>
   <a class="file" href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" download>
-    <img svg-inline class="g-svg-icon" src="@/assets/img/icon/info.svg" alt="">
+    <icon-file class="g-icon"/>>
     <strong class="g-item-form__label">СписокКомпаний.pdf</strong>
   </a>
 </template>

@@ -19,7 +19,7 @@
                 <h3 class="caption-steps">Александр <br> Бахтияров</h3>
                 <div class="wrapper-btn">
                   <a class="circle-btn" href="#">
-                    <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
+                    <icon-arrow-right class="g-icon"/>
                   </a>
                 </div>
               </div>
@@ -29,7 +29,7 @@
                 <h3 class="caption-steps">Ерлан <br> Думанулы</h3>
                 <div class="wrapper-btn">
                   <a class="circle-btn" href="#">
-                    <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
+                    <icon-arrow-right class="g-icon"/>
                   </a>
                 </div>
               </div>
@@ -39,7 +39,7 @@
                 <h3 class="caption-steps">Темиржан</h3>
                 <div class="wrapper-btn">
                   <a class="circle-btn" href="#">
-                    <img svg-inline src="../assets/img/icon/right-arrow.svg" alt="">
+                    <icon-arrow-right class="g-icon"/>
                   </a>
                 </div>
               </div>
@@ -228,14 +228,12 @@ export default {
               transform: translateY(65px);
               box-sizing: border-box;
               .lg-block({ width: 50px; height: 50px;});
-              svg {
+              .g-icon {
                 width: 20px;
                 height: 15px;
                 transition: 0.3s;
+                color: #fff;
                 .lg-block({ width: 20px; height: 20px; });
-                path {
-                  stroke: #fff;
-                }
               }
             }
           }

@@ -28,8 +28,8 @@
           </div>
           <div class="btn-wrapper">
             <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-              <span v-if="id">Сохранить</span>
-              <span v-else>Создать</span>
+              <span class="text" v-if="id">Сохранить</span>
+              <span class="text" v-else>Создать</span>
             </button>
           </div>
         </div>
@@ -48,14 +48,14 @@
                 <div class="editor" v-html="item.content"></div>
                 <div class="icon-wrapper">
                   <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
-                    <img svg-inline class="svg-icon " src="@/assets/img/icon/drag.svg" alt="">
+                    <icon-drag-variant class="g-icon"/>
                   </div>
                   <div class="g-control-icon static">
                     <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
-                      <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+                      <icon-lead-pencil class="g-icon"/>
                     </button>
                     <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteBlocks(item.id)">
-                      <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+                      <icon-delete class="g-icon"/>
                     </button>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
       </div>
       <div class="link-wrapper">
         <router-link class="g-btn g-btn--no-icon preview" :to="`/knowledge/${course}/${id}`" :class="{disabled: !course}">
-          <span>Предпросмотр</span>
+          <span class="text">Предпросмотр</span>
         </router-link>
       </div>
     </div>

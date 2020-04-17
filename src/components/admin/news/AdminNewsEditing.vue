@@ -75,17 +75,17 @@
           </div>
           <div class="btn-wrapper" v-if="myNews">
             <button class="g-btn g-btn--no-icon" :disabled="sameObject || $v.$anyError">
-              <span>Сохранить</span>
+              <span class="text">Сохранить</span>
             </button>
             <router-link :to="`/news/${form.url}`" class="g-btn g-btn--no-icon" :class="{disabled: !myNews.url}">
-              <span>Предпросмотр</span>
+              <span class="text">Предпросмотр</span>
             </router-link>
             <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="publishNews" :disabled="$v.$anyError">
-              <span v-if="status === 0">Опубликовать</span>
-              <span v-else-if="status === 1">Снять с публикации</span>
+              <span class="text" v-if="status === 0">Опубликовать</span>
+              <span class="text" v-else-if="status === 1">Снять с публикации</span>
             </button>
             <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="deleteNews">
-              <span>Удалить</span>
+              <span class="text">Удалить</span>
             </button>
           </div>
         </form>

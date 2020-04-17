@@ -14,10 +14,10 @@
     </div>
     <div class="g-control-icon" v-if="controlBtn">
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-actions-create', {relation_id: relationId, listTickets: listTickets, action: action})">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/pencil.svg" alt="">
+        <icon-lead-pencil class="g-icon"/>
       </button>
       <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteAction">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/basket.svg" alt="">
+        <icon-delete class="g-icon"/>
       </button>
     </div>
 </div>

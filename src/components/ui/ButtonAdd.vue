@@ -1,7 +1,7 @@
 <template>
   <div class="button-create">
     <div class="text">
-      <img svg-inline src="../../assets/img/icon/plus-circle.svg" alt="">
+      <icon-plus-circle class="g-icon"/>
       <span class="g-caption-element g-caption-element--static">{{text}}</span>
     </div>
   </div>
@@ -47,7 +47,7 @@ export default {
         margin-bottom: 15px;});
       .text {
         flex-direction: row;
-        svg {
+        .g-icon {
           margin-right: 35px;
           margin-bottom: 0;
           .sm-block({
@@ -78,10 +78,11 @@ export default {
       align-items: center;
       color: #000;
       .sm-block({flex-direction: row;});
-      svg {
+      .g-icon {
         width: 35px;
         height: 35px;
         margin-bottom: 35px;
+        color: @colorMain;
         .sm-block({
           width: 28px;
           height: 28px;
@@ -91,9 +92,6 @@ export default {
           width: 20px;
           height: 20px;
         });
-        path {
-          fill: @colorMain;
-        }
       }
       .g-caption-element {
         text-decoration: underline;

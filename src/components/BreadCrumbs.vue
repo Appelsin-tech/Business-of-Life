@@ -49,11 +49,12 @@ export default {
     }
     &__link {
       font-size: 1.4rem;
-      color: @colorSecondFonts;
+      color: var(--app_font__color);
     }
     &__arrow {
       display: inline-block;
       margin: 0 8px;
+      color: var(--app_font__color);
     }
   }
 </style>

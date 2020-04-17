@@ -6,16 +6,6 @@
       <div class="wrapper-col">
         <div class="col col--role">
           <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
-<!--          <div class="btn-wrapper">-->
-<!--            <button class="btn-role" :class="'active'">Администратор</button>-->
-<!--            <button class="btn-role">Модератор</button>-->
-<!--            <a href="#" class="g-btn g-btn&#45;&#45;icon-left">-->
-<!--              <span>-->
-<!--                <img svg-inline class="svg-icon" src="../../assets/img/icon/plus-circle.svg" alt="">-->
-<!--                Добавить роль-->
-<!--              </span>-->
-<!--            </a>-->
-<!--          </div>-->
         </div>
         <div class="col col--access">
           <admin-role-form :role="currentTab"/>

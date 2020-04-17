@@ -214,7 +214,7 @@ export default {
         flex-direction: column;
         .desc-light {
           font-size: 1.4rem;
-          color: #666666;
+          color: var(--app_font__color);
           margin-bottom: 10px;
         }
         .wrapper-date-icon {
@@ -430,14 +430,14 @@ export default {
           .day {
             font-size: 3rem;
             font-weight: 800;
-            color: @colorMainSecondary;
+            color: var(--app_emphasis__color);
             .sm-block({
               font-size: 2.4rem;
             });
           }
           .week {
             font-size: 1.4rem;
-            color: #666666;
+            color: var(--app_font__color);
           }
         }
       }
