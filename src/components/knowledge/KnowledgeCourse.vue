@@ -13,10 +13,10 @@
             <div class="text-wrapper">
               <div class="editor" v-html="course.snippet"></div>
             </div>
-            <button href="#" class="g-btn g-btn--no-icon" @click="scrollToSection('section-lessons')">
-              <span class="text" v-if="statusProgress === 0">Начать изучение</span>
-              <span class="text" v-if="statusProgress > 0">Продолжить изучение</span>
-            </button>
+            <button-app @click.native="scrollToSection('section-lessons')">
+              <template v-if="statusProgress === 0">Начать изучение</template>
+              <template v-if="statusProgress > 0">Продолжить изучение</template>
+            </button-app>
           </div>
         </section>
         <section class="description g-subsection">
@@ -175,7 +175,7 @@ export default {
           .xs-block({
             margin-bottom: 50px;});
         }
-        .g-btn {
+        .btn-app {
           align-self: flex-start;
         }
       }

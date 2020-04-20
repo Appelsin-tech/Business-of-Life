@@ -21,12 +21,12 @@
       </template>
     </div>
     <div class="btn-wrapper" v-if="source === 'lesson'">
-      <router-link :to="`/admin/lesson/${urlMyCourse}`" class="g-btn g-btn--no-icon" v-if="urlMyCourse">
-        <span class="text">Редактировать</span>
-      </router-link>
-      <button class="g-btn g-btn--no-icon g-btn--white" v-if="statusProgress !== 2" @click="$emit('set-progress')" :class="{'disabled': statusProgress > 0}">
-        <span class="text">Отметить как пройденный</span>
-      </button>
+      <button-app :to="`/admin/lesson/${urlMyCourse}`"  v-if="urlMyCourse">
+        Редактировать
+      </button-app>
+      <button-app class="btn-app--white" v-if="statusProgress !== 2" @click.native="$emit('set-progress')" :class="{'disabled': statusProgress > 0}">
+        Отметить как пройденный
+      </button-app>
     </div>
   </div>
 </template>
@@ -105,7 +105,7 @@ export default {
         align-items: center;
         padding-top: 0;
       });
-      .g-btn:last-child {
+      .btn-app:last-child {
         margin-left: 20px;
         .ss-block({
           margin-left: 0;

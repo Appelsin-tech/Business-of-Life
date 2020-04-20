@@ -30,13 +30,13 @@
       </div>
     </div>
     <div class="btn-wrapper">
-      <button  type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid || sameObject">
-        <span class="text" v-if="idCourse">Сохранить</span>
-        <span class="text" v-else>Создать</span>
-      </button>
-      <button class="g-btn g-btn--no-icon g-btn--white" type="button" @click="deleteCourse(idCourse)" v-if="btnDelete">
-        <span class="text">Удалить</span>
-      </button>
+      <button-app :disabled="$v.$invalid || sameObject">
+        <template v-if="idCourse">Сохранить</template>
+        <template v-else>Создать</template>
+      </button-app>
+      <button-app class="btn-app--white" @click.native="deleteCourse(idCourse)" v-if="btnDelete">
+        Удалить
+      </button-app>
     </div>
   </form>
 </template>
@@ -193,7 +193,7 @@ export default {
     .sm-block({
       margin-top: 18px;});
     .ss-block({ flex-direction: column; align-items: flex-start; });
-    .g-btn {
+    .btn-app {
       &--white {
         .ss-block({ margin-top: 10px; });
       }

@@ -12,9 +12,9 @@
             <strong class="desc-strong g-caption">«Корона на Миллион»</strong>
             <p class="desc-connect" >Прими участие БЕСПЛАТНО!</p>
             <p class="desc-connect" >Развивайся онлайн - прокачай свой личный бренд и получи возможности новых технологий и бизнеса в Интернет</p>
-            <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
-              <span class="text">Стать участником</span>
-            </a>
+            <button-app href="https://t-do.ru/coronanamillion_bot" target="_blank">
+              Стать участником
+            </button-app>
           </div>
         </div>
       </div>
@@ -113,9 +113,9 @@
       <div class="container">
         <h2 class="g-caption-inner">Присоединяйтесь к нам</h2>
         <span class="desc">Марафон уже стартовал!</span>
-        <a href="https://t-do.ru/coronanamillion_bot" target="_blank" class="g-btn g-btn--no-icon">
-          <span class="text">Стать участником</span>
-        </a>
+        <button-app href="https://t-do.ru/coronanamillion_bot" target="_blank">
+          Стать участником
+        </button-app>
       </div>
     </section>
   </div>
@@ -264,7 +264,7 @@ export default {
       margin-bottom: 25px;
     });
   }
-  .g-btn {
+  .btn-app {
     background: #FFCC00;
     border-color: #FFCC00;
     .text {
@@ -328,7 +328,7 @@ export default {
           .sm-block({  font-size: 1.6rem;
             margin-bottom: 10px;})
         }
-        .g-btn {
+        .btn-app {
           margin-top: 20px;
         }
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="status">
+    <div class="status g-panel">
       <div class="status-wrapper">
         <div class="status-content" >
           <template v-if="status[idStatus].class === 'created'">
@@ -29,13 +29,20 @@
           </template>
         </div>
         <div class="btn-wrapper">
-          <router-link :to="linkEdit" class="g-btn g-btn--no-icon" v-if="!hideBtnPastEvent">
-            <span class="text">Редактировать</span>
-          </router-link>
-          <button class="g-btn g-btn--no-icon g-btn--white"  @click="newStatus">
-            <span class="text" v-if="btnText">Снять с публикации</span>
-            <span class="text" v-else>Опубликовать</span>
-          </button>
+          <button-app :to="linkEdit" v-if="!hideBtnPastEvent">
+            Редактировать
+          </button-app>
+<!--          <router-link :to="linkEdit" class="g-btn g-btn&#45;&#45;no-icon" v-if="!hideBtnPastEvent">-->
+<!--            <span class="text">Редактировать</span>-->
+<!--          </router-link>-->
+          <button-app class="btn-app--white" @click.native="newStatus">
+            <template v-if="btnText">Снять с публикации</template>
+            <template v-else>Опубликовать</template>
+          </button-app>
+<!--          <button class="g-btn g-btn&#45;&#45;no-icon g-btn&#45;&#45;white"  @click="newStatus">-->
+<!--            <span class="text" v-if="btnText">Снять с публикации</span>-->
+<!--            <span class="text" v-else>Опубликовать</span>-->
+<!--          </button>-->
         </div>
       </div>
     </div>
@@ -48,6 +55,8 @@ import API from '../api/index'
 export default {
   name: 'StatusPreview',
   props: ['idEvent', 'idStatus', 'idRelation', 'idCourse', 'idNews', 'section'],
+  components: {
+  },
   data() {
     return {
     }
@@ -187,8 +196,7 @@ export default {
   .status {
     padding: 30px;
     margin-bottom: 80px;
-    box-shadow: 0 0 30px 0 rgba(0,0,0,0.2);
-    .sm-block({box-shadow: 0 0 20px 0 rgba(0,0,0,0.2); margin-bottom: 50px; padding: 20px;});
+    .sm-block({margin-bottom: 50px; padding: 20px;});
     .xs-block({padding: 15px;});
     .status-wrapper {
       display: flex;
@@ -209,8 +217,8 @@ export default {
       .btn-wrapper {
         display: flex;
         justify-content: flex-start;
-        .ss-block({ flex-direction: column; align-items: flex-start;});
-        .g-btn {
+        .ss-block({ flex-direction: column; align-items: center;});
+        .btn-app {
           &:first-child {
             margin-right: 20px;
             .ss-block({ margin-right: 0; margin-bottom: 10px;});

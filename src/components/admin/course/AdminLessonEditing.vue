@@ -27,10 +27,10 @@
             </div>
           </div>
           <div class="btn-wrapper">
-            <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-              <span class="text" v-if="id">Сохранить</span>
-              <span class="text" v-else>Создать</span>
-            </button>
+            <button-app :disabled="$v.$invalid">
+              <template v-if="id">Сохранить</template>
+              <template v-else>Создать</template>
+            </button-app>
           </div>
         </div>
       </form>
@@ -47,16 +47,13 @@
               <div class="g-panel text" v-else>
                 <div class="editor" v-html="item.content"></div>
                 <div class="icon-wrapper">
-                  <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
-                    <icon-drag-variant class="g-icon"/>
-                  </div>
-                  <div class="g-control-icon static">
-                    <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-lesson-materials', item)">
-                      <icon-lead-pencil class="g-icon"/>
-                    </button>
-                    <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteBlocks(item.id)">
-                      <icon-delete class="g-icon"/>
-                    </button>
+                  <button-app-function icon="icon-drag-variant" class="drag"></button-app-function>
+<!--                  <div class="g-icon-circle drag g-icon-circle&#45;&#45;control g-icon-circle&#45;&#45;control-drag">-->
+<!--                    <icon-drag-variant class="g-icon"/>-->
+<!--                  </div>-->
+                  <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
+                    <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" @click.native="$modal.show('modal-lesson-materials', item)"></button-app-function>
+                    <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить'" @click.native="deleteBlocks(item.id)"></button-app-function>
                   </div>
                 </div>
               </div>
@@ -65,9 +62,9 @@
         </draggable>
       </div>
       <div class="link-wrapper">
-        <router-link class="g-btn g-btn--no-icon preview" :to="`/knowledge/${course}/${id}`" :class="{disabled: !course}">
-          <span class="text">Предпросмотр</span>
-        </router-link>
+        <button-app class="preview" :to="`/knowledge/${course}/${id}`" :class="{disabled: !course}">
+          Предпросмотр
+        </button-app>
       </div>
     </div>
     <div class="container page container--btn-back">
@@ -283,9 +280,7 @@ export default {
         .sm-block({flex-direction: row-reverse;
           margin-top: 15px;});
         .drag {
-          margin-bottom: 10px;
-          .sm-block({
-            margin-bottom: 0;})
+          margin-bottom: 5px;
         }
       }
       .editor {

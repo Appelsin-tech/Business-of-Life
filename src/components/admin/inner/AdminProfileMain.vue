@@ -53,9 +53,9 @@
         </div>
       </div>
     </div>
-    <button class="g-btn g-btn--no-icon">
-      <span class="text">Сохранить</span>
-    </button>
+    <button-app>
+      Сохранить
+    </button-app>
   </form>
 </template>
 
@@ -140,7 +140,7 @@ export default {
           padding-bottom: 30px;});
       }
     }
-    .g-btn {
+    .btn-app {
       min-width: 220px;
       align-self: flex-start;
     }

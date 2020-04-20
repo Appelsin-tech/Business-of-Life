@@ -74,9 +74,9 @@
         </div>
       </div>
       <div class="item item--btn mb-30">
-        <button class="g-btn g-btn--no-icon" @click="clearFilters">
-          <span class="text">Очистить</span>
-        </button>
+        <button-app @click.native="clearFilters">
+          Очистить
+        </button-app>
       </div>
     </div>
   </div>

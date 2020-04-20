@@ -12,9 +12,9 @@
             <div class="text-wrapper">
               <div class="editor ul-pdl-0" v-html="lesson.description"></div>
             </div>
-            <button class="g-btn g-btn--no-icon" @click="scrollToSection('section-materials')">
-              <span class="text">Начать</span>
-            </button>
+            <button-app @click.native="scrollToSection('section-materials')">
+              Начать
+            </button-app>
           </div>
         </section>
         <section class="materials-lesson" ref="section-materials">
@@ -156,7 +156,7 @@ export default {
           .xs-block({
             margin-bottom: 50px;});
         }
-        .g-btn {
+        .btn-app {
           align-self: flex-start;
         }
       }

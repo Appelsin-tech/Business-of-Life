@@ -26,13 +26,9 @@
             <icon-close class="g-icon"/>
           </div>
         </template>
-        <div class="g-control-icon static">
-          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать курс'" @click="$router.push({path: `/admin/course-editing/${course.id}`})">
-            <icon-lead-pencil class="g-icon"/>
-          </button>
-          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить курс'" @click="deleteCourse(course.id)">
-            <icon-delete class="g-icon"/>
-          </button>
+        <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
+          <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать курс'" :to="`/admin/course-editing/${course.id}`"></button-app-function>
+          <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить курс'" @click.native="deleteCourse(course.id)"></button-app-function>
         </div>
       </div>
   </article>

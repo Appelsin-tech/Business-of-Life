@@ -10,13 +10,9 @@
             <p class="g-price-secondary">({{balance.bol}} USD)</p>
           </div>
         </div>
-        <div class="g-control-icon" v-if="true">
-          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Пополнить'" @click="">
-            <icon-upload class="g-icon"/>
-          </button>
-          <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Вывести'" @click="">
-            <icon-download class="g-icon"/>
-          </button>
+        <div class="g-wrapper-btn-f" v-if="true">
+          <button-app-function icon="icon-upload" v-tooltip.bottom="'Пополнить'" @click.native=""></button-app-function>
+          <button-app-function icon="icon-download" v-tooltip.bottom="'Пополнить'" @click.native=""></button-app-function>
         </div>
       </div>
     </div>

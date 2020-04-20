@@ -12,13 +12,9 @@
         <p class="text">всего билетов: {{action.amount}} шт</p>
       </div>
     </div>
-    <div class="g-control-icon" v-if="controlBtn">
-      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-actions-create', {relation_id: relationId, listTickets: listTickets, action: action})">
-        <icon-lead-pencil class="g-icon"/>
-      </button>
-      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteAction">
-        <icon-delete class="g-icon"/>
-      </button>
+    <div class="g-wrapper-btn-f" v-if="controlBtn">
+      <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" @click.native="$modal.show('modal-actions-create', {relation_id: relationId, listTickets: listTickets, action: action})"></button-app-function>
+      <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить'" @click.native="deleteAction"></button-app-function>
     </div>
 </div>
 </template>
@@ -98,14 +94,6 @@ export default {
           height: 20px;
           margin-right: 15px;
         }
-        .svg-icon {
-          margin-right: 15px;
-          width: 15px;
-          height: 15px;
-          path {
-            fill: #dedede;
-          }
-        }
         .text {
           .g-price-main {
             display: inline-block;
@@ -120,7 +108,7 @@ export default {
         margin-bottom: 15px;
       });
     }
-    .g-control-icon {
+    .g-wrapper-btn-f {
       .ss-block({
         margin-top: 30px;});
     }

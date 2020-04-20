@@ -372,7 +372,7 @@ export default {
         }
       }
     }
-    .g-btn {
+    .btn-app {
       min-width: 220px;
       align-self: flex-start;
     }

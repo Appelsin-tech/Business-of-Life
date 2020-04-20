@@ -28,9 +28,9 @@
         </div>
       </div>
     </div>
-    <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-      <span class="text">Сохранить</span>
-    </button>
+    <button-app :disabled="$v.$invalid">
+      Сохранить
+    </button-app>
   </form>
 </template>
 

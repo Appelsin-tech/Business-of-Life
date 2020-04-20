@@ -1,22 +1,17 @@
 <template>
-  <div class="ticket">
+  <div class="ticket g-panel">
     <h3 class="g-caption-element g-caption-element--static">{{ticket.title}}</h3>
     <div class="description editor ul-pdl-0" v-html="ticket.desc"></div>
     <div class="g-price">
       <p class="g-price-main">{{ticket.price}} <span class="currency">{{ticket.currency}}</span></p>
       <p class="g-price-secondary">({{ticket.price_kzt}} KZT)</p>
     </div>
-    <a href="#" class="g-btn g-btn--no-icon" v-if="btn"
-       @click.prevent="openModalPurchase">
-      <span class="text">Купить билет</span>
-    </a>
-    <div class="g-control-icon g-control-icon--ticket" v-else>
-      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$modal.show('modal-ticket-create', {ticket: ticket})">
-        <icon-lead-pencil class="g-icon "/>
-      </button>
-      <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteTicket">
-        <icon-delete class="g-icon"/>
-      </button>
+    <button-app @click.native="openModalPurchase" v-if="btn">
+      Купить билет
+    </button-app>
+    <div class="g-wrapper-btn-f g-wrapper-btn-f--static" v-else>
+      <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" @click.native="$modal.show('modal-ticket-create', {ticket: ticket})"></button-app-function>
+      <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить'" @click.native="deleteTicket"></button-app-function>
     </div>
     <generate-ticket :id="ticket.id" v-if="false"/>
 <!--    <button @click="newTicket" class="test-btn">RUCHNIOI VIPUSK </button>-->
@@ -26,6 +21,7 @@
 <script>
 import GenerateTicket from '@/components/helpers/GenerateTicket'
 import API from '../api/index'
+
 export default {
   name: 'Ticket',
   props: ['btn', 'ticket', 'event'],
@@ -76,10 +72,6 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-    border-radius: 5px;
-    .default-panel-style();
     .sm-block({ margin-bottom: 15px;});
     .g-caption-element {
       margin-bottom: 30px;

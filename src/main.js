@@ -14,6 +14,10 @@ import Deselect from './components/Dselect'
 import VueCookies from 'vue-cookies'
 
 import IconMaterial from './libs/icons-material'
+import ButtonApp from '@/components/ui/ButtonApp'
+import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
+Vue.component('button-app', ButtonApp)
+Vue.component('button-app-function', ButtonAppFunction)
 
 Vue.use(VueCookies)
 Vue.use(VCalendar)

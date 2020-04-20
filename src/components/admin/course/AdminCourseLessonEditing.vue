@@ -24,9 +24,9 @@
         </div>
         <panel-info v-else>Чтобы создать урок - заполните информацию о курсе</panel-info>
         <div class="link-wrapper">
-          <router-link class="g-btn g-btn--no-icon preview" :to="`/knowledge/${id}`" :class="{disabled: !id}">
-            <span class="text">Предпросмотр</span>
-          </router-link>
+          <button-app class="preview" :to="`/knowledge/${id}`" :class="{disabled: !id}">
+            Предпросмотр
+          </button-app>
         </div>
       </div>
     </div>

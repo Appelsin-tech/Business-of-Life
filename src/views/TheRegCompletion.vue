@@ -72,9 +72,9 @@
               </div>
             </div>
           </div>
-          <button class="g-btn g-btn--no-icon" :disabled="$v.$invalid  || btnLoading">
-            <span class="text">Отправить</span>
-          </button>
+          <button-app :disabled="$v.$invalid  || btnLoading">
+            Отправить
+          </button-app>
         </form>
       </div>
     </div>
@@ -258,7 +258,7 @@ export default {
             margin-bottom: 20px;
           });
         }
-        .g-btn {
+        .btn-app {
           margin-bottom: 30px;
           align-self: flex-start;
           .md-block({

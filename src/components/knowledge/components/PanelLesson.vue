@@ -13,13 +13,13 @@
         <h3 class="g-caption-element g-caption-element--static">{{lesson.title}}</h3>
         <div class="editor" v-html="lesson.description"></div>
       </div>
-      <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon g-btn--white" v-if="statusProgressLesson === 0">
-        <span class="text">Повторить</span>
-      </router-link>
-      <router-link :to="`/knowledge/${urlCourse}/${lesson.id}`" class="g-btn g-btn--no-icon" v-if="showBtnProgress">
-        <span class="text" v-if="showBtnProgress === 1">Начать изучение</span>
-        <span class="text" v-else>Продолжить изучение</span>
-      </router-link>
+      <button-app :to="`/knowledge/${urlCourse}/${lesson.id}`" class="btn-app--white" v-if="statusProgressLesson === 0">
+        Повторить
+      </button-app>
+      <button-app :to="`/knowledge/${urlCourse}/${lesson.id}`" v-if="showBtnProgress">
+        <template v-if="showBtnProgress === 1">Начать изучение</template>
+        <template v-else>Продолжить изучение</template>
+      </button-app>
     </div>
   </div>
 </template>
@@ -99,7 +99,7 @@ export default {
         flex-direction: column;
         align-items: flex-start;
       });
-      .g-btn {
+      .btn-app {
         flex-shrink: 0;
       }
     }

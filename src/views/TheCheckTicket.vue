@@ -40,12 +40,12 @@
               </p>
             </div>
             <div class="btn-wrapper">
-              <a href="#" v-if="superV" class="g-btn g-btn--no-icon" @click.prevent="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" >
-                <span class="text">Закрыть билет</span>
-              </a>
-              <a href="#" v-if="status[ticket.status] === 'active' && superV" class="g-btn g-btn--no-icon g-btn--white" @click.prevent="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
-                <span class="text">Продлить билет</span>
-              </a>
+              <button-app v-if="superV"  @click.native="activateTicket(false)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}" >
+                Закрыть билет
+              </button-app>
+              <button-app v-if="status[ticket.status] === 'active' && superV" class="btn-app--white" @click.native="activateTicket(true)" :class="{disabled: disabledBtn || status[ticket.status] === 'used' || status[ticket.status] === 'blocked'}">
+                Продлить билет
+              </button-app>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        .g-btn {
+        .btn-app {
           min-width: 210px;
           height: 72px;
           padding-top: 0;
@@ -294,7 +294,7 @@ export default {
             }
           }
         }
-        .g-btn {
+        .btn-app {
           align-self: flex-start;
         }
       }

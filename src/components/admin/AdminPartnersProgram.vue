@@ -123,7 +123,7 @@ export default {
           padding-bottom: 20px;
           border-bottom: 1px solid @colorBorder;
         });
-        .g-btn {
+        .btn-app {
           min-width: 100%;
         }
       }

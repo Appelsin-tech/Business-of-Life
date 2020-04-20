@@ -50,10 +50,14 @@
               </p>
             </div>
           </div>
-          <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid">
-            <span class="text">Купить билет</span>
-            <span class="text">{{eventData.price}} {{eventData.currency}}</span>
-          </button>
+          <button-app type="submit" :disabled="$v.$invalid">
+            <template>Купить билет	&emsp; {{eventData.price}} {{eventData.currency}}</template>
+            <template></template>
+          </button-app>
+<!--          <button type="submit" class="g-btn g-btn&#45;&#45;no-icon" :disabled="$v.$invalid">-->
+<!--            <span class="text">Купить билет</span>-->
+<!--            <span class="text">{{eventData.price}} {{eventData.currency}}</span>-->
+<!--          </button>-->
         </form>
       </div>
     </div>
@@ -68,7 +72,9 @@ import { email, required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'ModalTicketPurchase',
-  components: { flatPickr },
+  components: {
+    flatPickr
+  },
   data () {
     return {
       fields: [],

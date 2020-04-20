@@ -173,7 +173,7 @@ export default {
       flex-direction: column;
       align-items: flex-start;
     });
-    .g-btn {
+    .btn-app {
       .ss-block({
         min-width: 230px;
       });

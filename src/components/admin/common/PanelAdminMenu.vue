@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'PannelAdminKnowledgeMenu',
+  name: 'PanelAdminKnowledgeMenu',
   props: ['item']
 }
 </script>
@@ -15,12 +15,21 @@ export default {
 <style scoped lang="less">
   @import "../../../assets/less/_importants";
   .menu-item {
+
     display: flex;
     flex-direction: column;
     transition: 0.3s;
+    border-radius: 8px;
+    padding-bottom: 40px;
+    background: #fff;
+    overflow: hidden;
+    .lg-block({max-width: 80%;});
+    .md-block({max-width: 100%;});
     .sm-block({
+      border-radius: 5px;
       flex-direction: row;
       align-items: center;
+      padding-bottom: 0;
     });
     &:hover {
       .g-caption-element {
@@ -31,14 +40,11 @@ export default {
       position: relative;
       margin-bottom: 40px;
       height: 240px;
-      width: 240px;
+      width: 100%;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       background-color: @colorBgGray;
-      .to(1430px, {
-        width: auto;
-      });
       .lg-block({
         height: 220px;
         margin-bottom: 30px;
@@ -55,9 +61,9 @@ export default {
       });
       .xs-block({
         width: 40px;
-        height: 40px;
+        min-height: 40px;
+        height: 100%;
       });
-      /*.xs-block({ height: 250px; margin-bottom: 20px; });*/
       &.event-control {
         background-image: url('~@/assets/img/admin/admin-menu-events.jpg');
       }
@@ -105,6 +111,15 @@ export default {
         align-items: center;
         justify-content: center;
       }
+    }
+    .g-caption-element {
+      padding: 0 40px;
+      .lg-block({
+        padding: 0 30px;});
+      .sm-block({
+        padding: 10px 30px;});
+      .xs-block({
+        padding: 10px 20px;});
     }
   }
 </style>

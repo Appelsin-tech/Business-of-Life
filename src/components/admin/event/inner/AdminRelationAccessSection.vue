@@ -162,7 +162,7 @@ export default {
       border: 1px solid @colorMain;
     }
   }
-  .g-btn {
+  .btn-app {
     margin-top: 35px;
     .sm-block({
       margin-top: 18px;

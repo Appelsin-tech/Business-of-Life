@@ -107,7 +107,7 @@ export default {
           }
 
         }
-        .g-btn {
+        .btn-app {
           min-width: 100%;
         }
       }

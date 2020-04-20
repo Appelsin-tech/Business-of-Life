@@ -53,7 +53,7 @@ export default {
         display: flex;
         align-items: center;
         padding: 12px 10px 12px 15px;
-        font-size: 1.6rem;
+        font-size: 2rem;
         transition: 0.3s;
         border-radius: 5px;
         @media (max-width: 1570px) {

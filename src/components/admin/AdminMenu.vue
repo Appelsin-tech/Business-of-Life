@@ -27,9 +27,7 @@
         </div>
       </div>
       <div class="menu">
-          <div class="item" v-for="item in menu" :key="item.name">
-            <panel-admin-menu :item="item" />
-          </div>
+        <panel-admin-menu v-for="item in menu" :key="item.name" :item="item" />
       </div>
       <router-link to="/" class="back-btn">Назад</router-link>
     </div>
@@ -256,11 +254,17 @@ export default {
       }
     }
     .menu {
-      .row-flex();
+      /*.row-flex();
       justify-content: flex-start;
       .sm-block({
         justify-content: center;
-      });
+      });*/
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 30px;
+      .lg-block({grid-template-columns: repeat(3, 1fr);});
+      .sm-block({grid-template-columns: 1fr; grid-gap: 20px;});
+      .xs-block({grid-gap: 10px;});
       .item {
         .col();
         .size(3);

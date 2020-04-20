@@ -252,17 +252,5 @@ export default {
       .row-flex();
       .lg-block({ justify-content: center;});
     }
-    .g-btn--event-pasts {
-      width: 100%;
-      justify-content: center;
-      span {
-        position: relative;
-        margin-left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 0;
-      }
-    }
   }
 </style>

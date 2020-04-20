@@ -6,9 +6,9 @@
       <h1 class="g-caption-inner">Список участников</h1>
 <!--      <search page="member" :idEvent="$route.params.relation"/>-->
       <div class="wrapper-show" v-if="!loading && response.participants.length > 0">
-        <button class="g-btn g-btn--no-icon mb-30" @click="print">
-          <span class="text">Печать</span>
-        </button>
+        <button-app class="mb-30" @click.native="print">
+          Печать
+        </button-app>
         <admin-participant-filters :filters="filters" v-on:filters-emit="filtersEmit"/>
         <div class="print" id="printMe" >
           <table class="table-members">

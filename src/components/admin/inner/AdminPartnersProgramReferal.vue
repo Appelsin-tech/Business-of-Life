@@ -7,9 +7,9 @@
         <p class="desc editor">Основной реферальный сайт платформы для регистрации ваших партнеров. Отправляйте этот сайт всем потенциальным пользователям.</p>
         <input type="text" id="copy-input" class="visually-hidden" :value="`https://bussinessof.life/r/${profileLogin}`">
         <a :href="`https://businessof.life/r/${profileLogin}`" ref="linkToCopy" class="ref-link">{{`https://bussinessof.life/r/${profileLogin}`}}</a>
-        <button class="g-btn g-btn--no-icon g-btn--white" @click="copyLink">
-          <span class="text">Копировать ссылку</span>
-        </button>
+        <button-app  @click.native="copyLink">
+          Копировать ссылку
+        </button-app>
       </div>
     </div>
   </div>

@@ -9,9 +9,6 @@
       <div class="package-wrapper">
        <knowledge-package v-for="(item, index) in bonusFilter" :key="item.price_kzt" :item="item"></knowledge-package>
       </div>
-      <router-link to="/knowledge/menu" class="g-btn g-btn--no-icon" v-if="statusDev">
-        <span class="text">База знаний</span>
-      </router-link>
     </div>
   </section>
 </template>
@@ -29,7 +26,7 @@ export default {
   data() {
     return {
       bonus: {},
-      bonusOptions: [],
+      bonusOptions: []
     }
   },
   computed: {
@@ -123,7 +120,7 @@ export default {
         });
 
       }
-      >.g-btn {
+      >.btn-app {
         margin-top: 50px;
         align-self: center;
       }

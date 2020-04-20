@@ -74,19 +74,19 @@
 <!--            </div>-->
           </div>
           <div class="btn-wrapper" v-if="myNews">
-            <button class="g-btn g-btn--no-icon" :disabled="sameObject || $v.$anyError">
-              <span class="text">Сохранить</span>
-            </button>
-            <router-link :to="`/news/${form.url}`" class="g-btn g-btn--no-icon" :class="{disabled: !myNews.url}">
-              <span class="text">Предпросмотр</span>
-            </router-link>
-            <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="publishNews" :disabled="$v.$anyError">
-              <span class="text" v-if="status === 0">Опубликовать</span>
-              <span class="text" v-else-if="status === 1">Снять с публикации</span>
-            </button>
-            <button type="button" class="g-btn g-btn--no-icon g-btn--white" @click="deleteNews">
-              <span class="text">Удалить</span>
-            </button>
+            <button-app :disabled="sameObject || $v.$anyError">
+              Сохранить
+            </button-app>
+            <button-app :to="`/news/${form.url}`" :class="{disabled: !myNews.url}">
+              Предпросмотр
+            </button-app>
+            <button-app class="btn-app--white" @click.native="publishNews" :disabled="$v.$anyError">
+              <template v-if="status === 0">Опубликовать</template>
+              <template v-else-if="status === 1">Снять с публикации</template>
+            </button-app>
+            <button-app class="btn-app--white" @click="deleteNews">
+              Удалить
+            </button-app>
           </div>
         </form>
       </div>
@@ -384,7 +384,7 @@ export default {
     .sm-block({
       transform: translateY(15px);
     });
-    .g-btn {
+    .btn-app {
       margin-right: 20px;
       margin-bottom: 20px;
       .sm-block({

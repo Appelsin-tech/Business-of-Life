@@ -31,12 +31,7 @@
               <span class="text">{{user.invited}}</span>
             </p>
           </div>
-          <div class="g-control-icon">
-            <a :href="`mailto:${user.email}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Отправить сообщение'" @click="">
-              <icon-email class="g-icon"/>
-            </a>
-          </div>
-
+          <button-app-function :href="`mailto:${user.email}`" icon="icon-email"></button-app-function>
         </div>
       </div>
     </div>
@@ -170,13 +165,15 @@ export default {
         }
         &-item {
           margin-bottom: 10px;
+          display: flex;
+          align-items: flex-start;
           .md-block({
             margin-bottom: 5px;
           });
           .g-icon {
             margin-right: 15px;
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
             color: #dedede;
           }
           .text {

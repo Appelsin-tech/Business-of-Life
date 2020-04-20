@@ -46,12 +46,12 @@
             </div>
           </div>
           <div class="btn-wrapper">
-            <button type="submit" class="g-btn g-btn--no-icon" v-if="!newStock">
-              <span class="text">Сохранить</span>
-            </button>
-            <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>
-              <span class="text">Создать</span>
-            </button>
+            <button-app v-if="!newStock">
+              Сохранить
+            </button-app>
+            <button-app :disabled="$v.$invalid" v-else>
+              Создать
+            </button-app>
           </div>
         </form>
       </div>

@@ -80,12 +80,12 @@
             </div>
           </div>
           <div class="btn-wrapper">
-            <button type="submit" class="g-btn g-btn--no-icon" v-if="!newTicket">
-              <span class="text">Сохранить</span>
-            </button>
-            <button type="submit" class="g-btn g-btn--no-icon" :disabled="$v.$invalid" v-else>
-              <span class="text">Создать</span>
-            </button>
+            <button-app  v-if="!newTicket">
+              Сохранить
+            </button-app>
+            <button-app  v-else :disabled="$v.$invalid">
+              Создать
+            </button-app>
           </div>
         </form>
       </div>
@@ -102,7 +102,9 @@ import API from '../../api/index'
 
 export default {
   name: 'ModalTicketCreateEditing',
-  components: { ckeditor: CKEditor.component },
+  components: {
+    ckeditor: CKEditor.component,
+  },
   data() {
     return {
       editor: ClassicEditor,

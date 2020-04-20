@@ -25,9 +25,6 @@ export default {
   computed: {
     type () {
       return this.href ? 'a' : this.to ? 'router-link' : 'button'
-    },
-    iconComponent () {
-      return this.icon ? this.icon : null
     }
   }
 }
@@ -47,14 +44,11 @@ export default {
     min-width: 200px;
     cursor: pointer;
     border-radius: 8px;
-    .lg-block({
-      padding: 12px 25px;
-    });
     .sm-block({
       padding: 10px 20px;
       border-width: 2px;
       border-radius: 5px;
-      min-width: 180px;
+      min-width: 150px;
     });
     &:hover,
     &:focus {
@@ -77,7 +71,7 @@ export default {
       flex-grow: 1;
       margin-right: auto;
       align-items: center;
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--app_btn-font__color);
       font-weight: 600;
       transition: 0.3s;
@@ -115,16 +109,12 @@ export default {
       }
     }*/
     &--white {
-      padding: 24px 27px;
+      padding: 14px 24px;
       background: transparent;
       border: 1px solid @colorBorder;
-      .lg-block({
-        padding: 24px 22px;
-      });
       .sm-block({
-        padding: 19px 18px;
+        padding: 11px 20px;
         border-width: 1px;
-        min-width: 200px;
       });
       &:hover,
       &:focus {
@@ -134,19 +124,5 @@ export default {
         color: #000;
       }
     }
-  /*  &--no-icon {
-      min-width: 180px;
-      justify-content: center;
-      .xs-block({
-        flex-basis: auto;
-      });
-      .sm-block({
-        min-width: 150px;
-      });
-      .text {
-        padding: 0;
-        flex-grow: 0;
-      }
-    }*/
   }
 </style>

@@ -74,12 +74,10 @@
 import { email, minLength, required } from 'vuelidate/lib/validators'
 import API from '../api/index'
 import {mapState} from 'vuex'
-import ButtonApp from '@/components/ui/ButtonApp'
 
 export default {
   name: 'AuthRegForm',
   components: {
-    ButtonApp
   },
   data() {
     return {

@@ -14,7 +14,7 @@
     <div class="event__info-wrapper">
       <div class="event__info">
         <div class="content">
-          <a :href="`/event/${relation.id}`" class="g-caption-element" target="_blank">{{relation.title}} </a>
+          <a :href="`/admin/relation/${idEvent}/${relation.id}`" class="g-caption-element">{{relation.title}} </a>
           <p class="event__info-item location">
             <icon-map-marker class="g-icon"/>
             <span class="text">{{relation.country}} {{relation.city}}</span>
@@ -29,16 +29,9 @@
           </p>
         </div>
       </div>
-      <div class="g-control-icon static">
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" v-if="!pastEvents" @click="$router.push({path: `/admin/relation/${idEvent}/${relation.id}`})">
-          <icon-lead-pencil class="g-icon"/>
-        </button>
-        <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-relation', relation.id)" v-if="relation.status <= 1">
-          <icon-delete class="g-icon"/>
-        </button>
-        <router-link :to="`/admin/participant/${relation.id}`" class="g-icon-circle g-icon-circle--control g-icon-circle--control-black" v-tooltip.bottom="'Участники'">
-          <icon-account class="g-icon"/>
-        </router-link>
+      <div class="g-wrapper-btn-f">
+        <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
+        <button-app-function :to="`/admin/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
       </div>
     </div>
   </div>
@@ -113,14 +106,6 @@ export default {
         flex-direction: column;
         align-items: flex-start;
       });
-      .g-control-icon {
-        .g-icon-circle {
-          margin: 5px 0 5px 10px;
-          &:first-child {
-            margin-left: 0;
-          }
-        }
-      }
     }
     &__info {
       margin-right: auto;

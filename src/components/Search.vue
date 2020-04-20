@@ -6,9 +6,9 @@
         <icon-magnify class="g-icon search__icon"/>
       </div>
       <div class="col btn-col">
-        <button class="g-btn g-btn--no-icon ">
-          <span class="text">Найти</span>
-        </button>
+        <button-app>
+          Найти
+        </button-app>
       </div>
     </form>
     <div class="error" v-if="notFound && page !== 'member' || showError" >
@@ -148,10 +148,10 @@ export default {
         .xs-block({ width: 16px; height: 16px; top: calc(~"50% - 8px"); left: 7px;});
       }
     }
-    .g-btn {
+    .btn-app {
       min-width: 180px;
-      padding: 24px 28px;
-      .md-block({ padding: 19px 28px;})
+      padding: 21px 28px;
+      .md-block({ padding: 16px 28px;})
     }
   }
   .error {

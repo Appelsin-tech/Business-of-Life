@@ -11,9 +11,9 @@
           </div>
           <p class="text">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
         </div>
-        <router-link to="/knowledge" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
-          <span class="text">Продлить доступ</span>
-        </router-link>
+        <button-app :to="'/knowledge'" v-if="currentStatus.status === 1">
+          Продлить доступ
+        </button-app>
       </div>
       <p>В ближайшее время Ваша заявка будет обработана и вам на почту будет отправлено письмо с доступом</p>
     </div>
@@ -26,7 +26,7 @@ import BreadCrumbs from '../components/BreadCrumbs'
 export default {
   name: 'TheKnowledgeAccess',
   components: {
-    BreadCrumbs,
+    BreadCrumbs
   },
   data() {
     return {

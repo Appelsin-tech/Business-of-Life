@@ -15,12 +15,9 @@
           <p class="desc">Мы уверены, что принесем хорошие результаты каждому дистрибьютору компании, который имеет
             смелые цели, стремится сделать свою жизнь лучше, готов учиться, действовать, и превращать свои мечты в
             реальность!</p>
-          <router-link to="/calendar" class="g-btn">
-            <span class="text">
-              Наши мероприятия
-              <icon-arrow-right class="g-icon"/>
-            </span>
-          </router-link>
+          <button-app :to="'/calendar'">
+            Наши мероприятия
+          </button-app>
         </div>
       </div>
       <div class="col-img">
@@ -42,7 +39,9 @@
 
 <script>
 export default {
-  name: 'TheDescription'
+  name: 'TheDescription',
+  components: {
+  }
 }
 </script>
 
@@ -85,7 +84,7 @@ export default {
               .sm-block({ font-weight: 600; line-height: 2.2rem; font-size: 1.6rem; })
             }
           }
-          .g-btn {
+          .btn-app {
             margin-top: 30px;
             .xs-block({ margin-top: 20px; });
           }

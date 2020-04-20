@@ -12,16 +12,10 @@
       </div>
     </div>
     <div class="icon-wrapper" v-if="editing">
-      <div class="g-icon-circle drag g-icon-circle--control g-icon-circle--control-drag">
-        <icon-drag-variant class="g-icon"/>
-      </div>
-      <div class="g-control-icon static" >
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$emit('edit-video')">
-          <icon-lead-pencil class="g-icon"/>
-        </button>
-        <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="$emit('delete-video')">
-          <icon-delete class="g-icon"/>
-        </button>
+      <button-app-function icon="icon-drag-variant" class="drag"></button-app-function>
+      <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
+        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" @click.native="$emit('edit-video')"></button-app-function>
+        <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить'" @click.native="$emit('delete-video')"></button-app-function>
       </div>
     </div>
   </div>
@@ -59,7 +53,7 @@ export default {
       align-items: flex-start;
       .iframe {
         margin-bottom: 20px;
-        width: 540px;
+        width: 520px;
         .sm-block({
           width: 500px;});
         .ss-block({

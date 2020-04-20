@@ -3,13 +3,9 @@
     <span class="counter-lesson">{{counter}}</span>
     <div class="item-lesson">
       <h3 class="g-caption-element g-caption-element--static">{{lesson.title}}</h3>
-      <div class="g-control-icon static">
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать урок'" @click="$router.push({path: `/admin/lesson/${course}/${lesson.id}`})">
-          <icon-lead-pencil class="g-icon"/>
-        </button>
-        <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить урок'" @click="deleteLesson()">
-          <icon-delete class="g-icon"/>
-        </button>
+      <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
+        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" :to="`/admin/lesson/${course}/${lesson.id}`"></button-app-function>
+        <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить урок'" @click.native="deleteLesson()"></button-app-function>
       </div>
     </div>
   </div>
@@ -111,6 +107,9 @@ export default {
       .sm-block({
         margin-bottom: 15px;
         margin-right: 0;})
+    }
+    .g-wrapper-btn-f {
+      .sm-block({align-self: flex-start;});
     }
   }
 </style>

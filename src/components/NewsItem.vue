@@ -26,13 +26,9 @@
           <div class="hashtag-wrapper" v-if="news.hashtag" :class="{'control': control}">
             <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
           </div>
-          <div class="g-control-icon static" v-if="control">
-            <button class="g-icon-circle g-icon-circle--control g-icon-circle--control-green" v-tooltip.bottom="'Редактировать'" @click="$router.push({path: `/admin/news-editing/${news.id}`})">
-              <icon-lead-pencil class="g-icon"/>
-            </button>
-            <button class="g-icon-circle  g-icon-circle--control g-icon-circle--control-red" v-tooltip.bottom="'Удалить'" @click="deleteNews(news.id)">
-              <icon-delete class="g-icon"/>
-            </button>
+          <div class="g-wrapper-btn-f g-wrapper-btn-f--static" v-if="control">
+            <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" :to="`/admin/news-editing/${news.id}`"></button-app-function>
+            <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить'" @click.native="deleteNews(news.id)"></button-app-function>
           </div>
         </div>
       </div>
@@ -219,9 +215,6 @@ export default {
           });
           .hashtag-wrapper.control {
             .ss-block({margin-bottom: 30px;});
-          }
-          .g-control-icon {
-            margin-left: auto;
           }
         }
       }

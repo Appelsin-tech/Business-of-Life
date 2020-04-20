@@ -3,9 +3,9 @@
     <div class="container">
       <div class="content">
         <strong class="g-caption">Страница не найдена</strong>
-        <router-link to="/" class="g-btn g-btn--no-icon">
-          <span class="text">Главная</span>
-        </router-link>
+        <button-app :to="'/'">
+          Главная
+        </button-app>
       </div>
     </div>
   </section>

@@ -78,13 +78,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import NewsItem from '@/components/NewsItem'
-import ButtonApp from '@/components/ui/ButtonApp'
 
 export default {
   name: 'TheHero',
   components: {
-    NewsItem,
-    ButtonApp
+    NewsItem
   },
   computed: {
     ...mapGetters('user', [

@@ -26,9 +26,9 @@
             <span class="info__item--normal info__item--speakers editor" v-for="(speakers, i) in activeRelation.speakers">{{speakers.name}}<span class="symb">,</span>&nbsp;</span>
           </p>
           <div class="info__ticket ticket--brief">
-            <a href="#" class="g-btn g-btn--no-icon" @click.prevent="scrollToSection('section-tickets')">
-              <span class="text">Купить билет</span>
-            </a>
+            <button-app @click.native="scrollToSection('section-tickets')">
+              Купить билет
+            </button-app>
           </div>
           <div class="info__item attention" v-if="activeRelation.actions.length">
             <span class="g-icon-attention">i</span>
@@ -375,7 +375,7 @@ export default {
         .ticket__currency {
           font-size: 2rem;
         }
-        .g-btn--no-icon {
+        .btn-app {
           flex-basis: 240px;
           .to(520px, { flex-basis: auto; });
         }
@@ -385,7 +385,7 @@ export default {
         .ticket__price {
           .sm-block({ margin-bottom: 20px; });
         }
-        .g-btn--no-icon {
+        .btn-app {
           flex-shrink: 0;
           width: 275px;
           .lg-block({ width: 240px; });

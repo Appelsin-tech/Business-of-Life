@@ -62,16 +62,16 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="g-btn g-btn--no-icon" v-if="!id" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
-            <span class="text">Создать</span>
-          </button>
-          <button class="g-btn g-btn--no-icon" v-else :disabled="$v.$invalid">
-            <span class="text">Сохранить</span>
-          </button>
-          <button type="button" class="g-btn g-btn--no-icon g-btn--white" v-if="id && tickets.length !== 0" @click="newStatus">
-            <span class="text" v-if="statusRelation === 3 ">Снять с публикации</span>
-            <span class="text" v-else>Опубликовать</span>
-          </button>
+          <button-app v-if="!id" :disabled="$v.$invalid" :class="{disabled: disabledForm}">>
+            Создать
+          </button-app>
+          <button-app v-else :disabled="$v.$invalid">
+            Сохранить
+          </button-app>
+          <button-app class="btn-app--white"  v-if="id && tickets.length !== 0" @click.native="newStatus">
+            <template v-if="statusRelation === 3 ">Снять с публикации</template>
+            <template v-else>Опубликовать</template>
+          </button-app>
         </div>
       </form>
       <div class="tickets">
@@ -99,10 +99,9 @@
         <admin-relation-access-section :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
       </div>
       <div class="link-wrapper">
-        <router-link class="g-btn g-btn--no-icon preview" :to="`/event/${id}`" :class="{disabled: !event}">
-          <span class="text">Предпросмотр</span>
-        </router-link>
-
+        <button-app class="preview" :to="`/event/${id}`" :class="{disabled: !event}">
+          Предпросмотр
+        </button-app>
       </div>
     </div>
     <div class="container page container--btn-back">
@@ -366,7 +365,7 @@ export default {
         flex-direction: column;
         align-items: center;
       });
-      .g-btn {
+      .btn-app {
         &:first-child {
           margin-right: 20px;
           .ss-block({

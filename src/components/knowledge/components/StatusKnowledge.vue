@@ -7,15 +7,18 @@
       </div>
       <p class="g-caption-element g-caption-element--static">{{status[currentStatus.status].message}} <span v-if="currentStatus.exp !== 0 && currentStatus.status === 1">{{activeDate}}</span></p>
     </div>
-    <router-link to="/knowledge-package" class="g-btn g-btn--no-icon" v-if="currentStatus.status === 1" >
-      <span class="text">Продлить доступ</span>
-    </router-link>
+    <button-app :to="'/knowledge-package'" v-if="currentStatus.status === 1">
+      Продлить доступ
+    </button-app>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'StatusKnowledge',
+  components: {
+  },
   data() {
     return {
       status: [
@@ -68,7 +71,7 @@ export default {
         font-weight: 800;
       }
     }
-    .g-btn {
+    .btn-app {
       .ss-block({
         margin-top: 15px;})
     }
