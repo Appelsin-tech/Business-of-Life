@@ -1,7 +1,6 @@
 <template>
   <section class='p-wallet p-inner-admin'>
     <div class='container page'>
-      <h1 class='g-caption-inner'>Кошелек</h1>
       <div class="wrapper-col">
         <div class="col col--btn">
           <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
@@ -15,14 +14,10 @@
         </div>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/menu" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
 import AdminWalletMain from './inner/AdminWalletMain'
 import AdminWalletTransaction from './inner/AdminWalletTransaction'
 import ButtonChangeSection from '../ui/ButtonChangeSection'

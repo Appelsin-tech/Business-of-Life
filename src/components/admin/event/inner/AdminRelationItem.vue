@@ -29,7 +29,7 @@
           </p>
         </div>
       </div>
-      <div class="g-wrapper-btn-f">
+      <div class="g-wrapper-btn-f ">
         <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
         <button-app-function :to="`/admin/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
       </div>
@@ -106,6 +106,10 @@ export default {
         flex-direction: column;
         align-items: flex-start;
       });
+      .g-wrapper-btn-f {
+        .sm-block({
+          flex-direction: row;});
+      }
     }
     &__info {
       margin-right: auto;

@@ -1,9 +1,7 @@
 <template>
   <section class="p-event-all-editing p-inner-admin">
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="activePreloader"/>
     <div class="container page">
-      <h1 class="g-caption-inner">Курс</h1>
       <div class="course-editing">
         <h2 class="g-caption-section">
           <template v-if="id">Редактирование курса</template>
@@ -30,15 +28,11 @@
         </div>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/course-control" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
 import API from '@/api/index'
-import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import CourseEditingForm from '@admin/course/CourseEditingForm'
 import PanelInfo from '@/components/ui/PanelInfo'
@@ -50,7 +44,6 @@ export default {
   name: 'AdminCourseLessonEditing',
   props: ['id'],
   components: {
-    BreadCrumbs,
     CourseEditingForm,
     PanelInfo,
     ButtonAdd,

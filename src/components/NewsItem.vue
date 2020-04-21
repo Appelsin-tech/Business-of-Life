@@ -11,7 +11,7 @@
         <img svg-inline class="svg-icon" src="../assets/img/icon/time-my.svg" alt="">
       </template>
     </div>
-    <div class="content">
+    <div class="content-news">
       <div class="img" :style="{backgroundImage: `url(${news.img})`}"></div>
       <router-link :to="`/news/${news.url}`" class="title-link">
         <h1 class="g-caption-element">{{news.title}}</h1>
@@ -144,7 +144,7 @@ export default {
         height: 40px;
       });
     }
-    .content {
+    .content-news {
       display: grid;
       grid-template-columns: min-content 1fr;
       grid-template-rows: min-content 1fr;

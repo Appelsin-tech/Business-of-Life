@@ -1,6 +1,6 @@
 <template>
   <div class="site-wrapper">
-    <div class="site">
+    <div class="site g-panel--img">
       <div class="img"></div>
       <div class="content">
         <h1 class="g-caption-element g-caption-element--static">Bussiness of Life</h1>
@@ -43,11 +43,9 @@ export default {
 
 <style scoped lang="less">
   @import "../../../assets/less/_importants";
-
   .site {
     display: flex;
     margin-bottom: 20px;
-    .default-panel-style(40px);
     &:last-child {
       margin-bottom: 0;
     }
@@ -57,8 +55,8 @@ export default {
     .img {
       flex-shrink: 0;
       margin-right: 50px;
-      height: 260px;
-      width: 360px;
+      min-height: 100%;
+      width: 330px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -77,6 +75,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      padding: 20px 0;
       .g-caption-element {
         margin-bottom: 20px;
         .lg-block({

@@ -41,7 +41,7 @@ export default {
     position: relative;
     display: inline-flex;
     align-items: center;
-    padding: 12px 15px;
+    padding: 10px 15px;
     background: var(--app_btn-functional__color);
     color: var(--app_btn-functional-font-and-icon__color);
     box-sizing: border-box;
@@ -49,14 +49,10 @@ export default {
     cursor: pointer;
     border-radius: 8px;
     .lg-block({
-      padding: 10px;
+      padding: 8px 12px;
     });
     .sm-block({
-      padding: 8px;
-      border-radius: 5px;
-    });
-    .xs-block({
-      padding: 6px;
+      padding: 6px 10px;
       border-radius: 5px;
     });
     &:hover,
@@ -69,17 +65,17 @@ export default {
       pointer-events: none;
     }
     .g-icon {
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
       color: var(--app_btn-functional-font-and-icon__color);
       transition: 0.3s;
-      .sm-block({
-        width: 20px;
-        height: 20px;});
-      .xs-block({
+      .lg-block({
         width: 16px;
         height: 16px;});
+      .sm-block({
+        width: 14px;
+        height: 14px;});
     }
     .text {
       margin-left: 7px;

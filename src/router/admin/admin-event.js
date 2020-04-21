@@ -5,12 +5,24 @@ export default [
     path: 'event-control',
     name: 'event-control',
     beforeEnter: checkEditors,
+    meta: {
+      breadcrumb: {
+        parent: null,
+        title: 'Управление мероприятиями'
+      }
+    },
     component: () => import('@admin/event/AdminEventControl')
   },
   {
     path: 'event-create',
     name: 'event-create',
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: 'event-control',
+        title: 'Редактирование мероприятия'
+      }
+    },
     component: () => import('@admin/event/AdminEventRelationEditing')
   },
   {
@@ -18,6 +30,12 @@ export default [
     name: 'event-editing',
     props: true,
     beforeEnter: checkEditors,
+    meta: {
+      breadcrumb: {
+        parent: 'event-control',
+        title: 'Редактирование мероприятиями'
+      }
+    },
     component: () => import('@admin/event/AdminEventRelationEditing')
   },
   {
@@ -25,6 +43,12 @@ export default [
     name: 'relation-create',
     props: true,
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: 'event-control',
+        title: 'Редактирование события'
+      }
+    },
     component: () => import('@admin/event/AdminRelationEditing')
   },
   {
@@ -32,12 +56,24 @@ export default [
     name: 'relation-editing',
     props: true,
     beforeEnter: checkEditors,
+    meta: {
+      breadcrumb: {
+        parent: 'event-control',
+        title: 'Редактирование события'
+      }
+    },
     component: () => import('@admin/event/AdminRelationEditing')
   },
   {
     path: 'participant/:relation',
     name: 'participant',
     beforeEnter: checkEditors,
+    meta: {
+      breadcrumb: {
+        parent: 'event-control',
+        title: 'Список участников'
+      }
+    },
     component: () => import('@admin/event/AdminParticipant')
   }
 ]

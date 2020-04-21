@@ -1,12 +1,7 @@
 <template>
   <section class="p-event-all-editing p-inner-admin">
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="activePreloader"/>
     <div class="container page">
-      <h1 class="g-caption-inner">
-        <template v-if="id">Редактирование урока</template>
-        <template v-else>Создание урока</template>
-      </h1>
       <form class="edit-form g-subsection" @submit.prevent="onSubmit">
         <h2 class="g-caption-section">Общая информация</h2>
         <div class="edit-grid">
@@ -67,9 +62,6 @@
         </button-app>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link :to="`/admin/course-editing/${course}`" class="back-btn">Назад</router-link>
-    </div>
     <modal-lesson-materials/>
   </section>
 </template>
@@ -77,7 +69,6 @@
 <script>
 import { maxLength, required } from 'vuelidate/lib/validators'
 import API from '@/api'
-import BreadCrumbs from '@/components/BreadCrumbs'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
@@ -94,7 +85,6 @@ export default {
   props: ['course', 'id'],
   components: {
     ckeditor: CKEditor.component,
-    BreadCrumbs,
     draggable,
     ButtonAdd,
     ModalLessonMaterials,

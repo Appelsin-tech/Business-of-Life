@@ -5,6 +5,12 @@ export default [
     path: 'course-control',
     name: 'course-control',
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: null,
+        title: 'Управление курсами'
+      }
+    },
     component: () => import('@admin/course/AdminCourseControl')
   },
   {
@@ -12,6 +18,12 @@ export default [
     name: 'course-create',
     props: true,
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: 'course-control',
+        title: 'Редактирование курса'
+      }
+    },
     component: () => import('@admin/course/AdminCourseLessonEditing')
   },
   {
@@ -19,6 +31,12 @@ export default [
     name: 'course-editing',
     props: true,
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: 'course-control',
+        title: 'Редактирование курса'
+      }
+    },
     component: () => import('@admin/course/AdminCourseLessonEditing')
   },
   {
@@ -26,6 +44,12 @@ export default [
     name: 'lesson-create',
     props: true,
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: 'course-editing',
+        title: 'Редактирование урока'
+      }
+    },
     component: () => import('@admin/course/AdminLessonEditing')
   },
   {
@@ -33,6 +57,12 @@ export default [
     name: 'lesson-editing',
     props: true,
     beforeEnter: checkRole,
+    meta: {
+      breadcrumb: {
+        parent: 'course-editing',
+        title: 'Редактирование урока'
+      }
+    },
     component: () => import('@admin/course/AdminLessonEditing')
   }
 ]

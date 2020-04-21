@@ -2,20 +2,11 @@
   <section class="p-control-course p-inner-admin">
     <preloader v-if="loading"/>
     <div class="container page">
-      <h1 class="g-caption-inner">Редактор курсов</h1>
-      <div class="c-wrapper">
-        <div class="course-create" v-if="listMyCourses && listMyCourses.length === 0">
-          <button-add class="admin-default item-grid" @click.native="createCourse"/>
-        </div>
-        <div class="item-wrapper"  v-if="listMyCourses && listMyCourses.length !== 0" >
-          <button-add @click.native="createCourse" class="admin-default item-grid"/>
-          <admin-course-control-panel class="item-grid" v-for="course in listMyCourses" :course="course" :key="course.id"/>
-        </div>
+      <button-app-function icon="icon-plus-circle" :text="true" @click.native="createCourse">Создать</button-app-function>
+      <div class="wrapper-course"  v-if="listMyCourses && listMyCourses.length !== 0" >
+        <admin-course-control-panel class="item-grid" v-for="course in listMyCourses" :course="course" :key="course.id"/>
       </div>
       <panel-info v-if="listMyCourses && listMyCourses.length === 0">Курсов нет</panel-info>
-    </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
@@ -28,6 +19,7 @@ import Preloader from '@/components/ui/Preloader'
 import API from '@/api/index'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import PanelInfo from '@/components/ui/PanelInfo'
+import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
 
 export default {
   name: 'AdminCourseControl',
@@ -35,7 +27,8 @@ export default {
     AdminCourseControlPanel,
     Preloader,
     ButtonAdd,
-    PanelInfo
+    PanelInfo,
+    ButtonAppFunction
   },
   data() {
     return {
@@ -75,6 +68,17 @@ export default {
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
   .p-control-course {
+    .btn-app-f {
+      margin-bottom: 30px;
+    }
+    .wrapper-course {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 30px;
+      .xxl-block({grid-template-columns: repeat(3, 1fr);});
+      .sm-block({grid-template-columns: 1fr; grid-gap: 20px;});
+      .xs-block({grid-gap: 10px;});
+    }
     .c-wrapper {
       .item-wrapper,
       .course-create {

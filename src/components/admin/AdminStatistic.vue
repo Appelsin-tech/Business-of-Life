@@ -1,7 +1,6 @@
 <template>
   <section class='p-statistic p-inner-admin'>
     <div class='container page'>
-      <h1 class='g-caption-inner'>Статистика </h1>
       <div class='wrapper-chart' v-if="responseData.length > 0">
         <admin-statistic-chart-sales :defaultResponse="responseData"/>
         <admin-statistic-chart-location :defaultResponse="responseData"/>
@@ -9,15 +8,11 @@
       <panel-info v-else>У вас еще нет мероприятий с продажами</panel-info>
 
     </div>
-    <div class="container page container--btn-back">
-      <router-link :to='`/admin/menu`' class='back-btn'>Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
 import API from '../../api/index'
-import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapGetters, mapState } from 'vuex'
 import AdminStatisticChartSales from './inner/AdminStatisticChartSales'
 import AdminStatisticChartLocation from './inner/AdminStatisticChartLocation'
@@ -65,9 +60,6 @@ export default {
 <style scoped lang='less'>
   @import '../../assets/less/_importants';
   .p-statistic {
-    .breadcrumbs {
-      align-self: stretch;
-    }
     .wrapper-chart {
       display: flex;
       flex-direction: column;

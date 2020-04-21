@@ -243,6 +243,12 @@ export default {
           name: 'Ерлан Думанулы',
           desc: 'Основатель платформы для стартапов и инвесторов Crowdsale Network',
           instagram: 'https://instagram.com/yerlan_dumanuly?igshid=1vpcabcof89se'
+        },
+        {
+          img: 'coach-17.jpg',
+          name: 'Талгат Игликов',
+          desc: 'Профессиональный Финансовый Директор, Автор книги "Думай, как Финансовый директор", основатель Iglikov Financial School',
+          instagram: 'https://www.instagram.com/talgat_iglikov/'
         }
       ]
     }

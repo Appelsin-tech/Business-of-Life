@@ -1,8 +1,6 @@
 <template>
   <section class='p-partners-program p-inner-admin'>
-    <bread-crumbs/>
     <div class='container page'>
-      <h1 class='g-caption-inner'>Партнерская программа</h1>
       <div class="wrapper-col">
         <div class="col col--btn">
           <button-change-section :BtnArr="buttonMy" v-on:clickBtnChangeSection="changeSection"/>
@@ -16,14 +14,10 @@
         </div>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/menu" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
 import AdminPartnersProgramStructure from './inner/AdminPartnersProgramStructure'
 import AdminPartnersProgramStatistic from './inner/AdminPartnersProgramStatistic'
 import AdminPartnersProgramReferal from './inner/AdminPartnersProgramReferal'
@@ -34,7 +28,6 @@ import {mapGetters} from 'vuex'
 export default {
   name: 'AdminPartnersProgram',
   components: {
-    BreadCrumbs,
     AdminPartnersProgramStructure,
     AdminPartnersProgramStatistic,
     AdminPartnersProgramReferal,

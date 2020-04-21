@@ -1,8 +1,6 @@
 <template>
   <section class='p-statistic p-inner-admin'>
-    <bread-crumbs/>
     <div class='container page'>
-      <h1 class='g-caption-inner'>Роли и управление доступом</h1>
       <div class="wrapper-col">
         <div class="col col--role">
           <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
@@ -12,14 +10,10 @@
         </div>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/menu" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
 import AdminRoleForm from '@admin/inner/AdminRoleForm'
 import API from '@/api/index'
 import ButtonChangeSection from '@/components/ui/ButtonChangeSection'
@@ -27,7 +21,6 @@ import ButtonChangeSection from '@/components/ui/ButtonChangeSection'
 export default {
   name: 'AdminRole',
   components: {
-    BreadCrumbs,
     ButtonChangeSection,
     AdminRoleForm
   },

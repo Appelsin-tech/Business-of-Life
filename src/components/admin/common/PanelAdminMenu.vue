@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'PanelAdminKnowledgeMenu',
+  name: 'PanelAdminMenu',
   props: ['item']
 }
 </script>
@@ -15,7 +15,6 @@ export default {
 <style scoped lang="less">
   @import "../../../assets/less/_importants";
   .menu-item {
-
     display: flex;
     flex-direction: column;
     transition: 0.3s;
@@ -23,8 +22,8 @@ export default {
     padding-bottom: 40px;
     background: #fff;
     overflow: hidden;
-    .lg-block({max-width: 80%;});
-    .md-block({max-width: 100%;});
+    .xxl-block({max-width: 95%;});
+    .lg-block({max-width: 100%;});
     .sm-block({
       border-radius: 5px;
       flex-direction: row;

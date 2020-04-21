@@ -190,19 +190,6 @@ export default {
       transition: all 0.3s ease-in-out;
       z-index: 1;
     }
-    &.admin {
-      position: relative;
-      grid-area: header;
-      .md-block({
-        position: absolute;});
-      .container {
-        .burger {
-          display: none;
-          .md-block({
-            display: block;});
-        }
-      }
-    }
     &.border-class {
       padding-bottom: 20px;
       border-bottom: 1px solid var(--app_element-border__color);
@@ -307,9 +294,9 @@ export default {
       flex-grow: 1;
       .logo {
         width: 100%;
-        max-width: 135px;
+        max-width: 120px;
         outline: none;
-        .lg-block({ max-width: 105px; });
+        .xl-block({ max-width: 105px; });
         path {
           fill: @colorMainSecondary;
         }

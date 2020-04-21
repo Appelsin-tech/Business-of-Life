@@ -1,11 +1,6 @@
 <template>
   <section class="p-event-editing p-inner-admin">
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
-      <h1 class="g-caption-inner">
-        <template v-if="id">Редактирование события</template>
-        <template v-else>Создание события</template>
-      </h1>
       <form class="edit-form" @submit.prevent="onSubmit">
         <h2 class="g-caption-section">Общая информация</h2>
         <div class="edit-grid">
@@ -104,16 +99,12 @@
         </button-app>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link :to="`/admin/event-editing/${event}`" class="back-btn">Назад</router-link>
-    </div>
     <modal-ticket-create-editing/>
     <modal-actions-create-editing/>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import ButtonAdd from '@/components/ui/ButtonAdd'
 import Ticket from '@/components/Ticket'
 import Action from '@/components/Action'
@@ -142,7 +133,6 @@ export default {
   },
   components: {
     PanelInfo,
-    BreadCrumbs,
     flatPickr,
     Ticket,
     ckeditor: CKEditor.component,

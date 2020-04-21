@@ -1,9 +1,7 @@
 <template>
   <section class='p-news-editing p-inner-admin'>
     <preloader v-if="loading"/>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class='container page'>
-      <h1 class='g-caption-inner'>Новость</h1>
       <div class="wrapper">
         <h1 class='g-caption-section'>Редактирование новости</h1>
         <form class="edit-form" @submit.prevent="onSubmit" v-if="!loading">
@@ -92,14 +90,10 @@
       </div>
 
     </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/news-control" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import DownloadPhoto from '@/components/admin/common/DownloadPhoto'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
@@ -116,7 +110,6 @@ import translit from '@/mixins/translit'
 export default {
   name: 'AdminNewsEditing',
   components: {
-    BreadCrumbs,
     DownloadPhoto,
     flatPickr,
     ckeditor: CKEditor.component,

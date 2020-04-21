@@ -1,8 +1,6 @@
 <template>
   <section class="p-me">
-    <bread-crumbs/>
     <div class="container">
-      <h1 class="g-caption-inner">Личный кабинет</h1>
       <div class="course-tools" v-if="startCourse && startCourse.progress !== startCourse.lessons.length">
         <div class="col-desc">
           <p class="g-caption-element g-caption-element--static">Рады снова вас видеть, {{profile.login}}!</p>
@@ -29,24 +27,19 @@
       <div class="menu">
         <panel-admin-menu v-for="item in menu" :key="item.name" :item="item" />
       </div>
-      <router-link to="/" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>
 
 <script>
-import BreadCrumbs from '../BreadCrumbs.vue'
 import { mapGetters, mapState } from 'vuex'
 import PanelAdminMenu from './common/PanelAdminMenu'
-import PanelKnowledgeMenu from '@/components/knowledge/components/PanelKnowledgeMenu'
 import API from '@/api/index'
 
 export default {
   name: 'AdminMenu',
   components: {
-    BreadCrumbs,
-    PanelAdminMenu,
-    PanelKnowledgeMenu
+    PanelAdminMenu
   },
   data() {
     return {
@@ -206,7 +199,7 @@ export default {
             background-position: center;
             background-repeat: no-repeat;
             flex-shrink: 0;
-            .lg-block({
+            .xxl-block({
               height: 200px;
               width: 200px;
             });
@@ -249,35 +242,16 @@ export default {
               line-height: 1.4;
             }
           }
-
         }
       }
     }
     .menu {
-      /*.row-flex();
-      justify-content: flex-start;
-      .sm-block({
-        justify-content: center;
-      });*/
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-gap: 30px;
-      .lg-block({grid-template-columns: repeat(3, 1fr);});
+      .xxl-block({grid-template-columns: repeat(3, 1fr);});
       .sm-block({grid-template-columns: 1fr; grid-gap: 20px;});
       .xs-block({grid-gap: 10px;});
-      .item {
-        .col();
-        .size(3);
-        .size-xl(4);
-        .size-sm(10);
-        .size-xs(12);
-        margin-bottom: 20px;
-        .default-panel-style(40px);
-        .lg-block({margin-bottom: 20px;});
-        .sm-block({
-          margin-bottom: 15px;
-        });
-      }
     }
   }
 </style>

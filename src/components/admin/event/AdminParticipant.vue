@@ -1,9 +1,7 @@
 <template>
   <section class="p-event-all-editing p-inner-admin">
     <preloader v-if="loading"/>
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <div class="container page">
-      <h1 class="g-caption-inner">Список участников</h1>
 <!--      <search page="member" :idEvent="$route.params.relation"/>-->
       <div class="wrapper-show" v-if="!loading && response.participants.length > 0">
         <button-app class="mb-30" @click.native="print">
@@ -30,9 +28,6 @@
       </div>
       <panel-info v-if="!loading && response.participants.length === 0">Нет проданных билетов</panel-info>
     </div>
-    <div class="container page container--btn-back">
-      <router-link :to="`/admin/menu`" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
@@ -40,7 +35,6 @@
 import Vue from 'vue'
 import VueHtmlToPaper from 'vue-html-to-paper'
 import API from '@/api/index'
-import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import Search from '@/components/Search'
 import AdminParticipantItem from '@admin/event/inner/AdminParticipantItem'
@@ -62,7 +56,6 @@ Vue.use(VueHtmlToPaper, options)
 export default {
   name: 'AdminParticipant',
   components: {
-    BreadCrumbs,
     Search,
     AdminParticipantItem,
     AdminParticipantFilters,

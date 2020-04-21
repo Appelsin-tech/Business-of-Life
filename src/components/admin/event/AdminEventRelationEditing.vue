@@ -1,9 +1,7 @@
 <template>
   <section class="p-event-all-editing p-inner-admin">
-    <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="activePreloader"/>
     <div class="container page">
-      <h1 class="g-caption-inner">Мероприятие</h1>
       <div class="event-editing" v-if="checkMyEvent">
         <h2 class="g-caption-section" >
           <template v-if="id">Редактирование мероприятия</template>
@@ -29,15 +27,11 @@
         <panel-info v-if="showPanelRelation">Чтобы создать событие - заполните информацию о мероприятии</panel-info>
       </div>
     </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/event-control" class="back-btn">Назад</router-link>
-    </div>
   </section>
 </template>
 
 <script>
 import API from '@/api/index'
-import BreadCrumbs from '@/components/BreadCrumbs.vue'
 import { mapState, mapGetters } from 'vuex'
 import EventEditingForm from '@admin/event/EventEditingForm'
 import PanelInfo from '@/components/ui/PanelInfo'
@@ -49,7 +43,6 @@ export default {
   name: 'AdminEventRelationEditing',
   props: ['id'],
   components: {
-    BreadCrumbs,
     EventEditingForm,
     PanelInfo,
     ButtonAdd,

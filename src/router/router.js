@@ -26,25 +26,18 @@ const router = new Router({
         {
           path: '/r/:sponsor',
           name: 'main-r',
-          meta: {
-            navDots: true
-          },
           component: () => import('@/views/TheHero')
         },
         {
           path: '/description',
           name: 'description',
-          meta: {
-            navDots: true
-          },
           component: () => import('@/views/TheDescription')
         },
         {
           path: '/knowledge-package',
           name: 'knowledge-package',
           meta: {
-            auth: true,
-            navDots: true
+            auth: true
           },
           component: () => import('@/views/TheKnowledgePackage')
         },
@@ -53,8 +46,7 @@ const router = new Router({
           name: 'knowledge-access',
           beforeEnter: requireAuthKnowledge,
           meta: {
-            auth: true,
-            navDots: true
+            auth: true
           },
           component: () => import('@/views/TheKnowledgeAccess')
         },
@@ -81,9 +73,6 @@ const router = new Router({
         {
           path: '/photo-gallery',
           name: 'photo-gallery',
-          meta: {
-            navDots: true
-          },
           component: () => import('@/views/ThePhotoGallery')
         },
         {
@@ -114,9 +103,6 @@ const router = new Router({
         {
           path: '/calendar',
           name: 'calendar',
-          meta: {
-            navDots: true
-          },
           component: () => import('@/views/TheCalendar')
         },
         {
@@ -147,11 +133,16 @@ const router = new Router({
           component: () => import('@/views/ThePaymentPolicy')
         },
         {
+          path: '/public_offer',
+          name: 'public_offer',
+          component: () => import('@/views/ThePublicOffer')
+        },
+        {
           path: '/coronanamillion',
           name: 'marathon',
           component: () => import('@/views/TheMarathon')
         },
-        ...knowledge,
+        ...knowledge
       ]
     },
     {

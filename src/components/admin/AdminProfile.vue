@@ -1,7 +1,6 @@
 <template>
   <section class='p-profile p-inner-admin'>
     <div class='container page'>
-      <h1 class='g-caption-inner'>Профиль</h1>
       <div class="wrapper-col">
         <div class="col col--btn">
           <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
@@ -15,9 +14,6 @@
         </div>
       </div>
 
-    </div>
-    <div class="container page container--btn-back">
-      <router-link to="/admin/menu" class="back-btn">Назад</router-link>
     </div>
   </section>
 </template>

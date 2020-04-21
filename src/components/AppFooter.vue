@@ -6,7 +6,7 @@
         <p class="copyright">Казахстан, г. Алматы, Алмалинский р-н, ул. Айтиева зд. 96</p>
         <a href="mailto:info@businessof.life" class="copyright copyright--link">info@businessof.life</a>
         <a href="tel:+77072350307" class="copyright copyright--tel">+7 (707) 235-03-07</a>
-        <p class="copyright">(с) Все права защищены</p>
+        <router-link to="/public_offer" alt="Публичная оферта" class="copyright copyright--link">(с) Все права защищены</router-link>
         <p class="copyright">
           <router-link class="copyright--link" to="/payment_policy">Оплата и возврат</router-link>
         </p>
