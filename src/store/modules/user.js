@@ -18,6 +18,9 @@ const getters = {
   // мой id
   myId: (state, getters) => getters.logged ? state.profile.id : null,
   // статус пользователя
+  // 0-бан
+  // 1-обычный пользователь с любыми ролями
+  // 2-админ
   status: (state, getters) => getters.logged ? state.profile.status : 0,
   // статус для разработки
   statusDev (state, getters) {
@@ -25,10 +28,15 @@ const getters = {
   },
   // является ли обычный пользователь редактором событий
   relationEditors (state, getters) {
-    return getters.logged && getters.status === 1 && state.profile.editor.length > 0
+    return getters.logged && state.profile.editor.length > 0
   },
   // масив событий где пользователь является редактором
   editor: (state, getters) => getters.logged ? state.profile.editor : [],
+  // масив ролей пользователя
+  // 1-управление новостями
+  // 2-управление курсами
+  // 3-управление мероприятиями
+  roles: (state, getters) => getters.logged ? state.profile.roles : []
 }
 
 const actions = {

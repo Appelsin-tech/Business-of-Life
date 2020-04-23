@@ -34,7 +34,7 @@
         <template v-if="idCourse">Сохранить</template>
         <template v-else>Создать</template>
       </button-app>
-      <button-app class="btn-app--white" @click.native="deleteCourse(idCourse)" v-if="btnDelete">
+      <button-app type="button" class="btn-app--white" @click.native="deleteCourse(idCourse)" v-if="btnDelete">
         Удалить
       </button-app>
     </div>
@@ -132,11 +132,15 @@ export default {
       }
     },
     deleteCourse (id) {
-      API.courses.courses.delete({ id: id }).then(() => {
-        API.response.success('Курс удален')
-        this.$store.dispatch('courses/getMyCourses')
-        this.$router.push({ path: '/office/course/control' })
-      })
+      if (this.course.status === 1) {
+        API.response.error('Нелья удалить опубликованный курс')
+      } else {
+        API.courses.courses.delete({ id: id }).then(() => {
+          API.response.success('Курс удален')
+          this.$store.dispatch('courses/getMyCourses')
+          this.$router.push({ path: '/office/courses/control' })
+        })
+      }
     },
     imageUpload (nameImg, e) {
       this.form[nameImg] = e.link

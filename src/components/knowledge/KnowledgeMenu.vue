@@ -39,9 +39,7 @@ export default {
   },
   computed: {
     ...mapGetters('user', [
-      'accessKnowledge',
-      'status',
-      'statusDev'
+      'accessKnowledge'
     ]),
     ...mapGetters('courses', [
       'listCourses'

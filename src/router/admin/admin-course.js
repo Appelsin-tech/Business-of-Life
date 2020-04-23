@@ -73,10 +73,9 @@ export default [
 ]
 
 function checkRole (to, from, next) {
-  if (store.getters['user/status'] < 2) {
-    next('/office/menu')
-  } else {
+  if (store.getters['user/roles'].includes(2)) {
     next()
+  } else {
+    next('/office/menu')
   }
 }
-

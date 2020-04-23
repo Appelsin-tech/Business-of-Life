@@ -3,117 +3,128 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      // статус 0 для обычного пользователя
-      // статус 1 для обычного пользователя, который является проверяющим
-      // статус 2 для админа, показываются все, кроме разработки
-      // статус 3 для разработки, показываются все
+      // 0-управление новостями
+      // 1-управление курсами
+      // 2-управление мероприятиями
       menuListUserLogged: [
         {
           to: '/office/menu',
           title: 'Главная',
+          name: 'home',
           icon: 'icon-home',
-          status: 0
+          roles: 0
         },
         {
           to: '/office/wallet',
           title: 'Кошелек',
+          name: 'wallet',
           icon: 'icon-wallet',
-          status: 0
+          roles: 0
         },
         {
           to: '/office/partners-program',
           title: 'Партнерская программа',
+          name: 'partners-program',
           icon: 'icon-account-group',
           line: true,
-          status: 0
+          roles: 0
         },
         {
           to: '/coronanamillion',
           title: 'Марафон "Корона на миллион"',
+          name: 'coronanamillion',
           icon: 'icon-trophy-variant',
-          status: 0
+          roles: 0
         },
         {
           to: '/knowledge/menu',
           title: 'База знаний',
+          name: 'knowledge-package',
           icon: 'icon-puzzle',
-          status: 0
+          roles: 0
         },
         {
           to: '/news',
           title: 'Новости',
+          name: 'news',
           icon: 'icon-newspaper',
-          status: 0
+          roles: 0
         },
         {
           to: '/calendar',
           title: 'Календарь мероприятий',
+          name: 'calendar',
           icon: 'icon-calendar-month',
           line: true,
-          status: 0
+          roles: 0
         },
         {
           to: '/office/profile',
           title: 'Профиль',
+          name: 'profile',
           icon: 'icon-account',
-          status: 0
+          roles: 0
         },
         {
           to: '/office/news',
           title: 'Управление новостями',
+          name: 'Редактор новостей',
           icon: 'icon-newspaper-plus',
-          status: 3
+          roles: 1
         },
         {
           to: '/office/events',
           title: 'Управление мероприятиями',
+          name: 'event-control',
           icon: 'icon-calendar-edit',
-          status: 1
+          roles: 3
         },
         {
           to: '/tickets',
           title: 'Проверка билетов',
+          name: 'tickets-page',
           icon: 'icon-clipboard-check-outline',
-          status: 0
+          roles: 0
         },
         {
           to: '/office/courses',
           title: 'Редактор курсов',
+          name: 'course-control',
           icon: 'icon-book-plus',
-          status: 3
+          roles: 2
         },
-        {
-          to: '/office/role',
-          title: 'Роли и управление доступом',
-          icon: 'icon-account-star',
-          line: true,
-          status: 2
-        },
-        {
-          to: '/office/statistic',
-          title: 'Статистика продаж',
-          icon: 'icon-finance',
-          status: 2
-        },
+        // {
+        //   to: '/office/role',
+        //   title: 'Роли и управление доступом',
+        //   icon: 'icon-account-star',
+        //   line: true,
+        //   status: 2
+        // },
+        // {
+        //   to: '/office/statistic',
+        //   title: 'Статистика продаж',
+        //   name: 'statistic',
+        //   icon: 'icon-finance',
+        //   roles: 0
+        // },
       ]
     }
   },
   computed: {
     ...mapGetters('user', [
-      'status',
+      'roles',
       'statusDev',
       'relationEditors'
     ]),
     menuListFilterUserLogged() {
-      if (this.statusDev) {
-        return this.menuListUserLogged
-      } else if (this.status === 2) {
-        return this.menuListUserLogged.filter(item => item.status < 3)
-      } else if (this.relationEditors) {
-        return this.menuListUserLogged.filter(item => item.status < 2)
-      } else if (this.status === 1) {
-        return this.menuListUserLogged.filter(item => item.status < 1)
-      }
+      return this.menuListUserLogged.filter(item => {
+        if (this.roles.includes(item.roles) || item.roles === 0) {
+          return item
+        }
+        if (this.relationEditors && item.title === 'Управление мероприятиями') {
+          return item
+        }
+      })
     },
   },
 }

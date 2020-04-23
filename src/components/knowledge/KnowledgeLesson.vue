@@ -84,7 +84,6 @@ export default {
     ]),
     ...mapGetters('user', [
       'logged',
-      'status'
     ]),
     pathMyCourse () {
       if (this.$store.getters[`courses/statusMyCourse`](this.url)) {
@@ -114,7 +113,6 @@ export default {
   mounted () {
     API.courses.lesson.info({id: this.id}).then(response => {
       this.lesson = response
-      // this.statusInfo()
     }).catch(e => {
       this.$router.push({ path: '/404' })
     })

@@ -35,7 +35,7 @@ export default {
       'statusDev'
     ]),
     bonusFilter() {
-      if (this.status >= 2) {
+      if (this.statusDev) {
         return this.bonusOptions
       } else {
         let newArr = this.bonusOptions

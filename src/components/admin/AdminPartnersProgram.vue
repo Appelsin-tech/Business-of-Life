@@ -59,10 +59,10 @@ export default {
   },
   computed: {
     ...mapGetters('user', [
-      'status'
+      'statusDev'
     ]),
-    buttonMy() {
-      if(this.status > 1) {
+    buttonMy () {
+      if (this.statusDev) {
         return [
           {
             id: 'AdminPartnersProgramReferal',
@@ -88,13 +88,10 @@ export default {
     }
   },
   methods: {
-    changeSection(e) {
+    changeSection (e) {
       this.currentTab = e
     }
   },
-  mounted() {
-
-  }
 }
 </script>
 

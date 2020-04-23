@@ -3,7 +3,7 @@ import store from '../../store'
 export default [
   {
     path: 'news',
-    name: 'news',
+    name: 'news-office',
     redirect: 'news/control'
   },
   {
@@ -33,9 +33,9 @@ export default [
 ]
 
 function checkRole (to, from, next) {
-  if (store.getters['user/status'] < 2) {
-    next('/office/menu')
-  } else {
+  if (store.getters['user/roles'].includes(1)) {
     next()
+  } else {
+    next('/office/menu')
   }
 }

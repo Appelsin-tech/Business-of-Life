@@ -63,7 +63,7 @@ export default {
       'isMyNews'
     ]),
     ...mapGetters('user', [
-      'status'
+      'roles'
     ]),
     statusMyNews () {
       return this.$store.getters[`news/statusMyNews`](this.news.id)
@@ -78,7 +78,7 @@ export default {
       }).catch(e => console.log(e))
     },
     statusInfo () {
-      if (this.status > 1) {
+      if (this.roles.includes(1)) {
         if (this.isMyNews === null) {
           this.$store.dispatch('news/getMyNews').then(() => {
             if (this.isMyNews.some(item => item.id === this.news.id)) {

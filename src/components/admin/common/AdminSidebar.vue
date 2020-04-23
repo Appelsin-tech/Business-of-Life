@@ -16,16 +16,28 @@
             <p class="title-item">{{item.title}}</p>
           </router-link>
         </li>
+        <li v-if="statusDev">
+          <router-link class="link line"  active-class="active" to="/office/role" >
+            <component :is="'icon-account-star'" class="g-icon"></component>
+            <p class="title-item">Роли и управление доступом</p>
+          </router-link>
+        </li>
+        <li v-if="statusDev">
+          <router-link class="link" active-class="active" to="/office/statistic" >
+            <component :is="'icon-finance'" class="g-icon"></component>
+            <p class="title-item">Статистика продаж</p>
+          </router-link>
+        </li>
       </ul>
     </div>
 
     <div class="wrapper-mobile">
-      <ul class="list-menu-mobile" v-if="true">
+      <ul class="list-menu-mobile">
         <li class="item" v-for="item in menuListFilterUserLogged" :key="item.to">
           <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/office" @click="showMenu = false">Личный кабинет</router-link>
+          <router-link class="link" to="/office" @click.native="showMenu = false">Личный кабинет</router-link>
         </li>
       </ul>
     </div>
@@ -49,7 +61,8 @@ export default {
       'profile'
     ]),
     ...mapGetters('user', [
-      'logged'
+      'logged',
+      'statusDev'
     ]),
   },
   methods: {
@@ -232,20 +245,20 @@ export default {
           }
           &.line {
             position: relative;
-            margin-bottom: 20px;
+            margin-top: 20px;
             .xl-block({
-              margin-bottom: 14px;
+              margin-top: 14px;
             });
             &::after {
               content: '';
               position: absolute;
-              bottom: -10px;
+              top: -10px;
               left: 20px;
               right: 20px;
               height: 1px;
               background: var(--sidebar-admin_border__color);
               .xl-block({
-                bottom: -7px;
+                top: -7px;
                 left: 10px;
                 right: 10px;
               });

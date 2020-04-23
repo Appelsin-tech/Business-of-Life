@@ -4,12 +4,13 @@ export default [
   {
     path: 'events',
     name: 'events',
+    beforeEnter: checkRole,
     redirect: 'events/control'
   },
   {
     path: 'events/control',
     name: 'event-control',
-    beforeEnter: checkEditors,
+    beforeEnter: checkRole,
     meta: {
       breadcrumb: {
         parent: null,
@@ -34,7 +35,7 @@ export default [
     path: 'events/:event',
     name: 'event-editing',
     props: true,
-    beforeEnter: checkEditors,
+    beforeEnter: checkRole,
     meta: {
       breadcrumb: {
         parent: 'events/control',
@@ -60,7 +61,7 @@ export default [
     path: 'events/:event/relation/:id',
     name: 'relation-editing',
     props: true,
-    beforeEnter: checkEditors,
+    beforeEnter: checkRole,
     meta: {
       breadcrumb: {
         parent: 'events/control',
@@ -72,7 +73,7 @@ export default [
   {
     path: 'participant/:relation',
     name: 'participant',
-    beforeEnter: checkEditors,
+    beforeEnter: checkRole,
     meta: {
       breadcrumb: {
         parent: 'events/control',
@@ -84,15 +85,7 @@ export default [
 ]
 
 function checkRole (to, from, next) {
-  if (store.getters['user/status'] < 2) {
-    next('/office/menu')
-  } else {
-    next()
-  }
-}
-
-function checkEditors (to, from, next) {
-  if (store.getters['user/status'] < 2) {
+  if (!store.getters['user/roles'].includes(3)) {
     if (store.getters['user/relationEditors']) {
       next()
     } else {

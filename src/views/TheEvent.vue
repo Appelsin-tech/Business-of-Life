@@ -258,8 +258,8 @@ export default {
         this.activeRelation = response
       })
     },
-    statusInfo () {
-      if (this.status > 1) {
+    checkRoles () {
+      if (this.roles.includes(3)) {
         this.$store.dispatch('event/getMyEvents').then(() => {
           if (this.eventsMy.some(item => item.id === this.event.id)) {
             this.myEvent = true
@@ -272,7 +272,7 @@ export default {
         this.event = response.data
         this.activeCity()
         this.activeRelationFilter(response.data.relations)
-        this.statusInfo()
+        this.checkRoles()
       }).catch(error => {
         console.log(error)
         this.$router.push({ path: '/404' })
@@ -292,7 +292,7 @@ export default {
     ]),
     ...mapGetters('user', [
       'logged',
-      'status'
+      'roles'
     ]),
     swiper () {
       return this.$refs.mySwiperEvents.swiper

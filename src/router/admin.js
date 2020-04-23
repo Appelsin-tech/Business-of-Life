@@ -21,7 +21,7 @@ export default [
   {
     path: 'statistic',
     name: 'statistic',
-    beforeEnter: checkRole,
+    beforeEnter: checkAdmin,
     meta: {
       breadcrumb: {
         parent: null,
@@ -33,7 +33,7 @@ export default [
   {
     path: 'role',
     name: 'role',
-    beforeEnter: checkRole,
+    beforeEnter: checkAdmin,
     meta: {
       breadcrumb: {
         parent: null,
@@ -77,7 +77,7 @@ export default [
   }
 ]
 
-function checkRole (to, from, next) {
+function checkAdmin (to, from, next) {
   if (store.getters['user/status'] < 2) {
     next('/office/menu')
   } else {

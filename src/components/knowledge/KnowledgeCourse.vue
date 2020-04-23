@@ -71,7 +71,7 @@ export default {
   computed: {
     ...mapGetters('user', [
       'logged',
-      'status',
+      'roles',
       'accessKnowledge'
     ]),
     ...mapGetters('courses', [
@@ -88,7 +88,7 @@ export default {
     getInfoCourse() {
       API.courses.courses.info({ url: this.url }).then(response => {
         // мой курс или нет
-        if (this.status > 1 && this.listMyCourses.some(item => item.id === response.id)) {
+        if (this.roles.includes(2) && this.listMyCourses.some(item => item.id === response.id)) {
           this.myCourse = true
         }
         if (!response.free && !this.myCourse) {
@@ -105,7 +105,7 @@ export default {
       })
     },
     statusInfo() {
-      if (this.status > 1 && this.listMyCourses === null) {
+      if (this.roles.includes(2) && this.listMyCourses === null) {
         this.$store.dispatch('courses/getMyCourses')
       }
     },

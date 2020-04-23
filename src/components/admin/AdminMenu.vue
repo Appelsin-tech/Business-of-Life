@@ -3,7 +3,7 @@
     <div class="container">
       <div class="course-tools" v-if="startCourse && startCourse.progress !== startCourse.lessons.length">
         <div class="col-desc">
-          <p class="g-caption-element g-caption-element--static">Рады снова вас видеть, {{profile.login}}!</p>
+          <p class="g-caption-element g-caption-element--static" v-if="profile">Рады снова вас видеть, {{profile.login}}!</p>
           <p class="desc">Для того, чтобы начать строить бизнес вместе с нами - изучите данный курс. Он поможет вам разобраться со всеми инструментами платформы и пригласить своих первых партнеров</p>
         </div>
         <div class="col-course" v-if="startCourse">
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="menu">
-        <panel-admin-menu v-for="item in menu" :key="item.name" :item="item" />
+        <panel-admin-menu v-for="item in filterMenu" :key="item.to" :item="item" />
       </div>
     </div>
   </section>
@@ -35,115 +35,29 @@
 import { mapGetters, mapState } from 'vuex'
 import PanelAdminMenu from './common/PanelAdminMenu'
 import API from '@/api/index'
+import appMenuList from '@/mixins/appMenuList'
 
 export default {
   name: 'AdminMenu',
+  mixins: [appMenuList],
   components: {
     PanelAdminMenu
   },
   data() {
     return {
-      // статус 0 для обычного пользователя
-      // статус 1 для обычного пользователя, который является проверяющим
-      // статус 2 для админа, показываются все, кроме разработки
-      // статус 3 для разработки, показываются все
-      menuItem: [
-        {
-          to: '/calendar',
-          title: 'Календарь мероприятий',
-          name: 'calendar',
-          status: 0
-        },
-        {
-          to: '/office/event-control',
-          title: 'Управление мероприятиями',
-          name: 'event-control',
-          status: 1
-        },
-        {
-          to: '/tickets',
-          title: 'Проверить билет',
-          name: 'tickets-page',
-          status: 0
-        },
-        {
-          to: '/office/statistic',
-          title: 'Статистика продаж',
-          name: 'statistic',
-          status: 2
-        },
-        {
-          to: '/office/role',
-          title: 'Роли и управление доступом',
-          name: 'role',
-          status: 2
-        },
-        {
-          to: '/office/profile',
-          title: 'Профиль',
-          name: 'profile',
-          status: 0
-        },
-        {
-          to: '/knowledge/menu',
-          title: 'База знаний',
-          name: 'knowledge-package',
-          status: 0
-        },
-        {
-          to: '/office/courses/control',
-          title: 'Редактор курсов',
-          name: 'course-control',
-          status: 3
-        },
-        {
-          to: '/office/wallet',
-          title: 'Кошелек',
-          name: 'wallet',
-          status: 0
-        },
-        {
-          to: '/office/partners-program',
-          title: 'Партнерская программа',
-          name: 'partners-program',
-          status: 0
-        },
-        {
-          to: '/news',
-          title: 'Новости',
-          name: 'news',
-          status: 0
-        },
-        {
-          to: '/office/news/control',
-          title: 'Редактор новостей',
-          name: 'news-control',
-          status: 3
-        },
-      ],
       startCourse: null
     }
   },
   computed: {
     ...mapGetters('user', [
-      'status',
-      'statusDev',
       'relationEditors'
     ]),
     ...mapState('user', [
       'profile'
     ]),
-    menu() {
-      if (this.statusDev) {
-        return this.menuItem
-      } else if (this.status === 2) {
-        return this.menuItem.filter(item => item.status < 3)
-      } else if (this.relationEditors) {
-        return this.menuItem.filter(item => item.status < 2)
-      } else if (this.status === 1) {
-        return this.menuItem.filter(item => item.status < 1)
-      }
-    },
+    filterMenu () {
+      return this.menuListFilterUserLogged.filter(item => item.name !== 'home' && item.name !== 'coronanamillion')
+    }
   },
   methods: {
   },
