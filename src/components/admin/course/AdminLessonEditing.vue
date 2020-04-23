@@ -94,16 +94,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/course-control',
-          title: 'Редактирование курсов'
-        },
-        {
-          title: 'Курс',
-          path: `/admin/course-editing/${this.course}`
-        }
-      ],
       drag: false,
       editor: ClassicEditor,
       editorConfig: {
@@ -191,7 +181,7 @@ export default {
         }).then(response => {
           this.$store.dispatch('courses/getMyCourses')
           API.response.success('Урок создан')
-          this.$router.push({ path: `/admin/lesson/${this.course}/${response.id}` })
+          this.$router.push({ path: `/office/courses/${this.course}/lesson/${response.id}` })
         }).catch(e => {
           if (e.response.reason) {
             API.response.error(this.errorResponse[e.response.reason])

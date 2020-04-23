@@ -144,16 +144,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/event-control',
-          title: 'Управление мероприятиями'
-        },
-        {
-          title: 'Редактирование мероприятия',
-          path: `/admin/event-editing/${this.event}`
-        }
-      ],
       editor: ClassicEditor,
       editorConfig: {
         language: 'ru',
@@ -263,7 +253,7 @@ export default {
         API.relations.create(this.form).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
-          this.$router.push({ path: `/admin/relation/${this.event}/${response.id}` })
+          this.$router.push({ path: `/office/events/${this.event}/relation/${response.id}` })
           this.form.id = response.id
         }).catch(error => {
           console.log(error)

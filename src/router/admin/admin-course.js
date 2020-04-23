@@ -2,65 +2,70 @@ import store from '../../store'
 
 export default [
   {
-    path: 'course-control',
+    path: 'courses',
+    name: 'courses',
+    redirect: 'courses/control'
+  },
+  {
+    path: 'courses/control',
     name: 'course-control',
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
         parent: null,
-        title: 'Управление курсами'
+        title: 'Редактор курсов'
       }
     },
     component: () => import('@admin/course/AdminCourseControl')
   },
   {
-    path: 'course-create',
+    path: 'courses/create',
     name: 'course-create',
     props: true,
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'course-control',
-        title: 'Редактирование курса'
+        parent: 'courses/control',
+        title: 'Редактор курсов'
       }
     },
     component: () => import('@admin/course/AdminCourseLessonEditing')
   },
   {
-    path: 'course-editing/:id',
+    path: 'courses/:course',
     name: 'course-editing',
     props: true,
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'course-control',
-        title: 'Редактирование курса'
+        parent: 'courses/control',
+        title: 'Редактор курсов'
       }
     },
     component: () => import('@admin/course/AdminCourseLessonEditing')
   },
   {
-    path: 'lesson/:course',
+    path: 'courses/:course/lesson/create',
     name: 'lesson-create',
     props: true,
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'course-editing',
-        title: 'Редактирование урока'
+        parent: 'courses/control',
+        title: 'Редактор курсов'
       }
     },
     component: () => import('@admin/course/AdminLessonEditing')
   },
   {
-    path: 'lesson/:course/:id',
+    path: 'courses/:course/lesson/:id',
     name: 'lesson-editing',
     props: true,
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'course-editing',
-        title: 'Редактирование урока'
+        parent: 'courses/control',
+        title: 'Редактор курсов'
       }
     },
     component: () => import('@admin/course/AdminLessonEditing')
@@ -69,7 +74,7 @@ export default [
 
 function checkRole (to, from, next) {
   if (store.getters['user/status'] < 2) {
-    next('/admin/menu')
+    next('/office/menu')
   } else {
     next()
   }

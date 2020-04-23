@@ -124,7 +124,7 @@ export default {
         API.courses.courses.create(this.form).then(response => {
           API.response.success('Курс создан')
           this.$store.dispatch('courses/getMyCourses').then(() => {
-            this.$router.push({ path: `/admin/course-editing/${response.id}` })
+            this.$router.push({ path: `/office/courses/${response.id}` })
           })
         }).catch(error => {
           console.log(error)
@@ -135,7 +135,7 @@ export default {
       API.courses.courses.delete({ id: id }).then(() => {
         API.response.success('Курс удален')
         this.$store.dispatch('courses/getMyCourses')
-        this.$router.push({ path: '/admin/course-control' })
+        this.$router.push({ path: '/office/course/control' })
       })
     },
     imageUpload (nameImg, e) {

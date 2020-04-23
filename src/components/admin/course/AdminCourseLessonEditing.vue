@@ -4,25 +4,25 @@
     <div class="container page">
       <div class="course-editing">
         <h2 class="g-caption-section">
-          <template v-if="id">Редактирование курса</template>
+          <template v-if="course">Редактирование курса</template>
           <template v-else>Создание курса</template>
         </h2>
-        <course-editing-form :idCourse="id" :course="myCourse" :btnDelete="showButtonDelete"/>
+        <course-editing-form :idCourse="course" :course="myCourse" :btnDelete="showButtonDelete"/>
       </div>
       <div class="lesson-list">
         <h2 class="g-caption-section">Редактирование уроков</h2>
-        <div class="lesson-wrapper" v-if="id">
+        <div class="lesson-wrapper" v-if="course">
           <div class="item item-btn" :class="counterLesson === 1 ? '' : 'line'">
             <span class="counter-lesson">{{counterLesson}}</span>
-            <button-add class="row" @click.native.prevent="$router.push(`/admin/lesson/${id}`)"></button-add>
+            <button-add class="row" @click.native.prevent="$router.push(`/office/courses/${course}/lesson/create`)"></button-add>
           </div>
           <div v-if="counterLesson !== 1">
-            <admin-course-lesson-editing-lesson  v-for="(lesson, index) in reverseLesson" :key="lesson.id" :course="id" :lesson="lesson" :counter="counterLesson - index - 1" v-on:delete-lesson="getInfoCourse"/>
+            <admin-course-lesson-editing-lesson  v-for="(lesson, index) in reverseLesson" :key="lesson.id" :course="course" :lesson="lesson" :counter="counterLesson - index - 1" v-on:delete-lesson="getInfoCourse"/>
           </div>
         </div>
         <panel-info v-else>Чтобы создать урок - заполните информацию о курсе</panel-info>
         <div class="link-wrapper">
-          <button-app class="preview" :to="`/knowledge/${id}`" :class="{disabled: !id}">
+          <button-app class="preview" :to="`/knowledge/${course}`" :class="{disabled: !course}">
             Предпросмотр
           </button-app>
         </div>
@@ -42,7 +42,7 @@ import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'AdminCourseLessonEditing',
-  props: ['id'],
+  props: ['course'],
   components: {
     CourseEditingForm,
     PanelInfo,
@@ -52,12 +52,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/course-control',
-          title: 'Редактирование курсов'
-        }
-      ],
       myCourse: null,
       activePreloader: false
     }
@@ -80,19 +74,19 @@ export default {
       }
     },
     showButtonDelete () {
-      return !!this.id
+      return !!this.course
     }
   },
   methods: {
     getInfoCourse() {
-      API.courses.courses.details({id: this.id}).then(response => {
+      API.courses.courses.details({id: this.course}).then(response => {
         this.myCourse = response
         this.activePreloader = false
       }).catch(e => console.log(e))
     }
   },
   mounted() {
-    if (this.id) {
+    if (this.course) {
       this.activePreloader = true
       this.getInfoCourse()
     }

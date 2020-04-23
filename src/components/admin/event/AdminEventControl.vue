@@ -1,8 +1,8 @@
 <template>
   <section class="p-control-event p-inner-admin">
-    <preloader v-if="activePreloader"/>
+    <preloader v-if="loading"/>
     <div class="container page">
-      <button-app-function icon="icon-plus-circle" :text="true" to="/admin/event-create">Создать</button-app-function>
+      <button-app-function icon="icon-plus-circle" :text="true" to="/office/events/create">Создать</button-app-function>
       <div class="event">
         <panel-event-menu v-for="item in eventsMy" :key="item.name" :item="item" />
       </div>
@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      activePreloader: false
+      loading: false
     }
   },
   methods: {
@@ -42,7 +42,7 @@ export default {
       this.loading = true
       API.events.create({title: 'Новое мероприятие'}).then(response => {
         API.response.success('Мероприятие создано')
-        this.$router.push({ path: `/admin/event-editing/${response.data.id}` })
+        this.$router.push({ path: `/office/events/${response.data.id}` })
         this.$store.dispatch('event/getMyEvents')
         this.loading = false
       }).catch(error => {
@@ -60,9 +60,9 @@ export default {
   },
   mounted() {
     if (this.eventsMy.length === 0) {
-      this.activePreloader = true
+      this.loading = true
       this.$store.dispatch('event/getMyEvents').then(() => {
-        this.activePreloader = false
+        this.loading = false
       })
     }
   }

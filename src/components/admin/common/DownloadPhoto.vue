@@ -217,9 +217,11 @@ export default {
         justify-content: center;
         transition: 0.3s;
         cursor: pointer;
+        .app-border-radius();
         &--add {
           z-index: 1;
-          border: 1px solid #d7d7d7;
+          background-color: #fff;
+          border: 1px solid #fff;
           .g-icon {
             color: #d7d7d7;
           }

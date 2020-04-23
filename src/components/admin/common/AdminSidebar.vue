@@ -11,7 +11,7 @@
       </button>
       <ul class="list-menu-desktop">
         <li v-for="item in menuListFilterUserLogged" :key="item.to">
-          <router-link class="link" :class="{line: item.line}" :exact="true" active-class="active" :to="item.to" >
+          <router-link class="link" :class="{line: item.line}"  active-class="active"  :to="item.to" >
             <component :is="item.icon" class="g-icon"></component>
             <p class="title-item">{{item.title}}</p>
           </router-link>
@@ -25,7 +25,7 @@
           <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/admin" @click="showMenu = false">Личный кабинет</router-link>
+          <router-link class="link" to="/office" @click="showMenu = false">Личный кабинет</router-link>
         </li>
       </ul>
     </div>
@@ -41,46 +41,10 @@ export default {
   data() {
     return {
       showMenu: false,
-      showLogout: false,
+      showLogout: false
     }
   },
   computed: {
-    borderClass () {
-      let rout = false
-      switch (this.$route.name) {
-        case 'main':
-          rout = true
-          break
-        case 'main-r':
-          rout = true
-          break
-        case 'description':
-          rout = true
-          break
-        case 'calendar':
-          rout = true
-          break
-        case 'knowledge-package':
-          rout = true
-          break
-        case 'auth':
-          rout = true
-          break
-        case 'registration':
-          rout = true
-          break
-        case 'registration-referal':
-          rout = true
-          break
-        case 'forgot':
-          rout = true
-          break
-        case 'marathon':
-          rout = true
-          break
-      }
-      return rout
-    },
     ...mapState('user', [
       'profile'
     ]),
@@ -89,13 +53,6 @@ export default {
     ]),
   },
   methods: {
-    goRouter(rout) {
-      this.showMenu = false
-      this.$router.push({ path: `/${rout}` })
-    },
-    activeClass () {
-      this.showLogout = !this.showLogout
-    },
     showMenuMethod() {
       this.showMenu = !this.showMenu
     }
@@ -123,19 +80,15 @@ export default {
     top: 0;
     bottom: 0;
     padding-bottom: 70px;
-    max-width: 320px;
+    max-width: 304px;
     background: #fff;
     grid-area: aside;
     color: #fff;
     overflow-y: auto;
     z-index: 991;
     scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-    @media (max-width: 1700px) {
-      max-width: 250px;
-    }
     .xl-block({
-      max-width: 220px;
+      max-width: 240px;
     });
     .md-block({
       position: absolute;
@@ -246,7 +199,7 @@ export default {
         }
       }
       .list-menu-desktop {
-        padding: 0 10px 0 15px;
+        padding: 0 24px;
         .xl-block({
           padding: 0 10px;
         });
@@ -300,9 +253,9 @@ export default {
           }
           .title-item {
             color: var(--sidebar-admin_title__color);
-            @media (max-width: 1700px) {
-              font-size: 1.4rem;
-            }
+            .xl-block({
+              font-size: 16px;
+            });
           }
           .g-icon {
             width: 20px;
@@ -310,10 +263,8 @@ export default {
             margin-right: 25px;
             color: var(--sidebar-admin_icon__color);
             flex-shrink: 0;
-            @media (max-width: 1700px) {
-              margin-right: 18px;
-            }
             .xl-block({
+              margin-right: 18px;
               width: 16px;
               height: 16px;
             });

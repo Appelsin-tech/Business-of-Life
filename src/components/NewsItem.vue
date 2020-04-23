@@ -27,7 +27,7 @@
             <strong class="g-hashtag" v-for="(hash, index) in news.hashtag" :key="index">{{hash}}</strong>
           </div>
           <div class="g-wrapper-btn-f g-wrapper-btn-f--static" v-if="control">
-            <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" :to="`/admin/news-editing/${news.id}`"></button-app-function>
+            <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" :to="`/office/news/${news.id}`"></button-app-function>
             <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить'" @click.native="deleteNews(news.id)"></button-app-function>
           </div>
         </div>
@@ -100,6 +100,10 @@ export default {
       margin-bottom: 10px;
     });
     &.page-hero {
+      .content-news {
+        display: flex;
+        flex-direction: column;
+      }
       .img {
         width: 100%;
         margin-right: 0;

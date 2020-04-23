@@ -9,19 +9,19 @@ export default {
       // статус 3 для разработки, показываются все
       menuListUserLogged: [
         {
-          to: '/admin/menu',
+          to: '/office/menu',
           title: 'Главная',
           icon: 'icon-home',
           status: 0
         },
         {
-          to: '/admin/wallet',
+          to: '/office/wallet',
           title: 'Кошелек',
           icon: 'icon-wallet',
           status: 0
         },
         {
-          to: '/admin/partners-program',
+          to: '/office/partners-program',
           title: 'Партнерская программа',
           icon: 'icon-account-group',
           line: true,
@@ -53,19 +53,19 @@ export default {
           status: 0
         },
         {
-          to: '/admin/profile',
+          to: '/office/profile',
           title: 'Профиль',
           icon: 'icon-account',
           status: 0
         },
         {
-          to: '/admin/news-control',
+          to: '/office/news',
           title: 'Управление новостями',
           icon: 'icon-newspaper-plus',
           status: 3
         },
         {
-          to: '/admin/event-control',
+          to: '/office/events',
           title: 'Управление мероприятиями',
           icon: 'icon-calendar-edit',
           status: 1
@@ -77,20 +77,20 @@ export default {
           status: 0
         },
         {
-          to: '/admin/course-control',
+          to: '/office/courses',
           title: 'Редактор курсов',
           icon: 'icon-book-plus',
           status: 3
         },
         {
-          to: '/admin/role',
+          to: '/office/role',
           title: 'Роли и управление доступом',
           icon: 'icon-account-star',
           line: true,
           status: 2
         },
         {
-          to: '/admin/statistic',
+          to: '/office/statistic',
           title: 'Статистика продаж',
           icon: 'icon-finance',
           status: 2

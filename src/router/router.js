@@ -146,9 +146,9 @@ const router = new Router({
       ]
     },
     {
-      path: '/admin',
-      name: 'admin',
-      redirect: '/admin/menu',
+      path: '/office',
+      name: 'office',
+      redirect: '/office/menu',
       beforeEnter: requireAuth,
       meta: {
         auth: true

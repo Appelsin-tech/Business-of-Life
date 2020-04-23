@@ -9,7 +9,7 @@
           <div href="#" class="icon-red icon-red--desktop user user-desktop"  v-if="logged">
             <icon-account class="g-icon"/>
             <div class="link">
-              <span class="lk text" @click="goRouter('admin')">{{profile.login}}</span>
+              <span class="lk text" @click="goRouter('office')">{{profile.login}}</span>
               <a class="exit" href="#" @click.prevent="$store.dispatch('user/logout')">Выйти</a>
             </div>
           </div>
@@ -30,7 +30,7 @@
             <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
           </li>
           <li class="item">
-            <router-link class="link" to="/admin" @click="showMenu = false">Личный кабинет</router-link>
+            <router-link class="link" to="/office" @click="showMenu = false">Личный кабинет</router-link>
           </li>
         </ul>
         <ul class="menu-list" v-else>

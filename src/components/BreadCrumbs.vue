@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     routePath(d) {
-      if (d.path === '/admin/event-editing') {
+      if (d.path === '/office/event') {
         return d.path + '/' + this.$route.params.id
       } else {
         return d.path

@@ -73,7 +73,7 @@ export default {
       this.loading = true
       API.news.create({title: 'Новая новость'}).then(response => {
         API.response.success('Новость создана')
-        this.$router.push(`/admin/news-editing/${response.id}`)
+        this.$router.push(`/office/news/${response.id}`)
         this.$store.dispatch('news/getMyNews')
         this.loading = false
       })

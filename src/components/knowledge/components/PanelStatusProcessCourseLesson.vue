@@ -21,7 +21,7 @@
       </template>
     </div>
     <div class="btn-wrapper" v-if="source === 'lesson'">
-      <button-app :to="`/admin/lesson/${urlMyCourse}`"  v-if="urlMyCourse">
+      <button-app :to="`/office/lesson/${urlMyCourse}`"  v-if="urlMyCourse">
         Редактировать
       </button-app>
       <button-app class="btn-app--white" v-if="statusProgress !== 2" @click.native="$emit('set-progress')" :class="{'disabled': statusProgress > 0}">

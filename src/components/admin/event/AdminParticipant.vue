@@ -40,7 +40,6 @@ import Search from '@/components/Search'
 import AdminParticipantItem from '@admin/event/inner/AdminParticipantItem'
 import AdminParticipantFilters from '@admin/event/inner/AdminParticipantFilters'
 import Preloader from '@/components/ui/Preloader'
-import response from '@/api/response'
 import PanelInfo from '@/components/ui/PanelInfo'
 
 const options = {
@@ -64,12 +63,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/event-control',
-          title: 'Управление мероприятиями'
-        }
-      ],
       loading: true,
       fieldsArr: [],
       response: null,

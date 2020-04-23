@@ -2,7 +2,12 @@ import store from '../../store'
 
 export default [
   {
-    path: 'news-control',
+    path: 'news',
+    name: 'news',
+    redirect: 'news/control'
+  },
+  {
+    path: 'news/control',
     name: 'news-control',
     beforeEnter: checkRole,
     meta: {
@@ -14,13 +19,13 @@ export default [
     component: () => import('@admin/news/AdminNewsControl')
   },
   {
-    path: 'news-editing/:id',
+    path: 'news/:id',
     name: 'news-editing',
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'news-control',
-        title: 'Редактирование новости'
+        parent: 'news/control',
+        title: 'Управление новостями'
       }
     },
     component: () => import('@admin/news/AdminNewsEditing')
@@ -29,7 +34,7 @@ export default [
 
 function checkRole (to, from, next) {
   if (store.getters['user/status'] < 2) {
-    next('/admin/menu')
+    next('/office/menu')
   } else {
     next()
   }

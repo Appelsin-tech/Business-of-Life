@@ -26,7 +26,7 @@
         </div>
       </template>
       <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
-        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать курс'" :to="`/admin/course-editing/${course.id}`"></button-app-function>
+        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать курс'" :to="`/office/courses/${course.id}`"></button-app-function>
         <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить курс'" @click.native="deleteCourse(course.id)"></button-app-function>
       </div>
     </div>

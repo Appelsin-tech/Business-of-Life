@@ -117,11 +117,11 @@ export default {
     },
     linkEdit() {
       if (this.section === 'event') {
-        return `/admin/relation/${this.idEvent}/${this.idRelation}`
+        return `/office/events/${this.idEvent}/relation/${this.idRelation}`
       } else if (this.section === 'news') {
-        return `/admin/news-editing/${this.idNews}`
+        return `/office/news/${this.idNews}`
       } else if (this.section === 'course') {
-        return `/admin/course-editing/${this.idCourse}`
+        return `/office/courses/${this.idCourse}`
       }
     },
     btnText() {

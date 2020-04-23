@@ -4,7 +4,7 @@
     <div class="item-lesson">
       <h3 class="g-caption-element g-caption-element--static">{{lesson.title}}</h3>
       <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
-        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" :to="`/admin/lesson/${course}/${lesson.id}`"></button-app-function>
+        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать'" :to="`/office/courses/${course}/lesson/${lesson.id}`"></button-app-function>
         <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить урок'" @click.native="deleteLesson()"></button-app-function>
       </div>
     </div>

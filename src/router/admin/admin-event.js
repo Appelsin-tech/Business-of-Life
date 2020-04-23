@@ -2,7 +2,12 @@ import store from '../../store'
 
 export default [
   {
-    path: 'event-control',
+    path: 'events',
+    name: 'events',
+    redirect: 'events/control'
+  },
+  {
+    path: 'events/control',
     name: 'event-control',
     beforeEnter: checkEditors,
     meta: {
@@ -14,52 +19,52 @@ export default [
     component: () => import('@admin/event/AdminEventControl')
   },
   {
-    path: 'event-create',
+    path: 'events/create',
     name: 'event-create',
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'event-control',
-        title: 'Редактирование мероприятия'
+        parent: 'events/control',
+        title: 'Управление мероприятиями'
       }
     },
     component: () => import('@admin/event/AdminEventRelationEditing')
   },
   {
-    path: 'event-editing/:id',
+    path: 'events/:event',
     name: 'event-editing',
     props: true,
     beforeEnter: checkEditors,
     meta: {
       breadcrumb: {
-        parent: 'event-control',
-        title: 'Редактирование мероприятиями'
+        parent: 'events/control',
+        title: 'Управление мероприятиями'
       }
     },
     component: () => import('@admin/event/AdminEventRelationEditing')
   },
   {
-    path: 'relation/:event',
+    path: 'events/:event/relation/create',
     name: 'relation-create',
     props: true,
     beforeEnter: checkRole,
     meta: {
       breadcrumb: {
-        parent: 'event-control',
-        title: 'Редактирование события'
+        parent: 'events/control',
+        title: 'Управление мероприятиями'
       }
     },
     component: () => import('@admin/event/AdminRelationEditing')
   },
   {
-    path: 'relation/:event/:id',
+    path: 'events/:event/relation/:id',
     name: 'relation-editing',
     props: true,
     beforeEnter: checkEditors,
     meta: {
       breadcrumb: {
-        parent: 'event-control',
-        title: 'Редактирование события'
+        parent: 'events/control',
+        title: 'Управление мероприятиями'
       }
     },
     component: () => import('@admin/event/AdminRelationEditing')
@@ -70,8 +75,8 @@ export default [
     beforeEnter: checkEditors,
     meta: {
       breadcrumb: {
-        parent: 'event-control',
-        title: 'Список участников'
+        parent: 'events/control',
+        title: 'Управление мероприятиями'
       }
     },
     component: () => import('@admin/event/AdminParticipant')
@@ -80,7 +85,7 @@ export default [
 
 function checkRole (to, from, next) {
   if (store.getters['user/status'] < 2) {
-    next('/admin/menu')
+    next('/office/menu')
   } else {
     next()
   }
@@ -91,7 +96,7 @@ function checkEditors (to, from, next) {
     if (store.getters['user/relationEditors']) {
       next()
     } else {
-      next('/admin/menu')
+      next('/office/menu')
     }
   } else {
     next()

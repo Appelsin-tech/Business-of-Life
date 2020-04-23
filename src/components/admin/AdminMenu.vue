@@ -55,7 +55,7 @@ export default {
           status: 0
         },
         {
-          to: '/admin/event-control',
+          to: '/office/event-control',
           title: 'Управление мероприятиями',
           name: 'event-control',
           status: 1
@@ -67,19 +67,19 @@ export default {
           status: 0
         },
         {
-          to: '/admin/statistic',
+          to: '/office/statistic',
           title: 'Статистика продаж',
           name: 'statistic',
           status: 2
         },
         {
-          to: '/admin/role',
+          to: '/office/role',
           title: 'Роли и управление доступом',
           name: 'role',
           status: 2
         },
         {
-          to: '/admin/profile',
+          to: '/office/profile',
           title: 'Профиль',
           name: 'profile',
           status: 0
@@ -91,19 +91,19 @@ export default {
           status: 0
         },
         {
-          to: '/admin/course-control',
+          to: '/office/courses/control',
           title: 'Редактор курсов',
           name: 'course-control',
           status: 3
         },
         {
-          to: '/admin/wallet',
+          to: '/office/wallet',
           title: 'Кошелек',
           name: 'wallet',
           status: 0
         },
         {
-          to: '/admin/partners-program',
+          to: '/office/partners-program',
           title: 'Партнерская программа',
           name: 'partners-program',
           status: 0
@@ -115,7 +115,7 @@ export default {
           status: 0
         },
         {
-          to: '/admin/news-control',
+          to: '/office/news/control',
           title: 'Редактор новостей',
           name: 'news-control',
           status: 3

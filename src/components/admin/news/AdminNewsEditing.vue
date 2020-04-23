@@ -119,12 +119,6 @@ export default {
   data() {
     return {
       loading: false,
-      breadCrumbs: [
-        {
-          path: '/admin/news-control',
-          title: 'Управление новостями'
-        }
-      ],
       editor: ClassicEditor,
       editorConfig: {
         language: 'ru',
@@ -301,7 +295,7 @@ export default {
     deleteNews() {
       API.news.delete({ id: this.$route.params.id }).then(response => {
         API.response.success('Новость удалена')
-        this.$router.push('/admin/news-control')
+        this.$router.push('/office/news/control')
       })
     },
     imageUpload(nameImg, e) {

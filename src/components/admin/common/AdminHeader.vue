@@ -3,7 +3,7 @@
     <div class="container">
       <transition mode="out-in" name="fade">
         <div class="title-admin">
-          <router-link class="g-caption-inner parent" v-if="$route.meta.breadcrumb.parent" :to="`/admin/${$route.meta.breadcrumb.parent}`">...</router-link>
+          <router-link class="g-caption-inner parent" v-if="$route.meta.breadcrumb.parent" :to="`/office/${$route.meta.breadcrumb.parent}`">...</router-link>
           <span class="g-caption-inner parent separator" v-if="$route.meta.breadcrumb.parent">&#8201;/&#8201;</span>
           <h1 class="g-caption-inner">{{$route.meta.breadcrumb.title}}</h1>
         </div>

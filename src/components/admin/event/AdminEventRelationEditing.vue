@@ -4,21 +4,21 @@
     <div class="container page">
       <div class="event-editing" v-if="checkMyEvent">
         <h2 class="g-caption-section" >
-          <template v-if="id">Редактирование мероприятия</template>
+          <template v-if="event">Редактирование мероприятия</template>
           <template v-else>Создание мероприятия</template>
         </h2>
-        <event-editing-form :idEvent="id" :event="myEvent" :btnDelete="showButtonDelete"/>
+        <event-editing-form :idEvent="event" :event="myEvent" :btnDelete="showButtonDelete"/>
       </div>
       <div class="relations-list">
         <h2 class="g-caption-section">Редактирование событий</h2>
-        <button-add v-if="checkMyEvent" :class="'row'" @click.native="$router.push({path: `/admin/relation/${id}`})"/>
+        <button-add v-if="checkMyEvent" :class="'row'" @click.native="$router.push({path: `/office/events/${event}/relation/create`})"/>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
-            <admin-relation-item v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation"/>
+            <admin-relation-item v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="event" v-on:delete-relation="deleteRelation" :checkMyEvent="checkMyEvent"/>
           </div>
           <h3 class="g-caption-section">Прошедшие события</h3>
           <div class="event-wrapper--inner" v-if="myPastEvents.length">
-            <admin-relation-item  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="id" v-on:delete-relation="deleteRelation" :pastEvents="true"/>
+            <admin-relation-item  v-for="(relation, i) in myPastEvents" :key="relation.id" :relation="relation" :idEvent="event" v-on:delete-relation="deleteRelation" :pastEvents="true" :checkMyEvent="checkMyEvent"/>
           </div>
           <panel-info v-if="!myPastEvents.length">
             У вас еще нет прошедших событий
@@ -41,7 +41,7 @@ import Preloader from '@/components/ui/Preloader'
 
 export default {
   name: 'AdminEventRelationEditing',
-  props: ['id'],
+  props: ['event'],
   components: {
     EventEditingForm,
     PanelInfo,
@@ -51,12 +51,6 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [
-        {
-          path: '/admin/event-control',
-          title: 'Управление мероприятиями'
-        }
-      ],
       myEvent: false,
       myFutureEvents: [],
       myPastEvents: [],
@@ -85,7 +79,7 @@ export default {
     },
     // является ли это мероприятие моим
     checkMyEvent () {
-      return this.id ? this.myEvent.owner_id === this.myId : true
+      return this.event ? this.myEvent.owner_id === this.myId : true
     },
     showPanelRelation () {
       return this.checkUserEditor ? false : this.showRelations === 2
@@ -115,7 +109,7 @@ export default {
       })
     },
     getInfoEvent () {
-      API.events.info({ id: this.id }).then(response => {
+      API.events.info({ id: this.event }).then(response => {
         this.myEvent = response.data
         this.filterRelations()
         this.activePreloader = false
@@ -128,15 +122,15 @@ export default {
     },
   },
   mounted() {
-    if (this.id) {
+    if (this.event) {
       this.activePreloader = true
       this.getInfoEvent()
     }
   },
   watch: {
     '$route'(to, from) {
-      if (this.id) {
-        API.events.info({ id: this.id }).then(response => {
+      if (this.event) {
+        API.events.info({ id: this.event }).then(response => {
           this.myEvent = response.data
           if (this.myEvent.relations.length !== 0) {
             this.showRelations = 1

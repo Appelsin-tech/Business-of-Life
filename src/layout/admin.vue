@@ -39,13 +39,10 @@ export default {
                           'aside main'
                           'aside footer'
     ;
-    grid-template-columns: minmax(0px, 320px) 1fr;
+    grid-template-columns: minmax(0px, 304px) 1fr;
     grid-template-rows: 96px 1fr min-content;
     min-height: 100vh;
-    @media (max-width: 1700px) {
-      grid-template-columns: minmax(10px, 250px) 1fr;
-    }
-    .xl-block({grid-template-columns: minmax(10px, 220px) 1fr; grid-template-rows: 80px 1fr min-content;});
+    .xl-block({grid-template-columns: minmax(10px, 240px) 1fr; grid-template-rows: 80px 1fr min-content;});
     .md-block({grid-template-columns: 1fr; grid-template-rows: 80px min-content 1fr min-content;
       grid-template-areas:
         'aside'

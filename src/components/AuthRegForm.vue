@@ -176,7 +176,7 @@ export default {
           this.btnLoading = false
           API.access.auth(this.form_auth).then(response => {
             this.$store.dispatch('user/login').then(response => {
-              this.$router.push({ path: '/admin/menu' })
+              this.$router.push({ path: '/office/menu' })
             })
           }).catch(error => {
             API.response.error(this.errorResponse[error.response.data.reason])

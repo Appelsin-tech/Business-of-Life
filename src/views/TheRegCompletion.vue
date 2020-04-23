@@ -19,6 +19,7 @@
               <div class="input-valid-error" v-if="$v.form_reg.login.$error">
                 <template v-if="!$v.form_reg.login.required">Поле не может быть пустым</template>
                 <template v-if="!$v.form_reg.login.minLength">Значение не должно быть менее 3 символов</template>
+                <template v-if="!$v.form_reg.login.maxLength">Значение не должно быть более 20 символов</template>
               </div>
             </div>
             <div class="g-item-form">
@@ -83,7 +84,7 @@
 
 <script>
 import BreadCrumbs from '../components/BreadCrumbs'
-import { minLength, required, sameAs } from 'vuelidate/lib/validators'
+import { minLength, maxLength, required, sameAs } from 'vuelidate/lib/validators'
 import API from '../api/index'
 const checkSpace = (value) => /^\S+$/.test(value)
 export default {
@@ -122,7 +123,8 @@ export default {
         form_reg: {
           login: {
             required,
-            minLength: minLength(3)
+            minLength: minLength(3),
+            maxLength: maxLength(20)
           },
           fname: {
             required,

@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/admin/event-editing/${item.id}`" class="menu-item g-panel--img">
+  <router-link :to="`/office/events/${item.id}`" class="menu-item g-panel--img">
     <div class="menu-item__img" :style="{backgroundImage: `url(${item.img})`}"></div>
     <div class="content">
       <p class="g-caption-element">{{item.title}}</p>
@@ -56,8 +56,7 @@ export default {
       });
       .xs-block({
         width: 40px;
-        min-height: 40px;
-        height: 100%;
+        min-height: 100%;
       });
       .img-link {
         position: absolute;

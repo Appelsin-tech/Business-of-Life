@@ -79,7 +79,7 @@ export default [
 
 function checkRole (to, from, next) {
   if (store.getters['user/status'] < 2) {
-    next('/admin/menu')
+    next('/office/menu')
   } else {
     next()
   }

@@ -14,7 +14,7 @@
     <div class="event__info-wrapper">
       <div class="event__info">
         <div class="content">
-          <a :href="`/admin/relation/${idEvent}/${relation.id}`" class="g-caption-element">{{relation.title}} </a>
+          <router-link :to="`/office/events/${idEvent}/relation/${relation.id}`" class="g-caption-element">{{relation.title}} </router-link>
           <p class="event__info-item location">
             <icon-map-marker class="g-icon"/>
             <span class="text">{{relation.country}} {{relation.city}}</span>
@@ -30,8 +30,8 @@
         </div>
       </div>
       <div class="g-wrapper-btn-f ">
-        <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
-        <button-app-function :to="`/admin/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
+        <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="this.checkMyEvent && this.relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
+        <button-app-function :to="`/office/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
       </div>
     </div>
   </div>
@@ -48,6 +48,9 @@ export default {
       required: true
     },
     pastEvents: {
+      default: false
+    },
+    checkMyEvent: {
       default: false
     }
   },
@@ -74,6 +77,15 @@ export default {
           class: 'past',
           tooltip: 'Прошедшее событие'
         }
+      }
+    }
+  },
+  computed: {
+    showBtnDelete () {
+      if (this.checkMyEvent && this.relation.status <= 1) {
+        return true
+      } else {
+        return false
       }
     }
   },
