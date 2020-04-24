@@ -2,7 +2,7 @@
   <section class="p-control-event p-inner-admin">
     <preloader v-if="loading"/>
     <div class="container page">
-      <button-app-function icon="icon-plus-circle" :text="true" to="/office/events/create">Создать</button-app-function>
+      <button-app-function class="mb-30" icon="icon-plus-circle" :text="true" to="/office/events/create">Создать</button-app-function>
       <div class="event">
         <panel-event-menu v-for="item in eventsMy" :key="item.name" :item="item" />
       </div>
@@ -80,9 +80,6 @@ export default {
       .xxl-block({grid-template-columns: repeat(3, 1fr);});
       .sm-block({grid-template-columns: 1fr; grid-gap: 20px;});
       .xs-block({grid-gap: 10px;});
-    }
-    .btn-app-f {
-      margin-bottom: 30px;
     }
   }
 </style>

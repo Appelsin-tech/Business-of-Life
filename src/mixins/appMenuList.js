@@ -55,7 +55,6 @@ export default {
           title: 'Календарь мероприятий',
           name: 'calendar',
           icon: 'icon-calendar-month',
-          line: true,
           roles: 0
         },
         {
@@ -63,6 +62,7 @@ export default {
           title: 'Профиль',
           name: 'profile',
           icon: 'icon-account',
+          line: true,
           roles: 0
         },
         {

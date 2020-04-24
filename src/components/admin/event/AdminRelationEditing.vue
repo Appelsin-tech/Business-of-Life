@@ -70,23 +70,29 @@
         </div>
       </form>
       <div class="tickets">
-        <h2 class="g-caption-section">Билеты</h2>
+        <div class="wrapper-title">
+          <h2 class="g-caption-section">Билеты</h2>
+          <button-app-function @click.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})" icon="icon-plus-circle" :text="true">Создать новый</button-app-function>
+        </div>
         <div class="tickets-wrapper">
-          <div class="ticket-create">
-            <button-add :class="[!id ? 'disabled' : '']" @click.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})"/>
-          </div>
+<!--          <div class="ticket-create">-->
+<!--            <button-add :class="[!id ? 'disabled' : '']" @click.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})"/>-->
+<!--          </div>-->
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
       </div>
       <div class="stock">
-        <h2 class="g-caption-section">Акции</h2>
+        <div class="wrapper-title">
+          <h2 class="g-caption-section">Акции</h2>
+          <button-app-function @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})" icon="icon-plus-circle" :text="true">Создать новую</button-app-function>
+        </div>
         <panel-info v-if="!this.tickets.length">
           Чтобы добавить акцию создайте билет
         </panel-info>
         <div class="stock-wrapper" v-else>
-          <div class="stock-create">
-            <button-add :class="[!id ? 'disabled' : '', 'row']" @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>
-          </div>
+<!--          <div class="stock-create">-->
+<!--            <button-add :class="[!id ? 'disabled' : '', 'row']" @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>-->
+<!--          </div>-->
           <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"  :listTickets="listTickets" />
         </div>
       </div>
@@ -119,6 +125,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import 'flatpickr/dist/flatpickr.css'
+import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
 
 export default {
   name: 'AdminRelationEditing',
@@ -139,6 +146,7 @@ export default {
     ButtonAdd,
     Action,
     AdminRelationAccessSection,
+    ButtonAppFunction,
     ModalTicketCreateEditing: () => import('@/components/modal/ModalTicketCreateEditing'),
     ModalActionsCreateEditing: () => import('@/components/modal/ModalActionsCreateEditing')
   },
@@ -401,26 +409,24 @@ export default {
     &-wrapper {
       .row-flex();
     }
-    .ticket-create {
-      .col();
-      .size(3);
-      .size-lg(4);
-      .size-md(5);
-      .size-sm(6);
-      .size-ss(10);
-      .size-xs(12);
-      margin-bottom: 20px;
-      min-height: 350px;
-      .md-block({
-        min-height: 300px;
-      });
-      .sm-block({
-        min-height: 250px;
-        margin-bottom: 15px;
-      });
+    .wrapper-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
       .ss-block({
-        min-height: auto;
-      });
+        margin-bottom: 20px;
+        align-items: flex-start;
+        flex-direction: column;});
+      .g-caption-section {
+        margin-bottom: 0;
+        margin-right: 24px;
+        .ss-block({
+          margin-bottom: 15px;
+          margin-right: 0;});
+      }
+      .btn-app-f {
+        flex-shrink: 0;
+      }
     }
   }
   .link-wrapper {
@@ -441,6 +447,25 @@ export default {
     &-wrapper {
       display: flex;
       flex-direction: column;
+    }
+    .wrapper-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      .ss-block({
+        margin-bottom: 20px;
+        align-items: flex-start;
+        flex-direction: column;});
+      .g-caption-section {
+        margin-bottom: 0;
+        margin-right: 24px;
+        .ss-block({
+          margin-bottom: 15px;
+          margin-right: 0;});
+      }
+      .btn-app-f {
+        flex-shrink: 0;
+      }
     }
   }
   .access {

@@ -1,10 +1,7 @@
 <template>
-  <a href="" :class="{'closed-course': closeCourse}" class="menu-item" @click.prevent="routerPush">
+  <router-link :class="{'closed-course': closeCourse}" class="menu-item" :to="`/knowledge/${this.item.url}`">
     <div class="img-wrapper">
-      <div class="img" :style="{backgroundImage: `url(${item.img})`}">
-<!--        <icon-arrow-right class="g-icon"/>-->
-        <icon-lock class="g-icon" v-if="closeCourse"/>
-      </div>
+      <div class="img" :style="{backgroundImage: `url(${item.img})`}"></div>
       <h3 class="g-caption-element">{{item.title}}</h3>
     </div>
     <p class="lesson">
@@ -12,17 +9,21 @@
       <span class="text">уроков:</span>
       {{item.lessons}}
     </p>
+    <p class="lock" v-if="closeCourse">
+      <icon-lock class="g-icon"/>
+      <span class="text">Курс доступен по подписке</span>
+    </p>
     <p class="description">
       {{item.snippet}}
     </p>
     <div class="author">
-      <div class="g-icon-circle">
-        BoL
+      <div class="logo">
+        <template v-if="false">BoL</template>
       </div>
 <!--      <div class="img"></div>-->
       <span class="name">Business of Life</span>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -48,19 +49,6 @@ export default {
     }
   },
   methods: {
-    routerPush () {
-      // если не бесплатный курс
-      if (!this.item.free) {
-        // если у пользователя нет доступа к платному курсу
-        if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
-          this.$router.push('/knowledge-package')
-        } else {
-          this.$router.push(`/knowledge/${this.item.url}`)
-        }
-      } else {
-        this.$router.push(`/knowledge/${this.item.url}`)
-      }
-    }
   }
 }
 </script>
@@ -77,36 +65,6 @@ export default {
     &:hover {
       .g-caption-element {
         text-decoration: none;
-      }
-    }
-    &.closed-course {
-      .img-wrapper {
-        .img {
-          background: none !important;
-          &::after {
-            position: absolute;
-            content: '';
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            background-color: #ccc;
-            z-index: 1;
-          }
-          .g-icon {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            z-index: 2;
-            color: #303030;
-            .sm-block({
-              width: 25px;
-              height: 25px;});
-            .xs-block({
-              width: 18px;
-              height: 18px;});
-          }
-        }
       }
     }
     .img-wrapper {
@@ -165,6 +123,7 @@ export default {
         .sm-block({margin-bottom: 0; margin-left: 20px; padding-top: 5px});
       }
     }
+    .lock,
     .lesson {
       display: flex;
       align-items: center;
@@ -181,6 +140,11 @@ export default {
         margin: 0 15px;
       }
     }
+    .lock {
+      .g-icon {
+        color: #000;
+      }
+    }
     .description {
       margin-bottom: 15px;
       line-height: 1.4;
@@ -189,7 +153,13 @@ export default {
       display: flex;
       align-items: center;
       margin-top: auto;
-      .g-icon-circle {
+      .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 30px;
+        width: 45px;
+        height: 45px;
         .xs-block({
           font-size: 1.2rem;});
       }

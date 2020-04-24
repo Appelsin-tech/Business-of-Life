@@ -25,7 +25,7 @@
         </section>
         <section class="lessons" ref="section-lessons">
           <h2 class="g-caption-section">Программа курса</h2>
-          <panel-lesson v-for="(lesson, index) in course.lessons" :key="lesson.id" :lesson="lesson" :url-course="url" :showBtnProgress="showBtnProgressLesson(index)" :statusProgressLesson="statusProgressLesson(index)"/>
+          <panel-lesson v-for="(lesson, index) in course.lessons" :key="lesson.id" :lesson="lesson" :url-course="url" :showBtnProgress="showBtnProgressLesson(index)" :statusProgressLesson="statusProgressLesson(index)" v-on:start-training="startTraining"/>
         </section>
         <router-link to="/knowledge/menu" class="back-btn">Назад</router-link>
       </div>
@@ -91,12 +91,6 @@ export default {
         if (this.roles.includes(2) && this.listMyCourses.some(item => item.id === response.id)) {
           this.myCourse = true
         }
-        if (!response.free && !this.myCourse) {
-          // если у пользователя нет доступа к платному курсу
-          if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
-            this.$router.push('/knowledge-package')
-          }
-        }
         this.course = response
         this.loading = false
 
@@ -119,6 +113,18 @@ export default {
         return 2
       } else {
         return 0
+      }
+    },
+    startTraining (e) {
+      if (!this.course.free && !this.myCourse) {
+        // если у пользователя нет доступа к платному курсу
+        if (this.accessKnowledge.exp === null || this.accessKnowledge.exp * 1000 < new Date().getTime()) {
+          this.$router.push('/knowledge-package')
+        } else {
+          this.$router.push({path: `/knowledge/${this.url}/${e}`})
+        }
+      } else {
+        this.$router.push({path: `/knowledge/${this.url}/${e}`})
       }
     }
   },

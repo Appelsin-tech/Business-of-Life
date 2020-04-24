@@ -52,17 +52,13 @@ export default {
       .xl-block({
         height: 80px;});
       .title-admin {
+        display: flex;
         .g-caption-inner {
           margin-bottom: 0;
           display: inline-block;
         }
       }
-      .g-icon {
-        margin-right: 20px;
-        width: 35px;
-        height: 35px;
-        .lg-block({ width: 30px; height: 30px; });
-      }
+
       .user {
         display: flex;
         align-items: center;
@@ -70,6 +66,8 @@ export default {
         padding-right: 25px;
         margin-left: 20px;
         cursor: pointer;
+        .sm-block({
+          padding-right: 0;});
         &::after {
           position: absolute;
           content: '';
@@ -79,7 +77,9 @@ export default {
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           transition: 0.3s;
-          .lg-block({ top: 10px;})
+          .lg-block({ top: 10px;});
+          .sm-block({
+            display: none;});
         }
         &.active {
           .exit {
@@ -93,6 +93,18 @@ export default {
             opacity: 1;
             pointer-events: auto;
           }
+        }
+        .g-icon {
+          margin-right: 20px;
+          width: 35px;
+          height: 35px;
+          .lg-block({ width: 30px; height: 30px; });
+          .sm-block({
+            margin-right: 0;});
+        }
+        .lk {
+          .sm-block({
+            display: none;});
         }
         .exit {
           position: absolute;

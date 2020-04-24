@@ -225,14 +225,6 @@ export default {
         }
       }
       return obj
-    },
-    urlTranslite: {
-      get() {
-        return this.form.title
-      },
-      set(val) {
-        this.form.url = this.transliterate(val)
-      }
     }
   },
   methods: {
@@ -248,6 +240,7 @@ export default {
             // this.$store.dispatch('news/getMyNews')
             this.getInfoNews()
           }).catch(error => {
+            this.loading = false
             API.response.error('Ни одно поле не было отредактировано')
           })
         }
@@ -313,7 +306,9 @@ export default {
   },
   watch: {
     'form.title': function (newVal, oldVal) {
-      this.form.url = this.transliterate(newVal)
+      if (oldVal !== '') {
+        this.form.url = this.transliterate(newVal)
+      }
     }
   },
   beforeRouteLeave(to, from, next) {

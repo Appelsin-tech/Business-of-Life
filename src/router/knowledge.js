@@ -44,17 +44,3 @@ async function requireAuth (to, from, next) {
     }
   }
 }
-
-async function requireAuthAccess(to, from, next) {
-  await store.dispatch('user/login')
-
-  if (store.getters['user/logged']) {
-    if (store.getters['user/accessKnowledge'].exp) {
-      next('404')
-    } else {
-      next()
-    }
-  } else {
-    next('404')
-  }
-}

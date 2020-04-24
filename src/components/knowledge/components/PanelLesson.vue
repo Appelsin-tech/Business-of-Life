@@ -16,7 +16,7 @@
       <button-app :to="`/knowledge/${urlCourse}/${lesson.id}`" class="btn-app--white" v-if="statusProgressLesson === 0">
         Повторить
       </button-app>
-      <button-app :to="`/knowledge/${urlCourse}/${lesson.id}`" v-if="showBtnProgress">
+      <button-app @click.native="$emit('start-training', lesson.id)" v-if="showBtnProgress">
         <template v-if="showBtnProgress === 1">Начать изучение</template>
         <template v-else>Продолжить изучение</template>
       </button-app>
@@ -64,6 +64,9 @@ export default {
     deleteRelation(id) {
       this.$emit('delete-relation', id)
     },
+    startLesson () {
+      this.$router.push({path: `/knowledge/${this.urlCourse}/${this.lesson.id}`})
+    }
   }
 }
 </script>

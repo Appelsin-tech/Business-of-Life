@@ -1,16 +1,16 @@
 <template>
   <div class="event">
-    <div class="g-icon-circle" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">
-      <template v-if="status[relation.status].class === 'created'">
-        <icon-close class="g-icon"/>
-      </template>
-      <template v-else-if="status[relation.status].class === 'waiting' || status[relation.status].class === 'past'">
-        <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
-      </template>
-      <template v-else>
-        <icon-check class="g-icon"/>
-      </template>
-    </div>
+<!--    <div class="g-icon-circle" :class="status[relation.status].class" v-tooltip.left="`${status[relation.status].tooltip}`">-->
+<!--      <template v-if="status[relation.status].class === 'created'">-->
+<!--        <icon-close class="g-icon"/>-->
+<!--      </template>-->
+<!--      <template v-else-if="status[relation.status].class === 'waiting' || status[relation.status].class === 'past'">-->
+<!--        <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">-->
+<!--      </template>-->
+<!--      <template v-else>-->
+<!--        <icon-check class="g-icon"/>-->
+<!--      </template>-->
+<!--    </div>-->
     <div class="event__info-wrapper">
       <div class="event__info">
         <div class="content">
@@ -23,15 +23,16 @@
             <icon-calendar-clock class="g-icon"/>
             <span class="text">{{relation.date}}</span>
           </p>
-          <p class="event__info-item link">
-            <icon-link class="g-icon"/>
-            <span class="text">https://businessof.life/event/{{relation.id}}</span>
-          </p>
         </div>
       </div>
-      <div class="g-wrapper-btn-f ">
-        <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="this.checkMyEvent && this.relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
-        <button-app-function :to="`/office/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
+      <div class="wrapper-control">
+        <span class="status" :class="status[relation.status].class">
+          {{status[relation.status].tooltip}}
+        </span>
+        <div class="g-wrapper-btn-f ">
+          <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="this.checkMyEvent && this.relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
+          <button-app-function :to="`/office/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
+        </div>
       </div>
     </div>
   </div>
@@ -59,7 +60,7 @@ export default {
       status: {
         0: {
           class: 'created',
-          tooltip: 'Событие не опубликовано'
+          tooltip: 'Не опубликовано'
         },
         1: {
           class: 'waiting',
@@ -153,6 +154,29 @@ export default {
       .text {
         color: @colorSecondFonts;
         word-break: break-all;
+      }
+    }
+    .wrapper-control {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .status {
+        font-weight: bold;
+        .sm-block({
+          margin-bottom: 10px;});
+        &.public {
+          color: var(--app_emphasis__color);
+        }
+        &.waiting,
+        &.past,
+        &.created {
+          color: var(--app_font-secondary__color);
+        }
+      }
+      .g-wrapper-btn-f {
+        .sm-block({
+          justify-content: flex-start;});
       }
     }
   }

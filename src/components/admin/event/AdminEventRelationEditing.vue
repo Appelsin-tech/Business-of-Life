@@ -10,8 +10,10 @@
         <event-editing-form :idEvent="event" :event="myEvent" :btnDelete="showButtonDelete"/>
       </div>
       <div class="relations-list">
-        <h2 class="g-caption-section">Редактирование событий</h2>
-        <button-add v-if="checkMyEvent" :class="'row'" @click.native="$router.push({path: `/office/events/${event}/relation/create`})"/>
+        <div class="wrapper-title">
+          <h2 class="g-caption-section">Редактирование событий</h2>
+          <button-app-function :to="`/office/events/${event}/relation/create`" icon="icon-plus-circle" :text="true">Создать новое</button-app-function>
+        </div>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
             <admin-relation-item v-for="(relation, i) in myFutureEvents" :key="relation.id" :relation="relation" :idEvent="event" v-on:delete-relation="deleteRelation" :checkMyEvent="checkMyEvent"/>
@@ -35,9 +37,9 @@ import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
 import EventEditingForm from '@admin/event/EventEditingForm'
 import PanelInfo from '@/components/ui/PanelInfo'
-import ButtonAdd from '@/components/ui/ButtonAdd'
 import AdminRelationItem from '@admin/event/inner/AdminRelationItem'
 import Preloader from '@/components/ui/Preloader'
+import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
 
 export default {
   name: 'AdminEventRelationEditing',
@@ -45,9 +47,9 @@ export default {
   components: {
     EventEditingForm,
     PanelInfo,
-    ButtonAdd,
     AdminRelationItem,
-    Preloader
+    Preloader,
+    ButtonAppFunction
   },
   data() {
     return {
@@ -177,6 +179,25 @@ export default {
     margin-bottom: 60px;
   }
   .relations-list {
+    .wrapper-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      .ss-block({
+        margin-bottom: 20px;
+        align-items: flex-start;
+        flex-direction: column;});
+      .g-caption-section {
+        margin-bottom: 0;
+        margin-right: 24px;
+        .ss-block({
+          margin-bottom: 15px;
+          margin-right: 0;});
+      }
+      .btn-app-f {
+        flex-shrink: 0;
+      }
+    }
     .event-wrapper {
       display: flex;
       flex-direction: column;
