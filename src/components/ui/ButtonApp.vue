@@ -1,7 +1,7 @@
 <template>
-  <component :is="type" :href="href" class="btn-app" :to="to">
-    <span class="text" :class="{'text-center': !icon}"><slot></slot></span>
-    <component v-if="icon" :is="icon" class="g-icon"></component>
+  <component :is="type" :href="href" class="btn-app" :to="to" :class="{'no-text': !text}">
+    <span class="text" :class="{'text-center': !icon}" v-if="text"><slot></slot></span>
+    <component v-if="icon" :is="icon" class="g-icon" decorative ></component>
   </component>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     icon: {
       type: String,
       default: null
+    },
+    text: {
+      default: true
     }
   },
   computed: {
@@ -64,6 +67,24 @@ export default {
     &.disabled{
       opacity: 0.7;
       pointer-events: none;
+    }
+    &.marathon {
+      background: #FFCC00;
+      border-color: #FFCC00;
+      &:hover,
+      &:focus {
+        background: #fff;
+      }
+      .g-icon,
+      .text {
+        color: #000;
+      }
+    }
+    &.no-text {
+      min-width: auto;
+      .g-icon {
+        margin-left: 0;
+      }
     }
     .text {
       position: relative;

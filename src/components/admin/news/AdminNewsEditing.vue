@@ -17,7 +17,7 @@
             </div>
             <div class="g-item-form">
               <label class="g-item-form__label">URL Новости</label>
-              <input class="g-item-form__input" type="text" v-mask="maskConfig" v-model="form.url" :class="{error: $v.form.url.$error}" @blur="$v.form.url.$touch()">
+              <input class="g-item-form__input" type="text" v-mask="maskConfig" v-model="form.url" :class="{error: $v.form.url.$error}" @blur="$v.form.url.$touch()" @change="changeUrl = true">
               <div class="input-valid-error" v-if="$v.form.url.$error">
                 <template v-if="!$v.form.url.required  && publishedMethods">Поле не может быть пустым</template>
                 <template v-if="!$v.form.url.maxLength">Превышено количество допустимых символов</template>
@@ -82,7 +82,7 @@
               <template v-if="status === 0">Опубликовать</template>
               <template v-else-if="status === 1">Снять с публикации</template>
             </button-app>
-            <button-app class="btn-app--white" @click="deleteNews">
+            <button-app type="button" class="btn-app--white" @click.native="deleteNews">
               Удалить
             </button-app>
           </div>
@@ -152,13 +152,14 @@ export default {
       },
       form: {
         id: this.$route.params.id,
-        url: '',
+        url: null,
         preview_img: '',
         widescreen_img: '',
         title: '',
         snippet: '',
         content: ''
       },
+      changeUrl: false,
       myNews: null,
       status: 0,
       publishedMethods: false,
@@ -241,7 +242,11 @@ export default {
             this.getInfoNews()
           }).catch(error => {
             this.loading = false
-            API.response.error('Ни одно поле не было отредактировано')
+            if (error.response.data.fields.find(item => item.field === 'url' && item.code === 'exists') ) {
+              API.response.error('Новость с таким URL уже существует')
+            } else {
+              API.response.error('Ни одно поле не было отредактировано')
+            }
           })
         }
       }
@@ -254,7 +259,11 @@ export default {
         this.form.content = response.content
         this.form.preview_img = response.preview_img
         this.form.widescreen_img = response.widescreen_img
-        this.form.url = response.url
+        if (response.url === '') {
+          this.form.url = this.transliterate(response.url)
+        } else {
+          this.form.url = response.url
+        }
         this.status = response.status
         this.loading = false
       }).catch(e => console.log(e))
@@ -306,8 +315,8 @@ export default {
   },
   watch: {
     'form.title': function (newVal, oldVal) {
-      if (oldVal !== '') {
-        this.form.url = this.transliterate(newVal)
+      if (!this.changeUrl) {
+        this.form.url = this.transliterate(this.form.title)
       }
     }
   },

@@ -127,16 +127,7 @@ export default {
         case 'knowledge-package':
           rout = true
           break
-        case 'auth':
-          rout = true
-          break
-        case 'registration':
-          rout = true
-          break
         case 'registration-referal':
-          rout = true
-          break
-        case 'forgot':
           rout = true
           break
         case 'marathon':

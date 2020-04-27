@@ -12,8 +12,10 @@
             <strong class="desc-strong g-caption">«Корона на Миллион»</strong>
             <p class="desc-connect" >Прими участие БЕСПЛАТНО!</p>
             <p class="desc-connect" >Развивайся онлайн - прокачай свой личный бренд и получи возможности новых технологий и бизнеса в Интернет</p>
-            <button-app href="https://t-do.ru/coronanamillion_bot" target="_blank">
-              Стать участником
+            <button-app href="https://t-do.ru/coronanamillion_bot" target="_blank" class="marathon" icon="icon-telegram">
+              Получить первое задание
+            </button-app>
+            <button-app href="https://instagram.com/coronanamillion?r=nametag" target="_blank" class="marathon" icon="icon-instagram" :text="false">
             </button-app>
           </div>
         </div>
@@ -81,7 +83,7 @@
     </section>
     <section class="s-target">
       <div class="container">
-        <h2 class="g-caption-inner g-caption-inner--mb-80">что будет на марафоне</h2>
+        <h2 class="g-caption-inner g-caption-inner--mb-80">Что будет на марафоне</h2>
         <p class="g-caption-section">Наша основная цель — дать максимум пользы всем, кто на время карантина находится дома</p>
         <p class="description">Когда большинство сейчас в страхе и условиях неопределенности, участники нашего марафона будут прокачиваться, получая максимум пользы:</p>
         <ul class="list-benefit">
@@ -113,8 +115,10 @@
       <div class="container">
         <h2 class="g-caption-inner">Присоединяйтесь к нам</h2>
         <span class="desc">Марафон уже стартовал!</span>
-        <button-app href="https://t-do.ru/coronanamillion_bot" target="_blank">
-          Стать участником
+        <button-app href="https://t-do.ru/coronanamillion_bot" target="_blank" class="marathon" icon="icon-telegram">
+          Получить первое задание
+        </button-app>
+        <button-app href="https://instagram.com/coronanamillion?r=nametag" target="_blank" class="marathon" icon="icon-instagram" :text="false">
         </button-app>
       </div>
     </section>
@@ -269,13 +273,6 @@ export default {
     .xs-block({
       margin-bottom: 25px;
     });
-  }
-  .btn-app {
-    background: #FFCC00;
-    border-color: #FFCC00;
-    .text {
-      color: #000;
-    }
   }
   .s-marathon {
     background: #18191A;
@@ -651,6 +648,11 @@ export default {
             border: 1px solid #FFCC00;
             background: #FFCC00;
             transition: 0.3s;
+            &:hover {
+              .g-icon {
+                color: #fff;
+              }
+            }
             .g-icon {
               width: 25px;
               height: 25px;
@@ -696,11 +698,14 @@ export default {
       }
       .desc {
         color: #fff;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
         .lg-block({
-          margin-bottom: 30px;});
+          margin-bottom: 10px;});
         .sm-block({
-          margin-bottom: 20px;});
+          margin-bottom: 0;});
+      }
+      .btn-app {
+        margin-top: 20px;
       }
     }
   }

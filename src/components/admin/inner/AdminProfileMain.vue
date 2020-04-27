@@ -1,7 +1,7 @@
 <template>
   <form class="form" @submit.prevent="onSubmit">
     <div class="item-wrapper">
-      <p class="g-caption-section">Основные</p>
+      <p class="g-caption-section">Основная информация</p>
       <div class="grid-wrapper grid-wrapper--main">
 <!--        <download-photo row="3" id="2" :image="form.img" :folderFile="`courses/${this.$route.params.id}/`" class="preview_img" idImage="img" v-on:image-download="imageUpload('img', $event)"/>-->
         <div class="g-item-form">

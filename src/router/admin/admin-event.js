@@ -5,7 +5,8 @@ export default [
     path: 'events',
     name: 'events',
     beforeEnter: checkRole,
-    redirect: 'events/control'
+    redirect: 'events/control',
+    component: () => import('@admin/AdminEvents')
   },
   {
     path: 'events/control',

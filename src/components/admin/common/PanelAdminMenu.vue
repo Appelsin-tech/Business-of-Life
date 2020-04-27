@@ -1,7 +1,9 @@
 <template>
-  <router-link :to="item.to" class="menu-item">
+  <router-link :to="item.to" class="menu-item g-panel--img">
     <div class="menu-item__img" :class="item.name"></div>
-    <p class="g-caption-element">{{item.title}}</p>
+    <div class="content">
+      <p class="g-caption-element">{{item.title}}</p>
+    </div>
   </router-link>
 </template>
 
@@ -19,7 +21,6 @@ export default {
     flex-direction: column;
     transition: 0.3s;
     border-radius: 8px;
-    padding-bottom: 40px;
     background: #fff;
     overflow: hidden;
     .xxl-block({max-width: 95%;});
@@ -37,7 +38,6 @@ export default {
     }
     &__img {
       position: relative;
-      margin-bottom: 40px;
       height: 240px;
       width: 100%;
       background-size: cover;
@@ -46,7 +46,6 @@ export default {
       background-color: @colorBgGray;
       .lg-block({
         height: 220px;
-        margin-bottom: 30px;
       });
       .md-block({
         height: 210px;
@@ -112,13 +111,7 @@ export default {
       }
     }
     .g-caption-element {
-      padding: 0 40px;
-      .lg-block({
-        padding: 0 30px;});
-      .sm-block({
-        padding: 10px 30px;});
-      .xs-block({
-        padding: 10px 20px;});
+
     }
   }
 </style>

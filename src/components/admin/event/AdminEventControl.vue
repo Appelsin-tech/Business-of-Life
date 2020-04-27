@@ -2,6 +2,7 @@
   <section class="p-control-event p-inner-admin">
     <preloader v-if="loading"/>
     <div class="container page">
+
       <button-app-function class="mb-30" icon="icon-plus-circle" :text="true" to="/office/events/create">Создать</button-app-function>
       <div class="event">
         <panel-event-menu v-for="item in eventsMy" :key="item.name" :item="item" />
@@ -16,7 +17,6 @@ import Preloader from '@/components/ui/Preloader'
 import API from '@/api/index'
 import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
 import PanelEventMenu from '@admin/event/inner/PanelEventMenu'
-
 
 export default {
   name: 'AdminEventControl',

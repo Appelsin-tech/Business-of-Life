@@ -202,14 +202,9 @@ export default {
 <style scoped lang="less">
   @import "../assets/less/_importants";
   .form {
-   padding-left: 90px;
-    .lg-block({padding-left: 60px;});
-    .md-block({padding-left: 0;});
+    display: flex;
+    justify-content: center;
     &.auth {
-      .item-wrapper {
-        grid-template-columns: 1fr 1fr 280px;
-        .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
-      }
       .btn-app {
         .lg-block({
           margin-top: 35px;
@@ -218,32 +213,20 @@ export default {
       }
     }
     &.registration {
-      .item-wrapper {
-        grid-template-columns: 1fr 1fr;
-        .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
-      }
-      .btn-app {
-        margin-top: 0;
-        grid-row: ~"3 / 4";
-        justify-self: flex-start;
-        .md-block({grid-row: auto; justify-self: center;});
-      }
     }
     &.forgot {
-      .item-wrapper {
-        grid-template-columns: 1fr 280px;
-        .md-block({grid-template-columns: minmax(0px, 500px); justify-content: center;});
-      }
       .btn-app {
         .lg-block({
           margin-top: 35px;
         });
-        .md-block({justify-self: center; margin-top: 0;});
       }
     }
     .item-wrapper {
-      display: grid;
-      grid-column-gap: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 500px;
+      width: 100%;
       /*.row-flex();
       align-items: flex-start;
       flex-grow: 1;
@@ -258,13 +241,8 @@ export default {
       .size(6);
       .size-sm(11);
       .size-xs(12);*/
+      width: 100%;
       box-sizing: border-box;
-      .md-block({
-        margin-bottom: 30px;
-      });
-      .xs-block({
-        margin-bottom: 20px;
-      });
       &__input {
         transition: 0.3s;
         &:hover,
@@ -281,25 +259,11 @@ export default {
       }
     }
     .btn-app {
-      height: 68px;
-      padding-top: 0;
-      padding-bottom: 0;
-      margin-bottom: 30px;
-      margin-top: 37px;
-      align-self: flex-start;
+      margin-top: 30px;
+      align-self: center;
       transition: background-color 0.3s;
-      .lg-block({
-        height: 60px;
-        margin-top: 0;
-      });
-      .md-block({
-        max-width: 250px;
-        height: 50px;
-        align-self: center;
-      });
       .sm-block({
-        height: 40px;
-      });
+        margin-top: 20px;});
     }
   }
 </style>

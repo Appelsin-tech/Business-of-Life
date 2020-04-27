@@ -5,30 +5,33 @@
         <p class="g-caption-element">{{course.title}}</p>
       </router-link>
     <div class="content">
-      <template v-if="statusTest[course.status].class === 'waiting'">
-        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-          <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">
+<!--      <template v-if="statusTest[course.status].class === 'waiting'">-->
+<!--        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">-->
+<!--          <img svg-inline class="svg-icon" src="@/assets/img/icon/time-my.svg" alt="">-->
+<!--        </div>-->
+<!--      </template>-->
+<!--      <template  v-else-if="statusTest[course.status].class === 'public'">-->
+<!--        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">-->
+<!--          <icon-check class="g-icon"/>-->
+<!--        </div>-->
+<!--      </template>-->
+<!--      <template  v-else-if="statusTest[course.status].class === 'close'">-->
+<!--        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">-->
+<!--          <icon-close class="g-icon"/>-->
+<!--        </div>-->
+<!--      </template>-->
+<!--      <template v-else>-->
+<!--        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">-->
+<!--          <icon-close class="g-icon"/>-->
+<!--        </div>-->
+<!--      </template>-->
+         <span class="status" :class="statusTest[course.status].class">
+          {{statusTest[course.status].tooltip}}
+        </span>
+        <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
+          <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать курс'" :to="`/office/courses/${course.id}`"></button-app-function>
+          <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить курс'" v-if="course.status !== 1" @click.native="deleteCourse(course.id)"></button-app-function>
         </div>
-      </template>
-      <template  v-else-if="statusTest[course.status].class === 'public'">
-        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-          <icon-check class="g-icon"/>
-        </div>
-      </template>
-      <template  v-else-if="statusTest[course.status].class === 'close'">
-        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-          <icon-close class="g-icon"/>
-        </div>
-      </template>
-      <template v-else>
-        <div class="g-icon-circle" :class="statusTest[course.status].class" v-tooltip.bottom="statusTest[course.status].tooltip">
-          <icon-close class="g-icon"/>
-        </div>
-      </template>
-      <div class="g-wrapper-btn-f g-wrapper-btn-f--static">
-        <button-app-function icon="icon-lead-pencil" v-tooltip.bottom="'Редактировать курс'" :to="`/office/courses/${course.id}`"></button-app-function>
-        <button-app-function icon="icon-delete" v-tooltip.bottom="'Удалить курс'" v-if="course.status !== 1" @click.native="deleteCourse(course.id)"></button-app-function>
-      </div>
     </div>
   </article>
 </template>
@@ -46,29 +49,29 @@ export default {
       statusTest: {
         0: {
           class: 'created',
-          tooltip: 'Курс не опубликован'
+          tooltip: 'Не опубликован'
         },
         1: {
           class: 'public',
-          tooltip: 'Курс опубликован'
+          tooltip: 'Опубликован'
         },
       },
       status: {
         0: {
           class: 'created',
-          tooltip: 'Курс не опубликован'
+          tooltip: 'Опубликован'
         },
         1: {
           class: 'waiting',
-          tooltip: 'Отправлено на модерацию'
+          tooltip: 'Отправлен на модерацию'
         },
         2: {
           class: 'waiting',
-          tooltip: 'Принято на модерацию'
+          tooltip: 'Принят на модерацию'
         },
         3: {
           class: 'public',
-          tooltip: 'Курс опубликован'
+          tooltip: 'Опубликован'
         },
       }
     }
@@ -108,8 +111,10 @@ export default {
     .content-wrapper {
       .sm-block({
         display: flex;
+        padding: 20px 20px 0;
         margin-bottom: 20px;
         align-items: center;});
+      .xs-block({padding: 15px 15px 0;});
       &:hover {
         .g-caption-element {
           text-decoration: none;
@@ -136,7 +141,8 @@ export default {
           height: 70px;
           margin-bottom: 0;
           margin-right: 20px;
-          flex-shrink: 0
+          flex-shrink: 0;
+          border-radius: 5px;
         });
         .xs-block({
           width: 40px;
@@ -161,20 +167,41 @@ export default {
         padding-left: 20px;
         padding-right: 20px;
         .sm-block({
+          padding-left: 0;
+          padding-right: 0;
           margin-bottom: 0;});
       }
     }
     .content {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: flex-start;
       padding: 0 20px 20px;
+      .xs-block({padding: 0 15px 15px;});
+      .status {
+        font-weight: bold;
+        margin-bottom: 10px;
+        &.public {
+          color: var(--app_emphasis__color);
+        }
+        &.waiting,
+        &.past,
+        &.created {
+          color: var(--app_font-secondary__color);
+        }
+      }
+      .g-wrapper-btn-f {
+        align-self: flex-start;
+        .sm-block({
+          margin-bottom: -5px;
+          justify-content: flex-start;});
+      }
     }
-    .icon-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: auto;
-    }
+    /*.icon-wrapper {*/
+    /*  display: flex;*/
+    /*  align-items: center;*/
+    /*  justify-content: space-between;*/
+    /*  margin-top: auto;*/
+    /*}*/
   }
 </style>

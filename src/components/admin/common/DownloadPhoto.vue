@@ -158,6 +158,7 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       transition: 0.3s;
+      .app-border-radius();
       .sm-block({
         margin-bottom: 20px;
       });

@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import NewsItem from '@/components/NewsItem'
 
 export default {
@@ -86,10 +86,13 @@ export default {
   },
   computed: {
     ...mapGetters('user', [
-      'logged'
+      'logged',
     ]),
     ...mapGetters('news', [
       'news'
+    ]),
+    ...mapState('user', [
+      'profile'
     ]),
     maxItemNews () {
       return this.news.length && this.news.length > 3 ? this.news.slice(0, 3) : this.news

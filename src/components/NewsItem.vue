@@ -148,13 +148,17 @@ export default {
         .xl-block({
           padding-right: 20px;});
         .sm-block({
-          padding-right: 0;});
+          padding: 20px;});
+        .xs-block({
+          padding: 15px;});
         .title-link {
           .sm-block({
             grid-column: ~"2 / 4";;});
         }
         .info-wrapper {
           .sm-block({
+            padding-left: 0;
+            padding-right: 0;
             grid-column: ~"1 / 4";});
         }
       }
@@ -174,7 +178,8 @@ export default {
         });
         .sm-block({grid-column: ~"1 / 4"; grid-row: ~"3 / 4";
           padding-top: 0; align-items: flex-start;
-          padding-left: 15px;});
+          padding-left: 0;
+          padding-right: 0;});
         .ss-block({flex-direction: column; align-items: flex-start;});
         .status {
           font-weight: bold;
@@ -193,6 +198,10 @@ export default {
           margin-bottom: -5px;
           .sm-block({align-self: flex-start;});
         }
+      }
+      .img {
+        .sm-block({
+          border-radius: 5px;})
       }
     }
     .img {

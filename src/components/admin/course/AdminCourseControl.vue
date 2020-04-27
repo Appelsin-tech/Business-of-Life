@@ -2,7 +2,7 @@
   <section class="p-control-course p-inner-admin">
     <preloader v-if="loading"/>
     <div class="container page">
-      <button-app-function icon="icon-plus-circle" :text="true" @click.native="createCourse">Создать</button-app-function>
+      <button-app-function icon="icon-plus-circle" class="mb-30" :text="true" @click.native="createCourse">Создать</button-app-function>
       <div class="wrapper-course"  v-if="listMyCourses && listMyCourses.length !== 0" >
         <admin-course-control-panel class="item-grid" v-for="course in listMyCourses" :course="course" :key="course.id"/>
       </div>
@@ -68,9 +68,6 @@ export default {
 <style scoped lang="less">
   @import "~@/assets/less/_importants";
   .p-control-course {
-    .btn-app-f {
-      margin-bottom: 30px;
-    }
     .wrapper-course {
       display: grid;
       grid-template-columns: repeat(4, 1fr);

@@ -1,18 +1,12 @@
 <template>
   <section class='p-wallet p-inner-admin'>
     <div class='container page'>
-      <div class="wrapper-col">
-        <div class="col col--btn">
-          <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
-        </div>
-        <div class="col col--content">
-          <keep-alive>
-            <component
-              v-bind:is="currentTab"
-            ></component>
-          </keep-alive>
-        </div>
-      </div>
+      <app-tabs :dataTabs="btnArr" v-on:change-tab="changeSection"/>
+      <keep-alive>
+        <component
+          v-bind:is="currentTab"
+        ></component>
+      </keep-alive>
     </div>
   </section>
 </template>
@@ -20,25 +14,25 @@
 <script>
 import AdminWalletMain from './inner/AdminWalletMain'
 import AdminWalletTransaction from './inner/AdminWalletTransaction'
-import ButtonChangeSection from '../ui/ButtonChangeSection'
+import AppTabs from '@/components/ui/AppTabs'
 
 export default {
   name: 'AdminWallet',
   components: {
     AdminWalletMain,
     AdminWalletTransaction,
-    ButtonChangeSection
+    AppTabs
   },
   data() {
     return {
       btnArr: [
         {
           id: 'AdminWalletMain',
-          text: 'Кошелек'
+          name: 'Кошелек'
         },
         {
           id: 'AdminWalletTransaction',
-          text: 'История транзакций'
+          name: 'История транзакций'
         }
       ],
       currentTab: 'AdminWalletMain'

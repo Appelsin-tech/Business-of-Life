@@ -1,43 +1,38 @@
 <template>
   <section class='p-statistic p-inner-admin'>
     <div class='container page'>
-      <div class="wrapper-col">
-        <div class="col col--role">
-          <button-change-section :BtnArr="btnArr" v-on:clickBtnChangeSection="changeSection"/>
-        </div>
-        <div class="col col--access">
-          <admin-role-form :role="currentTab"/>
-        </div>
-      </div>
+      <app-tabs :dataTabs="btnArr" v-on:change-tab="changeSection"/>
+      <keep-alive>
+        <admin-role-form :role="currentTab"/>
+      </keep-alive>
     </div>
   </section>
 </template>
 
 <script>
 import AdminRoleForm from '@admin/inner/AdminRoleForm'
-import API from '@/api/index'
-import ButtonChangeSection from '@/components/ui/ButtonChangeSection'
+import AppTabs from '@/components/ui/AppTabs'
 
 export default {
   name: 'AdminRole',
   components: {
-    ButtonChangeSection,
-    AdminRoleForm
+    AdminRoleForm,
+    AppTabs
   },
   data() {
     return {
       btnArr: [
         {
           id: 1,
-          text: 'Редактор курсов'
+          name: 'Редактор курсов'
         },
         {
           id: 2,
-          text: 'Редактор новостей'
+          name: 'Редактор новостей'
         },
         {
           id: 3,
-          text: 'Редактор мероприятий'
+          name: 'Редактор мероприятий'
         }
       ],
       currentTab: 2

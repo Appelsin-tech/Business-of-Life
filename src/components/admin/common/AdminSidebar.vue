@@ -17,7 +17,7 @@
           </router-link>
         </li>
         <li v-if="statusDev">
-          <router-link class="link line"  active-class="active" to="/office/role" >
+          <router-link class="link line line-top"  active-class="active" to="/office/role" >
             <component :is="'icon-account-star'" class="g-icon"></component>
             <p class="title-item">Роли и управление доступом</p>
           </router-link>
@@ -245,23 +245,36 @@ export default {
           }
           &.line {
             position: relative;
-            margin-top: 20px;
+            margin-bottom: 20px;
             .xl-block({
-              margin-top: 14px;
+              margin-bottom: 14px;
             });
             &::after {
               content: '';
               position: absolute;
-              top: -10px;
+              bottom: -10px;
               left: 20px;
               right: 20px;
               height: 1px;
               background: var(--sidebar-admin_border__color);
               .xl-block({
-                top: -7px;
+                bottom: -7px;
                 left: 10px;
                 right: 10px;
               });
+            }
+            &.line-top {
+              margin-top: 20px;
+              margin-bottom: 0;
+              .xl-block({
+                margin-top: 14px;
+              });
+              &::after {
+                top: -10px;
+                .xl-block({
+                  top: -7px;
+                });
+              }
             }
           }
           .title-item {
