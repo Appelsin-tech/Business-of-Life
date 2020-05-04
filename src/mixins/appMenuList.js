@@ -30,7 +30,7 @@ export default {
           roles: 0
         },
         {
-          to: '/coronanamillion',
+          to: 'https://coronanamillion.com/',
           title: 'Марафон "Корона на миллион"',
           name: 'coronanamillion',
           icon: 'icon-trophy-variant',

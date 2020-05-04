@@ -27,7 +27,8 @@
       <div class="wrapper-menu-list">
         <ul class="menu-list" v-if="logged">
           <li class="item" v-for="item in menuListFilterUserLogged" :key="item.to">
-            <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
+            <router-link class="link" :to="item.to" @click.native="showMenu = false" v-if="item.to !== 'https://coronanamillion.com/'">{{item.title}}</router-link>
+            <a class="link" @click="showMenu = false" href="https://coronanamillion.com/" v-else>{{item.title}}</a>
           </li>
           <li class="item">
             <router-link class="link" to="/office" @click="showMenu = false">Личный кабинет</router-link>
@@ -35,7 +36,8 @@
         </ul>
         <ul class="menu-list" v-else>
           <li class="item" v-for="item in menuListDefault" :key="item.to">
-            <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
+            <router-link class="link" :to="item.to" @click.native="showMenu = false" v-if="item.to !== 'https://coronanamillion.com/'">{{item.title}}</router-link>
+            <a class="link" @click="showMenu = false" href="https://coronanamillion.com/" v-else>{{item.title}}</a>
           </li>
         </ul>
         <div class="icon-wrapper icon-wrapper--mobile">
@@ -90,7 +92,7 @@ export default {
           title: 'Новости'
         },
         {
-          to: '/coronanamillion',
+          to: 'https://coronanamillion.com/',
           title: 'Корона на миллион'
         }
       ]

@@ -11,10 +11,14 @@
       </button>
       <ul class="list-menu-desktop">
         <li v-for="item in menuListFilterUserLogged" :key="item.to">
-          <router-link class="link" :class="{line: item.line}"  active-class="active"  :to="item.to" >
+          <router-link class="link" :class="{line: item.line}"  active-class="active"  :to="item.to" v-if="item.to !== 'https://coronanamillion.com/'">
             <component :is="item.icon" class="g-icon"></component>
             <p class="title-item">{{item.title}}</p>
           </router-link>
+          <a class="link" @click="showMenu = false" href="https://coronanamillion.com/" v-else>
+            <component :is="item.icon" class="g-icon"></component>
+            <p class="title-item">{{item.title}}</p>
+          </a>
         </li>
         <li v-if="statusDev">
           <router-link class="link line line-top"  active-class="active" to="/office/role" >
@@ -34,7 +38,8 @@
     <div class="wrapper-mobile">
       <ul class="list-menu-mobile">
         <li class="item" v-for="item in menuListFilterUserLogged" :key="item.to">
-          <router-link class="link" :to="item.to" @click.native="showMenu = false">{{item.title}}</router-link>
+          <router-link class="link" :to="item.to" @click.native="showMenu = false" v-if="item.to !== 'https://coronanamillion.com/'">{{item.title}}</router-link>
+          <a class="link" @click="showMenu = false" href="https://coronanamillion.com/" v-else>{{item.title}}</a>
         </li>
         <li class="item">
           <router-link class="link" to="/office" @click.native="showMenu = false">Личный кабинет</router-link>
