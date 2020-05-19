@@ -13,7 +13,7 @@
       <div class="g-item-form">
         <label class="item__label">Назначить</label>
         <div class="item__input taggable">
-          <v-select @input="accessMethods" ref="select" taggable multiple :closeOnSelect="false" label="login" v-model="users" class="v-select__role" >
+          <v-select @input="accessMethods" ref="select" taggable multiple :closeOnSelect="false" label="login" v-model="users" class="v-select__roles" >
                   <span slot="no-options">
                     Введите имя
                   </span>

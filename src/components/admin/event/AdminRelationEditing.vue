@@ -13,27 +13,10 @@
             </div>
           </div>
           <div class="g-item-form">
-            <label class="g-item-form__label">Страна</label>
-            <input class="g-item-form__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
-            <div class="input-valid-error" v-if="$v.form.country.$error">
-              <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
-              <template v-if="!$v.form.country.minLength">Минимальное количество символов - 3</template>
-            </div>
-          </div>
-          <div class="g-item-form">
-            <label class="g-item-form__label">Город</label>
-            <input class="g-item-form__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
-            <div class="input-valid-error" v-if="$v.form.city.$error">
-              <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
-              <template v-if="!$v.form.city.minLength">Минимальное количество символов - 3</template>
-            </div>
-          </div>
-          <div class="g-item-form">
-            <label class="g-item-form__label">Адрес</label>
-            <input class="g-item-form__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
-            <div class="input-valid-error" v-if="$v.form.address.$error">
-              <template v-if="!$v.form.address.required">Поле не может быть пустым</template>
-              <template v-if="!$v.form.address.minLength">Минимальное количество символов - 3</template>
+            <label class="g-item-form__label">Формат мероприятия</label>
+            <v-select :multiple="false" class="relation" :class="['v-select__modal', {error: errorSelect.type}]" :reduce="type => type.value" :searchable="false" label="titleFormat" :options="listFormat" v-model="form.format" v-on:search:blur="validateSelect('format')"></v-select>
+            <div class="input-valid-error" v-if="errorSelect.format">
+              Выберите формат
             </div>
           </div>
           <div class="g-item-form">
@@ -42,6 +25,30 @@
             <div class="input-valid-error" v-if="$v.form.date.$error">
               <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
               <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>
+            </div>
+          </div>
+          <div class="g-item-form" v-if="form.format === 'offline'">
+            <label class="g-item-form__label">Страна</label>
+            <input class="g-item-form__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
+            <div class="input-valid-error" v-if="$v.form.country.$error">
+              <template v-if="!$v.form.country.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.country.minLength">Минимальное количество символов - 3</template>
+            </div>
+          </div>
+          <div class="g-item-form" v-if="form.format === 'offline'">
+            <label class="g-item-form__label">Город</label>
+            <input class="g-item-form__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
+            <div class="input-valid-error" v-if="$v.form.city.$error">
+              <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.city.minLength">Минимальное количество символов - 3</template>
+            </div>
+          </div>
+          <div class="g-item-form" v-if="form.format === 'offline'">
+            <label class="g-item-form__label">Адрес</label>
+            <input class="g-item-form__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
+            <div class="input-valid-error" v-if="$v.form.address.$error">
+              <template v-if="!$v.form.address.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.address.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
           <div class="g-item-form g-item-form--col-12 textarea">
@@ -57,7 +64,7 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button-app v-if="!id" :disabled="$v.$invalid" :class="{disabled: disabledForm}">>
+          <button-app v-if="!id" :disabled="$v.$invalid" :class="{disabled: disabledForm}">
             Создать
           </button-app>
           <button-app v-else :disabled="$v.$invalid">
@@ -111,7 +118,6 @@
 </template>
 
 <script>
-import ButtonAdd from '@/components/ui/ButtonAdd'
 import Ticket from '@/components/Ticket'
 import Action from '@/components/Action'
 import AdminRelationAccessSection from '@admin/event/inner/AdminRelationAccessSection'
@@ -120,7 +126,7 @@ import PanelInfo from '@/components/ui/PanelInfo'
 import { mapState, mapGetters } from 'vuex'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
-import { minLength, required } from 'vuelidate/lib/validators'
+import { minLength, required, requiredIf } from 'vuelidate/lib/validators'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
@@ -143,7 +149,6 @@ export default {
     flatPickr,
     Ticket,
     ckeditor: CKEditor.component,
-    ButtonAdd,
     Action,
     AdminRelationAccessSection,
     ButtonAppFunction,
@@ -186,11 +191,12 @@ export default {
         city: '',
         address: '',
         contacts: '',
+        format: '',
         relation_edit: [],
         control_ticket: []
       },
       errorSelect: {
-        t_currency: false
+        format: false
       },
       disabledForm: false,
       errorResponse: {
@@ -202,7 +208,17 @@ export default {
         city: 'Неверный город',
         address: 'Неверный адрес'
       },
-      actions: []
+      actions: [],
+      listFormat: [
+        {
+          value: 'offline',
+          titleFormat: 'Офлайн мероприятие'
+        },
+        {
+          value: 'online',
+          titleFormat: 'Онлайн вебинар'
+        },
+      ]
     }
   },
   validations: {
@@ -211,20 +227,29 @@ export default {
         required,
         minLength: minLength(5)
       },
+      format: {
+        required
+      },
       date: {
         required,
         minLength: minLength(10)
       },
       country: {
-        required,
+        required: requiredIf(function () {
+          return this.form.format === 'offline'
+        }),
         minLength: minLength(3)
       },
       city: {
-        required,
+        required: requiredIf(function () {
+          return this.form.format === 'offline'
+        }),
         minLength: minLength(3)
       },
       address: {
-        required,
+        required: requiredIf(function () {
+          return this.form.format === 'offline'
+        }),
         minLength: minLength(3)
       },
       contacts: {
@@ -308,7 +333,8 @@ export default {
           country: response.country,
           city: response.city,
           address: response.address,
-          contacts: response.contacts
+          contacts: response.contacts,
+          format: ''
         }
       })
     }
@@ -328,7 +354,8 @@ export default {
         country: '',
         city: '',
         address: '',
-        contacts: ''
+        contacts: '',
+        format: ''
       }
     } else {
       this.getInfoRelation()

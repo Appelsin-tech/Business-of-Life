@@ -4,7 +4,7 @@
     <div class="g-item-form">
       <label class="g-item-form__label">Контроль билетов</label>
       <div class="access-item__input taggable">
-        <v-select @input="supervisorsMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="user_supervisors" label="login" class="v-select__relation">
+        <v-select @input="supervisorsMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="user_supervisors" label="login" class="v-select__roles">
                   <span slot="no-options">
                     Введите имя
                   </span>
@@ -22,7 +22,7 @@
     <div class="g-item-form">
       <label class="g-item-form__label">Редактирование события</label>
       <div class="access-item__input taggable">
-        <v-select @input="editorsMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="user_editors" label="login" class="v-select__relation">
+        <v-select @input="editorsMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="user_editors" label="login" class="v-select__roles">
                   <span slot="no-options">
                     Введите имя
                   </span>

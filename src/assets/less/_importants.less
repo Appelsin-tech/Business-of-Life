@@ -424,6 +424,23 @@ input {
       padding-bottom: 10px;
     }
   }
+
+  &.relation {
+    background: #fff;
+    .vs__dropdown-menu {
+      position: absolute;
+      left: 0;
+      right: 0;
+      background: #fff;
+    }
+    .vs__dropdown-toggle {
+      .vs__selected-options {
+        .vs__search {
+          background: #fff;
+        }
+      }
+    }
+  }
 }
 .v-select__pricing {
   position: relative;
@@ -630,8 +647,7 @@ input {
     }
   }
 }
-.v-select__relation,
-.v-select__role {
+.v-select__roles {
   position: relative;
   padding: 5px 15px;
   min-height: 66px;
