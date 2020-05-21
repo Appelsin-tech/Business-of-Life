@@ -51,13 +51,10 @@
             </div>
           </div>
           <button-app type="submit" :disabled="$v.$invalid">
-            <template>Купить билет	&emsp; {{eventData.price}} {{eventData.currency}}</template>
+            <template>Купить билет {{eventData.price}} {{eventData.currency}}</template>
             <template></template>
           </button-app>
-<!--          <button type="submit" class="g-btn g-btn&#45;&#45;no-icon" :disabled="$v.$invalid">-->
-<!--            <span class="text">Купить билет</span>-->
-<!--            <span class="text">{{eventData.price}} {{eventData.currency}}</span>-->
-<!--          </button>-->
+          <button class="test-btn" type="button" @click="generate">Generate Ticket</button>
         </form>
       </div>
     </div>
@@ -227,6 +224,9 @@ export default {
       this.fieldsData = {}
       this.fields = []
     },
+    generate () {
+      API.tickets.issue({id: this.fieldsData.ticket_id})
+    }
   }
 }
 </script>

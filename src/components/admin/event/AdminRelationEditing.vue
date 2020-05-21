@@ -4,7 +4,7 @@
       <form class="edit-form" @submit.prevent="onSubmit">
         <h2 class="g-caption-section">Общая информация</h2>
         <div class="edit-grid">
-          <div class="g-item-form  g-item-form--col-12">
+          <div class="g-item-form  g-item-form--col-12" >
             <label class="g-item-form__label">Название</label>
             <input class="g-item-form__input" type="text" id="form-title" v-model="form.title" :class="{error: $v.form.title.$error}" @blur="$v.form.title.$touch()">
             <div class="input-valid-error" v-if="$v.form.title.$error">
@@ -13,8 +13,8 @@
             </div>
           </div>
           <div class="g-item-form">
-            <label class="g-item-form__label">Формат мероприятия</label>
-            <v-select :multiple="false" class="relation" :class="['v-select__modal', {error: errorSelect.type}]" :reduce="type => type.value" :searchable="false" label="titleFormat" :options="listFormat" v-model="form.format" v-on:search:blur="validateSelect('format')"></v-select>
+            <label class="g-item-form__label">Формат события</label>
+            <v-select :multiple="false" class="relation" :class="['v-select__modal', {error: errorSelect.type}]" :reduce="type => type.value" :searchable="false" label="titleFormat" :options="listFormat" v-model="form.type" v-on:search:blur="validateSelect('format')"></v-select>
             <div class="input-valid-error" v-if="errorSelect.format">
               Выберите формат
             </div>
@@ -27,7 +27,7 @@
               <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="g-item-form" v-if="form.format === 'offline'">
+          <div class="g-item-form" v-if="form.type === 1">
             <label class="g-item-form__label">Страна</label>
             <input class="g-item-form__input" type="text" id="form__country" v-model="form.country" :class="{error: $v.form.country.$error}" @blur="$v.form.country.$touch()">
             <div class="input-valid-error" v-if="$v.form.country.$error">
@@ -35,7 +35,7 @@
               <template v-if="!$v.form.country.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="g-item-form" v-if="form.format === 'offline'">
+          <div class="g-item-form" v-if="form.type === 1">
             <label class="g-item-form__label">Город</label>
             <input class="g-item-form__input" type="text" id="form__city" v-model="form.city" :class="{error: $v.form.city.$error}" @blur="$v.form.city.$touch()">
             <div class="input-valid-error" v-if="$v.form.city.$error">
@@ -43,7 +43,7 @@
               <template v-if="!$v.form.city.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
-          <div class="g-item-form" v-if="form.format === 'offline'">
+          <div class="g-item-form" v-if="form.type === 1">
             <label class="g-item-form__label">Адрес</label>
             <input class="g-item-form__input" type="text" id="form__address" v-model="form.address" :class="{error: $v.form.address.$error}" @blur="$v.form.address.$touch()">
             <div class="input-valid-error" v-if="$v.form.address.$error">
@@ -53,7 +53,7 @@
           </div>
           <div class="g-item-form g-item-form--col-12 textarea">
             <label class="g-item-form__label">Контактная информация</label>
-            <ckeditor :editor="editor" v-model="form.contacts" :config="editorConfig" @blur="$v.form.contacts.$touch()"></ckeditor>
+            <ckeditor :editor="ckEditor" v-model="form.contacts" :config="editorConfig" @blur="$v.form.contacts.$touch()"></ckeditor>
             <div class="input-valid-error" v-if="$v.form.contacts.$error">
               <template v-if="!$v.form.contacts.required">Поле не может быть пустым</template>
             </div>
@@ -76,37 +76,31 @@
           </button-app>
         </div>
       </form>
-      <div class="tickets">
+      <div class="tickets" v-if="id">
         <div class="wrapper-title">
           <h2 class="g-caption-section">Билеты</h2>
           <button-app-function @click.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})" icon="icon-plus-circle" :text="true">Создать новый</button-app-function>
         </div>
         <div class="tickets-wrapper">
-<!--          <div class="ticket-create">-->
-<!--            <button-add :class="[!id ? 'disabled' : '']" @click.native="$modal.show('modal-ticket-create', {new: true, relation_id: id})"/>-->
-<!--          </div>-->
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
       </div>
-      <div class="stock">
+      <div class="stock" v-if="id">
         <div class="wrapper-title">
           <h2 class="g-caption-section">Акции</h2>
-          <button-app-function @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})" icon="icon-plus-circle" :text="true">Создать новую</button-app-function>
+          <button-app-function @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})" icon="icon-plus-circle" :text="true" :class="{disabled: !this.tickets.length}">Создать новую</button-app-function>
         </div>
         <panel-info v-if="!this.tickets.length">
           Чтобы добавить акцию создайте билет
         </panel-info>
         <div class="stock-wrapper" v-else>
-<!--          <div class="stock-create">-->
-<!--            <button-add :class="[!id ? 'disabled' : '', 'row']" @click.native="$modal.show('modal-actions-create', {new: true, relation_id: id, listTickets: listTickets})"></button-add>-->
-<!--          </div>-->
           <action v-for="action in actions" :action="action" controlBtn="true" :relationId="id" :key="action.id"  :listTickets="listTickets" />
         </div>
       </div>
-      <div class="access" v-if="!relationEditors">
+      <div class="access" v-if="id">
         <admin-relation-access-section :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
       </div>
-      <div class="link-wrapper">
+      <div class="link-wrapper" v-if="id">
         <button-app class="preview" :to="`/event/${id}`" :class="{disabled: !event}">
           Предпросмотр
         </button-app>
@@ -157,7 +151,7 @@ export default {
   },
   data() {
     return {
-      editor: ClassicEditor,
+      ckEditor: ClassicEditor,
       editorConfig: {
         language: 'ru',
         image_previewText: '',
@@ -174,7 +168,7 @@ export default {
       resize: true,
       tickets: [],
       supervisors: [],
-      editors: [],
+      editors: null,
       disabledNewTicket: true,
       configDate: {
         enableTime: true,
@@ -187,16 +181,11 @@ export default {
         event_id: this.id,
         date: '',
         title: '',
-        country: '',
-        city: '',
-        address: '',
         contacts: '',
-        format: '',
-        relation_edit: [],
-        control_ticket: []
+        type: ''
       },
       errorSelect: {
-        format: false
+        type: false
       },
       disabledForm: false,
       errorResponse: {
@@ -211,13 +200,13 @@ export default {
       actions: [],
       listFormat: [
         {
-          value: 'offline',
+          value: 1,
           titleFormat: 'Офлайн мероприятие'
         },
         {
-          value: 'online',
+          value: 2,
           titleFormat: 'Онлайн вебинар'
-        },
+        }
       ]
     }
   },
@@ -227,7 +216,7 @@ export default {
         required,
         minLength: minLength(5)
       },
-      format: {
+      type: {
         required
       },
       date: {
@@ -236,19 +225,19 @@ export default {
       },
       country: {
         required: requiredIf(function () {
-          return this.form.format === 'offline'
+          return this.form.type === 1
         }),
         minLength: minLength(3)
       },
       city: {
         required: requiredIf(function () {
-          return this.form.format === 'offline'
+          return this.form.type === 1
         }),
         minLength: minLength(3)
       },
       address: {
         required: requiredIf(function () {
-          return this.form.format === 'offline'
+          return this.form.type === 1
         }),
         minLength: minLength(3)
       },
@@ -262,7 +251,8 @@ export default {
       'eventsMy'
     ]),
     ...mapGetters('user', [
-      'relationEditors'
+      'relationEditors',
+      'editor'
     ]),
     listTickets() {
       let ticketsArr = []
@@ -278,12 +268,18 @@ export default {
     },
     filterTickets() {
       return this.tickets.sort((a, b) => a - b)
-    },
+    }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
+      let myForm = {...this.form}
+      if (this.form.type === 2) {
+        delete myForm.country
+        delete myForm.city
+        delete myForm.address
+      }
       if (!this.id) {
-        API.relations.create(this.form).then(response => {
+        API.relations.create(myForm).then(response => {
           this.disabledForm = true
           API.response.success('Событие создано')
           this.$router.push({ path: `/office/events/${this.event}/relation/${response.id}` })
@@ -292,14 +288,14 @@ export default {
           console.log(error)
         })
       } else {
-        API.relations.edit(this.form).then(response => {
+        API.relations.edit(myForm).then(response => {
           API.response.success('Событие отредактировано')
         }).catch(error => {
           API.response.error(this.errorResponse[error.response.data.reason])
         })
       }
     },
-    validateSelect(name) {
+    validateSelect (name) {
       if (this.form[name] === '') {
         this.errorSelect[name] = true
       } else {
@@ -325,16 +321,16 @@ export default {
         this.tickets = response.tickets
         this.actions = response.actions
         this.supervisors = response.supervisors
-        this.editors = response.editors
-        this.form = {
-          id: response.id,
-          date: response.date,
-          title: response.title,
-          country: response.country,
-          city: response.city,
-          address: response.address,
-          contacts: response.contacts,
-          format: ''
+        this.editors = response.editors ? response.editors : null
+        this.form.id = response.id
+        this.form.date = response.date
+        this.form.title = response.title
+        this.form.contacts = response.contacts
+        this.form.type = response.type
+        if (response.type === 1) {
+          this.form.city = response.city
+          this.form.address = response.address
+          this.form.country = response.country
         }
       })
     }
@@ -349,13 +345,6 @@ export default {
     if (!this.id) {
       this.form = {
         event_id: this.event,
-        date: '',
-        title: '',
-        country: '',
-        city: '',
-        address: '',
-        contacts: '',
-        format: ''
       }
     } else {
       this.getInfoRelation()

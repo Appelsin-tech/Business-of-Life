@@ -15,6 +15,7 @@ import news from './modules/news'
 import files from './modules/files'
 import roles from './modules/roles'
 import search from './modules/search'
+import meeting from './modules/meeting'
 import response from './response'
 
 export default {
@@ -35,5 +36,6 @@ export default {
   news,
   files,
   roles,
-  search
+  search,
+  meeting
 }

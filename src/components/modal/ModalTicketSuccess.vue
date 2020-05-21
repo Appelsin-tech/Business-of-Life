@@ -34,19 +34,20 @@
 
 <script>
 import TicketInfo from '../TicketInfo'
+
 export default {
   name: 'ModalTicketSuccess',
-  components: {TicketInfo},
+  components: { TicketInfo },
   data() {
     return {
       ticketArr: [
-        {hash: 'T-', title: 'Стандарт', event: {title: 'Test', date: '28.10.2019 12:38', relation_id: 4}}
+        { hash: 'T-', title: 'Стандарт', event: { title: 'Test', date: '28.10.2019 12:38', relation_id: 4 } }
       ],
       email: ''
     }
   },
   methods: {
-    beforeOpen (event) {
+    beforeOpen(event) {
       this.ticketArr[0] = event.params.ticket
       this.email = event.params.email
     }

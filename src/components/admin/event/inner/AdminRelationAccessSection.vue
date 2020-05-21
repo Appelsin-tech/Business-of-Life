@@ -19,7 +19,7 @@
         </v-select>
       </div>
     </div>
-    <div class="g-item-form">
+    <div class="g-item-form" v-if="editors">
       <label class="g-item-form__label">Редактирование события</label>
       <div class="access-item__input taggable">
         <v-select @input="editorsMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="user_editors" label="login" class="v-select__roles">

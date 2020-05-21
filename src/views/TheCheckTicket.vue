@@ -5,8 +5,11 @@
       <h1 class="g-caption-inner">Информация о билете</h1>
       <search v-if="logged" page="ticket" :showError="showError"/>
       <div class="wrapper-control" v-if="pageTickets && existTicket">
-        <div class="wrapper-control__col wrapper-control__col--qr">
+        <div class="wrapper-control__col wrapper-control__col--qr" v-if="ticket.event.type === 1">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
+        </div>
+        <div class="connect" v-else>
+          <button-app :href="`https://api.businessof.life/events/meeting/join?hash=${ticket.hash}`" target="_blank">Подключиться</button-app>
         </div>
         <div class="wrapper-control__col wrapper-control__col--number">
           <div class="info-number">
@@ -59,9 +62,11 @@ import API from '../api/index'
 import { mapState, mapGetters } from 'vuex'
 import Search from '../components/Search'
 import BreadCrumbs from '../components/BreadCrumbs'
+import ButtonApp from '@/components/ui/ButtonApp'
+
 export default {
   name: 'TheCheckTicket',
-  components: { Search, BreadCrumbs },
+  components: { Search, BreadCrumbs, ButtonApp },
   data () {
     return {
       ticket: false,
@@ -78,6 +83,10 @@ export default {
         1: 'active',
         2: 'extended',
         3: 'used'
+      },
+      errorJoin: {
+        meeting_not_started: 'Вебинар еще не начался',
+        meeting_finished: 'Вебинар уже завершен'
       }
     }
   },
@@ -134,6 +143,9 @@ export default {
       this.pageTickets = true
       this.checkTicked()
     }
+    if (this.$route.query.code) {
+      API.response.error(this.errorJoin[this.$route.query.code])
+    }
   },
 
   watch: {
@@ -157,6 +169,10 @@ export default {
     display: flex;
     flex-wrap: wrap;
     .sm-block({ flex-direction: column;});
+    .connect {
+      .sm-block({
+        margin-bottom: 20px;});
+    }
     &__col {
       display: flex;
       flex-direction: column;
