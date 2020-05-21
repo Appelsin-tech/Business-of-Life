@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="g-caption-section">Доступы</h2>
-    <div class="g-item-form">
+    <div class="g-item-form" v-if="type !== 2">
       <label class="g-item-form__label">Контроль билетов</label>
       <div class="access-item__input taggable">
         <v-select @input="supervisorsMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="user_supervisors" label="login" class="v-select__roles">
@@ -54,6 +54,9 @@ export default {
     },
     editors: {
       required: true
+    },
+    type: {
+      default: 2
     }
   },
   data() {

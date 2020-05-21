@@ -2,7 +2,7 @@
   <section class="ticket">
     <div class="ticket__wrapper">
       <div class="ticket__number">
-        <p class="info-text info-text--num">
+        <p class="info-text info-text--num" >
           <span class="ticket__number-text--light">Номер вашего билета</span>
           <strong class="ticket__number-text--bold">{{ticketArr[0].hash}}</strong>
         </p>
@@ -19,7 +19,7 @@
           <strong class="info-text__strong">{{ticketArr[0].title}}</strong>
         </p>
       </div>
-      <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${ticketArr[0].hash})`}"></div>
+      <div class="ticket__qr-code" v-if="ticketArr[0].event.type !== 2" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${ticketArr[0].hash})`}"></div>
     </div>
     <!--<div class="btn-wrapper">-->
       <!--<a href="#" class="g-btn g-btn&#45;&#45;icon-left" download="#">-->

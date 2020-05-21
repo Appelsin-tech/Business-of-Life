@@ -98,7 +98,7 @@
         </div>
       </div>
       <div class="access" v-if="id">
-        <admin-relation-access-section :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation"/>
+        <admin-relation-access-section :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation" :type="form.type"/>
       </div>
       <div class="link-wrapper" v-if="id">
         <button-app class="preview" :to="`/event/${id}`" :class="{disabled: !event}">

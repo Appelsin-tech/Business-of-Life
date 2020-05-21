@@ -66,7 +66,7 @@
             <p class="item__name g-item-form__label">Дата:</p>
             <p class="item__info editor">{{parseDate}}</p>
           </div>
-          <div class="org-info__item item">
+          <div class="org-info__item item" v-if="activeRelation.type === 1">
             <p class="item__name g-item-form__label">Место проведения:</p>
             <p class="item__info editor">{{activeRelation.address}}</p>
           </div>

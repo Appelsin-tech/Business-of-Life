@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       ticketArr: [
-        { hash: 'T-90F5EC62DFD52BA1', title: 'Стандарт', event: { title: 'Test', date: '28.10.2019 12:38', relation_id: 4 } }
+        { hash: 'T-90F5EC62DFD52BA1', title: 'Стандарт', event: { title: 'Test', date: '28.10.2019 12:38', relation_id: 4, type: 2 } }
       ],
       email: 'test@mail.com'
     }
