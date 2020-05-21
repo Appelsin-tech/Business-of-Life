@@ -206,14 +206,14 @@ export default {
       }
     },
     beforeOpen(event) {
-      console.log(event.params)
+      // console.log(event.params)
       this.eventData.price = event.params.price
       this.eventData.currency = event.params.currency
       this.fieldsData.event_id = event.params.event_id
       this.fieldsData.relation = event.params.event_id
       this.fieldsData.ticket_id = event.params.ticket_id
-      this.fieldsData.city = event.params.city
-      this.fieldsData.country = event.params.country
+      this.fieldsData.city = event.params.city ? event.params.city : 'Онлайн'
+      this.fieldsData.country = event.params.country ? event.params.country : 'Онлайн'
       this.fields = event.params.fields
       this.disabledBtn = true
     },
