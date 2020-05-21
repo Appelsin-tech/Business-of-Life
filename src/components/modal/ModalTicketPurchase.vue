@@ -54,7 +54,7 @@
             <template>Купить билет {{eventData.price}} {{eventData.currency}}</template>
             <template></template>
           </button-app>
-          <button class="test-btn" type="button" @click="generate">Generate Ticket</button>
+<!--          <button class="test-btn" type="button" @click="generate">Generate Ticket</button>-->
         </form>
       </div>
     </div>

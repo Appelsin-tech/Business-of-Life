@@ -70,9 +70,7 @@ export default {
     ]),
     showButtonDelete() {
       if (this.showRelations === 1) {
-        return !this.myEvent.relations.some(item => {
-          return item.status === 3
-        })
+        return !this.myEvent.relations.some(item => item.status === 3)
       } else if (this.showRelations === 0) {
         return true
       } else {
@@ -102,7 +100,6 @@ export default {
         let itemStamp = item.stamp * 1000
         if (this.editor.find(relation => relation.id === item.id)) {
           if (currentMoment - itemStamp > 0 && item.status === 3) {
-            item.status = 4
             this.myPastEvents.unshift(item)
           } else {
             this.myFutureEvents.push(item)

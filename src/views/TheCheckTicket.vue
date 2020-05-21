@@ -8,7 +8,7 @@
         <div class="wrapper-control__col wrapper-control__col--qr" v-if="ticket.event.type === 1">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
         </div>
-        <div class="connect" v-else>
+        <div class="connect" v-else-if="status[ticket.status] === 'active' || status[ticket.status] === 'extend'">
           <button-app :href="`https://api.businessof.life/events/meeting/join?hash=${ticket.hash}`" target="_blank">Подключиться</button-app>
         </div>
         <div class="wrapper-control__col wrapper-control__col--number">
@@ -170,6 +170,8 @@ export default {
     flex-wrap: wrap;
     .sm-block({ flex-direction: column;});
     .connect {
+      padding-left: 10px;
+      padding-right: 10px;
       .sm-block({
         margin-bottom: 20px;});
     }
@@ -231,9 +233,6 @@ export default {
         align-items: flex-start;
         .btn-app {
           min-width: 210px;
-          height: 72px;
-          padding-top: 0;
-          padding-bottom: 0;
           box-sizing: border-box;
           margin-bottom: 20px;
           .md-block({ height: 60px;});

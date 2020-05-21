@@ -115,23 +115,23 @@ export default {
       .size-sm(8);
       .size-ss(12);
       position: relative;
-      height: 72px;
       /*width: 100%;*/
-      .md-block({ height: 60px;});
       .sm-block({ margin-bottom: 20px;});
-      .xs-block({ height: 50px;});
       &__input {
         padding-left: 50px;
         width: 100%;
         height: 100%;
-        background: @colorBgGray;
+        background: #fff;
         box-sizing: border-box;
         border: 1px solid transparent;
         transition: 0.3s;
+        border-radius: 8px;
+        .sm-block({
+          height: 42px;});
         .xs-block({ padding-left: 30px;});
+        &:hover,
         &:focus {
           border-color: #000;
-          background: #fff;
         }
         &:focus + .search__icon {
           color: #000;
@@ -143,15 +143,14 @@ export default {
         top: calc(~"50% - 14px");
         width: 28px;
         height: 28px;
-        color: #fff;
+        color: #000;
         transition: 0.3s;
         .xs-block({ width: 16px; height: 16px; top: calc(~"50% - 8px"); left: 7px;});
       }
     }
     .btn-app {
       min-width: 180px;
-      padding: 21px 28px;
-      .md-block({ padding: 16px 28px;})
+      .sm-block({min-width: 130px;});
     }
   }
   .error {

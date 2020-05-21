@@ -74,10 +74,6 @@ export default {
           class: 'public',
           tooltip: 'Опубликовано'
         },
-        4: {
-          class: 'past',
-          tooltip: 'Прошедшее событие'
-        }
       }
     }
   },

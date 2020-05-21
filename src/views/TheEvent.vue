@@ -1,6 +1,6 @@
 <template>
   <section class="p-event p-default-block">
-    <status-preview :idEvent="event.id" section="event" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && myEvent"/>
+    <status-preview :idEvent="event.id" section="event" :idStatus="newStatus" :idRelation="activeRelation.id" @newStatus="refreshStatus" v-if="activeRelation && showControl"/>
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="!activeRelation"/>
     <div class="container" v-if="activeRelation">
@@ -34,6 +34,9 @@
           <div class="info__ticket ticket--brief">
             <button-app @click.native="scrollToSection('section-tickets')">
               Купить билет
+            </button-app>
+            <button-app @click.native="startVebinar" v-if="activeRelation && showControl && activeRelation.type === 2">
+              Начать вебинар
             </button-app>
           </div>
           <div class="info__item attention" v-if="activeRelation.actions.length">
@@ -126,7 +129,7 @@ export default {
       ],
       valueSelectRelation: null,
       event: null,
-      myEvent: false,
+      showControl: false,
       city: [],
       activeRelation: null,
       swiperOption: {
@@ -191,8 +194,8 @@ export default {
     checkRoles () {
       if (this.roles.includes(3)) {
         this.$store.dispatch('event/getMyEvents').then(() => {
-          if (this.eventsMy.some(item => item.id === this.event.id)) {
-            this.myEvent = true
+          if (this.editor.find(item => item.id === this.$route.params.url)) {
+            this.showControl = true
           }
         })
       }
@@ -211,10 +214,15 @@ export default {
     refreshStatus () {
       this.activeRelation = null
       this.event = null
-      this.myEvent = false
+      this.showControl = false
       this.city = []
       this.getEvent()
     },
+    startVebinar () {
+      API.meeting.start({ id: this.activeRelation.id }).then(response => {
+        window.open(response.data.url, '_blank')
+      })
+    }
   },
   computed: {
     ...mapState('event', [
@@ -222,7 +230,8 @@ export default {
     ]),
     ...mapGetters('user', [
       'logged',
-      'roles'
+      'roles',
+      'editor'
     ]),
     swiper () {
       return this.$refs.mySwiperEvents.swiper
@@ -294,6 +303,10 @@ export default {
       margin-bottom: 30px;
       .xs-block({ flex-direction: column; align-items: flex-start;
         margin-bottom: 20px;});
+      .btn-app {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
       &--slide-event {
         justify-content: space-between;
         .to(520px, { flex-direction: column; align-items: flex-start; });
@@ -308,19 +321,6 @@ export default {
         .btn-app {
           flex-basis: 240px;
           .to(520px, { flex-basis: auto; });
-        }
-      }
-      &--brief {
-        .sm-block({ flex-direction: column; align-items: flex-start; });
-        .ticket__price {
-          .sm-block({ margin-bottom: 20px; });
-        }
-        .btn-app {
-          flex-shrink: 0;
-          width: 275px;
-          .lg-block({ width: 240px; });
-          .sm-block({ width: 200px; });
-          .xs-block({ flex-basis: auto });
         }
       }
       .ticket__price {
