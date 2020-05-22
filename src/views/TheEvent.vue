@@ -220,7 +220,7 @@ export default {
     },
     startVebinar () {
       API.meeting.start({ id: this.activeRelation.id }).then(response => {
-        window.open(response.data.url, '_blank')
+        window.open(response.url, '_blank')
       })
     }
   },

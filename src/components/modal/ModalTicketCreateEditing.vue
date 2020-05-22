@@ -75,6 +75,14 @@
                   <input class="checkbox-input" :value="10" type="checkbox" id="sponsor" v-model="form.fields">
                   <label class="checkbox-label" for="sponsor">Ваш спонсор</label>
                 </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="11" type="checkbox" id="country" v-model="form.fields">
+                  <label class="checkbox-label" for="country">Страна</label>
+                </div>
+                <div class="item">
+                  <input class="checkbox-input" :value="12" type="checkbox" id="city" v-model="form.fields">
+                  <label class="checkbox-label" for="city">Город</label>
+                </div>
               </div>
               <button type="button" class="editing-label disabled">Редактировать поля</button>
             </div>

@@ -8,7 +8,7 @@
         <div class="wrapper-control__col wrapper-control__col--qr" v-if="ticket.event.type === 1">
           <div class="ticket__qr-code" :style="{backgroundImage: `url(https://api.businessof.life/tickets/show?hash=${$route.params.id})`}"></div>
         </div>
-        <div class="connect" v-else-if="status[ticket.status] === 'active' || status[ticket.status] === 'extend'">
+        <div class="connect" v-else-if="status[ticket.status] === 'active' || status[ticket.status] === 'extended'">
           <button-app :href="`https://api.businessof.life/events/meeting/join?hash=${ticket.hash}`" target="_blank">Подключиться</button-app>
         </div>
         <div class="wrapper-control__col wrapper-control__col--number">
