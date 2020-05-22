@@ -212,8 +212,6 @@ export default {
         .md-block({justify-self: center; margin-top: 0;});
       }
     }
-    &.registration {
-    }
     &.forgot {
       .btn-app {
         .lg-block({

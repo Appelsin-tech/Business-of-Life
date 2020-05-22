@@ -57,4 +57,11 @@ export default {
       reject(error)
     })
   }),
+  take: (data) => new Promise((resolve, reject) => {
+    HTTP.post('tickets/take', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  }),
 }

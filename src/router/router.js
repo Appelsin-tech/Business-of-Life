@@ -142,6 +142,11 @@ const router = new Router({
           name: 'marathon',
           component: () => import('@/views/TheMarathon')
         },
+        {
+          path: '/invite',
+          name: 'invite',
+          component: () => import('@/views/TheInvite')
+        },
         ...knowledge
       ]
     },
