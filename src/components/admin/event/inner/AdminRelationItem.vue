@@ -17,7 +17,8 @@
           <router-link :to="`/office/events/${idEvent}/relation/${relation.id}`" class="g-caption-element">{{relation.title}} </router-link>
           <p class="event__info-item location">
             <icon-map-marker class="g-icon"/>
-            <span class="text">{{relation.country}} {{relation.city}}</span>
+            <span class="text" v-if="relation.type !== 2">{{relation.country}} {{relation.city}}</span>
+            <span class="text" v-else>Вебинар</span>
           </p>
           <p class="event__info-item date">
             <icon-calendar-clock class="g-icon"/>

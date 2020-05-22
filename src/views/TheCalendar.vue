@@ -149,25 +149,25 @@ export default {
   methods: {
     scrollToSlide(e) {
       let res = this.publicRelations.filter(item => this.$moment(e.dateTime).isSame(item.stamp * 1000, 'day'))
-      // let indexSlide
-      // if (this.$moment(e.dateTime).isSame(this.$moment(), 'day')) {
-      //   indexSlide = 0
-      // } else {
-      //   this.filterRelations.forEach((item, index) => {
-      //     if (item.stamp !== undefined) {
-      //       if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
-      //         indexSlide = index
-      //       }
-      //     }
-      //   })
-      // }
-      //
-      // if (indexSlide !== undefined) {
-      //   this.activeScrollSlide = indexSlide
-      //   this.showCalendarMini = false
-      //   this.calendarSwiper.slideTo(indexSlide)
-      // }
-      this.$modal.show('modal-calendar-event', {relations: res})
+      let indexSlide
+      if (this.$moment(e.dateTime).isSame(this.$moment(), 'day')) {
+        indexSlide = 0
+      } else {
+        this.filterRelations.forEach((item, index) => {
+          if (item.stamp !== undefined) {
+            if (this.$moment(e.dateTime).isSame(item.stamp, 'day')) {
+              indexSlide = index
+            }
+          }
+        })
+      }
+
+      if (indexSlide !== undefined) {
+        this.activeScrollSlide = indexSlide
+        this.showCalendarMini = false
+        this.calendarSwiper.slideTo(indexSlide)
+      }
+      // this.$modal.show('modal-calendar-event', {relations: res})
     }
   },
   mounted() {

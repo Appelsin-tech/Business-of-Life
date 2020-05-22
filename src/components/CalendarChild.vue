@@ -11,9 +11,12 @@
         </div>
         <div class="location ">
           <icon-map-marker class="g-icon"/>
-          <div class="location__text">
+          <div class="location__text" v-if="event.type !== 2">
             <span>{{event.country}}, {{event.city}}</span>
             <span>{{event.address}}</span>
+          </div>
+          <div class="location__text" v-else>
+            <span>Вебинар</span>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
     <bread-crumbs :arrCrumbs="breadCrumbs"/>
     <preloader v-if="!activeRelation"/>
     <div class="container" v-if="activeRelation">
-      <h1 class="g-caption-inner">{{event.title}}</h1>
+      <h1 class="g-caption-inner">{{activeRelation.title}}</h1>
 <!--      <div class="location">-->
 <!--        <p class="location__desc">Город</p>-->
 <!--        <v-select @input="newActiveRelation" :value="activeRelation.city" :multiple="false" :transition="'fade'" :class="'v-select__event'" :searchable="false"  label="name" :options="city"></v-select>-->
