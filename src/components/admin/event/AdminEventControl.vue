@@ -3,7 +3,7 @@
     <preloader v-if="loading"/>
     <div class="container page">
 
-      <button-app-function class="mb-30" icon="icon-plus-circle" :text="true" to="/office/events/create">Создать</button-app-function>
+      <button-app-function class="mb-30" icon="icon-plus-circle" :text="true" to="/office/events/create" v-if="roles.includes(3)">Создать</button-app-function>
       <div class="event">
         <panel-event-menu v-for="item in eventsMy" :key="item.name" :item="item" />
       </div>
@@ -55,7 +55,8 @@ export default {
       'eventsMy'
     ]),
     ...mapGetters('user', [
-      'relationEditors'
+      'relationEditors',
+      'roles'
     ]),
   },
   mounted() {
