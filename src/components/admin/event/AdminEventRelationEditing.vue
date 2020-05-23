@@ -11,8 +11,8 @@
       </div>
       <div class="relations-list">
         <div class="wrapper-title">
-          <h2 class="g-caption-section">Редактирование событий</h2>
-          <button-app-function :to="`/office/events/${event}/relation/create`" icon="icon-plus-circle" :text="true">Создать новое</button-app-function>
+          <h2 class="g-caption-section" >Редактирование событий</h2>
+          <button-app-function v-if="roles.includes(3)" :to="`/office/events/${event}/relation/create`" icon="icon-plus-circle" :text="true">Создать новое</button-app-function>
         </div>
         <div class="event-wrapper" v-if="showRelations === 1">
           <div class="event-wrapper--inner">
@@ -66,7 +66,8 @@ export default {
     ]),
     ...mapGetters('user', [
       'editor',
-      'myId'
+      'myId',
+      'roles'
     ]),
     showButtonDelete() {
       if (this.showRelations === 1) {
