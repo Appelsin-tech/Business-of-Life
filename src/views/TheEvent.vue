@@ -192,7 +192,7 @@ export default {
       })
     },
     checkRoles () {
-      if (this.roles.includes(3)) {
+      if (this.logged) {
         this.$store.dispatch('event/getMyEvents').then(() => {
           if (this.editor.find(item => item.id === this.$route.params.url)) {
             this.showControl = true
