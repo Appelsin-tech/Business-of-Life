@@ -84,7 +84,7 @@
         <div class="tickets-wrapper">
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
-        <button-app @click.native="controlAccessVebinar" v-if="form.type === 2">
+        <button-app @click.native="controlAccessVebinar" v-if="form.type === 2 && tickets.length > 0">
           <template v-if="mode === 0">Открыть общий доступ</template>
           <template  v-if="mode === 1">Убрать общий доступ</template>
         </button-app>
@@ -344,10 +344,12 @@ export default {
       if (this.mode === 0) {
         API.meeting.open({id: this.id}).then(response => {
           API.response.success('Мероприятие открыто для всех')
+          this.mode = 1
         }).catch(e => API.response.error('Мероприятие не началось'))
       } else if (this.mode === 1) {
         API.meeting.close({id: this.id}).then(response => {
           API.response.success('Мероприятие закрыто')
+          this.mode = 0
         }).catch(e => API.response.error('Мероприятие не началось'))
       }
     }
