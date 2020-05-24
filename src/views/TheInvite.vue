@@ -3,7 +3,8 @@
     <div class="container page">
       <div class="row-form">
         <h1 class="g-caption-inner">Получить билет</h1>
-        <p class="desc">Если вы есть в списках на посещение мероприятия/вебинара, введите ваше Имя и ваш Email в поле ниже и нажмите отправить. Билет будет отправлен на ваш email.</p>
+        <p class="desc">Если вы есть в списках на посещение мероприятия/вебинара, введите ваше Имя и ваш Email в поле ниже и нажмите отправить. Билет будет отправлен на ваш email.
+          Если письмо не пришло - проверьте папку СПАМ.</p>
         <form @submit.prevent="onSubmit" class="form">
           <div class="g-item-form">
             <label class="g-item-form__label">Имя</label>
