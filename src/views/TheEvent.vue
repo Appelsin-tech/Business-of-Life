@@ -38,6 +38,10 @@
             <button-app @click.native="startVebinar" v-if="activeRelation && showControl && activeRelation.type === 2">
               Начать вебинар
             </button-app>
+<!--            open vebinar-->
+            <button-app @click.native="openModalConnectVebinar" v-if="activeRelation && !showControl && activeRelation.type === 2 && activeRelation.mode === 1">
+              Подключиться
+            </button-app>
           </div>
           <div class="info__item attention" v-if="activeRelation.actions.length">
             <span class="g-icon-attention">i</span>
@@ -93,6 +97,7 @@
       <router-link class="payments" to="/payment_policy">Оплата и возврат</router-link>
     </div>
     <modal-ticket-purchase/>
+    <modal-connect-vebinar/>
   </section>
 </template>
 
@@ -105,6 +110,7 @@ import API from '@/api/index'
 import { mapState, mapGetters } from 'vuex'
 import ScrollMixin from '@/mixins/scrollToSection'
 import Preloader from '@/components/ui/Preloader'
+import ModalConnectVebinar from '@/components/modal/ModalConnectVebinar'
 
 export default {
   name: 'TheEvent',
@@ -116,6 +122,7 @@ export default {
     BreadCrumbs,
     Action,
     Preloader,
+    ModalConnectVebinar,
     ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
   },
   mixins: [ScrollMixin],
@@ -222,6 +229,12 @@ export default {
       API.meeting.start({ id: this.activeRelation.id }).then(response => {
         window.open(response.url, '_blank')
       })
+    },
+    openModalConnectVebinar () {
+      this.$modal.show('modal-connect-vebinar', {
+        id: this.activeRelation.id,
+        name: this.userName
+      })
     }
   },
   computed: {
@@ -231,7 +244,8 @@ export default {
     ...mapGetters('user', [
       'logged',
       'roles',
-      'editor'
+      'editor',
+      'userName'
     ]),
     swiper () {
       return this.$refs.mySwiperEvents.swiper

@@ -13,6 +13,7 @@ const state = () => ({
 const getters = {
   // залогинен ли пользователей
   logged: state => !!state.profile,
+  userName: (state, getters) => getters.logged ? state.profile.name : null,
   // приобретался ли когда нибудь доступ к базе знаний
   accessKnowledge: (state, getters) => getters.logged ? state.profile.access.knowledge : false,
   // мой id

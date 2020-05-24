@@ -84,6 +84,10 @@
         <div class="tickets-wrapper">
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
+        <button-app @click.native="controlAccessVebinar" v-if="form.type === 2">
+          <template v-if="mode === 0">Открыть общий доступ</template>
+          <template  v-if="mode === 1">Убрать общий доступ</template>
+        </button-app>
       </div>
       <div class="stock" v-if="id">
         <div class="wrapper-title">
@@ -168,6 +172,7 @@ export default {
       resize: true,
       tickets: [],
       supervisors: [],
+      mode: null,
       editors: null,
       disabledNewTicket: true,
       configDate: {
@@ -322,6 +327,7 @@ export default {
         this.actions = response.actions
         this.supervisors = response.supervisors
         this.editors = response.editors ? response.editors : null
+        this.mode = response.mode
         this.form.id = response.id
         this.form.date = response.date
         this.form.title = response.title
@@ -333,6 +339,17 @@ export default {
           this.form.country = response.country
         }
       })
+    },
+    controlAccessVebinar () {
+      if (this.mode === 0) {
+        API.meeting.open({id: this.id}).then(response => {
+          API.response.success('Мероприятие открыто для всех')
+        }).catch(e => API.response.error('Мероприятие не началось'))
+      } else if (this.mode === 1) {
+        API.meeting.close({id: this.id}).then(response => {
+          API.response.success('Мероприятие закрыто')
+        }).catch(e => API.response.error('Мероприятие не началось'))
+      }
     }
   },
   mounted() {

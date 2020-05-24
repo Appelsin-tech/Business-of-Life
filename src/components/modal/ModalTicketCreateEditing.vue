@@ -91,7 +91,7 @@
             <button-app  v-if="!newTicket">
               Сохранить
             </button-app>
-            <button-app  v-else :disabled="$v.$invalid">
+            <button-app v-else :disabled="$v.$invalid">
               Создать
             </button-app>
           </div>
