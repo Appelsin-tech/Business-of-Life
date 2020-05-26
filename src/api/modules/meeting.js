@@ -28,5 +28,26 @@ export default {
     }).catch((error, res) => {
       reject(error)
     })
+  }),
+  enable: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/meeting/moderation/enable', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
+  disable: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/meeting/moderation/disable', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
+  info: (id) => new Promise((resolve, reject) => {
+    HTTP.get('events/meeting/info', {params: {id: id}}).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
   })
 }

@@ -35,13 +35,15 @@
             <button-app @click.native="scrollToSection('section-tickets')">
               Купить билет
             </button-app>
-            <button-app @click.native="startVebinar" v-if="activeRelation && showControl && activeRelation.type === 2">
-              Начать вебинар
-            </button-app>
-<!--            open vebinar-->
-            <button-app @click.native="openModalConnectVebinar" v-if="activeRelation && !showControl && activeRelation.type === 2 && activeRelation.mode === 1">
-              Подключиться
-            </button-app>
+            <div class="wrapper-btn-vebinar" v-if="vebinarInfo">
+              <button-app @click.native="startOrEndVebinar" v-if="showControl">
+                <template v-if="vebinarInfo.online">Закончить вебинар</template>
+                <template v-else>Начать вебинар</template>
+              </button-app>
+              <button-app @click.native="openModalConnectVebinar" v-if="!showControl && vebinarInfo.freejoin">
+                Подключиться
+              </button-app>
+            </div>
           </div>
           <div class="info__item attention" v-if="activeRelation.actions.length">
             <span class="g-icon-attention">i</span>
@@ -139,6 +141,12 @@ export default {
       showControl: false,
       city: [],
       activeRelation: null,
+      vebinarInfo: null,
+      errorJoin: {
+        meeting_not_started: 'Вебинар еще не начался',
+        meeting_finished: 'Вебинар уже завершен',
+        joined_already: 'Пользователь уже подключен к вебинару'
+      },
       swiperOption: {
         slidesPerView: 3,
         speed: 300,
@@ -177,6 +185,9 @@ export default {
         if (item.url === this.$route.params.url) {
           API.relations.details({id: item.id}).then(response => {
             this.activeRelation = response
+            if (this.activeRelation.type === 2) {
+              this.getInfoVebinar()
+            }
           })
         }
       })
@@ -225,15 +236,27 @@ export default {
       this.city = []
       this.getEvent()
     },
-    startVebinar () {
-      API.meeting.start({ id: this.activeRelation.id }).then(response => {
-        window.open(response.url, '_blank')
-      })
+    startOrEndVebinar () {
+      if (this.vebinarInfo.online) {
+        API.meeting.end({ id: this.activeRelation.id }).then(response => {
+          API.response.success('Вебинар завершен')
+          this.vebinarInfo.online = false
+        })
+      } else {
+        API.meeting.start({ id: this.activeRelation.id }).then(response => {
+          window.open(response.url, '_blank')
+        })
+      }
     },
     openModalConnectVebinar () {
       this.$modal.show('modal-connect-vebinar', {
         id: this.activeRelation.id,
         name: this.userName
+      })
+    },
+    getInfoVebinar () {
+      API.meeting.info(this.$route.params.url).then(response => {
+        this.vebinarInfo = response
       })
     }
   },
@@ -277,10 +300,13 @@ export default {
       } else {
         return this.activeRelation.status
       }
-    }
+    },
   },
   mounted () {
     this.getEvent()
+    if (this.$route.query.code) {
+      API.response.error(this.errorJoin[this.$route.query.code])
+    }
   }
 }
 </script>

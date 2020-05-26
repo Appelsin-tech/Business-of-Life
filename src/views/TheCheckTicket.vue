@@ -86,7 +86,8 @@ export default {
       },
       errorJoin: {
         meeting_not_started: 'Вебинар еще не начался',
-        meeting_finished: 'Вебинар уже завершен'
+        meeting_finished: 'Вебинар уже завершен',
+        joined_already: 'Пользователь уже подключен к вебинару'
       }
     }
   },

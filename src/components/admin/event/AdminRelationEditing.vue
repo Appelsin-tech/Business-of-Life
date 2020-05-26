@@ -84,11 +84,8 @@
         <div class="tickets-wrapper">
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
-        <button-app @click.native="controlAccessVebinar" v-if="form.type === 2 && tickets.length > 0">
-          <template v-if="mode === 0">Открыть общий доступ</template>
-          <template  v-if="mode === 1">Убрать общий доступ</template>
-        </button-app>
       </div>
+      <admin-relation-info-vebinar v-if="form.type === 2 && tickets.length > 0" :idRelation="id"/>
       <div class="stock" v-if="id">
         <div class="wrapper-title">
           <h2 class="g-caption-section">Акции</h2>
@@ -130,6 +127,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import 'flatpickr/dist/flatpickr.css'
 import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
+import AdminRelationInfoVebinar from '@/components/admin/event/inner/AdminRelationInfoVebinar'
+
 
 export default {
   name: 'AdminRelationEditing',
@@ -150,6 +149,7 @@ export default {
     Action,
     AdminRelationAccessSection,
     ButtonAppFunction,
+    AdminRelationInfoVebinar,
     ModalTicketCreateEditing: () => import('@/components/modal/ModalTicketCreateEditing'),
     ModalActionsCreateEditing: () => import('@/components/modal/ModalActionsCreateEditing')
   },
@@ -172,9 +172,9 @@ export default {
       resize: true,
       tickets: [],
       supervisors: [],
-      mode: null,
       editors: null,
       disabledNewTicket: true,
+      vebinarInfo: null,
       configDate: {
         enableTime: true,
         time_24hr: true,
@@ -327,7 +327,6 @@ export default {
         this.actions = response.actions
         this.supervisors = response.supervisors
         this.editors = response.editors ? response.editors : null
-        this.mode = response.mode
         this.form.id = response.id
         this.form.date = response.date
         this.form.title = response.title
@@ -339,19 +338,6 @@ export default {
           this.form.country = response.country
         }
       })
-    },
-    controlAccessVebinar () {
-      if (this.mode === 0) {
-        API.meeting.open({id: this.id}).then(response => {
-          API.response.success('Мероприятие открыто для всех')
-          this.mode = 1
-        }).catch(e => API.response.error('Мероприятие не началось'))
-      } else if (this.mode === 1) {
-        API.meeting.close({id: this.id}).then(response => {
-          API.response.success('Мероприятие закрыто')
-          this.mode = 0
-        }).catch(e => API.response.error('Мероприятие не началось'))
-      }
     }
   },
   mounted() {
