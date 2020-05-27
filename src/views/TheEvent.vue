@@ -31,7 +31,7 @@
             <strong class="info__item--bold">Спикеры:</strong>
             <span class="info__item--normal info__item--speakers editor" v-for="(speakers, i) in activeRelation.speakers">{{speakers.name}}<span class="symb">,</span>&nbsp;</span>
           </p>
-          <div class="info__ticket ticket--brief">
+          <div class="info__ticket info__ticket--btn">
             <button-app @click.native="scrollToSection('section-tickets')">
               Купить билет
             </button-app>
@@ -39,6 +39,9 @@
               <button-app @click.native="startOrEndVebinar" v-if="showControl">
                 <template v-if="vebinarInfo.online">Закончить вебинар</template>
                 <template v-else>Начать вебинар</template>
+              </button-app>
+              <button-app @click.native="connectVebinarEditor" v-if="showControl && vebinarInfo.online">
+                Подключиться
               </button-app>
               <button-app @click.native="openModalConnectVebinar" v-if="!showControl && vebinarInfo.freejoin">
                 Подключиться
@@ -248,6 +251,11 @@ export default {
         })
       }
     },
+    connectVebinarEditor () {
+      API.meeting.start({ id: this.activeRelation.id }).then(response => {
+        window.open(response.url, '_blank')
+      })
+    },
     openModalConnectVebinar () {
       this.$modal.show('modal-connect-vebinar', {
         id: this.activeRelation.id,
@@ -362,6 +370,9 @@ export default {
           flex-basis: 240px;
           .to(520px, { flex-basis: auto; });
         }
+      }
+      &--btn {
+        align-items: flex-start;
       }
       .ticket__price {
         display: flex;
