@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const axiosCreate = axios.create({
   baseURL: 'https://api.businessof.life',
-  timeout: 5000,
+  timeout: 20000,
   withCredentials: true
 })
 
