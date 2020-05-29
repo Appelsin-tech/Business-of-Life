@@ -33,6 +33,7 @@ const getters = {
   },
   // масив событий где пользователь является редактором
   editor: (state, getters) => getters.logged ? state.profile.editor : [],
+  speaker: (state, getters) => getters.logged ? state.profile.speaker : [],
   // масив ролей пользователя
   // 1-управление новостями
   // 2-управление курсами

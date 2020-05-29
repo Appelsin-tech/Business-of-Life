@@ -16,6 +16,7 @@ import files from './modules/files'
 import roles from './modules/roles'
 import search from './modules/search'
 import meeting from './modules/meeting'
+import speakers from './modules/speakers'
 import response from './response'
 
 export default {
@@ -37,5 +38,6 @@ export default {
   files,
   roles,
   search,
-  meeting
+  meeting,
+  speakers
 }

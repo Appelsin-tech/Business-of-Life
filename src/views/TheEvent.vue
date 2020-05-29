@@ -36,11 +36,11 @@
               Купить билет
             </button-app>
             <div class="wrapper-btn-vebinar" v-if="vebinarInfo">
-              <button-app @click.native="startOrEndVebinar" v-if="showControl">
+              <button-app @click.native="startOrEndVebinar" v-if="showControl || showControlSpeaker">
                 <template v-if="vebinarInfo.online">Закончить вебинар</template>
                 <template v-else>Начать вебинар</template>
               </button-app>
-              <button-app @click.native="connectVebinarEditor" v-if="showControl && vebinarInfo.online">
+              <button-app @click.native="connectVebinarEditor" v-if="(showControl || showControlSpeaker) && vebinarInfo.online">
                 Подключиться
               </button-app>
               <button-app @click.native="openModalConnectVebinar" v-if="!showControl && vebinarInfo.freejoin">
@@ -142,6 +142,7 @@ export default {
       valueSelectRelation: null,
       event: null,
       showControl: false,
+      showControlSpeaker: false,
       city: [],
       activeRelation: null,
       vebinarInfo: null,
@@ -217,6 +218,8 @@ export default {
         this.$store.dispatch('event/getMyEvents').then(() => {
           if (this.editor.find(item => item.id === this.$route.params.url)) {
             this.showControl = true
+          } else if (this.speaker.find(item => item.id === this.$route.params.url)) {
+            this.showControlSpeaker = true
           }
         })
       }
@@ -276,7 +279,8 @@ export default {
       'logged',
       'roles',
       'editor',
-      'userName'
+      'userName',
+      'speaker'
     ]),
     swiper () {
       return this.$refs.mySwiperEvents.swiper

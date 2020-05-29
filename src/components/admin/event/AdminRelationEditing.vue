@@ -101,6 +101,9 @@
       <div class="access" v-if="id">
         <admin-relation-access-section :relation="id" :supervisors="supervisors" :editors="editors" v-on:update-access="getInfoRelation" :type="form.type"/>
       </div>
+      <div class="access" v-if="id">
+        <admin-relation-speakers-section :relation="id" :speakers="speakers" v-on:update-speakers="getInfoRelation"/>
+      </div>
       <div class="link-wrapper" v-if="id">
         <button-app class="preview" :to="`/event/${id}`" :class="{disabled: !event}">
           Предпросмотр
@@ -128,6 +131,7 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 import 'flatpickr/dist/flatpickr.css'
 import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
 import AdminRelationInfoVebinar from '@/components/admin/event/inner/AdminRelationInfoVebinar'
+import AdminRelationSpeakersSection from '@/components/admin/event/inner/AdminRelationSpeakersSection'
 
 
 export default {
@@ -150,6 +154,7 @@ export default {
     AdminRelationAccessSection,
     ButtonAppFunction,
     AdminRelationInfoVebinar,
+    AdminRelationSpeakersSection,
     ModalTicketCreateEditing: () => import('@/components/modal/ModalTicketCreateEditing'),
     ModalActionsCreateEditing: () => import('@/components/modal/ModalActionsCreateEditing')
   },
@@ -172,7 +177,8 @@ export default {
       resize: true,
       tickets: [],
       supervisors: [],
-      editors: null,
+      editors: [],
+      speakers: [],
       disabledNewTicket: true,
       vebinarInfo: null,
       configDate: {
@@ -326,7 +332,8 @@ export default {
         this.tickets = response.tickets
         this.actions = response.actions
         this.supervisors = response.supervisors
-        this.editors = response.editors ? response.editors : null
+        this.editors = response.editors
+        this.speakers = response.speakers_n
         this.form.id = response.id
         this.form.date = response.date
         this.form.title = response.title
