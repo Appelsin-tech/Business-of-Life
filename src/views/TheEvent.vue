@@ -43,7 +43,7 @@
               <button-app @click.native="connectVebinarEditor" v-if="(showControl || showControlSpeaker) && vebinarInfo.online">
                 Подключиться
               </button-app>
-              <button-app @click.native="openModalConnectVebinar" v-if="!showControl && vebinarInfo.freejoin">
+              <button-app @click.native="openModalConnectVebinar" v-if="!showControl && vebinarInfo.freejoin && vebinarInfo.online">
                 Подключиться
               </button-app>
             </div>
