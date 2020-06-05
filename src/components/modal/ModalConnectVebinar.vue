@@ -23,7 +23,7 @@
               </div>
             </div>
             <button-app :disabled="$v.$invalid">
-              Подключится
+              Подключиться
             </button-app>
           </div>
         </form>

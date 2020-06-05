@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="g-caption-section">Доступы</h2>
+    <h2 class="g-caption-section">Роли и доступы</h2>
     <div class="g-item-form" v-if="type !== 2">
       <label class="g-item-form__label">Контроль билетов</label>
       <div class="access-item__input taggable">

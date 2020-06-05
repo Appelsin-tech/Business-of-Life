@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <h2 class="g-caption-section">Спикеры</h2>
-    <div class="g-item-form">
-      <div class="access-item__input taggable">
-        <v-select @input="speakersMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="userSpeakers" label="login" class="v-select__roles">
+  <div class="g-item-form">
+    <label class="g-item-form__label">Спикеры</label>
+    <div class="access-item__input taggable">
+      <v-select @input="speakersMethods" ref="select" taggable multiple :closeOnSelect="false" v-model="userSpeakers" label="login" class="v-select__roles">
                   <span slot="no-options">
                     Введите имя
                   </span>
-          <template #search="{attributes, events}">
-            <input
-              class="vs__search"
-              v-bind="attributes"
-              v-on="events"
-              :required="false"
-            />
-          </template>
-        </v-select>
-      </div>
+        <template #search="{attributes, events}">
+          <input
+            class="vs__search"
+            v-bind="attributes"
+            v-on="events"
+            :required="false"
+          />
+        </template>
+      </v-select>
     </div>
   </div>
 </template>
@@ -52,7 +50,7 @@ export default {
             userId = item.id
           }
         })
-        API.speakers.remove({ relation: this.relation, user_id: userId}).then(response => {
+        API.speakers.remove({ relation: this.relation, user_id: userId }).then(response => {
           this.$emit('update-speakers')
           API.response.success('Проверяющий удален')
         }).catch(error => {
