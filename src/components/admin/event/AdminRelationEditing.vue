@@ -70,12 +70,13 @@
           <button-app v-else :disabled="$v.$invalid">
             Сохранить
           </button-app>
-          <button-app class="btn-app--white"  v-if="id && tickets.length !== 0" @click.native="newStatus">
+          <button-app class="btn-app--white"  @click.native.prevent="newStatus">
             <template v-if="statusRelation === 3 ">Снять с публикации</template>
             <template v-else>Опубликовать</template>
           </button-app>
         </div>
       </form>
+      <admin-relation-info-vebinar v-if="form.type === 2" :idRelation="id"/>
       <div class="tickets" v-if="id">
         <div class="wrapper-title">
           <h2 class="g-caption-section">Билеты</h2>
@@ -85,7 +86,6 @@
           <ticket v-for="(item, i) in filterTickets" :key="item.id" :ticket="item"/>
         </div>
       </div>
-      <admin-relation-info-vebinar v-if="form.type === 2 && tickets.length > 0" :idRelation="id"/>
       <div class="stock" v-if="id">
         <div class="wrapper-title">
           <h2 class="g-caption-section">Акции</h2>

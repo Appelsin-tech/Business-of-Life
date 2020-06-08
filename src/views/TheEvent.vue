@@ -32,7 +32,7 @@
             <span class="info__item--normal info__item--speakers editor" v-for="(speakers, i) in activeRelation.speakers">{{speakers.name}}<span class="symb">,</span>&nbsp;</span>
           </p>
           <div class="info__ticket info__ticket--btn">
-            <button-app @click.native="scrollToSection('section-tickets')">
+            <button-app @click.native="scrollToSection('section-tickets')" v-if="activeRelation.tickets.length">
               Купить билет
             </button-app>
             <div class="wrapper-btn-vebinar" v-if="vebinarInfo">

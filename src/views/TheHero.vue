@@ -63,8 +63,8 @@
       <div class="container">
         <h2 class="g-caption-inner">Новости</h2>
         <div class="news-wrapper">
-          <div class="item">
-            <news-item v-for="item in maxItemNews" :news="item" :key="item.id" page="page-hero"/>
+          <div class="item" v-for="item in maxItemNews" :key="item.id">
+            <news-item  :news="item"  page="page-hero"/>
           </div>
         </div>
         <button-app :to="'/news'">
@@ -292,6 +292,8 @@ export default {
       .sm-block({
         margin-bottom: 30px;});
       .item {
+        margin-bottom: 20px;
+        display: flex;
         .col();
         .size(4);
         .size-lg(5);
