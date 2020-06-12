@@ -76,7 +76,7 @@
           </button-app>
         </div>
       </form>
-      <admin-relation-info-vebinar v-if="form.type === 2" :idRelation="id"/>
+      <admin-relation-info-vebinar v-if="form.type === 2 && id" :idRelation="id"/>
       <div class="tickets" v-if="id">
         <div class="wrapper-title">
           <h2 class="g-caption-section">Билеты</h2>

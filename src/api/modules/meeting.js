@@ -49,5 +49,19 @@ export default {
     }).catch((error, res) => {
       reject(error)
     })
+  }),
+  recordingsGet: (id) => new Promise((resolve, reject) => {
+    HTTP.post('events/meeting/recordings/get', {id: id}).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
+  recordingsDelete: (id) => new Promise((resolve, reject) => {
+    HTTP.post('events/meeting/recordings/delete', {id: id}).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
   })
 }

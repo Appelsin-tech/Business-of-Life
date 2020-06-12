@@ -99,6 +99,7 @@
           <ticket :btn="true" v-for="(item, i) in filterTicketsList" :key="item.id" :ticket="item" :event="activeRelation"/>
         </div>
       </section>
+      <event-recordings :idEvent="activeRelation.id" v-if="showControl && activeRelation.type === 2"/>
       <router-link class="payments" to="/payment_policy">Оплата и возврат</router-link>
     </div>
     <modal-ticket-purchase/>
@@ -116,6 +117,8 @@ import { mapState, mapGetters } from 'vuex'
 import ScrollMixin from '@/mixins/scrollToSection'
 import Preloader from '@/components/ui/Preloader'
 import ModalConnectVebinar from '@/components/modal/ModalConnectVebinar'
+import EventRecordings from '@/components/EventRecordings'
+
 
 export default {
   name: 'TheEvent',
@@ -128,6 +131,7 @@ export default {
     Action,
     Preloader,
     ModalConnectVebinar,
+    EventRecordings,
     ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
   },
   mixins: [ScrollMixin],
@@ -589,6 +593,8 @@ export default {
 
     }
     .tickets {
+      margin-bottom: 50px;
+      .sm-block({margin-bottom: 30px;});
       .tickets-wrapper {
         .row-flex();
         .ss-block({
@@ -602,7 +608,6 @@ export default {
         .md-block({ padding: 0 50px; });
         .sm-block({ padding: 0 30px; });
         .xs-block({ padding: 0; });
-
       }
       .swiper-button {
         position: absolute;
