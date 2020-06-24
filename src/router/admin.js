@@ -74,6 +74,17 @@ export default [
       }
     },
     component: () => import('@/components/admin/AdminPartnersProgram')
+  },
+  {
+    path: 'materials',
+    name: 'materials',
+    meta: {
+      breadcrumb: {
+        parent: null,
+        title: 'Материалы'
+      }
+    },
+    component: () => import('@/components/admin/AdminMaterials')
   }
 ]
 

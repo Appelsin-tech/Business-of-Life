@@ -47,6 +47,7 @@ import IconDragVariant from 'vue-material-design-icons/DragVariant'
 import IconFile from 'vue-material-design-icons/File'
 import IconMagnify from 'vue-material-design-icons/Magnify'
 import IconVolumeHigh from 'vue-material-design-icons/VolumeHigh'
+import IconDockWindow from 'vue-material-design-icons/DockWindow'
 
 Vue.component('icon-menu', IconMenu)
 Vue.component('icon-account', IconAccount)
@@ -90,6 +91,7 @@ Vue.component('icon-drag-variant', IconDragVariant)
 Vue.component('icon-file', IconFile)
 Vue.component('icon-magnify', IconMagnify)
 Vue.component('icon-volume-high', IconVolumeHigh)
+Vue.component('icon-dock-window', IconDockWindow)
 // social
 Vue.component('icon-instagram', IconInstagram)
 Vue.component('icon-odnoklassniki', IconOdnoklassniki)

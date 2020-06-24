@@ -26,6 +26,13 @@ export default {
           title: 'Партнерская программа',
           name: 'partners-program',
           icon: 'icon-account-group',
+          roles: 0
+        },
+        {
+          to: '/office/materials',
+          title: 'Материалы',
+          name: 'materials',
+          icon: 'icon-dock-window',
           line: true,
           roles: 0
         },
