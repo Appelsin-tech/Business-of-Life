@@ -296,10 +296,7 @@ export default {
     },
     parseDate () {
       if (this.activeRelation) {
-        let onlyDate = this.activeRelation.date.split(' ')
-        let [day, month, year] = onlyDate[0].split('.')
-        let da = new Date(year, month - 1, day)
-        return da.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + onlyDate[1]
+        return this.$moment(this.activeRelation.stamp * 1000).format('D MMMM YYYY hh:mm')
       } else {
         return '00'
       }

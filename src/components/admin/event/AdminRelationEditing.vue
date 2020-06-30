@@ -21,10 +21,10 @@
           </div>
           <div class="g-item-form">
             <label class="g-item-form__label">Дата и время</label>
-            <flat-pickr v-model="form.date" :config="configDate" :class="['g-item-form__input', {error: $v.form.date.$error}]" @blur="$v.form.date.$touch()"></flat-pickr>
-            <div class="input-valid-error" v-if="$v.form.date.$error">
-              <template v-if="!$v.form.date.required">Поле не может быть пустым</template>
-              <template v-if="!$v.form.date.minLength">Минимальное количество символов - 3</template>
+            <flat-pickr v-model="form.stamp" :config="configDate" :class="['g-item-form__input', {error: $v.form.stamp.$error}]" @blur="$v.form.stamp.$touch()"></flat-pickr>
+            <div class="input-valid-error" v-if="$v.form.stamp.$error">
+              <template v-if="!$v.form.stamp.required">Поле не может быть пустым</template>
+              <template v-if="!$v.form.stamp.minLength">Минимальное количество символов - 3</template>
             </div>
           </div>
           <div class="g-item-form" v-if="form.type === 1">
@@ -133,7 +133,6 @@ import ButtonAppFunction from '@/components/ui/ButtonAppFunction'
 import AdminRelationInfoVebinar from '@/components/admin/event/inner/AdminRelationInfoVebinar'
 import AdminRelationSpeakersSection from '@/components/admin/event/inner/AdminRelationSpeakersSection'
 
-
 export default {
   name: 'AdminRelationEditing',
   props: {
@@ -182,15 +181,17 @@ export default {
       disabledNewTicket: true,
       vebinarInfo: null,
       configDate: {
+        altInput: true,
+        altFormat: 'd.m.Y H:i',
         enableTime: true,
         time_24hr: true,
         locale: Russian,
-        dateFormat: 'd.m.Y H:i'
+        dateFormat: 'U'
       },
       statusRelation: 0,
       form: {
         event_id: this.id,
-        date: '',
+        stamp: '',
         title: '',
         contacts: '',
         type: ''
@@ -230,7 +231,7 @@ export default {
       type: {
         required
       },
-      date: {
+      stamp: {
         required,
         minLength: minLength(10)
       },
@@ -284,6 +285,7 @@ export default {
   methods: {
     onSubmit () {
       let myForm = {...this.form}
+      myForm.stamp = myForm.stamp
       if (this.form.type === 2) {
         delete myForm.country
         delete myForm.city
@@ -335,7 +337,7 @@ export default {
         this.editors = response.editors
         this.speakers = response.speakers_n
         this.form.id = response.id
-        this.form.date = response.date
+        this.form.stamp = response.stamp * 1000
         this.form.title = response.title
         this.form.contacts = response.contacts
         this.form.type = response.type

@@ -7,7 +7,7 @@
       <div class="date-event">
         <div class="time">
           <icon-clock-outline class="g-icon"/>
-          <span>{{event.date}}</span>
+          <span>{{parseDate(event.stamp)}}</span>
         </div>
         <div class="location ">
           <icon-map-marker class="g-icon"/>
@@ -52,6 +52,9 @@ export default {
       if (this.indexSlide < this.arr.length - 1) {
         this.indexSlide++
       }
+    },
+    parseDate (stamp) {
+      return this.$moment(stamp * 1000).format('D MMMM YYYY hh:mm')
     }
   }
 }
