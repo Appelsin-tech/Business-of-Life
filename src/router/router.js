@@ -138,11 +138,6 @@ const router = new Router({
           component: () => import('@/views/ThePublicOffer')
         },
         {
-          path: '/coronanamillion',
-          name: 'marathon',
-          component: () => import('@/views/TheMarathon')
-        },
-        {
           path: '/invite',
           name: 'invite',
           component: () => import('@/views/TheInvite')
