@@ -15,11 +15,32 @@
           <div class="form-modal__wrapper">
             <div class="g-item-form col-12">
               <label class="g-item-form__label" for="form-title">Имя</label>
-              <input class="g-item-form__input" id="form-title" :class="{error: $v.name.$error}" v-model="name" @blur="$v.name.$touch()">
-              <div class="input-valid-error" v-if="$v.name.$error">
-                <template v-if="!$v.name.required">Поле не может быть пустым</template>
-                <template v-if="!$v.name.minLength">Минимальное количество символов - 3</template>
-                <template v-if="!$v.name.maxLength">Максимальное количество символов - 30</template>
+              <input class="g-item-form__input" id="form-title" :class="{error: $v.form.name.$error}" v-model.trim="form.name" @blur="$v.form.name.$touch()">
+              <div class="input-valid-error" v-if="$v.form.name.$error">
+                <template v-if="!$v.form.name.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.name.minLength">Минимальное количество символов - 3</template>
+                <template v-if="!$v.form.name.maxLength">Максимальное количество символов - 30</template>
+                <template v-if="!$v.form.name.checkSpace">Пробел является не допустимым символом</template>
+              </div>
+            </div>
+            <div class="g-item-form col-12">
+              <label class="g-item-form__label" for="form-fname">Фамилия</label>
+              <input class="g-item-form__input" id="form-fname" :class="{error: $v.form.lname.$error}" v-model.trim="form.lname" @blur="$v.form.lname.$touch()">
+              <div class="input-valid-error" v-if="$v.form.lname.$error">
+                <template v-if="!$v.form.lname.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.lname.minLength">Минимальное количество символов - 3</template>
+                <template v-if="!$v.form.lname.maxLength">Максимальное количество символов - 30</template>
+                <template v-if="!$v.form.lname.checkSpace">Пробел является не допустимым символом</template>
+              </div>
+            </div>
+            <div class="g-item-form col-12">
+              <label class="g-item-form__label" for="form-city">Город</label>
+              <input class="g-item-form__input" id="form-city" :class="{error: $v.form.city.$error}" v-model.trim="form.city" @blur="$v.form.city.$touch()">
+              <div class="input-valid-error" v-if="$v.form.city.$error">
+                <template v-if="!$v.form.city.required">Поле не может быть пустым</template>
+                <template v-if="!$v.form.city.minLength">Минимальное количество символов - 3</template>
+                <template v-if="!$v.form.city.maxLength">Максимальное количество символов - 30</template>
+                <template v-if="!$v.form.city.checkSpace">Пробел является не допустимым символом</template>
               </div>
             </div>
             <button-app :disabled="$v.$invalid">
@@ -33,21 +54,41 @@
 </template>
 
 <script>
-import { maxLength, minLength, required } from 'vuelidate/lib/validators'
+import { maxLength, minLength, required, helpers } from 'vuelidate/lib/validators'
+const checkSpace = helpers.regex('checkSpace', /^[\S]*$/)
 
 export default {
   name: 'ModalConnectVebinar',
   data() {
     return {
-      name: null,
-      id: null
+      id: null,
+      form: {
+        name: null,
+        lname: null,
+        city: null
+      }
     }
   },
   validations: {
-    name: {
-      required,
-      minLength: minLength(3),
-      maxLength: maxLength(30)
+    form: {
+      name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(30),
+        checkSpace
+      },
+      lname: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(30),
+        checkSpace
+      },
+      city: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(30),
+        checkSpace
+      }
     }
   },
   methods: {
@@ -56,7 +97,7 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      window.open(`https://api.businessof.life/events/meeting/freejoin?id=${this.id}&name=${this.name}`, '_blank')
+      window.open(`https://api.businessof.life/events/meeting/freejoin?id=${this.id}&name=${this.form.name}&lname=${this.form.lname}&city=${this.form.city}`, '_blank')
       this.$modal.hide('modal-connect-vebinar')
     },
     beforeOpen (event) {
@@ -65,7 +106,9 @@ export default {
       }
     },
     beforeClose(event) {
-      this.name = null
+      this.form.name = null
+      this.form.lname = null
+      this.form.city = null
       this.id = null
       this.$v.$reset()
     }
