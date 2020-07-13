@@ -296,7 +296,7 @@ export default {
     },
     parseDate () {
       if (this.activeRelation) {
-        return this.$moment(this.activeRelation.stamp * 1000).format('D MMMM YYYY hh:mm')
+        return this.$moment(this.activeRelation.stamp * 1000).format('D MMMM YYYY HH:mm')
       } else {
         return '00'
       }
