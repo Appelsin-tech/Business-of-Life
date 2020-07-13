@@ -28,7 +28,7 @@
               <input class="g-item-form__input" id="form-fname" :class="{error: $v.form.lname.$error}" v-model.trim="form.lname" @blur="$v.form.lname.$touch()">
               <div class="input-valid-error" v-if="$v.form.lname.$error">
                 <template v-if="!$v.form.lname.required">Поле не может быть пустым</template>
-                <template v-if="!$v.form.lname.minLength">Минимальное количество символов - 3</template>
+                <template v-if="!$v.form.lname.minLength">Минимальное количество символов - 2</template>
                 <template v-if="!$v.form.lname.maxLength">Максимальное количество символов - 30</template>
                 <template v-if="!$v.form.lname.checkSpace">Пробел является не допустимым символом</template>
               </div>
@@ -79,7 +79,7 @@ export default {
       },
       lname: {
         required,
-        minLength: minLength(3),
+        minLength: minLength(2),
         maxLength: maxLength(30),
         checkSpace
       },
