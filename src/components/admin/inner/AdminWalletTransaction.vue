@@ -10,8 +10,14 @@
           <div class="info-wrapper">
             <div class="info">
               <p class="name" v-show="trans.type === 'o'">Покупка</p>
-              <p v-if="trans.info.type === 'ticket'">{{trans.info.event_title}}</p>
-              <p class="number" v-else>{{trans.info.card_num}}</p>
+              <div v-if="trans.info.type === 'ticket'">
+                <p v-if="trans.info.pay_method === 'card'">{{trans.info.card_num}}</p>
+                <p v-else>Билет на мероприятие: {{trans.info.event_title}}</p>
+              </div>
+              <div v-if="trans.info.type === 'item'">
+                <p v-if="trans.info.pay_method === 'card'">{{trans.info.card_num}}</p>
+                <p v-else>{{trans.info.item_id}}</p>
+              </div>
             </div>
             <div class="g-price--mb">
               <p class="g-price-main">{{trans.amount}} <span class="currency">{{trans.currency}}</span></p>
