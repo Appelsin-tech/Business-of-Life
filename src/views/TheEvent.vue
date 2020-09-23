@@ -104,6 +104,7 @@
     </div>
     <modal-ticket-purchase/>
     <modal-connect-vebinar/>
+    <modal-ticket-purchase-password/>
   </section>
 </template>
 
@@ -119,7 +120,6 @@ import Preloader from '@/components/ui/Preloader'
 import ModalConnectVebinar from '@/components/modal/ModalConnectVebinar'
 import EventRecordings from '@/components/EventRecordings'
 
-
 export default {
   name: 'TheEvent',
   components: {
@@ -132,7 +132,8 @@ export default {
     Preloader,
     ModalConnectVebinar,
     EventRecordings,
-    ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase')
+    ModalTicketPurchase: () => import('@/components/modal/ModalTicketPurchase'),
+    ModalTicketPurchasePassword: () => import('@/components/modal/ModalTicketPurchasePassword')
   },
   mixins: [ScrollMixin],
   data () {

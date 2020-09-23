@@ -57,4 +57,11 @@ export default {
       reject(error)
     })
   }),
+  clone: (data) => new Promise((resolve, reject) => {
+    HTTP.post('events/relations/clone', data).then(response => {
+      resolve(response.data)
+    }).catch((error, res) => {
+      reject(error)
+    })
+  }),
 }

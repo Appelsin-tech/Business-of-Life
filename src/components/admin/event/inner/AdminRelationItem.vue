@@ -22,7 +22,7 @@
           </p>
           <p class="event__info-item date">
             <icon-calendar-clock class="g-icon"/>
-            <span class="text">{{relation.date}}</span>
+            <span class="text">{{parseDate}}</span>
           </p>
         </div>
       </div>
@@ -33,6 +33,16 @@
         <div class="g-wrapper-btn-f ">
           <button-app-function @click.native="$emit('delete-relation', relation.id)" icon="icon-delete" v-if="this.checkMyEvent && this.relation.status <= 1" v-tooltip.bottom="'Удалить'"></button-app-function>
           <button-app-function :to="`/office/participant/${relation.id}`" icon="icon-account" v-tooltip.bottom="'Участники'" ></button-app-function>
+          <button-app-function
+            @click.native="$modal.show('modal-clone-relation', {
+              id: relation.id,
+              stamp: relation.stamp,
+              title: relation.title,
+              event: idEvent
+          })"
+            icon="icon-printer"
+            v-tooltip.bottom="'Копировать'">
+          </button-app-function>
         </div>
       </div>
     </div>
@@ -40,6 +50,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'AdminRelationItem',
   props: {
@@ -85,6 +96,9 @@ export default {
       } else {
         return false
       }
+    },
+    parseDate () {
+      return this.$moment(this.relation.stamp * 1000).format('DD.MM.YYYY HH:mm')
     }
   },
   methods: {

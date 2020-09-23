@@ -47,6 +47,7 @@ export default {
     min-width: 200px;
     cursor: pointer;
     border-radius: 8px;
+    line-height: 1;
     .sm-block({
       padding: 10px 20px;
       border-width: 2px;

@@ -10,7 +10,8 @@
           <div class="info-wrapper">
             <div class="info">
               <p class="name" v-show="trans.type === 'o'">Покупка</p>
-              <p class="number">{{trans.info.card_num}}</p>
+              <p v-if="trans.info.type === 'ticket'">{{trans.info.event_title}}</p>
+              <p class="number" v-else>{{trans.info.card_num}}</p>
             </div>
             <div class="g-price--mb">
               <p class="g-price-main">{{trans.amount}} <span class="currency">{{trans.currency}}</span></p>

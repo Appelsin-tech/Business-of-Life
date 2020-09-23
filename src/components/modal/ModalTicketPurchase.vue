@@ -39,19 +39,30 @@
                 <template v-if="!$v.fieldsData['field_' + item.id].required">Поле не может быть пустым</template>
               </div>
             </div>
-            <div class="g-item-form col-12">
-              <p class="form-modal__text">
-                <span class="form-modal__text--desc">Способ оплаты:</span>
-                <span class="form-modal__text--var">
-                  банковская карта
-                <img svg-inline class="svg svg--visa" src="../../assets/img/icon/visa.svg" alt="">
-                <img svg-inline class="svg svg--mastercard" src="../../assets/img/icon/mastercard.svg" alt="">
-                </span>
-              </p>
+            <div class="g-item-form col-6">
+              <label class="g-item-form__label">Способ оплаты</label>
+              <v-select v-model="currencySelected" :multiple="false" :reduce="payment => payment.value" label="title" :class="['v-select__modal', {'error': errorSelect.selectedStructure}]" :searchable="false" placeholder="Способ оплаты" :options="payment"></v-select>
+            </div>
+<!--            <div class="g-item-form col-12">-->
+<!--              <p class="form-modal__text">-->
+<!--                <span class="form-modal__text&#45;&#45;desc">Способ оплаты:</span>-->
+<!--                <span class="form-modal__text&#45;&#45;var">-->
+<!--                  банковская карта-->
+<!--                <img svg-inline class="svg svg&#45;&#45;visa" src="../../assets/img/icon/visa.svg" alt="">-->
+<!--                <img svg-inline class="svg svg&#45;&#45;mastercard" src="../../assets/img/icon/mastercard.svg" alt="">-->
+<!--                </span>-->
+<!--              </p>-->
+<!--            </div>-->
+            <div class="g-item-form col-12" v-if="!logged && currencySelected === 'ncp'">
+              <p class="error-auth">Авторизуйтесь чтобы воспользоваться этим способом оплаты</p>
+            </div>
+            <div class="g-item-form col-12" v-if="logged && showErrorBalance">
+              <p class="error-auth">Недостаточно средств для покупки</p>
             </div>
           </div>
-          <button-app type="submit" :disabled="$v.$invalid">
-            <template>Купить билет {{eventData.price}} {{eventData.currency}}</template>
+
+          <button-app type="submit" :disabled="$v.$invalid || !logged && currencySelected === 'ncp'" v-if="priceTotal[currencySelected]">
+            <template>Купить билет {{priceTotal[currencySelected].price}} {{priceTotal[currencySelected].currency}}</template>
             <template></template>
           </button-app>
 <!--          <button class="test-btn" type="button" @click="generate">Generate Ticket</button>-->
@@ -66,6 +77,7 @@ import API from '../../api/index'
 import flatPickr from 'vue-flatpickr-component'
 import { Russian } from 'flatpickr/dist/l10n/ru.js'
 import { email, required } from 'vuelidate/lib/validators'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'ModalTicketPurchase',
@@ -111,23 +123,18 @@ export default {
       structure: ['Ирина Семёнова', 'Татьяна Покотило', 'Кожантаева Гульнара', 'Жанат Токабаева', 'Леонид Пак', 'Роза Жаманкулова', 'Акмолдаева Сабиля'],
       payment: [
         {
-          qualVal: 'card',
-          qualName: 'Банковская карта'
+          value: 'card',
+          title: 'банковская карта VISA/MasterCard'
         },
         {
-          qualVal: 'payPal',
-          qualName: 'PayPal'
-        },
-        {
-          qualVal: 'qiwi',
-          qualName: 'QIWI Кошелек'
-        },
-        {
-          qualVal: 'Bitcoin',
-          qualName: 'Bitcoin'
+          value: 'ncp',
+          title: 'Nayuta Cash Points'
         }
       ],
-      reg_d: ''
+      currencySelected: 'card',
+      priceTotal: {},
+      reg_d: '',
+      showErrorBalance: false
     }
   },
   validations() {
@@ -145,7 +152,14 @@ export default {
     })
     return { fieldsData: fieldsData }
   },
-  computed: {},
+  computed: {
+    ...mapGetters('user', [
+      'logged'
+    ]),
+    ...mapState('wallet', [
+      'balance'
+    ])
+  },
   methods: {
     onSubmit() {
       this.$v.$touch()
@@ -156,9 +170,20 @@ export default {
       if (this.fieldsData['field_4'] !== undefined) {
         this.parseDate()
       }
+      if (this.logged && this.balance.ncp < this.priceTotal.ncp.price) {
+        this.showErrorBalance = true
+        return
+      }
       API.biling.invoice(this.fieldsData).then(response => {
         this.eventData.invoiceId = response.data.id
-        this.WidgetPayment(this.eventData)
+        if (this.currencySelected === 'card') {
+          this.WidgetPayment(this.eventData)
+        } else if (this.logged) {
+          this.$modal.show('modal-ticket-purchase-password', {
+            invoice_id: response.data.id,
+            email: this.fieldsData.field_2
+          })
+        }
       }).catch(error => {
         API.response.error(error)
       })
@@ -177,17 +202,20 @@ export default {
         }
       },
       (options) => {
-        API.tickets.receive({ invoice: options.invoiceId }).then(response => {
-          let email = this.fieldsData.field_2
-          this.$modal.hide('modal-ticket-purchase')
-          this.$modal.show('modal-ticket-success', { ticket: response.data[0], email: email })
-        }).catch(error => {
-          API.response.error(error)
-        })
+        this.ticketsReceive(options.invoiceId)
       },
       function (reason, options) {
         this.$modal.hide('modal-ticket-purchase')
         API.response.error(reason)
+      })
+    },
+    ticketsReceive (id) {
+      API.tickets.receive({ invoice: id }).then(response => {
+        let email = this.fieldsData.field_2
+        this.$modal.hide('modal-ticket-purchase')
+        this.$modal.show('modal-ticket-success', { ticket: response.data[0], email: email })
+      }).catch(error => {
+        API.response.error(error)
       })
     },
     parseDate() {
@@ -207,8 +235,9 @@ export default {
     },
     beforeOpen(event) {
       // console.log(event.params)
-      this.eventData.price = event.params.price
-      this.eventData.currency = event.params.currency
+      this.priceTotal = event.params.priceTotal
+      this.eventData.price = event.params.priceTotal.card.price
+      this.eventData.currency = event.params.priceTotal.card.currency
       // this.fieldsData.event_id = event.params.event_id
       // this.fieldsData.relation = event.params.event_id
       this.fieldsData.ticket_id = event.params.ticket_id
@@ -216,6 +245,9 @@ export default {
       // this.fieldsData.country = event.params.country ? event.params.country : 'Онлайн'
       this.fields = event.params.fields
       this.disabledBtn = true
+      if (this.logged) {
+        this.$store.dispatch('wallet/balance')
+      }
     },
     beforeClose(event) {
       this.$v.$reset()
@@ -223,6 +255,8 @@ export default {
       this.eventData.currency = ''
       this.fieldsData = {}
       this.fields = []
+      this.showErrorBalance = false
+      this.currencySelected = 'card'
     },
     generate () {
       API.tickets.issue({id: this.fieldsData.ticket_id})
@@ -233,4 +267,10 @@ export default {
 
 <style scoped lang="less">
   @import '~flatpickr/dist/flatpickr.css';
+  .error-auth {
+    background: var(--app_btn__color);
+    padding: 8px 8px 8px 15px;
+    color: #fff;
+    font-size: 1.8rem;
+  }
 </style>

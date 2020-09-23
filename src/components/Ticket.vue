@@ -43,8 +43,16 @@ export default {
     openModalPurchase() {
       API.tickets.fields({id: this.ticket.id}).then( response => {
         this.$modal.show('modal-ticket-purchase', {
-          price: this.ticket.price_kzt,
-          currency: 'KZT',
+          priceTotal: {
+            card: {
+              price: this.ticket.price_kzt,
+              currency: 'KZT'
+            },
+            ncp: {
+              price: this.ticket.price_usd,
+              currency: 'NCP'
+            }
+          },
           fields: response.data,
           ticket_id: this.ticket.id,
           event_id: this.event.id,

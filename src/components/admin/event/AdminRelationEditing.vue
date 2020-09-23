@@ -108,6 +108,16 @@
         <button-app class="preview" :to="`/event/${id}`" :class="{disabled: !event}">
           Предпросмотр
         </button-app>
+        <button-app class="preview"
+                    @click.native="$modal.show('modal-clone-relation', {
+                      id: form.id,
+                      stamp: form.stamp,
+                      title: form.title,
+                      event: event
+                      })"
+                    v-if="event">
+          Копировать событие
+        </button-app>
       </div>
     </div>
     <modal-ticket-create-editing/>
@@ -285,7 +295,6 @@ export default {
   methods: {
     onSubmit () {
       let myForm = {...this.form}
-      myForm.stamp = myForm.stamp
       if (this.form.type === 2) {
         delete myForm.country
         delete myForm.city
@@ -361,6 +370,11 @@ export default {
         event_id: this.event,
       }
     } else {
+      this.getInfoRelation()
+    }
+  },
+  watch: {
+    '$route' (to, from) {
       this.getInfoRelation()
     }
   }
@@ -468,6 +482,9 @@ export default {
     .ss-block({
       padding-top: 20px;
     });
+    .preview {
+      margin-bottom: 20px;
+    }
   }
   .stock {
     margin-bottom: 30px;

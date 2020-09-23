@@ -14,5 +14,12 @@ export default {
     }).catch(error => {
       reject(error)
     })
+  }),
+  pay: (data) => new Promise((resolve, reject) => {
+    HTTP.post('billing/pay', data).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
   })
 }

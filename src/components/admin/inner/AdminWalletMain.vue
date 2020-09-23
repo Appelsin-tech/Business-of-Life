@@ -1,18 +1,14 @@
 <template>
   <div class="wallet-wrapper">
     <div class="wallet">
-      <div class="g-icon-circle g-icon-circle--wallet">BL</div>
+      <div class="g-icon-circle g-icon-circle--wallet">NCP</div>
       <div class="info-wrapper">
         <div class="info">
-          <p class="g-caption-element g-caption-element--static">Business of Life Монеты </p>
+          <p class="g-caption-element g-caption-element--static">Nayuta Cash Points Монеты </p>
           <div class="g-price--mb">
-            <p class="g-price-main">{{balance.bol}} <span class="currency">BoL</span></p>
-            <p class="g-price-secondary">({{balance.bol}} USD)</p>
+            <p class="g-price-main">{{balance.ncp}} <span class="currency">NCP</span></p>
+            <p class="g-price-secondary">({{balance.ncp}} USD)</p>
           </div>
-        </div>
-        <div class="g-wrapper-btn-f" v-if="true">
-          <button-app-function icon="icon-upload" v-tooltip.bottom="'Пополнить'" @click.native=""></button-app-function>
-          <button-app-function icon="icon-download" v-tooltip.bottom="'Пополнить'" @click.native=""></button-app-function>
         </div>
       </div>
     </div>
@@ -63,16 +59,8 @@ export default {
           margin-bottom: 30px;
           padding-right: 0;
         });
-        .title {
-          display: block;
-          margin-bottom: 15px;
-          font-weight: 800;
-          font-size: 2rem;
-          color: #000;
-          .md-block({
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-          });
+        .g-caption-element {
+          margin-bottom: 5px;
         }
       }
     }

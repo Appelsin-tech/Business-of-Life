@@ -8,6 +8,7 @@
       </transition>
     </main>
     <app-footer/>
+    <modal-clone-relation/>
   </div>
 </template>
 
@@ -21,7 +22,8 @@ export default {
   components: {
     AdminHeader,
     AppFooter,
-    AdminSidebar
+    AdminSidebar,
+    ModalCloneRelation: () => import('@/components/modal/ModalCloneRelation')
   },
   methods: {
     beforeEnter () {
